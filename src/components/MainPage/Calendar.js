@@ -1,51 +1,29 @@
-// import React, { useState } from "react";
-// import { Icon } from "@iconify/react";
-// import { format, addMonths, subMonths } from "date-fns";
+import React from "react";
+import FullCalendar from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import styled from "styled-components";
 
-// const ReanderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
-//   return (
-//     <div className="header row">
-//       <div className="col col-start">
-//         <span className="text">
-//           <span className="text month">{format(currentMonth, "M")}월</span>
-//           {format(currentMonth, "yyyy")}
-//         </span>
-//       </div>
-//       <div className="col col-end">
-//         <Icon
-//           icon="material-symbols:arrow-circle-left-outline-rounded"
-//           onClick={prevMonth}
-//         />
-//         <Icon
-//           icon="material-symbols:arrow-circle-right-outline-rounded"
-//           onClick={nextMonth}
-//         />
-//       </div>
-//     </div>
-//   );
-// };
+const Main = styled.div`
+  width: 80%;
+  margin-top: 100px;
+  margin-left: 100px;
+  border-radius: 10px;
+  border: 0.8px solid #595959;
+`;
 
-// const Calendar = () => {
-//   const [currentMonth, setCurrentMonth] = useState(new Date());
-//   const [selectDate, setSelectDate] = useState(new Date());
-
-//   const prevMonth = () => {
-//     setCurrentMonth(subMonths(currentMonth, 1));
-//   };
-//   const nextMonth = () => {
-//     setCurrentMonth(addMonths(currentMonth, 1));
-//   };
-//   return (
-//     <div className="calendar">
-//       <ReanderHeader
-//         currentMonth={currentMonth}
-//         prevMonth={prevMonth}
-//         nextMonth={nextMonth}
-//       />
-//       <div className="header">Header</div>
-//       <div className="days">Days</div>
-//       <div className="body">Cells</div>
-//     </div>
-//   );
-// };
-// export default Calendar;
+const Calendar = () => {
+  return (
+    <Main>
+      <FullCalendar
+        defaultView="dayGridPlugin"
+        plugins={[dayGridPlugin]}
+        weekends={true}
+        events={[
+          { title: "event1", date: "2023-04-01" },
+          { title: "event2", date: "2023-04-09" },
+        ]}
+      />
+    </Main>
+  );
+};
+export default Calendar;

@@ -5,13 +5,18 @@ import { AiOutlineSearch } from "react-icons/ai";
 import color from "./../../assets/color.png";
 import logo from "./../../assets/logo.png";
 
+const HeaderDiv = styled.div`
+  position: static;
+  background-color: aliceblue;
+  display: flex;
+`;
 const LogoColor = styled.img`
   position: absolute;
   width: 213px;
   height: 176px;
 `;
 const Logo = styled.img`
-  position: absolute;
+  position: relative;
   width: 149px;
   left: 35px;
   top: 30px;
@@ -115,7 +120,7 @@ const ColorPoint = styled.div`
 `;
 const Header = () => {
   return (
-    <div>
+    <HeaderDiv>
       <div className="left">
         <LogoColor src={color} />
         <Logo src={logo} />
@@ -140,7 +145,7 @@ const Header = () => {
           <ColorPoint green />
         </div>
       </div>
-    </div>
+    </HeaderDiv>
   );
 };
 
