@@ -1,6 +1,5 @@
 * {
   margin: 0;
-  background-color: #f5f3fe;
 }
 
 /* MainPage */
@@ -26,4 +25,39 @@
   margin-top: 16px;
   cursor: pointer;
   color: #ff7675;
+}
+
+/* Main */
+
+.AiOutlineCalendar {
+  margin: 30px;
+  cursor: pointer;
+  color: #6f5cea;
+  padding: 10px;
+  border-radius: 50%;
+  background-color: #f5f3fe;
+}
+.FaRegAddressBook {
+  margin: 30px;
+  cursor: pointer;
+  color: #9c9c9c;
+  background-color: #f8f8f8;
+  padding: 10px;
+}
+.GrMapLocation {
+  margin: 30px;
+  cursor: pointer;
+  color: #9c9c9c;
+  background-color: #f8f8f8;
+  padding: 10px;
+}
+/* Calendar */
+
+.fc-day-sun a {
+  color: red;
+}
+
+/* 토요일 날짜: 파란색 */
+.fc-day-sat a {
+  color: blue;
 }
