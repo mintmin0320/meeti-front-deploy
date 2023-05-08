@@ -47,6 +47,11 @@ const Todays = styled.div`
   width: 30%;
   border-radius: 20px;
 `;
+const Title = styled.div`
+  font-size: 20px;
+`;
+const SubTitle = styled.div``;
+
 const Calendar = styled.div`
   background: #f8f8f8;
   width: 60%;
@@ -62,7 +67,10 @@ const Main = () => {
           <FaRegAddressBook className="FaRegAddressBook" />
           <RiMapPinLine className="RiMapPinLine" />
         </Header>
-        <Todays>sadcfvcg</Todays>
+        <Todays>
+          <Title>오늘의 일정</Title>
+          <SubTitle>It's today's schedule.</SubTitle>
+        </Todays>
         <Calendar>
           <Cal />
         </Calendar>

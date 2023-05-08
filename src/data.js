@@ -7,6 +7,42 @@ const data = [
     end: "2023-05-14",
     color: "#F5CB72",
   },
+  {
+    title: "박하민",
+    start: "2023-05-16",
+    end: "2023-05-19",
+    color: "red",
+  },
+  {
+    title: "박하민",
+    start: "2023-05-16",
+    end: "2023-05-19",
+    color: "red",
+  },
+  {
+    title: "박하민",
+    start: "2023-05-16",
+    end: "2023-05-19",
+    color: "red",
+  },
+  {
+    title: "박하민",
+    start: "2023-05-16",
+    end: "2023-05-19",
+    color: "red",
+  },
+  {
+    title: "박하민",
+    start: "2023-05-16",
+    end: "2023-05-19",
+    color: "red",
+  },
+  {
+    title: "박하민",
+    start: "2023-05-16",
+    end: "2023-05-19",
+    color: "red",
+  },
 ];
 
 export default data;
