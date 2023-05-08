@@ -4,7 +4,7 @@ import color from "./../assets/color.png";
 import Cal from "./MainPage/Calendar";
 import { AiOutlineCalendar } from "react-icons/ai";
 import { FaRegAddressBook } from "react-icons/fa";
-import { GrMapLocation } from "react-icons/gr";
+import { RiMapPinLine } from "react-icons/ri";
 
 const Test = styled.div`
   width: 100vw;
@@ -60,7 +60,7 @@ const Main = () => {
         <Header>
           <AiOutlineCalendar className="AiOutlineCalendar" />
           <FaRegAddressBook className="FaRegAddressBook" />
-          <GrMapLocation className="GrMapLocation" />
+          <RiMapPinLine className="RiMapPinLine" />
         </Header>
         <Todays>sadcfvcg</Todays>
         <Calendar>

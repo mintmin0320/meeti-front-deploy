@@ -2,6 +2,7 @@ import React from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import styled from "styled-components";
+import data from "../../data";
 
 const Main = styled.div`
   width: 85%;
@@ -15,6 +16,10 @@ const Calendar = () => {
   return (
     <Main className="Main">
       <FullCalendar
+        eventClick={(e) => {
+          console.log("클릭!"); //클릭이벤트
+        }}
+        droppable={true}
         headerToolbar={{
           start: "",
           center: "title",
@@ -31,18 +36,8 @@ const Calendar = () => {
         defaultView="dayGridPlugin"
         plugins={[dayGridPlugin]}
         weekends={true}
-        events={[
-          { title: "event1", date: "2023-05-01", color: "#6F5CEA" },
-          { title: "event2", date: "2023-05-09", color: "#76CAF8" },
-          {
-            title: "event3",
-            start: "2023-05-12",
-            end: "2023-05-14",
-            color: "#F5CB72",
-          },
-        ]}
+        events={data} //data에 모든 이벤트 입력
         editable={true}
-        droppable={true}
       />
     </Main>
   );
