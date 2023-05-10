@@ -49,19 +49,22 @@ const Todays = styled.div`
 `;
 const Title = styled.div`
   font-size: 20px;
+  margin-top: 20px;
+  margin-bottom: 5px;
 `;
 const SubTitle = styled.div``;
 
 const Calendar = styled.div`
   background: #f8f8f8;
   width: 60%;
+  height: 340px;
   border-radius: 20px;
 `;
 const Main = () => {
   return (
     <Test>
       <MainDiv className="MainDiv">
-        {/* <BackColor src={color} style={{ opacity: 0.2 }} /> */}
+        <BackColor src={color} style={{ opacity: 0.2 }} />
         <Header>
           <AiOutlineCalendar className="AiOutlineCalendar" />
           <FaRegAddressBook className="FaRegAddressBook" />
