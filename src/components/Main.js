@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import color from "./../assets/color.png";
-import Cal from "./MainPage/Calendar";
+import Cal from "./MainPage/Calendar/Calendar";
 import { AiOutlineCalendar } from "react-icons/ai";
 import { FaRegAddressBook } from "react-icons/fa";
 import { RiMapPinLine } from "react-icons/ri";
@@ -64,7 +64,7 @@ const Main = () => {
   return (
     <Test>
       <MainDiv className="MainDiv">
-        <BackColor src={color} style={{ opacity: 0.2 }} />
+        {/* <BackColor src={color} style={{ opacity: 0.2 }} /> */}
         <Header>
           <AiOutlineCalendar className="AiOutlineCalendar" />
           <FaRegAddressBook className="FaRegAddressBook" />

@@ -1,8 +1,7 @@
 import "./App.css";
 import Main from "./components/Main";
-import Calendar from "./components/MainPage/Calendar";
-import Header from "./components/MainPage/Header";
-import TestCal from "./components/MainPage/TestCal";
+import Calendar from "./components/MainPage/Calendar/Calendar";
+import Header from "./components/MainPage/Calendar/Header";
 import UserProfile from "./components/UserProfile";
 
 function App() {

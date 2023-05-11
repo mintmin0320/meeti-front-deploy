@@ -2,8 +2,8 @@ import React from "react";
 import styled, { css } from "styled-components";
 import { AiOutlineSearch } from "react-icons/ai";
 //image
-import color from "./../../assets/color.png";
-import logo from "./../../assets/logo.png";
+import color from "./../../../assets/color.png";
+import logo from "./../../../assets/logo.png";
 
 const HeaderDiv = styled.div`
   position: static;

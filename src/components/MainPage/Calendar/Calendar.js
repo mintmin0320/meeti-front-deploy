@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import styled from "styled-components";
-import data from "../../data";
+import data from "../../../data";
 import { BsPlusLg } from "react-icons/bs";
 import { AiOutlineCalendar } from "react-icons/ai";
 import MiniCalendar from "./MiniCalendar";
+import AddContent from "./AddContent";
 
 const Main = styled.div``;
 const CalendarDiv = styled.div`
@@ -94,7 +95,7 @@ const Calendar = () => {
         </CalendarDiv>
       ) : (
         <AddCal>
-          <MiniCalendar></MiniCalendar>
+          <AddContent />
         </AddCal>
       )}
     </Main>
