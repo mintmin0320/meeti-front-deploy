@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import MiniCalendar from "./MiniCalendar";
 import ColorCom from "./ColorCom";
-import TestCal from "../TestCal";
 import { BiMinus, BiSearch } from "react-icons/bi";
 
 const AddTitle = styled.input`
   font-size: 24px;
   border: none;
-  margin-top: 5px;
+  margin-top: -5px;
   margin-bottom: 10px;
   padding: 5px;
   background-color: #f8f8f8;

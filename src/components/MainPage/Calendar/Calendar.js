@@ -4,8 +4,12 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import styled from "styled-components";
 import data from "../../../data";
 import { BsPlusLg } from "react-icons/bs";
-import { AiOutlineCalendar } from "react-icons/ai";
-import MiniCalendar from "./MiniCalendar";
+import {
+  AiOutlineCalendar,
+  AiOutlineUserAdd,
+  AiOutlinePlusCircle,
+} from "react-icons/ai";
+import { BiSearch } from "react-icons/bi";
 import AddContent from "./AddContent";
 
 const Main = styled.div``;
@@ -18,7 +22,7 @@ const CalendarDiv = styled.div`
 `;
 const AddCal = styled.div`
   width: 85%;
-  height: 86%;
+  height: 84%;
   border-radius: 10px;
   padding: 20px;
   background-color: #f8f8f8;
@@ -26,6 +30,12 @@ const AddCal = styled.div`
 const Header = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+`;
+const HeaderRight = styled.div`
+  display: flex;
+  margin-top: 20px;
+  margin-right: 100px;
 `;
 const CalBack = styled.div`
   width: 28px;
@@ -42,6 +52,20 @@ const AddButton = styled.div`
   color: #6f5cea;
   display: flex;
   align-items: center;
+  justify-content: center;
+  margin: 5px;
+`;
+const SearchButton = styled.div`
+  width: 32px;
+  height: 32px;
+  background: #f0ebfa;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #6f5cea;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5px;
 `;
 const Calendar = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -49,26 +73,32 @@ const Calendar = () => {
   return (
     <Main className="Main">
       <Header>
-        <AiOutlineCalendar
-          className="AiOutlineCalendar"
-          style={{ padding: "0" }}
-        />
-        <AddButton
-          onClick={() => {
-            setIsOpen(!isOpen);
-          }}
-        >
-          <BsPlusLg
-            style={{ color: "#6f5cea", display: "inline-block" }}
-          ></BsPlusLg>
-        </AddButton>
+        <div>
+          <AiOutlineCalendar
+            className="AiOutlineCalendar"
+            style={{ padding: "0" }}
+          />
+        </div>
+        <HeaderRight>
+          <SearchButton>
+            <AiOutlineUserAdd />
+          </SearchButton>
+
+          <AddButton
+            onClick={() => {
+              setIsOpen(!isOpen);
+            }}
+          >
+            <AiOutlinePlusCircle></AiOutlinePlusCircle>
+          </AddButton>
+        </HeaderRight>
       </Header>
 
       {isOpen ? (
         <CalendarDiv>
           <FullCalendar
             eventClick={(e) => {
-              console.log(e); //클릭이벤트
+              console.log("클릭"); //클릭이벤트
             }}
             droppable={true}
             headerToolbar={{

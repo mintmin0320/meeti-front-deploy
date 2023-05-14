@@ -13,8 +13,8 @@ const Test = styled.div`
 `;
 const MainDiv = styled.div`
   position: absolute;
-  width: 1200px;
-  height: 600px;
+  width: 90vw;
+  height: 80vh;
 
   margin-top: 78px;
   margin-left: 69px;
@@ -24,6 +24,7 @@ const MainDiv = styled.div`
   border-radius: 20px;
   display: flex;
   flex-direction: row;
+  z-index: 2;
 `;
 const BackColor = styled.img`
   position: absolute;
@@ -32,6 +33,7 @@ const BackColor = styled.img`
   margin-left: 100px;
   margin-top: 100px;
   background: #f8f8f8;
+  z-index: 1;
 `;
 
 const Header = styled.div`
@@ -40,6 +42,7 @@ const Header = styled.div`
   display: flex;
   flex-direction: column;
   border-radius: 20px;
+  z-index: 4;
 `;
 
 const Todays = styled.div`
@@ -59,12 +62,13 @@ const Calendar = styled.div`
   width: 60%;
   height: 340px;
   border-radius: 20px;
+  z-index: 3;
 `;
 const Main = () => {
   return (
     <Test>
       <MainDiv className="MainDiv">
-        {/* <BackColor src={color} style={{ opacity: 0.2 }} /> */}
+        <BackColor src={color} style={{ opacity: 0.2 }} />
         <Header>
           <AiOutlineCalendar className="AiOutlineCalendar" />
           <FaRegAddressBook className="FaRegAddressBook" />
