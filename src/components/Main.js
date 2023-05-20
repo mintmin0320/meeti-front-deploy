@@ -5,6 +5,7 @@ import Cal from "./MainPage/Calendar/Calendar";
 import { AiOutlineCalendar } from "react-icons/ai";
 import { FaRegAddressBook } from "react-icons/fa";
 import { RiMapPinLine } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 
 const Test = styled.div`
   width: 100vw;
@@ -14,8 +15,7 @@ const Test = styled.div`
 const MainDiv = styled.div`
   position: absolute;
   width: 90vw;
-  height: 80vh;
-
+  height: 85vh;
   margin-top: 78px;
   margin-left: 69px;
   margin-right: 69px;
@@ -25,6 +25,7 @@ const MainDiv = styled.div`
   display: flex;
   flex-direction: row;
   z-index: 2;
+  justify-content: center;
 `;
 const BackColor = styled.img`
   position: absolute;
@@ -59,12 +60,22 @@ const SubTitle = styled.div``;
 
 const Calendar = styled.div`
   background: #f8f8f8;
-  width: 60%;
+  width: 60vw;
   height: 340px;
   border-radius: 20px;
   z-index: 3;
 `;
-const Main = () => {
+const Main = ({ id }) => {
+  // const navigate = useNavigate();
+  // const goCalendar = () => {
+  //   navigate(`/calendar/${id}`);
+  // };
+  // const goContacts = () => {
+  //   navigate(`/contacts/${id}`);
+  // };
+  // const goReservation = () => {
+  //   navigate(`/reservation/${id}`);
+  // };
   return (
     <Test>
       <MainDiv className="MainDiv">

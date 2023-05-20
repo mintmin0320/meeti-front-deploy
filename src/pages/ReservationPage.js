@@ -6,6 +6,7 @@ import { AiOutlineCalendar } from "react-icons/ai";
 import { FaRegAddressBook } from "react-icons/fa";
 import { RiMapPinLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
+import RoomCom from "../components/MainPage/Reservation/RoomCom";
 
 const Test = styled.div`
   width: 100vw;
@@ -52,7 +53,6 @@ const Mid = styled.div`
   border-radius: 20px;
 `;
 const Title = styled.div`
-  margin-top: 50px;
   font-size: 20px;
   margin-top: 20px;
   margin-bottom: 5px;
@@ -62,31 +62,32 @@ const SubTitle = styled.div``;
 const Last = styled.div`
   background: #f8f8f8;
   width: 60%;
-  height: 340px;
+  height: 100%;
   border-radius: 20px;
   z-index: 3;
+  overflow: scroll;
 `;
 
-const CalendarPage = () => {
+const ReservationPage = () => {
   return (
     <Test>
       <MainDiv className="MainDiv">
         <BackColor src={color} style={{ opacity: 0.2 }} />
         <Header>
-          <AiOutlineCalendar className="true" />
+          <AiOutlineCalendar className="false" />
           <FaRegAddressBook className="false" />
-          <RiMapPinLine className="false" />
+          <RiMapPinLine className="true" />
         </Header>
         <Mid>
-          <Title>오늘의 일정</Title>
-          <SubTitle>It's today's schedule.</SubTitle>
+          <Title>예약 일정</Title>
+          <SubTitle>Reservation status</SubTitle>
         </Mid>
         <Last>
-          <Cal />
+          <RoomCom />
         </Last>
       </MainDiv>
     </Test>
   );
 };
 
-export default CalendarPage;
+export default ReservationPage;

@@ -6,6 +6,7 @@ const data = [
     start: "2023-05-12",
     end: "2023-05-14",
     color: "#9ad8dd",
+    description: "위치는 ~~입니다",
   },
   {
     title: "event4",

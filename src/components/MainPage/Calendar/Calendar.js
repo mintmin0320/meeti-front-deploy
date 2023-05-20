@@ -11,6 +11,7 @@ import {
 } from "react-icons/ai";
 import { BiSearch } from "react-icons/bi";
 import AddContent from "./AddContent";
+import { Tooltip } from "react-tooltip";
 
 const Main = styled.div``;
 const CalendarDiv = styled.div`
@@ -32,17 +33,18 @@ const Header = styled.div`
   flex-direction: row;
   justify-content: space-between;
 `;
+const HeadTitle = styled.div`
+  color: #6f5cea;
+  font-size: 14px;
+  margin-top: 30px;
+  margin-left: -10px;
+`;
 const HeaderRight = styled.div`
   display: flex;
   margin-top: 20px;
   margin-right: 100px;
 `;
-const CalBack = styled.div`
-  width: 28px;
-  height: 28px;
 
-  background: #f0ebfa;
-`;
 const AddButton = styled.div`
   width: 32px;
   height: 32px;
@@ -73,12 +75,10 @@ const Calendar = () => {
   return (
     <Main className="Main">
       <Header>
-        <div>
-          <AiOutlineCalendar
-            className="AiOutlineCalendar"
-            style={{ padding: "0" }}
-          />
-        </div>
+        <Header>
+          <AiOutlineCalendar className="true" style={{ padding: "0" }} />
+          <HeadTitle>Calendaer</HeadTitle>
+        </Header>
         <HeaderRight>
           <SearchButton>
             <AiOutlineUserAdd />
@@ -114,13 +114,21 @@ const Calendar = () => {
               list: "list",
             }}
             locale={"ko"}
-            defaultView="dayGridPlugin"
+            defaultView="dayGridMonth"
             plugins={[dayGridPlugin]}
             weekends={true}
             events={data} //data에 모든 이벤트 입력
             editable={true}
             navLinks={true}
             eventLimit={true}
+            eventRender={(events) => {
+              Tooltip(events.el, {
+                title: events.title,
+                placement: "top",
+                trigger: "click",
+                container: "body",
+              });
+            }}
           />
         </CalendarDiv>
       ) : (
