@@ -5,6 +5,7 @@ import Cal from "./../components/MainPage/Calendar/Calendar";
 import { AiOutlineCalendar } from "react-icons/ai";
 import { FaRegAddressBook } from "react-icons/fa";
 import { RiMapPinLine } from "react-icons/ri";
+import { HiOutlineMail } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
 
 const Test = styled.div`
@@ -76,6 +77,7 @@ const CalendarPage = () => {
           <AiOutlineCalendar className="true" />
           <FaRegAddressBook className="false" />
           <RiMapPinLine className="false" />
+          <HiOutlineMail className="false" />
         </Header>
         <Mid>
           <Title>오늘의 일정</Title>

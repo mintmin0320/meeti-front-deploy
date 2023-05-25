@@ -1,13 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 import color from "./../assets/color.png";
-import Cal from "./../components/MainPage/Calendar/Calendar";
+
 import { AiOutlineCalendar } from "react-icons/ai";
 import { FaRegAddressBook } from "react-icons/fa";
 import { RiMapPinLine } from "react-icons/ri";
-import { useNavigate } from "react-router-dom";
 import { HiOutlineMail } from "react-icons/hi";
-import RoomCom from "../components/MainPage/Reservation/RoomCom";
+import { useNavigate } from "react-router-dom";
+import ApprovalCom from "../components/MainPage/Approval/ApprovalCom";
+import CalendarPage from "./CalendarPage";
 
 const Test = styled.div`
   width: 100vw;
@@ -18,7 +19,6 @@ const MainDiv = styled.div`
   position: absolute;
   width: 90vw;
   height: 85vh;
-
   margin-top: 78px;
   margin-left: 69px;
   margin-right: 69px;
@@ -28,6 +28,7 @@ const MainDiv = styled.div`
   display: flex;
   flex-direction: row;
   z-index: 2;
+  justify-content: center;
 `;
 const BackColor = styled.img`
   position: absolute;
@@ -62,14 +63,22 @@ const SubTitle = styled.div``;
 
 const Last = styled.div`
   background: #f8f8f8;
-  width: 60%;
-  height: 100%;
+  width: 60vw;
+  height: 340px;
   border-radius: 20px;
   z-index: 3;
-  overflow: scroll;
 `;
-
-const ReservationPage = () => {
+const ApprovalPage = () => {
+  //   const navigate = useNavigate();
+  //   const goCalendar = () => {
+  //     navigate(`/calendar/`);
+  //   };
+  // const goContacts = () => {
+  //   navigate(`/contacts/${id}`);
+  // };
+  // const goReservation = () => {
+  //   navigate(`/reservation/${id}`);
+  // };
   return (
     <Test>
       <MainDiv className="MainDiv">
@@ -77,19 +86,18 @@ const ReservationPage = () => {
         <Header>
           <AiOutlineCalendar className="false" />
           <FaRegAddressBook className="false" />
-          <RiMapPinLine className="true" />
-          <HiOutlineMail className="false" />
+          <RiMapPinLine className="false" />
+          <HiOutlineMail className="true" />
         </Header>
         <Mid>
-          <Title>예약 일정</Title>
-          <SubTitle>Reservation status</SubTitle>
+          <Title>승인요청</Title>
+          <SubTitle>Request Approval</SubTitle>
         </Mid>
         <Last>
-          <RoomCom />
+          <ApprovalCom />
         </Last>
       </MainDiv>
     </Test>
   );
 };
-
-export default ReservationPage;
+export default ApprovalPage;
