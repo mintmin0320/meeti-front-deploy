@@ -1,4 +1,9 @@
 import "./App.css";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route
+} from "react-router-dom";
 import Main from "./components/Main";
 import Calendar from "./components/MainPage/Calendar/Calendar";
 import Header from "./components/MainPage/Calendar/Header";
@@ -10,9 +15,28 @@ import ReservationPage from "./pages/ReservationPage";
 function App() {
   return (
     <div className="App">
-      {/* <CalendarPage /> */}
-      <ReservationPage />
-      {/* <ApprovalPage /> */}
+      <Router>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <CalendarPage />
+            }
+          />
+          <Route
+            path="/approval"
+            element={
+              <ApprovalPage />
+            }
+          />
+          <Route
+            path="/reservation"
+            element={
+              <ReservationPage />
+            }
+          />
+        </Routes>
+      </Router>
     </div>
   );
 }
