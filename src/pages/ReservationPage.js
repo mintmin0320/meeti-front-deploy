@@ -2,12 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import color from "./../assets/color.png";
 import Cal from "./../components/MainPage/Calendar/Calendar";
-import { AiOutlineCalendar } from "react-icons/ai";
-import { FaRegAddressBook } from "react-icons/fa";
-import { RiMapPinLine } from "react-icons/ri";
-import { useNavigate } from "react-router-dom";
-import { HiOutlineMail } from "react-icons/hi";
 import RoomCom from "../components/MainPage/Reservation/RoomCom";
+import Menubar from '../components/Menubar';
 
 const Test = styled.div`
   width: 100vw;
@@ -74,12 +70,7 @@ const ReservationPage = () => {
     <Test>
       <MainDiv className="MainDiv">
         <BackColor src={color} style={{ opacity: 0.2 }} />
-        <Header>
-          <AiOutlineCalendar className="false" />
-          <FaRegAddressBook className="false" />
-          <RiMapPinLine className="true" />
-          <HiOutlineMail className="false" />
-        </Header>
+        <Menubar />
         <Mid>
           <Title>예약 일정</Title>
           <SubTitle>Reservation status</SubTitle>
