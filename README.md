@@ -1,5 +1,6 @@
 
 <h2> 😃 현재 진행 사항</h2><br>
-<img width="1284" alt="image" src="https://user-images.githubusercontent.com/89007102/229718982-252f9cb6-68a5-4299-8fb2-a261ec667dc2.png">
+<img width="600" alt="image" src="<img width="769" alt="image" src="https://github.com/mee-ti/MEETI-FRONTEND/assets/89007102/b5a53ccd-eeb6-4d65-8114-a45fd9e2517d">
+">
 <br>
 <h5>MainPage의 Header 컴포넌트 제작 - 20230404 ✔️</h5>
