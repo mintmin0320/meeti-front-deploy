@@ -2,7 +2,18 @@ import React from "react";
 import styled from "styled-components";
 import { AiOutlineSearch } from "react-icons/ai";
 import { FaRegPaperPlane } from "react-icons/fa";
-
+import { HiOutlineMail } from "react-icons/hi";
+const Header = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+`;
+const HeadTitle = styled.div`
+  color: #6f5cea;
+  font-size: 14px;
+  margin-top: 30px;
+  margin-left: -10px;
+`;
 const SubDiv = styled.div`
   display: flex;
   margin-top: 50px;
@@ -75,10 +86,15 @@ const SubmitButton = styled.div`
   align-items: center;
   justify-content: center;
   color: #ffffff;
+  margin-top: 20px;
 `;
 const ApprovalCom = () => {
   return (
     <>
+      <Header>
+        <HiOutlineMail className="true" style={{ padding: "0" }} />
+        <HeadTitle>Approval</HeadTitle>
+      </Header>
       <SubDiv>
         <Input />
         <SearchButton>
@@ -94,7 +110,7 @@ const ApprovalCom = () => {
       <Textarea />
 
       <SubmitButton>
-        <FaRegPaperPlane style={{ color: "#ffffff" }} />
+        <FaRegPaperPlane style={{ color: "#ffffff", marginRight: "10px" }} />
         전송하기
       </SubmitButton>
     </>

@@ -1,6 +1,6 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 // icon
 import { AiOutlineCalendar } from "react-icons/ai";
@@ -17,22 +17,21 @@ const Header = styled.div`
   z-index: 4;
 `;
 
-
 export default function Menubar() {
   return (
     <Header>
       <Link to="/">
-        <AiOutlineCalendar className="true" />
+        <AiOutlineCalendar />
       </Link>
       <Link to="/">
-        <FaRegAddressBook className="false" />
+        <FaRegAddressBook />
       </Link>
       <Link to="/reservation">
-        <RiMapPinLine className="false" />
+        <RiMapPinLine />
       </Link>
       <Link to="/approval">
-        <HiOutlineMail className="false" />
+        <HiOutlineMail />
       </Link>
     </Header>
-  )
+  );
 }

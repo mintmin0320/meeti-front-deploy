@@ -3,7 +3,8 @@ import styled from "styled-components";
 import color from "./../assets/color.png";
 import Cal from "./../components/MainPage/Calendar/Calendar";
 import { useNavigate } from "react-router-dom";
-import Menubar from '../components/Menubar';
+import Menubar from "../components/Menubar";
+import { AiOutlineCalendar } from "react-icons/ai";
 
 const Test = styled.div`
   width: 100vw;
