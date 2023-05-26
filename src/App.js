@@ -11,8 +11,8 @@ function App() {
   return (
     <div className="App">
       {/* <CalendarPage /> */}
-      <ReservationPage />
-      {/* <ApprovalPage /> */}
+      {/* <ReservationPage /> */}
+      <ApprovalPage />
     </div>
   );
 }

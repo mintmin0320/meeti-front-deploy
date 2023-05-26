@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { AiOutlineSearch } from "react-icons/ai";
+import { FaRegPaperPlane } from "react-icons/fa";
 
 const SubDiv = styled.div`
   display: flex;
@@ -91,7 +92,11 @@ const ApprovalCom = () => {
         <InputFileHidden type="file" name="file" id="file" />
       </SubDiv>
       <Textarea />
-      <SubmitButton>전송하기</SubmitButton>
+
+      <SubmitButton>
+        <FaRegPaperPlane style={{ color: "#ffffff" }} />
+        전송하기
+      </SubmitButton>
     </>
   );
 };
