@@ -12,9 +12,9 @@ import MainRoute from "./router/MainRoute";
 function App() {
   return (
     <div className="App">
-      {/* <CalendarPage /> */}
-      <ReservationPage />
-      {/* <ApprovalPage /> */}
+      <Router>
+        <MainRoute />
+      </Router>
     </div>
   );
 }

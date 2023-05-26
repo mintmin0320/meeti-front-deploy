@@ -3,7 +3,7 @@ import styled from "styled-components";
 import color from "./../assets/color.png";
 import Cal from "./../components/MainPage/Calendar/Calendar";
 import RoomCom from "../components/MainPage/Reservation/RoomCom";
-import Menubar from '../components/Menubar';
+import Menubar from "../components/Menubar";
 
 const Test = styled.div`
   width: 100vw;

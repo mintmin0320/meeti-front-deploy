@@ -4,8 +4,7 @@ import color from "./../assets/color.png";
 import { useNavigate } from "react-router-dom";
 import ApprovalCom from "../components/MainPage/Approval/ApprovalCom";
 import CalendarPage from "./CalendarPage";
-import Menubar from '../components/Menubar';
-
+import Menubar from "../components/Menubar";
 
 const Test = styled.div`
   width: 100vw;
@@ -66,16 +65,6 @@ const Last = styled.div`
   z-index: 3;
 `;
 const ApprovalPage = () => {
-  //   const navigate = useNavigate();
-  //   const goCalendar = () => {
-  //     navigate(`/calendar/`);
-  //   };
-  // const goContacts = () => {
-  //   navigate(`/contacts/${id}`);
-  // };
-  // const goReservation = () => {
-  //   navigate(`/reservation/${id}`);
-  // };
   return (
     <Test>
       <MainDiv className="MainDiv">
