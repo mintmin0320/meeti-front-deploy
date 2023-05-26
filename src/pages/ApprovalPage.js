@@ -1,14 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import color from "./../assets/color.png";
-
-import { AiOutlineCalendar } from "react-icons/ai";
-import { FaRegAddressBook } from "react-icons/fa";
-import { RiMapPinLine } from "react-icons/ri";
-import { HiOutlineMail } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
 import ApprovalCom from "../components/MainPage/Approval/ApprovalCom";
 import CalendarPage from "./CalendarPage";
+import Menubar from '../components/Menubar';
+
 
 const Test = styled.div`
   width: 100vw;
@@ -83,12 +80,7 @@ const ApprovalPage = () => {
     <Test>
       <MainDiv className="MainDiv">
         <BackColor src={color} style={{ opacity: 0.2 }} />
-        <Header>
-          <AiOutlineCalendar className="false" />
-          <FaRegAddressBook className="false" />
-          <RiMapPinLine className="false" />
-          <HiOutlineMail className="true" />
-        </Header>
+        <Menubar />
         <Mid>
           <Title>승인요청</Title>
           <SubTitle>Request Approval</SubTitle>
