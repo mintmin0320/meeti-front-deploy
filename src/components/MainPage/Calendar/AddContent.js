@@ -64,7 +64,7 @@ const PlaceText = styled.div`
 const AddContent = () => {
   return (
     <>
-      <AddTitle type="text" placeholder="일정 제목"></AddTitle>
+      <AddTitle type="text" placeholder="일정 제목(이거 지우고 아래 MiniCalendar컴포넌트사용"></AddTitle>
 
       <AddOther>
         <Left>
