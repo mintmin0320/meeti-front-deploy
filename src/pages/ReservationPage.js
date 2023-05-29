@@ -5,6 +5,13 @@ import Cal from "./../components/MainPage/Calendar/Calendar";
 import RoomCom from "../components/MainPage/Reservation/RoomCom";
 import Menubar from "../components/Menubar";
 
+import { Link } from "react-router-dom";
+
+// icon
+import { AiOutlineCalendar } from "react-icons/ai";
+import { FaRegAddressBook } from "react-icons/fa";
+import { RiMapPinLine } from "react-icons/ri";
+import { HiOutlineMail } from "react-icons/hi";
 const Test = styled.div`
   width: 100vw;
   height: 100vh;
@@ -70,7 +77,20 @@ const ReservationPage = () => {
     <Test>
       <MainDiv className="MainDiv">
         <BackColor src={color} style={{ opacity: 0.2 }} />
-        <Menubar />
+        <Header>
+          <Link to="/">
+            <AiOutlineCalendar className="false" />
+          </Link>
+          <Link to="/">
+            <FaRegAddressBook className="false" />
+          </Link>
+          <Link to="/reservation">
+            <RiMapPinLine className="true" />
+          </Link>
+          <Link to="/approval">
+            <HiOutlineMail className="false" />
+          </Link>
+        </Header>
         <Mid>
           <Title>예약 일정</Title>
           <SubTitle>Reservation status</SubTitle>

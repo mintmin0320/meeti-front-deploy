@@ -23,14 +23,12 @@ const MiniCalendar = () => {
     e.preventDefault();
   };
 
-
   const setSchedule = (item) => {
     setState([item.selection]);
     if (item.selection.endDate !== null) {
       console.log(item.selection);
     }
   };
-
 
   // 작성완료버튼 css랑 위치 맞춰주고 아래 Input을 위에 인풋대신 사용 ㄱㄱ
   // 지금은 밖에 컴포넌트에 빼놨잖아 그러면 form 안 되니까 여기서 완성해줘
@@ -41,7 +39,7 @@ const MiniCalendar = () => {
     <form onSubmit={handleOnSubmit}>
       <input
         onChange={(e) => handleOnChange(e)}
-        placeholder='여기에 일정제목'
+        placeholder="여기에 일정제목"
         required={true}
       />
       <DateRange
@@ -52,7 +50,9 @@ const MiniCalendar = () => {
         ranges={state}
         retainEndDateOnFirstSelection={true}
       />
-      <button type='submit' onClick={() => console.log(state, title)}>작성완료버튼</button>
+      <button type="submit" onClick={() => console.log(state, title)}>
+        작성완료버튼
+      </button>
     </form>
   );
 };

@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import MiniCalendar from "./MiniCalendar";
 import ColorCom from "./ColorCom";
-import { BiMinus, BiSearch } from "react-icons/bi";
+import { BiMinus, BiSearch, BiPlus } from "react-icons/bi";
+import "react-date-range/dist/styles.css"; // main css file
+import "react-date-range/dist/theme/default.css"; // theme css file
+import { DateRange } from "react-date-range";
+import ko from "date-fns/locale/ko"; // 날짜 포맷 라이브러리 (한국어 기능을 임포트)
 
 const AddTitle = styled.input`
   font-size: 24px;
   border: none;
-  margin-top: -5px;
+  margin-top: 10px;
   margin-bottom: 10px;
   padding: 5px;
   background-color: #f8f8f8;
@@ -61,24 +65,80 @@ const PlaceText = styled.div`
   margin: 5px;
   color: #535571;
 `;
+const SubmitButton = styled.button`
+  width: 111px;
+  height: 33px;
+  background: #8165df;
+  border-radius: 3px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  margin-top: 20px;
+`;
 const AddContent = () => {
+  const [state, setState] = useState([
+    {
+      startDate: new Date(),
+      endDate: null,
+      key: "selection",
+    },
+  ]);
+  const [title, setTitle] = useState("");
+
+  const handleOnChange = (e) => {
+    e.preventDefault();
+    setTitle(e.target.value);
+  };
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+  };
+
+  const setSchedule = (item) => {
+    setState([item.selection]);
+    if (item.selection.endDate !== null) {
+      console.log(item.selection);
+    }
+  };
+
   return (
     <>
-      <AddTitle type="text" placeholder="일정 제목(이거 지우고 아래 MiniCalendar컴포넌트사용"></AddTitle>
-
       <AddOther>
         <Left>
           <ColorCom />
-          <TitleFont>날짜</TitleFont>
-          <MiniCalendar className="MiniCalendar" />
-          {/* <TestCal /> */}
+
+          <form onSubmit={handleOnSubmit}>
+            <AddTitle
+              onChange={(e) => handleOnChange(e)}
+              placeholder="일정 제목"
+              required={true}
+            />
+            <TitleFont>날짜</TitleFont>
+            <DateRange
+              locale={ko}
+              editableDateInputs={true}
+              onChange={(item) => setSchedule(item)}
+              moveRangeOnFirstSelection={false}
+              ranges={state}
+              retainEndDateOnFirstSelection={true}
+            />
+            <SubmitButton
+              type="submit"
+              onClick={() => console.log(state, title)}
+            >
+              <BiPlus style={{ color: "#ffffff", marginRight: "5px" }}></BiPlus>
+              일정 추가
+            </SubmitButton>
+          </form>
         </Left>
         <Right>
           <TitleFont>시간</TitleFont>
           <TimeDiv>
-            <Time type="time"></Time>
+            <Time type="time" />
             <BiMinus className="BiMinus" />
-            <Time type="time"></Time>
+            <Time type="time" />
           </TimeDiv>
           <TitleFont>장소</TitleFont>
           <PlaceButton>

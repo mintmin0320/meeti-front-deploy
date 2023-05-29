@@ -3,9 +3,14 @@ import styled from "styled-components";
 import color from "./../assets/color.png";
 import Cal from "./../components/MainPage/Calendar/Calendar";
 import { useNavigate } from "react-router-dom";
-import Menubar from "../components/Menubar";
 import { AiOutlineCalendar } from "react-icons/ai";
 
+import { Link } from "react-router-dom";
+
+// icon
+import { FaRegAddressBook } from "react-icons/fa";
+import { RiMapPinLine } from "react-icons/ri";
+import { HiOutlineMail } from "react-icons/hi";
 const Test = styled.div`
   width: 100vw;
   height: 100vh;
@@ -71,7 +76,20 @@ const CalendarPage = () => {
     <Test>
       <MainDiv className="MainDiv">
         <BackColor src={color} style={{ opacity: 0.2 }} />
-        <Menubar />
+        <Header>
+          <Link to="/">
+            <AiOutlineCalendar className="true" />
+          </Link>
+          <Link to="/">
+            <FaRegAddressBook className="false" />
+          </Link>
+          <Link to="/reservation">
+            <RiMapPinLine className="false" />
+          </Link>
+          <Link to="/approval">
+            <HiOutlineMail className="false" />
+          </Link>
+        </Header>
         <Mid>
           <Title>오늘의 일정</Title>
           <SubTitle>It's today's schedule.</SubTitle>

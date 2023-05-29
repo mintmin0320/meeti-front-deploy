@@ -89,7 +89,7 @@ const Calendar = () => {
               setIsOpen(!isOpen);
             }}
           >
-            <AiOutlinePlusCircle></AiOutlinePlusCircle>
+            {isOpen ? <AiOutlinePlusCircle /> : <AiOutlineCalendar />}
           </AddButton>
         </HeaderRight>
       </Header>
