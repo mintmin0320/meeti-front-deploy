@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import DataList from "../../../reservation.json";
 import styled from "styled-components";
 import { RiMapPinLine } from "react-icons/ri";
@@ -111,8 +111,7 @@ const SubOptionsDiv = styled.div`
 
 const RoomCom = () => {
   const meetingRoom = DataList.filter((it) => it.minclassnm === "회의실");
-
-  //const room = meetingRoom.map((it)=>{it.areanm + it.svcnm})
+  const [reservOpen, setReservOpen] = useState(false);
 
   return (
     <>
@@ -120,6 +119,7 @@ const RoomCom = () => {
         <RiMapPinLine className="true" style={{ padding: "0" }} />
         <HeadTitle>Reservation</HeadTitle>
       </Header>
+
       <RoomArrayList>
         {meetingRoom.map((arr) => (
           <RoomDiv>
@@ -146,7 +146,13 @@ const RoomCom = () => {
               </RoomTitleDiv>
 
               <ButtonsDiv>
-                <RoomReservButton>예약하기</RoomReservButton>
+                <RoomReservButton
+                  onClick={(e) => {
+                    console.log(e);
+                  }}
+                >
+                  예약하기
+                </RoomReservButton>
                 <RoomCallButton>전화하기</RoomCallButton>
               </ButtonsDiv>
             </RoomContents>

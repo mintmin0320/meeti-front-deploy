@@ -107,8 +107,6 @@ const AddContent = () => {
     <>
       <AddOther>
         <Left>
-          <ColorCom />
-
           <form onSubmit={handleOnSubmit}>
             <AddTitle
               onChange={(e) => handleOnChange(e)}
@@ -134,6 +132,8 @@ const AddContent = () => {
           </form>
         </Left>
         <Right>
+          <ColorCom />
+
           <TitleFont>시간</TitleFont>
           <TimeDiv>
             <Time type="time" />

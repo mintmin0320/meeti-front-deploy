@@ -16,7 +16,7 @@ const HeadTitle = styled.div`
 `;
 const SubDiv = styled.div`
   display: flex;
-  margin-top: 50px;
+  margin-top: 10px;
 `;
 const Input = styled.input`
   width: 200px;

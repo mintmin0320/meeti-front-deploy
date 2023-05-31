@@ -94,3 +94,39 @@
   height: 10px;
   margin: 5px;
 }
+
+/* datepicker */
+
+.react-datepicker__triangle {
+  transform: translate(90px, 0px) !important;
+}
+.example-custom-input {
+  background: #8165df;
+  border-radius: 4px;
+  width: 166px;
+  height: 23px;
+  color: #f8f8f8;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  margin: 20px;
+  cursor: pointer;
+}
+/* ReservationCom */
+.timeTrue {
+  border: 1px solid #6f5cea;
+  border-radius: 5px;
+  padding: 5px;
+  cursor: pointer;
+  margin: 10px;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #8165df;
+  color: #ffffff;
+}
+#timeFalse {
+  background-color: #ffffff;
+  color: #6f5cea;
+}
