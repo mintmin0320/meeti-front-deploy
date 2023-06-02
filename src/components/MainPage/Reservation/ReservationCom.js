@@ -94,7 +94,7 @@ const ReservationCom = () => {
       return 9 + index + ":00";
     });
 
-  const [timeState, setTimeState] = useState("");
+  const [timeState, setTimeState] = useState([]);
   const [timeArr, setTimeArr] = useState([
     false,
     false,
@@ -128,39 +128,31 @@ const ReservationCom = () => {
     false,
   ]); //전부 false 넣어주기
 
-  // const TimeBtnClickHandler = (e) => {
-  //   const selectedTime = e.target.innerHTML;
-  //   setTimeState(selectedTime);
-  //   timeArr[times.indexOf(timeState)] = true;
-  //   setTimeArr(timeArr);
-  //   console.log("TimeArr Changed : " + timeArr);
-  //   console.log("-----------------");
-  // };
-
   const [onClickCount, setOnClickCount] = useState(0);
   const [idx, setIdx] = useState();
-  const indexTime = (e) => {
-    setTimeState(e.target.innerHTML);
-    setOnClickCount(onClickCount + 1);
 
-    if (onClickCount === 0) {
-      setIdx(times.indexOf(timeState) + 1);
-    } else {
-      setIdx(times.indexOf(timeState));
-    }
-    console.log(idx);
-    setTimeArr(timeArrAllFalse);
-    timeArr[idx] = !timeArr[idx];
-    setTimeArr([...timeArr]);
-    console.log(timeArr);
-  };
+  //test
+  const [check0, setCheck0] = useState(false);
+  const [check1, setCheck1] = useState(false);
+  const [check2, setCheck2] = useState(false);
+  const [check3, setCheck3] = useState(false);
+  const [check4, setCheck4] = useState(false);
+  const [check5, setCheck5] = useState(false);
+  const [check6, setCheck6] = useState(false);
+  const [check7, setCheck7] = useState(false);
+  const [check8, setCheck8] = useState(false);
+  const [check9, setCheck9] = useState(false);
+  const [check10, setCheck10] = useState(false);
+  const [check11, setCheck11] = useState(false);
+  const [check12, setCheck12] = useState(false);
+  const [check13, setCheck13] = useState(false);
 
   //submit
 
   const SubmitHandler = () => {
     const ReserDate =
       startDate.getMonth() + 1 + "월" + startDate.getDate() + "일";
-    if (window.confirm(`${ReserDate} ${timeState} 시에 예약하시나요?`)) {
+    if (window.confirm(`${ReserDate} 에 예약하시나요?`)) {
       window.alert("예약이 완료되었습니다.");
     }
   };
@@ -177,35 +169,137 @@ const ReservationCom = () => {
       <Text>예약시간 </Text>
       <TimeDiv>
         <div
-          className={timeArr[0] ? "timeTrue" : "timeFalse"}
-          onClick={indexTime}
+          className={check0 ? "timeTrue" : "timeFalse"}
+          onClick={() => {
+            setCheck0(!check0);
+          }}
+          value={times[0]}
         >
           {times[0]}
         </div>
         <div
-          className={timeArr[1] ? "timeTrue" : "timeFalse"}
-          onClick={indexTime}
+          className={check1 ? "timeTrue" : "timeFalse"}
+          onClick={() => {
+            setCheck1(!check1);
+          }}
+          value={times[1]}
         >
           {times[1]}
         </div>
-        <TimeButton onClick={indexTime}>{times[2]}</TimeButton>
-        <TimeButton onClick={indexTime}>{times[3]}</TimeButton>
+        <div
+          className={check2 ? "timeTrue" : "timeFalse"}
+          onClick={() => {
+            setCheck2(!check2);
+          }}
+          value={times[2]}
+        >
+          {times[2]}
+        </div>
+        <div
+          className={check3 ? "timeTrue" : "timeFalse"}
+          onClick={() => {
+            setCheck3(!check3);
+          }}
+          value={times[3]}
+        >
+          {times[3]}
+        </div>
       </TimeDiv>
       <TimeDiv>
-        <TimeButton>{times[4]}</TimeButton>
-        <TimeButton>{times[5]}</TimeButton>
-        <TimeButton>{times[6]}</TimeButton>
-        <TimeButton>{times[7]}</TimeButton>
+        <div
+          className={check4 ? "timeTrue" : "timeFalse"}
+          onClick={() => {
+            setCheck4(!check4);
+          }}
+          value={times[4]}
+        >
+          {times[4]}
+        </div>
+        <div
+          className={check5 ? "timeTrue" : "timeFalse"}
+          onClick={() => {
+            setCheck5(!check5);
+          }}
+          value={times[5]}
+        >
+          {times[5]}
+        </div>
+        <div
+          className={check6 ? "timeTrue" : "timeFalse"}
+          onClick={() => {
+            setCheck6(!check6);
+          }}
+          value={times[6]}
+        >
+          {times[6]}
+        </div>
+        <div
+          className={check7 ? "timeTrue" : "timeFalse"}
+          onClick={() => {
+            setCheck7(!check7);
+          }}
+          value={times[7]}
+        >
+          {times[7]}
+        </div>
       </TimeDiv>
       <TimeDiv>
-        <TimeButton>{times[8]}</TimeButton>
-        <TimeButton>{times[9]}</TimeButton>
-        <TimeButton>{times[10]}</TimeButton>
-        <TimeButton>{times[11]}</TimeButton>
+        <div
+          className={check8 ? "timeTrue" : "timeFalse"}
+          onClick={() => {
+            setCheck8(!check8);
+          }}
+          value={times[8]}
+        >
+          {times[8]}
+        </div>
+        <div
+          className={check9 ? "timeTrue" : "timeFalse"}
+          onClick={() => {
+            setCheck9(!check9);
+          }}
+          value={times[9]}
+        >
+          {times[9]}
+        </div>
+        <div
+          className={check10 ? "timeTrue" : "timeFalse"}
+          onClick={() => {
+            setCheck10(!check10);
+          }}
+          value={times[10]}
+        >
+          {times[10]}
+        </div>
+        <div
+          className={check11 ? "timeTrue" : "timeFalse"}
+          onClick={() => {
+            setCheck11(!check11);
+          }}
+          value={times[11]}
+        >
+          {times[11]}
+        </div>
       </TimeDiv>
       <TimeDiv>
-        <TimeButton>{times[12]}</TimeButton>
-        <TimeButton>{times[13]}</TimeButton>
+        <div
+          className={check12 ? "timeTrue" : "timeFalse"}
+          onClick={() => {
+            setCheck12(!check12);
+          }}
+          value={times[12]}
+        >
+          {times[12]}
+        </div>
+        <div
+          className={check13 ? "timeTrue" : "timeFalse"}
+          onClick={() => {
+            setCheck13(!check13);
+          }}
+          value={times[13]}
+        >
+          {times[13]}
+        </div>
       </TimeDiv>
       <CautionDiv>
         <Caution>
