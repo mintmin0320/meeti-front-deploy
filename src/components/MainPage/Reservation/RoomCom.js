@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import DataList from "../../../reservation.json";
 import styled from "styled-components";
 import { RiMapPinLine } from "react-icons/ri";
-
+import { Link } from "react-router-dom";
 const Header = styled.div`
   display: flex;
   flex-direction: row;
@@ -146,14 +146,22 @@ const RoomCom = () => {
               </RoomTitleDiv>
 
               <ButtonsDiv>
-                <RoomReservButton
-                  onClick={(e) => {
-                    console.log(e);
+                <Link to="/reservationtime">
+                  <RoomReservButton
+                    onClick={(e) => {
+                      console.log(e);
+                    }}
+                  >
+                    예약하기
+                  </RoomReservButton>
+                </Link>
+                <RoomCallButton
+                  onClick={() => {
+                    window.alert(`${meetingRoom[0].telno}`);
                   }}
                 >
-                  예약하기
-                </RoomReservButton>
-                <RoomCallButton>전화하기</RoomCallButton>
+                  전화하기
+                </RoomCallButton>
               </ButtonsDiv>
             </RoomContents>
           </RoomDiv>

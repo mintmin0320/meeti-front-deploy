@@ -145,3 +145,12 @@
   background-color: #8165df;
   color: #ffffff;
 }
+
+/* ReservationDetail */
+.SubDivIcons {
+  margin: 10px;
+  padding: 10px;
+  background: #f0ebfa;
+  border-radius: 5px;
+  color: #8165df;
+}

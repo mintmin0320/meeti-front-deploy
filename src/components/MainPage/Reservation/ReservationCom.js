@@ -141,13 +141,13 @@ const ReservationCom = () => {
   const [idx, setIdx] = useState();
   const indexTime = (e) => {
     setTimeState(e.target.innerHTML);
-    // setOnClickCount(onClickCount + 1);
+    setOnClickCount(onClickCount + 1);
 
-    // if (onClickCount === 0) {
-    //   setIdx(times.indexOf(timeState) + 1);
-    // } else {
-    //   setIdx(times.indexOf(timeState));
-    // }
+    if (onClickCount === 0) {
+      setIdx(times.indexOf(timeState) + 1);
+    } else {
+      setIdx(times.indexOf(timeState));
+    }
     console.log(idx);
     setTimeArr(timeArrAllFalse);
     timeArr[idx] = !timeArr[idx];
