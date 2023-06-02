@@ -4,12 +4,13 @@ import "react-datepicker/dist/react-datepicker.css";
 import { ko } from "date-fns/esm/locale";
 import styled, { css } from "styled-components";
 import { set } from "date-fns";
+
 //test라우터
 
 const Text = styled.div`
   color: #8165df;
   font-size: 15px;
-  margin-top: 10px;
+  margin-top: 5px;
   ${css`
     &:after {
       content: "  >";
@@ -37,6 +38,46 @@ const TimeButton = styled.div`
       color: #ffffff;
     }
   `}
+`;
+const CautionDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+`;
+
+const Caution = styled.div`
+  background: #ffffff;
+  border: 0.5px solid #9c9c9c;
+  width: 100%;
+  height: 20%;
+  margin-left: 30px;
+  padding: 10px;
+  margin-bottom: 10px;
+`;
+const CautionTitle = styled.div`
+  font-size: 16px;
+  text-align: center;
+  margin: 10px;
+`;
+const CautionText = styled.div`
+  font-size: 12px;
+  color: #535571;
+  text-align: center;
+  margin-bottom: 10px;
+`;
+const SubmitButton = styled.div`
+  width: 90%;
+  color: #ffffff;
+  background: #6f5cea;
+  border-radius: 2px;
+  margin-top: 20px;
+  margin: 10px;
+  padding: 6px;
+  text-align: center;
+  margin-left: 30px;
+  cursor: pointer;
 `;
 const ReservationCom = () => {
   const [startDate, setStartDate] = useState(new Date());
@@ -69,7 +110,23 @@ const ReservationCom = () => {
     false,
     false,
     false,
-  ]);
+  ]); //기본값
+  const [timeArrAllFalse, setTimeArrAllFalse] = useState([
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]); //전부 false 넣어주기
 
   // const TimeBtnClickHandler = (e) => {
   //   const selectedTime = e.target.innerHTML;
@@ -80,12 +137,27 @@ const ReservationCom = () => {
   //   console.log("-----------------");
   // };
 
+  const [onClickCount, setOnClickCount] = useState(0);
+  const [idx, setIdx] = useState();
   const indexTime = (e) => {
     setTimeState(e.target.innerHTML);
-    const idx = times.indexOf(timeState) + 1;
-    timeArr[idx] = true;
+    // setOnClickCount(onClickCount + 1);
+
+    // if (onClickCount === 0) {
+    //   setIdx(times.indexOf(timeState) + 1);
+    // } else {
+    //   setIdx(times.indexOf(timeState));
+    // }
+    console.log(idx);
+    setTimeArr(timeArrAllFalse);
+    timeArr[idx] = !timeArr[idx];
     setTimeArr([...timeArr]);
     console.log(timeArr);
+  };
+
+  //submit
+  const SubmitHandler = () => {
+    window.confirm(`${timeState} 을 예약하시나요?`);
   };
   return (
     <>
@@ -105,7 +177,12 @@ const ReservationCom = () => {
         >
           {times[0]}
         </div>
-        <TimeButton onClick={indexTime}>{times[1]}</TimeButton>
+        <div
+          className={timeArr[1] ? "timeTrue" : "timeFalse"}
+          onClick={indexTime}
+        >
+          {times[1]}
+        </div>
         <TimeButton onClick={indexTime}>{times[2]}</TimeButton>
         <TimeButton onClick={indexTime}>{times[3]}</TimeButton>
       </TimeDiv>
@@ -125,6 +202,28 @@ const ReservationCom = () => {
         <TimeButton>{times[12]}</TimeButton>
         <TimeButton>{times[13]}</TimeButton>
       </TimeDiv>
+      <CautionDiv>
+        <Caution>
+          <CautionTitle>예약시 주의사항</CautionTitle>
+          <CautionText>
+            박수, 연호, 환호, 고성 및 언쟁 등이 발생하는 회의는 예약을
+            자제부탁드립니다.
+          </CautionText>
+          <CautionText>
+            여러 회의들이 진행되는 장소입니다. 다음 이용자, 다른 회의에 방해가
+            되지 않도록 배려와 양해부탁드립니다
+          </CautionText>
+          <CautionText>
+            이용 수칙이 지켜지지 않는 경우, 재예약이 어려울 수 있습니다.
+          </CautionText>
+
+          <CautionText>
+            주의사항을 숙지하지 않고 있는 불이익은 본인 부담으로 처리될 수
+            있습니다.
+          </CautionText>
+        </Caution>
+        <SubmitButton onClick={SubmitHandler}>예약하기</SubmitButton>
+      </CautionDiv>
     </>
   );
 };

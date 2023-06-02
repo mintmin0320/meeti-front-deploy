@@ -109,7 +109,7 @@
   display: flex;
   justify-content: center;
   padding: 10px;
-  margin: 20px;
+  margin: 10px;
   cursor: pointer;
 }
 /* ReservationCom */
@@ -126,7 +126,22 @@
   background-color: #8165df;
   color: #ffffff;
 }
-#timeFalse {
-  background-color: #ffffff;
-  color: #6f5cea;
+
+.timeFalse {
+  border: 1px solid #6f5cea;
+  border-radius: 5px;
+  padding: 5px;
+  cursor: pointer;
+  margin: 10px;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8f8f8;
+  color: #8165df;
+}
+
+.timeFalse :hover {
+  background-color: #8165df;
+  color: #ffffff;
 }
