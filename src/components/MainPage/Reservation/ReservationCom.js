@@ -156,8 +156,13 @@ const ReservationCom = () => {
   };
 
   //submit
+
   const SubmitHandler = () => {
-    window.confirm(`${timeState} 을 예약하시나요?`);
+    const ReserDate =
+      startDate.getMonth() + 1 + "월" + startDate.getDate() + "일";
+    if (window.confirm(`${ReserDate} ${timeState} 시에 예약하시나요?`)) {
+      window.alert("예약이 완료되었습니다.");
+    }
   };
   return (
     <>
