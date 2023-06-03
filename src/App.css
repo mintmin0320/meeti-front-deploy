@@ -192,3 +192,34 @@
 .ButtonFalse {
   color: "#8165DF";
 }
+
+/* RoomCom */
+
+.PlaceTrue {
+  margin: 3px;
+  padding: 2px;
+  padding-left: 6px;
+  padding-right: 6px;
+  background: #f8f8f8;
+  border: 1px solid #8165df;
+  border-radius: 50px;
+  width: auto;
+  height: 15px;
+  font-size: 10px;
+  color: #8165df;
+  text-align: center;
+}
+.PlaceFalse {
+  margin: 2px;
+  padding: 2px;
+  padding-left: 6px;
+  padding-right: 6px;
+  background: #f8f8f8;
+  border: 1px solid #9c9c9c;
+  border-radius: 50px;
+  width: "40px";
+  height: 15px;
+  font-size: 10px;
+  color: "#9C9C9C";
+  text-align: center;
+}

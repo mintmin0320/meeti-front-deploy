@@ -106,8 +106,8 @@ const AddContent = () => {
   return (
     <>
       <AddOther>
-        <form onSubmit={handleOnSubmit}>
-          <Left>
+        <Left>
+          <form onSubmit={handleOnSubmit}>
             <AddTitle
               onChange={(e) => handleOnChange(e)}
               placeholder="일정 제목"
@@ -129,24 +129,24 @@ const AddContent = () => {
               <BiPlus style={{ color: "#ffffff", marginRight: "5px" }}></BiPlus>
               일정 추가
             </SubmitButton>
-          </Left>
-          <Right>
-            <ColorCom />
-            {/* id값이 색상코드 */}
-            <TitleFont>시간</TitleFont>
-            <TimeDiv>
-              <Time type="time" />
-              <BiMinus className="BiMinus" />
-              <Time type="time" />
-            </TimeDiv>
-            <TitleFont>장소</TitleFont>
-            <PlaceButton>
-              <BiSearch className="BiSearch" />
-              <PlaceText>회의실 예약하기</PlaceText>
-            </PlaceButton>
-            <TitleFont>멤버</TitleFont>
-          </Right>
-        </form>
+          </form>
+        </Left>
+        <Right>
+          <ColorCom />
+          {/* id값이 색상코드 */}
+          <TitleFont>시간</TitleFont>
+          <TimeDiv>
+            <Time type="time" />
+            <BiMinus className="BiMinus" />
+            <Time type="time" />
+          </TimeDiv>
+          <TitleFont>장소</TitleFont>
+          <PlaceButton>
+            <BiSearch className="BiSearch" />
+            <PlaceText>회의실 예약하기</PlaceText>
+          </PlaceButton>
+          <TitleFont>멤버</TitleFont>
+        </Right>
       </AddOther>
     </>
   );
