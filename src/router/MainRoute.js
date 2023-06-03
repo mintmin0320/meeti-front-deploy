@@ -4,16 +4,18 @@ import { Routes, Route } from "react-router-dom";
 import CalendarRoute from "./CalendarRoute"; // 캘린더 Route
 import ApprovalRoute from "./ApprovalRoute"; //  승인 Route
 import ReservationRoute from "./ReservationRoute"; // 예약 Route
-
-import ReservationTimePage from "../pages/ReservationTimePage";
-
+import LoginRoute from "./LoginRoute"; //로그인 Route
+import SignupRoute from "./SignupRoute"; //로그인 Route
 export default function MainRoute() {
   return (
     <Routes>
+      <Route path="/login" element={<LoginRoute />} />
+      <Route path="/Signup" element={<SignupRoute />} />
+      <Route path="/*" element={<CalendarRoute />} />
+
       <Route path="/*" element={<CalendarRoute />} />
       <Route path="/approval/*" element={<ApprovalRoute />} />
       <Route path="/reservation/*" element={<ReservationRoute />} />
-      <Route path="/reservationtime/*" element={<ReservationTimePage />} />
     </Routes>
   );
 }

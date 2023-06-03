@@ -9,13 +9,13 @@ import CalendarPage from "./pages/CalendarPage";
 import ReservationPage from "./pages/ReservationPage";
 import MainRoute from "./router/MainRoute";
 import SignupForm from "./components/User/SignupForm";
-import Login from "./pages/Login";
+import Login from "./pages/LoginPage";
 
 function App() {
   return (
     <div className="App">
       <Router>
-        <SignupForm />
+        <MainRoute />
       </Router>
     </div>
   );

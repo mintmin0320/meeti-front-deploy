@@ -94,43 +94,6 @@ const ReservationCom = () => {
       return 9 + index + ":00";
     });
 
-  const [timeState, setTimeState] = useState([]);
-  const [timeArr, setTimeArr] = useState([
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-  ]); //기본값
-  const [timeArrAllFalse, setTimeArrAllFalse] = useState([
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-  ]); //전부 false 넣어주기
-
-  const [onClickCount, setOnClickCount] = useState(0);
-  const [idx, setIdx] = useState();
-
   //test
   const [check0, setCheck0] = useState(false);
   const [check1, setCheck1] = useState(false);

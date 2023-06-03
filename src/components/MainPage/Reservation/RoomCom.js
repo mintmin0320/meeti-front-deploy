@@ -111,7 +111,6 @@ const SubOptionsDiv = styled.div`
 
 const RoomCom = () => {
   const meetingRoom = DataList.filter((it) => it.minclassnm === "회의실");
-  const [reservOpen, setReservOpen] = useState(false);
 
   return (
     <>

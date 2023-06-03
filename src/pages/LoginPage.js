@@ -3,6 +3,8 @@ import styled from "styled-components";
 import color from "./../assets/color.png";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import SingupTypePage from "./SignupTypePage";
+import { Link } from "react-router-dom";
 
 const Test = styled.div`
   width: 100vw;
@@ -56,7 +58,8 @@ const Label = styled.label`
   padding-left: 10px;
   font-size: 12px;
 `;
-const Link = styled.a`
+
+const SignupLink = styled.a`
   color: #8165df;
   text-align: left;
   padding-left: 10px;
@@ -92,7 +95,7 @@ const Login = () => {
     params === "id" ? setUserId(e.target.value) : setUserPw(e.target.value);
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const url = `http://50.19.56.144:8080`;
     const data = {
@@ -117,13 +120,13 @@ const Login = () => {
           <SubTitle>반갑습니다 미티에 오신 것을 환영해요!👋</SubTitle>
           <form
             style={{ display: "flex", flexDirection: "column" }}
-            onSubmit={e => handleSubmit(e)}
+            onSubmit={(e) => handleSubmit(e)}
           >
             <Label>ID</Label>
             <Input
               type="text"
               name="userId"
-              onChange={e => {
+              onChange={(e) => {
                 handleOnChange("id", e);
               }}
             />
@@ -131,11 +134,13 @@ const Login = () => {
             <Input
               type="password"
               name="userPw"
-              onChange={e => {
+              onChange={(e) => {
                 handleOnChange("pw", e);
               }}
-            />
-            <Link href="#">아직 미티의 회원이 아니신가요?</Link>
+            />{" "}
+            <SignupLink>
+              <Link to="/Signup">아직 미티의 회원이 아니신가요?</Link>
+            </SignupLink>
             <Btn>로그인</Btn>
           </form>
         </LoginDiv>

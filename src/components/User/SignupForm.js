@@ -142,7 +142,7 @@ const SignupForm = () => {
   const [pwdMsg, setPwdMsg] = useState("");
   const [confirmPwdMsg, setConfirmPwdMsg] = useState("");
 
-  const validateEmail = email => {
+  const validateEmail = (email) => {
     return email
       .toLowerCase()
       .match(
@@ -150,13 +150,13 @@ const SignupForm = () => {
       );
   };
 
-  const validatePwd = password => {
+  const validatePwd = (password) => {
     return password
       .toLowerCase()
       .match(/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{10,25}$/);
   };
 
-  const onChangeEmail = useCallback(async e => {
+  const onChangeEmail = useCallback(async (e) => {
     const currEmail = e.target.value;
     setEmail(currEmail);
 
@@ -168,7 +168,7 @@ const SignupForm = () => {
   });
 
   //비밀번호
-  const onChangePwd = useCallback(e => {
+  const onChangePwd = useCallback((e) => {
     const currPwd = e.target.value;
     setPassword(currPwd);
 
@@ -181,7 +181,7 @@ const SignupForm = () => {
 
   //비밀번호 확인
   const onChangeConfirmPwd = useCallback(
-    e => {
+    (e) => {
       const currConfirmPwd = e.target.value;
       setConfirmPwd(currConfirmPwd);
 
@@ -199,7 +199,7 @@ const SignupForm = () => {
     visible: false,
   });
 
-  const handlePasswordType = e => {
+  const handlePasswordType = (e) => {
     setpwType(() => {
       if (!pwType.visible) {
         return { type: "text", visible: true };
