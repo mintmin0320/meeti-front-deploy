@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import styled from "styled-components";
-import color from "./../assets/color.png";
+import color from "./../../assets/color.png";
 import { FaBookOpen } from "react-icons/fa";
 import { IoIosArrowForward } from "react-icons/io";
+import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
+import { BsFillCheckCircleFill } from "react-icons/bs";
 
 const Test = styled.div`
   width: 100vw;
@@ -38,38 +40,84 @@ const Usertype = styled.div`
   color: #8165df;
   width: 500px;
   height: 50px;
+  font-weight: 700;
   font-size: 20px;
-  font-weight: bold;
+  line-height: 24px;
 `;
 const SignupDiv = styled.div`
   margin: 30px auto;
   padding: 30px;
   z-index: 3;
-  overflow: scroll;
+  text-align: left;
+`;
+const Ms = styled.span`
+  font-style: normal;
+  font-weight: 700;
+  font-size: 7px;
+  line-height: 8px;
+  color: #d63031;
+  text-align: left;
 `;
 const Label = styled.div`
   color: #404248;
   text-align: left;
+  margin: 15px 0 5px 0;
   margin-bottom: 5px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+`;
+const Purple = styled.span`
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 8px;
+  line-height: 10px;
+  color: #8165df;
+  margin-left: 5px;
+`;
+const Green = styled.div`
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 8px;
+  line-height: 10px;
+  color: #197d2f;
+  text-align: left;
+  margin: 5px 10px;
 `;
 const Input = styled.input`
   width: 300px;
-  height: 25px;
-  margin-bottom: 15px;
-  border: solid #9c9c9c 0.1px;
+  height: 20px;
+  border: solid #9c9c9c 0.5px;
+  background: #ffffff;
+  margin-left: 10px;
 `;
 const Button = styled.button`
   height: 22px;
   margin-left: 20px;
   border-radius: 4px;
   border: none;
-  background-color: #8165df;
-  color: white;
-  font-size: 10px;
+  background: #8165df;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+  font-weight: 700;
+  font-size: 8px;
+  line-height: 10px;
+  color: #ffffff;
+`;
+const PwMsg = styled.div`
+  font-style: normal;
+  font-weight: 400;
+  font-size: 9px;
+  line-height: 11px;
+  color: #d63031;
+  text-align: left;
+  margin: 5px 10px;
 `;
 const BtnDiv = styled.div`
-  display: flex;
-  flex-direction: row;
+  text-align: center;
+  margin-top: 20px;
 `;
 const NextBtn = styled.button`
   width: 40px;
@@ -77,11 +125,90 @@ const NextBtn = styled.button`
   border-radius: 50%;
   border: none;
   color: white;
-  background-color: #8165df;
-  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.1);
+  background: #8165df;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.25);
 `;
 
 const SignupForm = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPwd, setConfirmPwd] = useState("");
+
+  const isEmailValid = validateEmail(email);
+  const isPwdValid = validatePwd(password);
+  const isConfirmPwd = password === confirmPwd;
+
+  const [emailMsg, setEmailMsg] = useState("");
+  const [pwdMsg, setPwdMsg] = useState("");
+  const [confirmPwdMsg, setConfirmPwdMsg] = useState("");
+
+  const validateEmail = email => {
+    return email
+      .toLowerCase()
+      .match(
+        /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/
+      );
+  };
+
+  const validatePwd = password => {
+    return password
+      .toLowerCase()
+      .match(/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{10,25}$/);
+  };
+
+  const onChangeEmail = useCallback(async e => {
+    const currEmail = e.target.value;
+    setEmail(currEmail);
+
+    if (!validateEmail(currEmail)) {
+      setEmailMsg("이메일 형식이 올바르지 않습니다.");
+    } else {
+      setEmailMsg("올바른 이메일 형식입니다.");
+    }
+  });
+
+  //비밀번호
+  const onChangePwd = useCallback(e => {
+    const currPwd = e.target.value;
+    setPassword(currPwd);
+
+    if (!validatePwd(currPwd)) {
+      setPwdMsg("영문, 숫자, 특수기호 조합으로 10자리 이상 입력해주세요.");
+    } else {
+      setPwdMsg("안전한 비밀번호입니다.");
+    }
+  }, []);
+
+  //비밀번호 확인
+  const onChangeConfirmPwd = useCallback(
+    e => {
+      const currConfirmPwd = e.target.value;
+      setConfirmPwd(currConfirmPwd);
+
+      if (currConfirmPwd !== password) {
+        setConfirmPwdMsg("비밀번호가 일치하지 않습니다.");
+      } else {
+        setConfirmPwdMsg("올바른 비밀번호입니다.");
+      }
+    },
+    [password]
+  );
+
+  const [pwType, setpwType] = useState({
+    type: "password",
+    visible: false,
+  });
+
+  const handlePasswordType = e => {
+    setpwType(() => {
+      if (!pwType.visible) {
+        return { type: "text", visible: true };
+      } else {
+        return { type: "password", visible: false };
+      }
+    });
+  };
+
   return (
     <Test>
       <MainDiv className="MainDiv">
@@ -90,31 +217,65 @@ const SignupForm = () => {
           <FaBookOpen /> 학생용
         </Usertype>
         <SignupDiv>
-          <Label>ID를 입력해주세요.</Label>
+          <Ms style={{ display: `block` }}>필수항목 *</Ms>
+          <Label>
+            ID를 입력해주세요.
+            <Ms>*</Ms>
+            <Purple>
+              <BsFillCheckCircleFill />
+              ID는 회원검색으로 사용됩니다.
+            </Purple>
+          </Label>
+
           <Input type="text"></Input>
           <Button>중복확인</Button>
-          <Label>비밀번호를 입력해주세요.</Label>
-          <Input type="password"></Input>
-          <Label>비밀번호를 다시 입력해주세요.</Label>
-          <Input type="password"></Input>
-          <Label>이메일을 입력해주세요.</Label>
+          <Green>
+            <BsFillCheckCircleFill />
+            사용가능한 아이디입니다!
+          </Green>
+          <Label>
+            비밀번호를 입력해주세요.<Ms>*</Ms>
+          </Label>
+          <Input type={pwType.type} />
+          <span onClick={handlePasswordType}>
+            {pwType.visible ? <AiFillEye /> : <AiFillEyeInvisible />}
+          </span>
+          <PwMsg>
+            비밀번호는 영문 대소문자, 특수문자(*,!,~,?)를 포함하여
+            <br />
+            8~16자 사이로 설정해주세요.
+          </PwMsg>
+          <Label>
+            비밀번호를 다시 입력해주세요.<Ms>*</Ms>
+          </Label>
+          <Input type="password" />
+
+          <Label>
+            이메일을 입력해주세요.<Ms>*</Ms>
+          </Label>
           <Input type="email"></Input>
-          <Label>이름을 입력해주세요.</Label>
+          <Button>인증번호받기</Button>
+          <Label>
+            이름을 입력해주세요.<Ms>*</Ms>
+          </Label>
           <Input type="text"></Input>
-          <Label>전화번호을 입력해주세요.</Label>
+          <Label>
+            전화번호을 입력해주세요.<Ms>*</Ms>
+          </Label>
           <Input type="text"></Input>
           <Button>인증번호받기</Button>
-          <Label>인증번호를 입력해주세요.</Label>
+          <Label>
+            인증번호를 입력해주세요.<Ms>*</Ms>
+          </Label>
           <Input></Input>
+          <BtnDiv>
+            <NextBtn>
+              <IoIosArrowForward style={{ width: 25, height: 25 }} />
+            </NextBtn>
+          </BtnDiv>
         </SignupDiv>
-        <BtnDiv>
-          <NextBtn>
-            <IoIosArrowForward style={{ width: 25, height: 25 }} />
-          </NextBtn>
-        </BtnDiv>
       </MainDiv>
     </Test>
   );
 };
-
 export default SignupForm;

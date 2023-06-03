@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import color from "./../assets/color.png";
+import color from "./../../assets/color.png";
 import { FaBookOpen } from "react-icons/fa";
 import { MdWork, MdPerson } from "react-icons/md";
 
