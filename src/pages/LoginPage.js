@@ -84,6 +84,7 @@ const Btn = styled.button`
   border: none;
   border-radius: 3px;
   box-shadow: 1px 1px 1px rgb(0, 0, 0, 0.1);
+  cursor: pointer;
 `;
 
 const Login = () => {
@@ -95,17 +96,17 @@ const Login = () => {
     params === "id" ? setUserId(e.target.value) : setUserPw(e.target.value);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
-    const url = `http://50.19.56.144:8080`;
+    const url = `234`;
     const data = {
       email: userId,
       password: userPw,
     };
-    const res = await axios.post(url, data, { withCredentials: true });
-    console.log(res);
     try {
-      navigate("/admin/answer");
+      const res = await axios.post(url, data, { withCredentials: true });
+      console.log(res);
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
@@ -120,13 +121,13 @@ const Login = () => {
           <SubTitle>반갑습니다 미티에 오신 것을 환영해요!👋</SubTitle>
           <form
             style={{ display: "flex", flexDirection: "column" }}
-            onSubmit={(e) => handleSubmit(e)}
+            onSubmit={e => handleSubmit(e)}
           >
             <Label>ID</Label>
             <Input
               type="text"
               name="userId"
-              onChange={(e) => {
+              onChange={e => {
                 handleOnChange("id", e);
               }}
             />
@@ -134,12 +135,12 @@ const Login = () => {
             <Input
               type="password"
               name="userPw"
-              onChange={(e) => {
+              onChange={e => {
                 handleOnChange("pw", e);
               }}
             />{" "}
             <SignupLink>
-              <Link to="/SignupType">아직 미티의 회원이 아니신가요?</Link>
+              <Link to="/Signuptype">아직 미티의 회원이 아니신가요?</Link>
             </SignupLink>
             <Btn>로그인</Btn>
           </form>
