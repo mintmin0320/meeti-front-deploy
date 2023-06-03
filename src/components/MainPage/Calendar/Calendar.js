@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import styled from "styled-components";
@@ -12,6 +12,7 @@ import {
 import { BiSearch } from "react-icons/bi";
 import AddContent from "./AddContent";
 import { Tooltip } from "react-tooltip";
+import axios from "axios";
 
 const Main = styled.div``;
 const CalendarDiv = styled.div`
@@ -71,7 +72,19 @@ const SearchButton = styled.div`
 `;
 const Calendar = () => {
   const [isOpen, setIsOpen] = useState(true);
-
+  const [schedule, setSchedule] = useState([]);
+  useEffect(() => {
+    getDate();
+  }, []);
+  const getDate = async () => {
+    const url = `http://${process.env.REACT_APP_SERVER_URL}/schedule/get-schedule`;
+    try {
+      const res = await axios.get(url);
+      setSchedule(res.data.schedule);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <Main className="Main">
       <Header>
@@ -117,7 +130,7 @@ const Calendar = () => {
             defaultView="dayGridMonth"
             plugins={[dayGridPlugin]}
             weekends={true}
-            events={data} //data에 모든 이벤트 입력
+            events={schedule} //data에 모든 이벤트 입력
             editable={true}
             navLinks={true}
             eventLimit={true}

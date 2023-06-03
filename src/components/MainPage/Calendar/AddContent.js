@@ -7,6 +7,8 @@ import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { DateRange } from "react-date-range";
 import ko from "date-fns/locale/ko"; // 날짜 포맷 라이브러리 (한국어 기능을 임포트)
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const AddTitle = styled.input`
   font-size: 24px;
@@ -78,6 +80,7 @@ const SubmitButton = styled.button`
   margin-top: 20px;
 `;
 const AddContent = () => {
+  const navigate = useNavigate();
   const [state, setState] = useState([
     {
       startDate: new Date(),
@@ -94,12 +97,28 @@ const AddContent = () => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
+    setData();
   };
 
   const setSchedule = (item) => {
     setState([item.selection]);
     if (item.selection.endDate !== null) {
-      console.log(item.selection);
+    }
+  };
+  const setData = async () => {
+    const url = `http://${process.env.REACT_APP_SERVER_URL}/schedule/set-schedule`;
+    const data = {
+      title: title,
+      color: "#ef888b",
+      start: state[0].startDate,
+      end: state[0].endDate,
+    };
+    try {
+      const res = await axios.post(url, data);
+      console.log(res);
+      window.location.reload();
+    } catch (error) {
+      console.log();
     }
   };
 
