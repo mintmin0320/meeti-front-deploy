@@ -139,7 +139,7 @@ const Login = () => {
               }}
             />{" "}
             <SignupLink>
-              <Link to="/Signup">아직 미티의 회원이 아니신가요?</Link>
+              <Link to="/SignupType">아직 미티의 회원이 아니신가요?</Link>
             </SignupLink>
             <Btn>로그인</Btn>
           </form>

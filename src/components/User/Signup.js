@@ -1,40 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import color from "./../../assets/color.png";
 import { FaBookOpen } from "react-icons/fa";
 import { MdWork, MdPerson } from "react-icons/md";
+import { Link } from "react-router-dom";
 
-const Test = styled.div`
-  width: 100vw;
-  height: 100vh;
-  background: #f5f3fe;
-`;
-const MainDiv = styled.div`
-  position: absolute;
-  width: 90vw;
-  height: 80vh;
-  margin-top: 78px;
-  margin-left: 69px;
-  margin-right: 69px;
-  background: #f8f8f8;
-  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.2);
-  border-radius: 20px;
-  display: flex;
-  flex-direction: row;
-  z-index: 2;
-`;
-const BackColor = styled.img`
-  position: absolute;
-  width: 548px;
-  height: 503px;
-  margin-left: 100px;
-  margin-top: 100px;
-  background: #f8f8f8;
-  z-index: 1;
-`;
 const SignupDiv = styled.div`
   margin: auto;
   z-index: 3;
+`;
+const TitleDiv = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 `;
 const Title = styled.div`
   font-size: 20px;
@@ -45,8 +24,13 @@ const Title = styled.div`
 `;
 const SubTitle = styled.div`
   font-size: 12px;
-  margin-bottom: 25px;
+  margin-bottom: 5px;
   color: #535571;
+`;
+const ButtonDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
 `;
 const Button = styled.button`
   width: 85px;
@@ -56,53 +40,67 @@ const Button = styled.button`
   background-color: white;
   box-shadow: 1px 1px 1px rgb(0.1, 0.1, 0.1, 0.1);
   margin: 0 25px;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 `;
 const Text = styled.div`
   color: #8165df;
   font-size: 12px;
+  margin-top: 5px;
+`;
+const Br = styled.div`
+  background-color: #9c9c9c;
+  width: 60%;
+  height: 1px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 `;
 const Join = styled.div`
   font-size: 8px;
+  margin-top: 5px;
+  color: #9c9c9c;
 `;
 
 const Signup = () => {
+  const [stuButton, setStuButton] = useState(false);
+  const [offButton, setoffButton] = useState(false);
+  const [usrButton, setUsrButton] = useState(false);
   return (
-    <Test>
-      <MainDiv className="MainDiv">
-        <BackColor src={color} style={{ opacity: 0.2 }} />
-        <SignupDiv>
-          <Title>Sign up</Title>
-          <SubTitle>
-            안녕하세요 회의실과 캘린더를 함께하여
-            <br />
-            효율적으로 미팅을 진행 할 수 있도록 하는
-            <br />
-            저희는 “미티” 입니다👋
-          </SubTitle>
+    <SignupDiv>
+      <TitleDiv>
+        <Title>Sign up</Title>
+        <SubTitle>안녕하세요 회의실과 캘린더를 함께하여</SubTitle>
+        <SubTitle>효율적으로 미팅을 진행 할 수 있도록 하는</SubTitle>
+        <SubTitle>저희는 “미티” 입니다👋</SubTitle>
+      </TitleDiv>
+      <ButtonDiv>
+        <Link to="/signup" style={{ textDecoration: "none" }}>
           <Button>
             <FaBookOpen style={{ color: "#8165DF" }} />
-            <br />
             <Text>학생용</Text>
-            <hr />
+            <Br />
             <Join>회원가입하기</Join>
           </Button>
-          <Button>
-            <MdWork style={{ color: "#8165DF" }} />
-            <br />
-            <Text>기업용</Text>
-            <hr />
-            <Join>회원가입하기</Join>
-          </Button>
-          <Button>
-            <MdPerson style={{ color: "#8165DF" }} />
-            <br />
-            <Text>개인용</Text>
-            <hr />
-            <Join>회원가입하기</Join>
-          </Button>
-        </SignupDiv>
-      </MainDiv>
-    </Test>
+        </Link>
+
+        <Button>
+          <MdWork style={{ color: "#8165DF" }} />
+          <Text>기업용</Text>
+          <Br />
+          <Join>회원가입하기</Join>
+        </Button>
+        <Button>
+          <MdPerson style={{ color: "#8165DF" }} />
+          <Text>개인용</Text>
+          <Br />
+          <Join>회원가입하기</Join>
+        </Button>
+      </ButtonDiv>
+    </SignupDiv>
   );
 };
 

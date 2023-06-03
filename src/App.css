@@ -154,3 +154,41 @@
   border-radius: 5px;
   color: #8165df;
 }
+
+/* Signup */
+.signTrue {
+  width: 85px;
+  height: 115px;
+  border-radius: 10px;
+  border: solid #9c9c9c 0.5px;
+  background-color: #8165df;
+  box-shadow: 1px 1px 1px rgb(0.1, 0.1, 0.1, 0.1);
+  margin: 0 25px;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.signFalse {
+  width: 85px;
+  height: 115px;
+  border-radius: 10px;
+  border: solid #9c9c9c 0.5px;
+  background-color: white;
+  box-shadow: 1px 1px 1px rgb(0.1, 0.1, 0.1, 0.1);
+  margin: 0 25px;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.ButtonTrue {
+  color: "#ffffff";
+}
+.ButtonFalse {
+  color: "#8165DF";
+}
