@@ -130,84 +130,99 @@ const NextBtn = styled.button`
 `;
 
 const SignupForm = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPwd, setConfirmPwd] = useState("");
-
-  const isEmailValid = validateEmail(email);
-  const isPwdValid = validatePwd(password);
-  const isConfirmPwd = password === confirmPwd;
-
-  const [emailMsg, setEmailMsg] = useState("");
-  const [pwdMsg, setPwdMsg] = useState("");
-  const [confirmPwdMsg, setConfirmPwdMsg] = useState("");
-
-  const validateEmail = (email) => {
-    return email
-      .toLowerCase()
-      .match(
-        /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/
-      );
-  };
-
-  const validatePwd = (password) => {
-    return password
-      .toLowerCase()
-      .match(/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{10,25}$/);
-  };
-
-  const onChangeEmail = useCallback(async (e) => {
-    const currEmail = e.target.value;
-    setEmail(currEmail);
-
-    if (!validateEmail(currEmail)) {
-      setEmailMsg("이메일 형식이 올바르지 않습니다.");
-    } else {
-      setEmailMsg("올바른 이메일 형식입니다.");
-    }
+  const [state, setState] = useState({
+    email: "",
+    userPw: "",
+    checkPw: "",
+    name: "",
+    authCode: "",
   });
 
-  //비밀번호
-  const onChangePwd = useCallback((e) => {
-    const currPwd = e.target.value;
-    setPassword(currPwd);
-
-    if (!validatePwd(currPwd)) {
-      setPwdMsg("영문, 숫자, 특수기호 조합으로 10자리 이상 입력해주세요.");
-    } else {
-      setPwdMsg("안전한 비밀번호입니다.");
-    }
-  }, []);
-
-  //비밀번호 확인
-  const onChangeConfirmPwd = useCallback(
-    (e) => {
-      const currConfirmPwd = e.target.value;
-      setConfirmPwd(currConfirmPwd);
-
-      if (currConfirmPwd !== password) {
-        setConfirmPwdMsg("비밀번호가 일치하지 않습니다.");
-      } else {
-        setConfirmPwdMsg("올바른 비밀번호입니다.");
-      }
-    },
-    [password]
-  );
-
-  const [pwType, setpwType] = useState({
-    type: "password",
-    visible: false,
-  });
-
-  const handlePasswordType = (e) => {
-    setpwType(() => {
-      if (!pwType.visible) {
-        return { type: "text", visible: true };
-      } else {
-        return { type: "password", visible: false };
-      }
+  const _handleInputChange = e => {
+    setState({
+      ...state,
+      [e.target.name]: e.target.value,
     });
   };
+
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+  // const [confirmPwd, setConfirmPwd] = useState("");
+
+  // const isEmailValid = validateEmail(email);
+  // const isPwdValid = validatePwd(password);
+  // const isConfirmPwd = password === confirmPwd;
+
+  // const [emailMsg, setEmailMsg] = useState("");
+  // const [pwdMsg, setPwdMsg] = useState("");
+  // const [confirmPwdMsg, setConfirmPwdMsg] = useState("");
+
+  // const validateEmail = (email) => {
+  //   return email
+  //     .toLowerCase()
+  //     .match(
+  //       /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/
+  //     );
+  // };
+
+  // const validatePwd = (password) => {
+  //   return password
+  //     .toLowerCase()
+  //     .match(/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{10,25}$/);
+  // };
+
+  // const onChangeEmail = useCallback(async (e) => {
+  //   const currEmail = e.target.value;
+  //   setEmail(currEmail);
+
+  //   if (!validateEmail(currEmail)) {
+  //     setEmailMsg("이메일 형식이 올바르지 않습니다.");
+  //   } else {
+  //     setEmailMsg("올바른 이메일 형식입니다.");
+  //   }
+  // });
+
+  // //비밀번호
+  // const onChangePwd = useCallback((e) => {
+  //   const currPwd = e.target.value;
+  //   setPassword(currPwd);
+
+  //   if (!validatePwd(currPwd)) {
+  //     setPwdMsg("영문, 숫자, 특수기호 조합으로 10자리 이상 입력해주세요.");
+  //   } else {
+  //     setPwdMsg("안전한 비밀번호입니다.");
+  //   }
+  // }, []);
+
+  //비밀번호 확인
+  // const onChangeConfirmPwd = useCallback(
+  //   e => {
+  //     const currConfirmPwd = e.target.value;
+  //     setConfirmPwd(currConfirmPwd);
+
+  //     if (currConfirmPwd !== password) {
+  //       setConfirmPwdMsg("비밀번호가 일치하지 않습니다.");
+  //     } else {
+  //       setConfirmPwdMsg("올바른 비밀번호입니다.");
+  //     }
+  //   },
+  //   [password]
+  // );
+
+  // const [pwType, setpwType] = useState({
+  //   type: "password",
+  //   visible: false,
+  // });
+
+  // const handlePasswordType = e => {
+  //   setpwType(() => {
+  //     if (!pwType.visible) {
+  //       return { type: "text", visible: true };
+  //     } else {
+  //       return { type: "password", visible: false };
+  //     }
+  //   });
+  // };
 
   return (
     <Test>
@@ -227,7 +242,13 @@ const SignupForm = () => {
             </Purple>
           </Label>
 
-          <Input type="text"></Input>
+          <Input
+            type="text"
+            name="userId"
+            onChange={e => {
+              //handleOnChange("id", e);
+            }}
+          />
           <Button>중복확인</Button>
           <Green>
             <BsFillCheckCircleFill />
@@ -236,10 +257,12 @@ const SignupForm = () => {
           <Label>
             비밀번호를 입력해주세요.<Ms>*</Ms>
           </Label>
-          <Input type={pwType.type} />
-          <span onClick={handlePasswordType}>
+          <Input
+          //type={pwType.type}
+          />
+          {/* <span onClick={handlePasswordType}>
             {pwType.visible ? <AiFillEye /> : <AiFillEyeInvisible />}
-          </span>
+          </span> */}
           <PwMsg>
             비밀번호는 영문 대소문자, 특수문자(*,!,~,?)를 포함하여
             <br />
@@ -259,11 +282,7 @@ const SignupForm = () => {
             이름을 입력해주세요.<Ms>*</Ms>
           </Label>
           <Input type="text"></Input>
-          <Label>
-            전화번호을 입력해주세요.<Ms>*</Ms>
-          </Label>
-          <Input type="text"></Input>
-          <Button>인증번호받기</Button>
+
           <Label>
             인증번호를 입력해주세요.<Ms>*</Ms>
           </Label>
