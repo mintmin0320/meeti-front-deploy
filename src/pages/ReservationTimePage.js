@@ -12,6 +12,7 @@ import { FaRegAddressBook } from "react-icons/fa";
 import { RiMapPinLine } from "react-icons/ri";
 import { HiOutlineMail } from "react-icons/hi";
 import ReservationCom from "../components/MainPage/Reservation/ReservationCom";
+import ReservationDetail from "../components/MainPage/Reservation/ReservationDetail";
 
 const Test = styled.div`
   width: 100vw;
@@ -94,9 +95,11 @@ const ReservationTimePage = () => {
           </Link>
         </Header>
         <Mid>
-          <ReservationCom style={{}} />
+          <ReservationCom />
         </Mid>
-        <Last></Last>
+        <Last>
+          <ReservationDetail />
+        </Last>
       </MainDiv>
     </Test>
   );
