@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import DataList from "../../../reservation.json";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { RiMapPinLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
 const Header = styled.div`
@@ -107,6 +107,13 @@ const SubOption = styled.div`
   font-size: 10px;
   color: #8165df;
   text-align: center;
+  cursor: pointer;
+  ${css`
+    &:hover {
+      background-color: #8165df;
+      color: #ffffff;
+    }
+  `}
 `;
 const SubOptionsDiv = styled.div`
   display: flex;
@@ -115,24 +122,24 @@ const SubOptionsDiv = styled.div`
 
 const RoomCom = () => {
   const meetingRoom = DataList.filter((it) => it.minclassnm === "회의실"); //회의실만
-  const place = meetingRoom.map((it) => it.areanm); // 지역만 (임시))
-  //지역별 배열
-  const yongsangu = meetingRoom.filter((it) => it.areanm === "용산구");
-  const seochogu = meetingRoom.filter((it) => it.areanm === "서초구");
-  const gwangjingu = meetingRoom.filter((it) => it.areanm === "광진구");
-  const songpagu = meetingRoom.filter((it) => it.areanm === "송파구");
-  const junggu = meetingRoom.filter((it) => it.areanm === "중구");
-  const ddmgu = meetingRoom.filter((it) => it.areanm === "동대문구");
-  const jongnogu = meetingRoom.filter((it) => it.areanm === "종로구");
-  const gangbukgu = meetingRoom.filter((it) => it.areanm === "강북구");
-  const yangcheongu = meetingRoom.filter((it) => it.areanm === "양천구");
-  const dongjakgu = meetingRoom.filter((it) => it.areanm === "동작구");
-  const gurogu = meetingRoom.filter((it) => it.areanm === "구로구");
-  const nowongu = meetingRoom.filter((it) => it.areanm === "노원구");
-  const jungnanggu = meetingRoom.filter((it) => it.areanm === "중랑구");
-  const ydpgu = meetingRoom.filter((it) => it.areanm === "영등포구");
+  // const place = meetingRoom.map((it) => it.areanm); // 지역만 (임시))
+  // //지역별 배열
+  // const yongsangu = meetingRoom.filter((it) => it.areanm === "용산구");
+  // const seochogu = meetingRoom.filter((it) => it.areanm === "서초구");
+  // const gwangjingu = meetingRoom.filter((it) => it.areanm === "광진구");
+  // const songpagu = meetingRoom.filter((it) => it.areanm === "송파구");
+  // const junggu = meetingRoom.filter((it) => it.areanm === "중구");
+  // const ddmgu = meetingRoom.filter((it) => it.areanm === "동대문구");
+  // const jongnogu = meetingRoom.filter((it) => it.areanm === "종로구");
+  // const gangbukgu = meetingRoom.filter((it) => it.areanm === "강북구");
+  // const yangcheongu = meetingRoom.filter((it) => it.areanm === "양천구");
+  // const dongjakgu = meetingRoom.filter((it) => it.areanm === "동작구");
+  // const gurogu = meetingRoom.filter((it) => it.areanm === "구로구");
+  // const nowongu = meetingRoom.filter((it) => it.areanm === "노원구");
+  // const jungnanggu = meetingRoom.filter((it) => it.areanm === "중랑구");
+  // const ydpgu = meetingRoom.filter((it) => it.areanm === "영등포구");
 
-  //지역별 State
+  // //지역별 State
   const [yongsanguState, setYongsanguState] = useState(false);
   const [seochoguState, setSeochoguState] = useState(false);
   const [gwangjinguState, setGwangjinguState] = useState(false);
@@ -148,21 +155,21 @@ const RoomCom = () => {
   const [jungnangguState, setJungnangguState] = useState(false);
   const [ydpguState, setYdpguState] = useState(false);
 
-  const [meetingRoomArr, setMeetingRoomArr] = useState([]);
-  const [test, setTest] = useState(meetingRoom);
+  const [meetiArr, setMeetiArr] = useState(meetingRoom);
 
   const HandleonClick = (params, e) => {
     if (params === "용산구") {
-      setTest(meetingRoom.filter((it) => it.areanm === "용산구"));
+      setMeetiArr(meetingRoom.filter((it) => it.areanm === "용산구"));
     } else if (params === "서초구") {
-      setTest(meetingRoom.filter((it) => it.areanm === "서초구"));
+      setMeetiArr(meetingRoom.filter((it) => it.areanm === "서초구"));
     } else {
-      setTest(meetingRoom);
+      setMeetiArr(meetingRoom);
     }
   };
   const arrayFilter = (local) => {
-    setTest(meetingRoom.filter((it) => it.areanm === local.target.innerHTML));
-    console.log(test);
+    setMeetiArr(
+      meetingRoom.filter((it) => it.areanm === local.target.innerHTML)
+    );
   };
   return (
     <>
@@ -171,25 +178,25 @@ const RoomCom = () => {
         <HeadTitle>Reservation</HeadTitle>
       </Header>
       <RoomArrayClass>
-        <div
+        <SubOption
           className={yongsanguState ? "PlaceTrue" : "PlaceFalse"}
           onClick={(e) => {
             HandleonClick("용산구", e);
           }}
         >
           용산구
-        </div>
-        <div
+        </SubOption>
+        <SubOption
           className={seochoguState ? "PlaceTrue" : "PlaceFalse"}
           onClick={(e) => {
             HandleonClick("서초구", e);
           }}
         >
           서초구
-        </div>
+        </SubOption>
       </RoomArrayClass>
       <RoomArrayList>
-        {test.map((arr) => (
+        {meetiArr.map((arr) => (
           <RoomDiv>
             <RoomImgDiv>
               <RoomImg src={arr.imgurl} />
