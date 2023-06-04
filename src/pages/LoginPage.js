@@ -6,6 +6,71 @@ import axios from "axios";
 import SingupTypePage from "./SignupTypePage";
 import { Link } from "react-router-dom";
 
+const Login = () => {
+  const navigate = useNavigate();
+  const [userId, setUserId] = useState("");
+  const [userPw, setUserPw] = useState("");
+
+  const handleOnChange = (params, e) => {
+    params === "id" ? setUserId(e.target.value) : setUserPw(e.target.value);
+  };
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+    const url = `http://${process.env.REACT_APP_SERVER_URL}/users/sign-in`;
+    const data = {
+      email: userId,
+      password: userPw,
+    };
+    try {
+      const res = await axios.post(url, data, { withCredentials: true });
+      console.log(res);
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return (
+    <Test>
+      <MainDiv className="MainDiv">
+        <BackColor src={color} style={{ opacity: 0.2 }} />
+        <LoginDiv>
+          <Title>Login</Title>
+          <SubTitle>반갑습니다 미티에 오신 것을 환영해요!👋</SubTitle>
+          <form
+            style={{ display: "flex", flexDirection: "column" }}
+            onSubmit={e => handleSubmit(e)}
+          >
+            <Label>ID</Label>
+            <Input
+              type="text"
+              name="userId"
+              onChange={e => {
+                handleOnChange("id", e);
+              }}
+            />
+            <Label>PW</Label>
+            <Input
+              type="password"
+              name="userPw"
+              onChange={e => {
+                handleOnChange("pw", e);
+              }}
+            />{" "}
+            <SignupLink>
+              <Link to="/Signuptype">아직 미티의 회원이 아니신가요?</Link>
+            </SignupLink>
+            <Btn>로그인</Btn>
+          </form>
+        </LoginDiv>
+      </MainDiv>
+    </Test>
+  );
+};
+
+export default Login;
+
 const Test = styled.div`
   width: 100vw;
   height: 100vh;
@@ -86,68 +151,3 @@ const Btn = styled.button`
   box-shadow: 1px 1px 1px rgb(0, 0, 0, 0.1);
   cursor: pointer;
 `;
-
-const Login = () => {
-  const navigate = useNavigate();
-  const [userId, setUserId] = useState("");
-  const [userPw, setUserPw] = useState("");
-
-  const handleOnChange = (params, e) => {
-    params === "id" ? setUserId(e.target.value) : setUserPw(e.target.value);
-  };
-
-  const handleSubmit = async e => {
-    e.preventDefault();
-    const url = `234`;
-    const data = {
-      email: userId,
-      password: userPw,
-    };
-    try {
-      const res = await axios.post(url, data, { withCredentials: true });
-      console.log(res);
-      navigate("/");
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  return (
-    <Test>
-      <MainDiv className="MainDiv">
-        <BackColor src={color} style={{ opacity: 0.2 }} />
-        <LoginDiv>
-          <Title>Login</Title>
-          <SubTitle>반갑습니다 미티에 오신 것을 환영해요!👋</SubTitle>
-          <form
-            style={{ display: "flex", flexDirection: "column" }}
-            onSubmit={e => handleSubmit(e)}
-          >
-            <Label>ID</Label>
-            <Input
-              type="text"
-              name="userId"
-              onChange={e => {
-                handleOnChange("id", e);
-              }}
-            />
-            <Label>PW</Label>
-            <Input
-              type="password"
-              name="userPw"
-              onChange={e => {
-                handleOnChange("pw", e);
-              }}
-            />{" "}
-            <SignupLink>
-              <Link to="/Signuptype">아직 미티의 회원이 아니신가요?</Link>
-            </SignupLink>
-            <Btn>로그인</Btn>
-          </form>
-        </LoginDiv>
-      </MainDiv>
-    </Test>
-  );
-};
-
-export default Login;

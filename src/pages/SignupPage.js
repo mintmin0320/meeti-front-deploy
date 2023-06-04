@@ -1,11 +1,266 @@
 import React, { useState, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import styled from "styled-components";
-import color from "./../assets/color.png";
+
 import { FaBookOpen } from "react-icons/fa";
 import { IoIosArrowForward } from "react-icons/io";
+import color from "./../assets/color.png";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import { BsFillCheckCircleFill } from "react-icons/bs";
-import axios from "axios";
+
+
+const SignupForm = () => {
+  const navigate = useNavigate();
+  const [state, setState] = useState({
+    email: "",
+    userPw: "",
+    name: "",
+    authCode: "",
+    codeCheck: true, // 인증번호 Input 활성화
+    emailCheck: false, // 이메일 인증을 완료해야 회원가입 버튼이 보이게함
+  });
+
+  const _handleInputChange = e => {
+    setState({
+      ...state,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  // 인증코드 요청
+  const getAuthNum = async e => {
+    e.preventDefault();
+    const url = `http://${process.env.REACT_APP_SERVER_URI}/users/email-verify`;
+    const data = {
+      email: state.email,
+    };
+    try {
+      const res = await axios.post(url, data, { withCredentials: true });
+      setState({
+        ...state,
+        codeCheck: false,
+      });
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // 인증코드 확인
+  const codeCheck = async e => {
+    e.preventDefault();
+    const url = `http://${process.env.REACT_APP_SERVER_URI}/users/email-authentication`;
+    const data = {
+      authNum: state.authCode,
+    };
+    try {
+      const res = await axios.post(url, data);
+      console.log(res);
+      if (res.data.result) {
+        setState({
+          ...state,
+          emailCheck: true,
+        });
+        alert("인증 성공");
+      }
+      else {
+        alert("잘못된 인증번호입니다.");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // 회원가입
+  const handleSubmit = async e => {
+    e.preventDefault();
+    const url = `http://${process.env.REACT_APP_SERVER_URI}/users/sign-up`;
+    const data = {
+      email: state.email,
+      name: state.name,
+      password: state.password
+    };
+    try {
+      const res = await axios.post(url, data);
+      console.log(res);
+      if (res.data.result) {
+        navigate('/login');
+      } else {
+        alert('회원가입 실패');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // const isEmailValid = validateEmail(email);
+  // const isPwdValid = validatePwd(password);
+  // const isConfirmPwd = password === confirmPwd;
+
+  // const [emailMsg, setEmailMsg] = useState("");
+  // const [pwdMsg, setPwdMsg] = useState("");
+  // const [confirmPwdMsg, setConfirmPwdMsg] = useState("");
+
+  // const validateEmail = (email) => {
+  //   return email
+  //     .toLowerCase()
+  //     .match(
+  //       /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/
+  //     );
+  // };
+
+  // const validatePwd = (password) => {
+  //   return password
+  //     .toLowerCase()
+  //     .match(/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{10,25}$/);
+  // };
+
+  // const onChangeEmail = useCallback(async (e) => {
+  //   const currEmail = e.target.value;
+  //   setEmail(currEmail);
+
+  //   if (!validateEmail(currEmail)) {
+  //     setEmailMsg("이메일 형식이 올바르지 않습니다.");
+  //   } else {
+  //     setEmailMsg("올바른 이메일 형식입니다.");
+  //   }
+  // });
+
+  // //비밀번호
+  // const onChangePwd = useCallback((e) => {
+  //   const currPwd = e.target.value;
+  //   setPassword(currPwd);
+
+  //   if (!validatePwd(currPwd)) {
+  //     setPwdMsg("영문, 숫자, 특수기호 조합으로 10자리 이상 입력해주세요.");
+  //   } else {
+  //     setPwdMsg("안전한 비밀번호입니다.");
+  //   }
+  // }, []);
+
+  //비밀번호 확인
+  // const onChangeConfirmPwd = useCallback(
+  //   e => {
+  //     const currConfirmPwd = e.target.value;
+  //     setConfirmPwd(currConfirmPwd);
+
+  //     if (currConfirmPwd !== password) {
+  //       setConfirmPwdMsg("비밀번호가 일치하지 않습니다.");
+  //     } else {
+  //       setConfirmPwdMsg("올바른 비밀번호입니다.");
+  //     }
+  //   },
+  //   [password]
+  // );
+
+  // const [pwType, setpwType] = useState({
+  //   type: "password",
+  //   visible: false,
+  // });
+
+  // const handlePasswordType = e => {
+  //   setpwType(() => {
+  //     if (!pwType.visible) {
+  //       return { type: "text", visible: true };
+  //     } else {
+  //       return { type: "password", visible: false };
+  //     }
+  //   });
+  // };
+
+  return (
+    <Test>
+      <MainDiv className="MainDiv">
+        <BackColor src={color} style={{ opacity: 0.2 }} />
+        <Usertype>
+          <FaBookOpen /> 학생용
+        </Usertype>
+        <SignupDiv>
+          <form onSubmit={e => handleSubmit(e)}>
+            <Ms style={{ display: `block` }}>필수항목 *</Ms>
+            <Label>
+              이메일을 입력해주세요.
+              <Ms>*</Ms>
+              <Purple>
+                <BsFillCheckCircleFill />
+                이메일은 회원검색으로 사용됩니다.
+              </Purple>
+            </Label>
+            <Input
+              type="text"
+              name="email"
+              onChange={_handleInputChange}
+              required
+            // onChange={e => {
+            //handleOnChange("id", e);
+            />
+            <Button
+              onClick={getAuthNum}
+              type='button'
+            >
+              인증번호받기
+            </Button>
+            <Green>
+              {/* <BsFillCheckCircleFill /> */}
+              {/* 사용가능한 아이디입니다! */}
+            </Green>
+            <Label>
+              인증번호를 입력해주세요.<Ms>*</Ms>
+            </Label>
+            <Input
+              disabled={state.codeCheck}
+              type="text"
+              name="authCode"
+              onChange={_handleInputChange}
+              required
+            />
+            <Button
+              onClick={codeCheck}
+              type='button'
+            >
+              확인
+            </Button>
+            <Label>
+              비밀번호를 입력해주세요.<Ms>*</Ms>
+            </Label>
+            <Input
+              type="password"
+              name="userPw"
+              onChange={_handleInputChange}
+              required
+            />
+            {/* <span onClick={handlePasswordType}>
+            {pwType.visible ? <AiFillEye /> : <AiFillEyeInvisible />}
+          </span> */}
+            <PwMsg>
+              비밀번호는 영문 대소문자, 특수문자(*,!,~,?)를 포함하여
+              <br />
+              8~16자 사이로 설정해주세요.
+            </PwMsg>
+            <Label>
+              이름을 입력해주세요.<Ms>*</Ms>
+            </Label>
+            <Input
+              type="text"
+              name="name"
+              onChange={_handleInputChange}
+              required
+            />
+            <BtnDiv>
+              {state.emailCheck && (
+                <NextBtn>
+                  <IoIosArrowForward style={{ width: 25, height: 25 }} />
+                </NextBtn>
+              )}
+            </BtnDiv>
+          </form>
+        </SignupDiv>
+      </MainDiv>
+    </Test>
+  );
+};
+export default SignupForm;
 
 const Test = styled.div`
   width: 100vw;
@@ -129,227 +384,3 @@ const NextBtn = styled.button`
   background: #8165df;
   box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.25);
 `;
-
-const SignupForm = () => {
-  const [state, setState] = useState({
-    email: "",
-    userPw: "",
-    name: "",
-    authCode: "",
-    codeCheck: false,
-  });
-
-  const _handleInputChange = e => {
-    setState({
-      ...state,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = async e => {
-    e.preventDefault();
-    const url = `456`;
-    const data = {
-      email: state.email,
-    };
-    try {
-      const res = await axios.post(url, data, { withCredentials: true });
-      setState({
-        ...state,
-        codeCheck: false,
-      });
-      console.log(res);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const codeCheck = async e => {
-    e.preventDefault();
-    const url = `324`;
-    const data = {
-      authNum: state.authCode,
-    };
-    try {
-      const res = await axios.post(url, data);
-      setState({
-        ...state,
-        authNum: state.authCode,
-      });
-      console.log(res);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [confirmPwd, setConfirmPwd] = useState("");
-
-  // const isEmailValid = validateEmail(email);
-  // const isPwdValid = validatePwd(password);
-  // const isConfirmPwd = password === confirmPwd;
-
-  // const [emailMsg, setEmailMsg] = useState("");
-  // const [pwdMsg, setPwdMsg] = useState("");
-  // const [confirmPwdMsg, setConfirmPwdMsg] = useState("");
-
-  // const validateEmail = (email) => {
-  //   return email
-  //     .toLowerCase()
-  //     .match(
-  //       /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/
-  //     );
-  // };
-
-  // const validatePwd = (password) => {
-  //   return password
-  //     .toLowerCase()
-  //     .match(/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{10,25}$/);
-  // };
-
-  // const onChangeEmail = useCallback(async (e) => {
-  //   const currEmail = e.target.value;
-  //   setEmail(currEmail);
-
-  //   if (!validateEmail(currEmail)) {
-  //     setEmailMsg("이메일 형식이 올바르지 않습니다.");
-  //   } else {
-  //     setEmailMsg("올바른 이메일 형식입니다.");
-  //   }
-  // });
-
-  // //비밀번호
-  // const onChangePwd = useCallback((e) => {
-  //   const currPwd = e.target.value;
-  //   setPassword(currPwd);
-
-  //   if (!validatePwd(currPwd)) {
-  //     setPwdMsg("영문, 숫자, 특수기호 조합으로 10자리 이상 입력해주세요.");
-  //   } else {
-  //     setPwdMsg("안전한 비밀번호입니다.");
-  //   }
-  // }, []);
-
-  //비밀번호 확인
-  // const onChangeConfirmPwd = useCallback(
-  //   e => {
-  //     const currConfirmPwd = e.target.value;
-  //     setConfirmPwd(currConfirmPwd);
-
-  //     if (currConfirmPwd !== password) {
-  //       setConfirmPwdMsg("비밀번호가 일치하지 않습니다.");
-  //     } else {
-  //       setConfirmPwdMsg("올바른 비밀번호입니다.");
-  //     }
-  //   },
-  //   [password]
-  // );
-
-  // const [pwType, setpwType] = useState({
-  //   type: "password",
-  //   visible: false,
-  // });
-
-  // const handlePasswordType = e => {
-  //   setpwType(() => {
-  //     if (!pwType.visible) {
-  //       return { type: "text", visible: true };
-  //     } else {
-  //       return { type: "password", visible: false };
-  //     }
-  //   });
-  // };
-
-  return (
-    <Test>
-      <MainDiv className="MainDiv">
-        <BackColor src={color} style={{ opacity: 0.2 }} />
-        <Usertype>
-          <FaBookOpen /> 학생용
-        </Usertype>
-        <SignupDiv>
-          <form onSubmit={e => handleSubmit(e)}>
-            <Ms style={{ display: `block` }}>필수항목 *</Ms>
-            <Label>
-              이메일을 입력해주세요.
-              <Ms>*</Ms>
-              <Purple>
-                <BsFillCheckCircleFill />
-                이메일은 회원검색으로 사용됩니다.
-              </Purple>
-            </Label>
-            <Input
-              // required
-              type="text"
-              name="email"
-              onChange={_handleInputChange}
-              // onChange={e => {
-              //handleOnChange("id", e);
-            />
-            <Button
-            //onClick={handleSubmit}
-            >
-              인증번호받기
-            </Button>
-            <Green>
-              <BsFillCheckCircleFill />
-              사용가능한 아이디입니다!
-            </Green>
-            <Label>
-              인증번호를 입력해주세요.<Ms>*</Ms>
-            </Label>
-            <Input
-              // required
-              disabled={state.codeCheck}
-              type="text"
-              name="authCode"
-              onChange={e => {
-                //handleOnChange("id", e);
-              }}
-            />
-            <Button onClick={codeCheck}>확인</Button>
-            <Label>
-              비밀번호를 입력해주세요.<Ms>*</Ms>
-            </Label>
-            <Input
-              // required
-              type="password"
-              name="userPw"
-              onChange={e => {
-                //handleOnChange("id", e);
-              }}
-            />
-            {/* <span onClick={handlePasswordType}>
-            {pwType.visible ? <AiFillEye /> : <AiFillEyeInvisible />}
-          </span> */}
-            <PwMsg>
-              비밀번호는 영문 대소문자, 특수문자(*,!,~,?)를 포함하여
-              <br />
-              8~16자 사이로 설정해주세요.
-            </PwMsg>
-
-            <Label>
-              이름을 입력해주세요.<Ms>*</Ms>
-            </Label>
-            <Input
-              // required
-              type="text"
-              name="name"
-              onChange={e => {
-                //handleOnChange("id", e);
-              }}
-            />
-
-            <BtnDiv>
-              <NextBtn>
-                <IoIosArrowForward style={{ width: 25, height: 25 }} />
-              </NextBtn>
-            </BtnDiv>
-          </form>
-        </SignupDiv>
-      </MainDiv>
-    </Test>
-  );
-};
-export default SignupForm;
