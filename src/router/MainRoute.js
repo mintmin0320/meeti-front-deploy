@@ -12,10 +12,10 @@ import SignupRoute from "./SignupRoute";
 export default function MainRoute() {
   return (
     <Routes>
-      <Route path="/login" element={<LoginRoute />} />
+      <Route path="/" element={<LoginRoute />} />
       <Route path="/SignupType" element={<SignupTypeRoute />} />
       <Route path="/Signup" element={<SignupRoute />} />
-      <Route path="/*" element={<CalendarRoute />} />
+      <Route path="/calendar" element={<CalendarRoute />} />
 
       <Route path="/*" element={<CalendarRoute />} />
       <Route path="/approval/*" element={<ApprovalRoute />} />

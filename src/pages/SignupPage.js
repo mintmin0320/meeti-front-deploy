@@ -85,7 +85,7 @@ const SignupForm = () => {
       const res = await axios.post(url, data);
       console.log(res);
       if (res.data.result) {
-        navigate('/login');
+        navigate('/calendar');
       } else {
         alert('회원가입 실패');
       }

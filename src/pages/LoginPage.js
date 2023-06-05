@@ -25,7 +25,7 @@ const Login = () => {
     try {
       const res = await axios.post(url, data, { withCredentials: true });
       console.log(res);
-      navigate("/");
+      navigate("/calendar");
     } catch (error) {
       console.log(error);
     }
