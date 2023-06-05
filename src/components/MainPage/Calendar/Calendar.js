@@ -77,7 +77,7 @@ const Calendar = () => {
     getDate();
   }, []);
   const getDate = async () => {
-    const url = `https://${process.env.REACT_APP_SERVER_URL}/schedule/get-schedule`;
+    const url = `https://${process.env.REACT_APP_SERVER_URI}/schedule/get-schedule`;
     try {
       const res = await axios.get(url);
       setSchedule(res.data.schedule);
