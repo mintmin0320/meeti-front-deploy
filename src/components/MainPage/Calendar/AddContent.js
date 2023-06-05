@@ -10,75 +10,7 @@ import ko from "date-fns/locale/ko"; // 날짜 포맷 라이브러리 (한국어
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const AddTitle = styled.input`
-  font-size: 24px;
-  border: none;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  padding: 5px;
-  background-color: #f8f8f8;
-  //box-shadow: 3px 3px 10px #b3b3b3;
-  width: 80%;
-`;
-const TitleFont = styled.div`
-  font-weight: 700;
-  font-size: 13px;
-  line-height: 16px;
-  color: #535571;
-  padding: 10px;
-  ${css`
-    &:after {
-      content: "  >";
-    }
-  `}
-`;
-const AddOther = styled.div`
-  display: flex;
-`;
-const Left = styled.div`
-  width: 60%;
-`;
-const Right = styled.div`
-  width: 40%;
-`;
-const TimeDiv = styled.div`
-  display: flex;
-  width: 100%;
-`;
 
-const Time = styled.input`
-  width: 40%;
-  margin: 10px;
-`;
-
-const PlaceButton = styled.div`
-  width: 117px;
-  height: 23px;
-  background: #ffffff;
-  border: 0.5px solid #535571;
-  border-radius: 5px;
-  margin: 20px;
-  cursor: pointer;
-  display: flex;
-`;
-const PlaceText = styled.div`
-  font-size: 11px;
-  line-height: 13px;
-  margin: 5px;
-  color: #535571;
-`;
-const SubmitButton = styled.button`
-  width: 111px;
-  height: 33px;
-  background: #8165df;
-  border-radius: 3px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #ffffff;
-  margin-top: 20px;
-`;
 const AddContent = () => {
   const navigate = useNavigate();
   const [state, setState] = useState([
@@ -172,3 +104,73 @@ const AddContent = () => {
 };
 
 export default AddContent;
+
+const AddTitle = styled.input`
+  font-size: 24px;
+  border: none;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 5px;
+  background-color: #f8f8f8;
+  //box-shadow: 3px 3px 10px #b3b3b3;
+  width: 80%;
+`;
+const TitleFont = styled.div`
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 16px;
+  color: #535571;
+  padding: 10px;
+  ${css`
+    &:after {
+      content: "  >";
+    }
+  `}
+`;
+const AddOther = styled.div`
+  display: flex;
+`;
+const Left = styled.div`
+  width: 60%;
+`;
+const Right = styled.div`
+  width: 40%;
+`;
+const TimeDiv = styled.div`
+  display: flex;
+  width: 100%;
+`;
+
+const Time = styled.input`
+  width: 40%;
+  margin: 10px;
+`;
+
+const PlaceButton = styled.div`
+  width: 117px;
+  height: 23px;
+  background: #ffffff;
+  border: 0.5px solid #535571;
+  border-radius: 5px;
+  margin: 20px;
+  cursor: pointer;
+  display: flex;
+`;
+const PlaceText = styled.div`
+  font-size: 11px;
+  line-height: 13px;
+  margin: 5px;
+  color: #535571;
+`;
+const SubmitButton = styled.button`
+  width: 111px;
+  height: 33px;
+  background: #8165df;
+  border-radius: 3px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  margin-top: 20px;
+`;
