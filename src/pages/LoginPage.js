@@ -15,7 +15,7 @@ const Login = () => {
     params === "id" ? setUserId(e.target.value) : setUserPw(e.target.value);
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const url = `https://${process.env.REACT_APP_SERVER_URI}/users/sign-in`;
     const data = {
@@ -40,13 +40,13 @@ const Login = () => {
           <SubTitle>반갑습니다 미티에 오신 것을 환영해요!👋</SubTitle>
           <form
             style={{ display: "flex", flexDirection: "column" }}
-            onSubmit={e => handleSubmit(e)}
+            onSubmit={(e) => handleSubmit(e)}
           >
             <Label>ID</Label>
             <Input
               type="text"
               name="userId"
-              onChange={e => {
+              onChange={(e) => {
                 handleOnChange("id", e);
               }}
             />
@@ -54,7 +54,7 @@ const Login = () => {
             <Input
               type="password"
               name="userPw"
-              onChange={e => {
+              onChange={(e) => {
                 handleOnChange("pw", e);
               }}
             />{" "}

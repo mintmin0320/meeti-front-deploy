@@ -130,7 +130,7 @@ const CalendarPage = () => {
       <MainDiv className="MainDiv">
         <BackColor src={color} style={{ opacity: 0.2 }} />
         <Header>
-          <Link to="/">
+          <Link to="/calendar">
             <AiOutlineCalendar className="true" />
           </Link>
           <Link to="/">
