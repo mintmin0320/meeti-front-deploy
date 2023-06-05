@@ -8,11 +8,9 @@ import "react-date-range/dist/theme/default.css"; // theme css file
 import { DateRange } from "react-date-range";
 import ko from "date-fns/locale/ko"; // 날짜 포맷 라이브러리 (한국어 기능을 임포트)
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 
 const AddContent = () => {
-  const navigate = useNavigate();
   const [state, setState] = useState([
     {
       startDate: new Date(),
