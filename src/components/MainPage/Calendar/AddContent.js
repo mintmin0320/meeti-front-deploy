@@ -106,7 +106,7 @@ const AddContent = () => {
     }
   };
   const setData = async () => {
-    const url = `http://${process.env.REACT_APP_SERVER_URL}/schedule/set-schedule`;
+    const url = `https://${process.env.REACT_APP_SERVER_URL}/schedule/set-schedule`;
     const data = {
       title: title,
       color: "#ef888b",

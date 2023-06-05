@@ -75,7 +75,7 @@ const SignupForm = () => {
   // 회원가입
   const handleSubmit = async e => {
     e.preventDefault();
-    const url = `http://${process.env.REACT_APP_SERVER_URI}/users/sign-up`;
+    const url = `https://${process.env.REACT_APP_SERVER_URI}/users/sign-up`;
     const data = {
       email: state.email,
       name: state.name,

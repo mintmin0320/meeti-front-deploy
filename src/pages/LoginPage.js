@@ -17,7 +17,7 @@ const Login = () => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    const url = `http://${process.env.REACT_APP_SERVER_URL}/users/sign-in`;
+    const url = `https://${process.env.REACT_APP_SERVER_URL}/users/sign-in`;
     const data = {
       email: userId,
       password: userPw,
