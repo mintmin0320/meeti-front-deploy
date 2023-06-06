@@ -56,7 +56,8 @@ const AddContent = () => {
     <>
       <AddOther>
         <Left>
-          <form onSubmit={handleOnSubmit}>
+          {/* <form onSubmit={handleOnSubmit}> */}
+          <form>
             <AddTitle
               onChange={(e) => handleOnChange(e)}
               placeholder="일정 제목"
@@ -75,7 +76,8 @@ const AddContent = () => {
               type="submit"
               onClick={() => console.log(state, title)}
             >
-              <BiPlus style={{ color: "#ffffff", marginRight: "5px" }}></BiPlus>
+              <BiPlus style={{ color: "#ffffff", marginRight: "5px" }}>
+              </BiPlus>
               일정 추가
             </SubmitButton>
           </form>

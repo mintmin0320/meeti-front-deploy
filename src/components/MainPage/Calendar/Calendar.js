@@ -73,9 +73,11 @@ const SearchButton = styled.div`
 const Calendar = () => {
   const [isOpen, setIsOpen] = useState(true);
   const [schedule, setSchedule] = useState([]);
-  useEffect(() => {
-    getDate();
-  }, []);
+
+  // useEffect(() => {
+  //   getDate();
+  // }, []);
+
   const getDate = async () => {
     const url = `https://${process.env.REACT_APP_SERVER_URI}/schedule/get-schedule`;
     try {
@@ -85,6 +87,7 @@ const Calendar = () => {
       console.log(error);
     }
   };
+
   return (
     <Main className="Main">
       <Header>
@@ -130,7 +133,8 @@ const Calendar = () => {
             defaultView="dayGridMonth"
             plugins={[dayGridPlugin]}
             weekends={true}
-            events={schedule} //data에 모든 이벤트 입력
+            // events={schedule} //data에 모든 이벤트 입력
+            events={data} //data에 모든 이벤트 입력
             editable={true}
             navLinks={true}
             eventLimit={true}
