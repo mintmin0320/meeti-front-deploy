@@ -2,12 +2,18 @@ import React, { useState } from "react";
 import DataList from "../../../reservation.json";
 import styled, { css } from "styled-components";
 import { RiMapPinLine } from "react-icons/ri";
+import { AiOutlineUnorderedList, AiOutlinePlusCircle } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import ReservationAdd from "./ReservationAdd";
 const Header = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: left;
+  justify-content: space-between;
 `;
+const HeaderLeft = styled.div`
+  display: flex;
+`;
+
 const HeadTitle = styled.div`
   color: #6f5cea;
   font-size: 14px;
@@ -120,6 +126,19 @@ const SubOptionsDiv = styled.div`
   flex-direction: row;
 `;
 
+const AddButton = styled.div`
+  width: 32px;
+  height: 32px;
+  background: #f0ebfa;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #6f5cea;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 30px;
+  margin-right: 50px;
+`;
 const RoomCom = () => {
   const meetingRoom = DataList.filter((it) => it.minclassnm === "회의실"); //회의실만
   // const place = meetingRoom.map((it) => it.areanm); // 지역만 (임시))
@@ -171,74 +190,94 @@ const RoomCom = () => {
       meetingRoom.filter((it) => it.areanm === local.target.innerHTML)
     );
   };
+  const [isOpen, setIsOpen] = useState(true);
   return (
     <>
       <Header>
-        <RiMapPinLine className="true" style={{ padding: "0" }} />
-        <HeadTitle>Reservation</HeadTitle>
-      </Header>
-      <RoomArrayClass>
-        <SubOption
-          className={yongsanguState ? "PlaceTrue" : "PlaceFalse"}
-          onClick={(e) => {
-            HandleonClick("용산구", e);
-          }}
-        >
-          용산구
-        </SubOption>
-        <SubOption
-          className={seochoguState ? "PlaceTrue" : "PlaceFalse"}
-          onClick={(e) => {
-            HandleonClick("서초구", e);
-          }}
-        >
-          서초구
-        </SubOption>
-      </RoomArrayClass>
-      <RoomArrayList>
-        {meetiArr.map((arr) => (
-          <RoomDiv>
-            <RoomImgDiv>
-              <RoomImg src={arr.imgurl} />
-            </RoomImgDiv>
-            <RoomContents>
-              <RoomTitleDiv>
-                <SubOption
-                  style={{
-                    width: "40px",
-                    border: "1px solid #9C9C9C",
-                    color: "#9C9C9C",
-                    margin: "2px",
-                  }}
-                >
-                  {arr.areanm}
-                </SubOption>
-                <RoomTitle>{arr.svcnm}</RoomTitle>
-                <SubOptionsDiv>
-                  <SubOption>미팅룸</SubOption>
-                  <SubOption>프레젠테이션룸</SubOption>
-                </SubOptionsDiv>
-              </RoomTitleDiv>
+        <HeaderLeft>
+          <RiMapPinLine className="true" style={{ padding: "0" }} />
+          <HeadTitle>Reservation</HeadTitle>
+        </HeaderLeft>
 
-              <ButtonsDiv>
-                <Link
-                  to="/reservationdetail"
-                  style={{ textDecoration: "none" }}
-                >
-                  <RoomReservButton>예약하기</RoomReservButton>
-                </Link>
-                <RoomCallButton
-                  onClick={() => {
-                    window.alert(`${meetingRoom[0].telno}`);
-                  }}
-                >
-                  전화하기
-                </RoomCallButton>
-              </ButtonsDiv>
-            </RoomContents>
-          </RoomDiv>
-        ))}
-      </RoomArrayList>
+        <AddButton
+          onClick={() => {
+            setIsOpen(!isOpen);
+          }}
+        >
+          {isOpen ? <AiOutlinePlusCircle /> : <AiOutlineUnorderedList />}
+        </AddButton>
+      </Header>
+
+      {isOpen ? (
+        <>
+          <RoomArrayClass>
+            <SubOption
+              className={yongsanguState ? "PlaceTrue" : "PlaceFalse"}
+              onClick={(e) => {
+                HandleonClick("용산구", e);
+              }}
+            >
+              용산구
+            </SubOption>
+            <SubOption
+              className={seochoguState ? "PlaceTrue" : "PlaceFalse"}
+              onClick={(e) => {
+                HandleonClick("서초구", e);
+              }}
+            >
+              서초구
+            </SubOption>
+          </RoomArrayClass>
+          <RoomArrayList>
+            {meetiArr.map((arr) => (
+              <RoomDiv>
+                <RoomImgDiv>
+                  <RoomImg src={arr.imgurl} />
+                </RoomImgDiv>
+                <RoomContents>
+                  <RoomTitleDiv>
+                    <SubOption
+                      style={{
+                        width: "40px",
+                        border: "1px solid #9C9C9C",
+                        color: "#9C9C9C",
+                        margin: "2px",
+                      }}
+                    >
+                      {arr.areanm}
+                    </SubOption>
+                    <RoomTitle>{arr.svcnm}</RoomTitle>
+                    <SubOptionsDiv>
+                      <SubOption>미팅룸</SubOption>
+                      <SubOption>프레젠테이션룸</SubOption>
+                    </SubOptionsDiv>
+                  </RoomTitleDiv>
+
+                  <ButtonsDiv>
+                    <Link
+                      to="/reservationdetail"
+                      style={{ textDecoration: "none" }}
+                    >
+                      <RoomReservButton>예약하기</RoomReservButton>
+                    </Link>
+                    <RoomCallButton
+                      onClick={() => {
+                        window.alert(`${meetingRoom[0].telno}`);
+                      }}
+                    >
+                      전화하기
+                    </RoomCallButton>
+                  </ButtonsDiv>
+                </RoomContents>
+              </RoomDiv>
+            ))}
+          </RoomArrayList>
+        </>
+      ) : (
+        <RoomArrayList>
+          <ReservationAdd />
+        </RoomArrayList>
+      )}
     </>
   );
 };
