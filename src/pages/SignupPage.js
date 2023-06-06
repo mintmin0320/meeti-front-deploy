@@ -177,7 +177,8 @@ const SignupForm = () => {
           <FaBookOpen /> 학생용
         </Usertype>
         <SignupDiv>
-          <form onSubmit={e => handleSubmit(e)}>
+          {/* <form onSubmit={e => handleSubmit(e)}> */}
+          <form>
             <Ms style={{ display: `block` }}>필수항목 *</Ms>
             <Label>
               이메일을 입력해주세요.
@@ -196,7 +197,7 @@ const SignupForm = () => {
             //handleOnChange("id", e);
             />
             <Button
-              onClick={getAuthNum}
+              // onClick={getAuthNum}
               type='button'
             >
               인증번호받기
@@ -216,7 +217,7 @@ const SignupForm = () => {
               required
             />
             <Button
-              onClick={codeCheck}
+              // onClick={codeCheck}
               type='button'
             >
               확인
