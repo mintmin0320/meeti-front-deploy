@@ -95,24 +95,42 @@ const ReservationCom = () => {
     });
 
   //test
-  const [check0, setCheck0] = useState(false);
+  const [check0, setCheck0] = useState(false); //9시
   const [check1, setCheck1] = useState(false);
   const [check2, setCheck2] = useState(false);
-  const [check3, setCheck3] = useState(false);
+  const [check3, setCheck3] = useState(false); //12시
   const [check4, setCheck4] = useState(false);
   const [check5, setCheck5] = useState(false);
-  const [check6, setCheck6] = useState(false);
+  const [check6, setCheck6] = useState(false); //15시
   const [check7, setCheck7] = useState(false);
   const [check8, setCheck8] = useState(false);
-  const [check9, setCheck9] = useState(false);
+  const [check9, setCheck9] = useState(false); //18시
   const [check10, setCheck10] = useState(false);
   const [check11, setCheck11] = useState(false);
-  const [check12, setCheck12] = useState(false);
+  const [check12, setCheck12] = useState(false); //21시
   const [check13, setCheck13] = useState(false);
 
   //submit
 
   const SubmitHandler = () => {
+    const TimeArr = [
+      check0,
+      check1,
+      check2,
+      check3,
+      check4,
+      check5,
+      check6,
+      check7,
+      check8,
+      check9,
+      check10,
+      check11,
+      check12,
+      check13,
+    ]; //서버 전송 할 때
+    console.log(TimeArr);
+
     const ReserDate =
       startDate.getMonth() + 1 + "월" + startDate.getDate() + "일";
     if (window.confirm(`${ReserDate} 에 예약하시나요?`)) {

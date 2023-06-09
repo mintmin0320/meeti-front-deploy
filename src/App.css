@@ -223,3 +223,10 @@
   color: "#9C9C9C";
   text-align: center;
 }
+
+/* ReservationAdd */
+#place {
+  width: 50%;
+  padding: 5px;
+  border: none;
+}
