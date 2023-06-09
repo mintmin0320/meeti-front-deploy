@@ -1,0 +1,335 @@
+[
+  {
+    "telNum": "02-450-1845",
+    "pay": "유료",
+    "placeName": "화양동 자치회관",
+    "decrition": "공공시설 예약서비스 이용시 필수 준수사항모든 서비스의 이용은 담당 기관의 규정에 따릅니다. 각 시설의 규정 및 허가조건을 반드시 준수하여야 합니다.",
+    "areaName": "광진구",
+    "detailAdress": "광진구 화양동 자치회관 회의실(3층)",
+    "imgUrl": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1683594550094A0M1RUKJVBK52BD8ME5Y3MSYI"
+  },
+  {
+    "telNum": "02-719-8830",
+    "pay": "유료",
+    "placeName": "경의선숲길 커뮤니티센터 회의실",
+    "decrition": "시설예약비회원일 경우에는 실명 확인을 통하여 사용하실 수 있으며 서울시 통합 회원에 가입 하시게 되면 서울시에서 제공하는 다양하고 많은 혜택을 받으실 수 있습니다.",
+    "areaName": "마포구",
+    "detailAdress": "경의선숲길 커뮤니티센터 회의실",
+    "imgUrl": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=16819511606141N4W2114EKRN7ZZVBPY9NOX6O"
+  },
+  {
+    "telNum": "02-3396-6893",
+    "pay": "무료",
+    "placeName": "황학동 주민센터",
+    "decrition": "시설예약비회원일 경우에는 실명 확인을 통하여 사용하실 수 있으며 서울시 통합 회원에 가입 하시게 되면 서울시에서 제공하는 다양하고 많은 혜택을 받으실 수 있습니다.",
+    "areaName": "중구",
+    "detailAdress": "중구 황학동 주민센터 1층 미팅룸",
+    "imgUrl": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=16816893305092RFY8L5W0N8JWTVFTHM4DR22U"
+  },
+  {
+    "telNum": "02-3785-2590",
+    "pay": "무료",
+    "placeName": "용산도시기억전시관",
+    "decrition": "1. 공공시설 예약서비스 이용시 필수 준수사항모든 서비스의 이용은 담당 기관의 규정에 따릅니다. 각 시설의 규정 및 허가조건을 반드시 준수하여야 합니다.",
+    "areaName": "용산구",
+    "detailAdress": "용산도시기억전시관 세미나실 대관 (5월)",
+    "imgUrl": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=16815224243634D6WWCX2K9Z1LT8WMZU8J9S87"
+  },
+  {
+    "telNum": "02-2171-6223",
+    "pay": "유료",
+    "placeName": "동대문구 답십리1동 자치회관",
+    "decrition": "시설예약비회원일 경우에는 실명 확인을 통하여 사용하실 수 있으며 서울시 통합 회원에 가입 하시게 되면 서울시에서 제공하는 다양하고 많은 혜택을 받으실 수 있습니다.",
+    "areaName": "동대문구",
+    "detailAdress": "2023 동대문구 답십리1동 주민센터 (5층 다목적강당)",
+    "imgUrl": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1678173574565KUX6G1H8S5N2PX2L1UBMR8VYX"
+  },
+  {
+    "telNum": null,
+    "pay": "무료",
+    "placeName": "서울시 지역상생교류사업단",
+    "decrition": "공공시설 예약서비스 이용시 필수 준수사항모든 서비스의 이용은 담당 기관의 규정에 따릅니다.",
+    "areaName": "종로구",
+    "detailAdress": "서울시지역상생교류사업단 공유공간",
+    "imgUrl": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1675836007826D9BPISPYQ5Z28VWXP6LPW88Y6"
+  },
+  {
+    "telNum": "02-2148-5213",
+    "pay": "유료",
+    "placeName": "가회동 자치회관",
+    "decrition": "시설예약비회원일 경우에는 실명 확인을 통하여 사용하실 수 있으며 서울시 통합 회원에 가입 하시게 되면 서울시에서 제공하는 다양하고 많은 혜택을 받으실 수 있습니다.",
+    "areaName": "종로구",
+    "detailAdress": "종로구 가회동 자치회관 3층 소회의실",
+    "imgUrl": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1677742993524CURNIM606I8I18IIU0Y0DCBH0"
+  },
+  {
+    "telNum": "02-3778-4956",
+    "pay": "무료",
+    "placeName": "인수동자치회관",
+    "decrition": "공공시설 예약서비스 이용시 필수 준수사항모든 서비스의 이용은 담당 기관의 규정에 따릅니다. 각 시설의 규정 및 허가조건을 반드시 준수하여야 합니다.각 관리기관의 시설물과 부대시설을 이용함에 있어 담당자들과 협의 후 사용합니다. 공휴일, 대체휴무, 임시공휴일, 각종선거일 사용 불가",
+    "areaName": "강북구",
+    "detailAdress": "인수동 나눔터관 회의실 대여",
+    "imgUrl": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=16770521635728RYWLMAPO1IWPD7SFBGQUQHIU"
+  },
+  {
+    "telNum": null,
+    "pay": "유료",
+    "placeName": "제기동주민센터",
+    "decrition": "공공시설 예약서비스 이용시 필수 준수사항모든 서비스의 이용은 담당 기관의 규정에 따릅니다. 균등한 이용기회를 보장하기 위한 특정 시민의 계속이용 제한가능",
+    "areaName": "동대문구",
+    "detailAdress": "2023 동대문구 제기동 주민센터(3층 회의실)",
+    "imgUrl": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1675731263341KWDVQXBGCKLPAR6NSKXINJ7UA"
+  },
+  {
+    "telNum": "02-2135-8151",
+    "pay": "유료",
+    "placeName": "마을활력소 회기한지붕",
+    "decrition": "본 공간은 지역주민 모두가 함게 공유하는 공간이므로 공간 사용과 비품사용 후 뒷정리를 깨끗이 합니다.\r\n&nbsp;\r\n&nbsp; - 퇴실 시 보일러 및 전기스위치의 모든 전원을 끄고 소등을 확인합니다.",
+    "areaName": "동대문구",
+    "detailAdress": "2023 마을활력소 회기한지붕 사랑방",
+    "imgUrl": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1675671811161UQ3OXT8MEZXK7HTSQTZEXRC5N"
+  },
+  {
+    "telNum": "02-2199-8407",
+    "pay": "유료",
+    "placeName": "후암동주민센터",
+    "decrition": "공공시설 예약서비스 이용시 필수 준수사항모든 서비스의 이용은 담당 기관의 규정에 따릅니다. 각 시설의 규정 및 허가조건을 반드시 준수하여야 합니다.각 관리기관의 시설물과 부대시설을 이용함에 있어 담당자들과 협의 후 사용합니다.각 관리기관의 사고 발생시 서울시청에서는 어떠한 책임도 지지않습니다.",
+    "areaName": "용산구",
+    "detailAdress": "용산구 후암동주민센터 자치회관 2층 문화교실",
+    "imgUrl": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1675638840967OA93R4BDECRU8R48AURT2C2MQ"
+  },
+  {
+    "telNum": "02-2171-6452",
+    "pay": "유료",
+    "placeName": "동대문구 휘경2동주민센터",
+    "decrition": "1. 공공시설 예약서비스 이용시 필수 준수사항모든 서비스의 이용은 담당 기관의 규정에 따릅니다. 각 시설의 규정 및 허가조건을 반드시 준수하여야 합니다.각 관리기관의 시설물과 부대시설을 이용함에 있어 담당자들과 협의 후 사용합니다.각 관리기관의 사고 발생시 서울시청에서는 어떠한 책임도 지지않습니다.",
+    "areaName": "동대문구",
+    "detailAdress": "2023 동대문구 휘경2동 주민센터 (2층 회의실)",
+    "imgUrl": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1676018687291G8W0H6Z08WAFHNOGPT1TB1WQH"
+  },
+  {
+    "telNum": "02-2171-6295",
+    "pay": "유료",
+    "placeName": "동대문구 장안1동주민센터",
+    "decrition": "공공시설 예약서비스 이용시 필수 준수사항모든 서비스의 이용은 담당 기관의 규정에 따릅니다. 각 시설의 규정 및 허가조건을 반드시 준수하여야 합니다.각 관리기관의 시설물과 부대시설을 이용함에 있어 담당자들과 협의 후 사용합니다.각 관리기관의 사고 발생시 서울시청에서는 어떠한 책임도 지지않습니다.",
+    "areaName": "동대문구",
+    "detailAdress": "2023동대문구 장안1동 주민센터(2층 회의실)",
+    "imgUrl": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=16757555048876ZR71DLLPSF077W0LVER3W3H5"
+  },
+  {
+    "telNum": "02-2133-5633",
+    "pay": "유료",
+    "placeName": "서울시청 본관 직원식당",
+    "decrition": "시설파손, 조리행위, 음주, 집단취식(출장뷔페 등), 쓰레기 무단 투기 행위 및 기타 화기를 사용한 일체행위 금지\r\n&nbsp; &nbsp; ※ 서울광장 행사 진행 시&nbsp;주차장 이용이 원활하지 않을 수 있음",
+    "areaName": "중구",
+    "detailAdress": "(주말)서울시청 본관 직원식당(달콤방)",
+    "imgUrl": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=16729105898243ZP7W3NF2ET14445XBXTPGH9E"
+  },
+  {
+    "telNum": "02-2133-5633",
+    "pay": "유료",
+    "placeName": "서울시청 본관 직원식당",
+    "decrition": "시설파손, 조리행위, 음주, 집단취식(출장뷔페 등), 쓰레기 무단 투기 행위 및 기타 화기를 사용한 일체행위 금지",
+    "areaName": "중구",
+    "detailAdress": "(주말)서울시청 본관 직원식당(새콤방)",
+    "imgUrl": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1672904753402AZC228SM87W2D3WK7KXLQPUMD"
+  },
+  {
+    "telNum": "02-2155-7686",
+    "pay": "무료",
+    "placeName": "반포4동주민센터 소회의실",
+    "decrition": "시설예약비회원일 경우에는 실명 확인을 통하여 사용하실 수 있으며 서울시 통합 회원에 가입 하시게 되면 서울시에서 제공하는 다양하고 많은 혜택을 받으실 수 있습니다.",
+    "areaName": "서초구",
+    "detailAdress": "반포4동 주민센터 소회의실",
+    "imgUrl": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1672649274240N30O12E7MEW8UQ525KGV63SPZ"
+  },
+  {
+    "telNum": "02-2620-4137",
+    "pay": "유료",
+    "placeName": "신월5동 자치회관",
+    "decrition": "1. 공공시설 예약서비스 이용시 필수 준수사항모든 서비스의 이용은 담당 기관의 규정에 따릅니다. 각 시설의 규정 및 허가조건을 반드시 준수하여야 합니다.각 관리기관의 시설물과 부대시설을 이용함에 있어 담당자들과 협의 후 사용합니다.각 관리기관의 사고 발생시 서울시청에서는 어떠한 책임도 지지않습니다.",
+    "areaName": "양천구",
+    "detailAdress": "2023년 양천구 신월5동자치회관 소회의실",
+    "imgUrl": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=16726501915201OA4XKEGV5VIF8V4FZVOIYFSC"
+  },
+  {
+    "telNum": "02-2199-8708",
+    "pay": "유료",
+    "placeName": "보광동 자치회관 >3층 회의실 ",
+    "decrition": "공공시설 예약서비스 이용시 필수 준수사항모든 서비스의 이용은 담당 기관의 규정에 따릅니다. 대관자가 부득이한 사정으로 대관을 취소하고자 할 경우에는 대관취소 신청을 하여야 하며, 사전 연락 없이 취소할 경우 1개월간 사용을 제한할 수 있습니다.",
+    "areaName": "용산구",
+    "detailAdress": "용산구 보광동주민센터 3층 회의실",
+    "imgUrl": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1675324451479D3M3QTNSA6BUIH8Y50ZC2HY6X"
+  },
+  {
+    "telNum": "02-2199-8506",
+    "pay": "유료",
+    "placeName": "원효로제2동 주민센터",
+    "decrition": "공공시설 예약서비스 이용시 필수 준수사항모든 서비스의 이용은 담당 기관의 규정에 따릅니다. 각 시설의 규정 및 허가조건을 반드시 준수하여야 합니다.각 관리기관의 시설물과 부대시설을 이용함에 있어 담당자들과 협의 후 사용합니다.",
+    "areaName": "용산구",
+    "detailAdress": "용산구 원효로2동주민센터 2층 회의실",
+    "imgUrl": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=167463237682746OCI0T2JIBDFFUQWZC7QFG1T"
+  },
+  {
+    "telNum": "02-2620-4004",
+    "pay": "유료",
+    "placeName": "목4동자치회관",
+    "decrition": "공공시설 예약서비스 이용시 필수 준수사항모든 서비스의 이용은 담당 기관의 규정에 따릅니다. 각 시설의 규정 및 허가조건을 반드시 준수하여야 합니다.각 관리기관의 시설물과 부대시설을 이용함에 있어 담당자들과 협의 후 사용합니다.각 관리기관의 사고 발생시 서울시청에서는 어떠한 책임도 지지않습니다.",
+    "areaName": "양천구",
+    "detailAdress": "2023년 양천구 목4동자치회관 지하회의실",
+    "imgUrl": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=16726452106413MJR3HUL81NH9WGZUI227MPCH"
+  },
+  {
+    "telNum": "02-2199-8579",
+    "pay": "유료",
+    "placeName": "한강로동주민센터",
+    "decrition": "공공시설 예약서비스 이용시 필수 준수사항모든 서비스의 이용은 담당 기관의 규정에 따릅니다. 각 시설의 규정 및 허가조건을 반드시 준수하여야 합니다.각 관리기관의 시설물과 부대시설을 이용함에 있어 담당자들과 협의 후 사용합니다.각 관리기관의 사고 발생시 서울시청에서는 어떠한 책임도 지지않습니다.",
+    "areaName": "용산구",
+    "detailAdress": "용산구 한강로동주민센터 2층 회의실",
+    "imgUrl": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1674126454872TJ3VDROBF3O2S1VKJORUO8P3T"
+  },
+  {
+    "telNum": "02-820-2537",
+    "pay": "유료",
+    "placeName": "상도4동주민센터",
+    "decrition": "공공시설 예약서비스 이용시 필수 준수사항모든 서비스의 이용은 담당 기관의 규정에 따릅니다. 각 시설의 규정 및 허가조건을 반드시 준수하여야 합니다.각 관리기관의 시설물과 부대시설을 이용함에 있어 담당자들과 협의 후 사용합니다.각 관리기관의 사고 발생시 서울시청에서는 어떠한 책임도 지지않습니다.",
+    "areaName": "동작구",
+    "detailAdress": "상도4동 주민센터 3층 다목적실",
+    "imgUrl": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1676791845629W1Q3M49E969RRK1V1A7QH9HFX"
+  },
+  {
+    "telNum": "02-2620-7219",
+    "pay": "무료",
+    "placeName": "구로1동 주민센터 ",
+    "decrition": "1. 공공시설 예약서비스 이용시 필수 준수사항모든 서비스의 이용은 담당 기관의 규정에 따릅니다. 각 시설의 규정 및 허가조건을 반드시 준수하여야 합니다.각 관리기관의 시설물과 부대시설을 이용함에 있어 담당자들과 협의 후 사용합니다.각 관리기관의 사고 발생시 서울시청에서는 어떠한 책임도 지지않습니다.",
+    "areaName": "구로구",
+    "detailAdress": "구로구 구로1동 주민센터 2층 회의실 ",
+    "imgUrl": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=16689969391002XZ0DQIQ0O4K58QN31E5QW8ZR"
+  },
+  {
+    "telNum": "02-3396-8463",
+    "pay": "유료",
+    "placeName": "중림동 주민센터",
+    "decrition": "개방장소명 : 중림동 주민센터 3층 회의실\r\n○ 개방 가능한 시간\r\n-평일(월~금): 10:00~20:30\r\n-토요일: 10:00~17:00 (공휴일 대관 불가)\r\n단, 프로그램 및 동 행사가 있는 시간은 대관 불가(담당자 심의 후 유선으로 가능여부 안내)\r\n○ 위치 : 서울특별시 중구 중림동 서울역센트럴자이아파트 정문 앞&nbsp;단, 중림동 주민은 대관료 면제",
+    "areaName": "중구",
+    "detailAdress": "중림동주민센터 3층회의실",
+    "imgUrl": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1675065578816A21131FF3ONXR6SY0G5Z0Z4E3"
+  },
+  {
+    "telNum": "02-2116-0624",
+    "pay": "무료",
+    "placeName": "불암산 생태학습관",
+    "decrition": "1. 공공시설 예약서비스 이용시 필수 준수사항모든 서비스의 이용은 담당 기관의 규정에 따릅니다. 각 시설의 규정 및 허가조건을 반드시 준수하여야 합니다.각 관리기관의 시설물과 부대시설을 이용함에 있어 담당자들과 협의 후 사용합니다.",
+    "areaName": "노원구",
+    "detailAdress": "불암산 생태학습관 대관",
+    "imgUrl": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1674088920773RX4WATRBL6WZQUWPQTFL0OB7K"
+  },
+  {
+    "telNum": "02-971-0420",
+    "pay": "무료",
+    "placeName": "중랑생활문화센터>중랑생활문화센터(커뮤니티룸)",
+    "decrition": "공공시설 예약서비스 이용시 필수 준수사항모든 서비스의 이용은 담당 기관의 규정에 따릅니다. 각 시설의 규정 및 허가조건을 반드시 준수하여야 합니다.각 관리기관의 시설물과 부대시설을 이용함에 있어 담당자들과 협의 후 사용합니다.",
+    "areaName": "중랑구",
+    "detailAdress": "중랑생활문화센터 커뮤니티룸",
+    "imgUrl": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=167383505512562FKJG5RQZDPIJ814B0PDCA6Y"
+  },
+  {
+    "telNum": "02-2171-6023",
+    "pay": "유료",
+    "placeName": "동대문구 용신동주민센터",
+    "decrition": "1. 공공시설 예약서비스 이용시 필수 준수사항모든 서비스의 이용은 담당 기관의 규정에 따릅니다. 각 시설의 규정 및 허가조건을 반드시 준수하여야 합니다.각 관리기관의 시설물과 부대시설을 이용함에 있어 담당자들과 협의 후 사용합니다.각 관리기관의 사고 발생시 서울시청에서는 어떠한 책임도 지지않습니다.시설이용료 납부는 각 관리기관에서 규정에 준 합니다.",
+    "areaName": "동대문구",
+    "detailAdress": "2023 동대문구 용신동 주민센터 시설대관 (3층 문화강좌실)",
+    "imgUrl": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=16758458198698ENOZHXDTFGFSPYTUHSB1R4HD"
+  },
+  {
+    "telNum": "02-2199-8407",
+    "pay": "유료",
+    "placeName": "후암동주민센터",
+    "decrition": "공공시설 예약서비스 이용시 필수 준수사항모든 서비스의 이용은 담당 기관의 규정에 따릅니다. 각 시설의 규정 및 허가조건을 반드시 준수하여야 합니다.각 관리기관의 시설물과 부대시설을 이용함에 있어 담당자들과 협의 후 사용합니다.각 관리기관의 사고 발생시 서울시청에서는 어떠한 책임도 지지않습니다.",
+    "areaName": "용산구",
+    "detailAdress": "용산구 후암동주민센터 자치회관 2층 문화교실",
+    "imgUrl": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1674091755307B7FRFTBFLNT969IYT4QBPBJIO"
+  },
+  {
+    "telNum": "02-2199-8407",
+    "pay": "유료",
+    "placeName": "후암동주민센터",
+    "decrition": "개방공간 사용 시 정숙을 유지하며, 지나친 소음을 유발하지 아니한다.(고함, 고성방가 등 금지)\r\n\r\n3. 설비 부착 시 사전허가를 받으며 사용시간 종료와 동시에 원상복구한다.\r\n\r\n4. 사용기간 중 시설 또는 설비를 훼손하였을 때는 즉시 원상복구 또는 변상한다.\r\n\r\n5. 기타 시설 관계자의 안내사항을 준수한다.\r\n",
+    "areaName": "용산구",
+    "detailAdress": "용산구 후암동주민센터 자치회관 지하 소회의실",
+    "imgUrl": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1674092007039HHHWNJY4PU4YB3JFN8VT0TYD6"
+  },
+  {
+    "telNum": "02-450-5135",
+    "pay": "유료",
+    "placeName": "중곡4동 자치회관",
+    "decrition": "1. 공공시설 예약서비스 이용시 필수 준수사항모든 서비스의 이용은 담당 기관의 규정에 따릅니다. 각 시설의 규정 및 허가조건을 반드시 준수하여야 합니다.각 관리기관의 시설물과 부대시설을 이용함에 있어 담당자들과 협의 후 사용합니다.각 관리기관의 사고 발생시 서울시청에서는 어떠한 책임도 지지않습니다.",
+    "areaName": "광진구",
+    "detailAdress": "광진구 중곡4동 자치회관 3층 교양강좌실",
+    "imgUrl": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1682997919707IB9G9L50H84526TBMKVXPYUJX"
+  },
+  {
+    "telNum": "02-433-0789",
+    "pay": "유료",
+    "placeName": "중랑구 사회적 경제 지원 센터내",
+    "decrition": "공공시설 예약서비스 이용시 필수 준수사항모든 서비스의 이용은 담당 기관의 규정에 따릅니다.",
+    "areaName": "중랑구",
+    "detailAdress": "2023년 중랑구 사회적경제지원센터 교육실(회의실)",
+    "imgUrl": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1670905482157TPER9I42XVAP635LF5558BMIC"
+  },
+  {
+    "telNum": "02-2670-1266",
+    "pay": "유료",
+    "placeName": "신길3동주민센터(지하 다목적회의실) ",
+    "decrition": "시설예약비회원일 경우에는 실명 확인을 통하여 사용하실 수 있으며 서울시 통합 회원에 가입 하시게 되면 서울시에서 제공하는 다양하고 많은 혜택을 받으실 수 있습니다. 준비, 사용, 철수기간중 발생하는 쓰레기는 쓰레기 종량봉투를 준비하여 직접 청소하고 반출하여야 합니다.",
+    "areaName": "영등포구",
+    "detailAdress": "영등포구 신길3동주민센터 회의실(2층) 대관 ",
+    "imgUrl": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1663844684633FF1D6EIGMB9V6BZBDAZ839QNX"
+  },
+  {
+    "telNum": null,
+    "pay": "유료",
+    "placeName": "서울시공익활동공간 삼각지",
+    "decrition": "감염병 확산으로 인한 정부 및 시의 권고가 있는 경우, 시설점검 또는 보수공사 등 기타 부득이한 사유가 발생한 경우에 운영 시간을 단축하거나 휴관할 수 있다.\r\n마. 공간 이용자가 비상 안전 수칙을 준수하지 않을 경우 운영실의 판단 하에 활동이 제재될 수 있다.",
+    "areaName": "용산구",
+    "detailAdress": "서울시공익활동공간 삼각지 - 회의실4",
+    "imgUrl": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1652183596575E1XBN4A40QQAUT7MA1M7RMSRZ"
+  },
+  {
+    "telNum": null,
+    "pay": "유료",
+    "placeName": "서울시공익활동공간 삼각지",
+    "decrition": "공공시설 예약서비스 이용시 필수 준수사항모든 서비스의 이용은 담당 기관의 규정에 따릅니다.",
+    "areaName": "용산구",
+    "detailAdress": "서울시공익활동공간 삼각지 - 회의실2",
+    "imgUrl": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1652182765665G8EHQ8UXTEYNX0IODJZTW0V36"
+  },
+  {
+    "telNum": null,
+    "pay": "유료",
+    "placeName": "서울시공익활동공간 삼각지",
+    "decrition": "귀중품을 포함한 개인 물품 분실은 운영실에서 책임을 지지 않는다. 자. 공간 내 소음 등 다른 이용자에게 불쾌감을 주는 행위나 운영, 관리에 저해되는 행동을 금지하며 운영실은 해당 문제를 발생시키는 이용자의 공간&nbsp;이용을 제한 할 수 있다.",
+    "areaName": "용산구",
+    "detailAdress": "서울시공익활동공간 삼각지 - 회의실3",
+    "imgUrl": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1651898875205SJ5UYDNUXD5D1SX93J4RSNCUR"
+  },
+  {
+    "telNum": null,
+    "pay": "유료",
+    "placeName": "서울시공익활동공간 삼각지",
+    "decrition": "모든 공간 이용자는 감염병 확산 차단 및 예방을 위한 국가, 서울시의&nbsp;대응조치에 적극적으로 협조하여야 한다. 또한 감염병 확산으로 인한 정부 및 시의 권고가 있는 경우, 시설점검 또는 보수공사 등 기타 부득이한 사유가 발생한 경우에 운영 시간을 단축하거나 휴관할 수 있다.",
+    "areaName": "용산구",
+    "detailAdress": "서울시공익활동공간 삼각지 - 회의실1",
+    "imgUrl": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1651907166238N1N7J78M8WC2O32EBI3VXY4ZV"
+  },
+  {
+    "telNum": null,
+    "pay": "유료",
+    "placeName": "서울글로벌센터빌딩 국제회의장",
+    "decrition": "기존 A실 09~12시 이용건 존재할 경우 08~13시까지 실 형태에 관계없이 모든 타 행사 수용 불가, 기본 자리배치 구조를 변경 이용 시, 행사 종료이후 원상복구 조치 후 공단 담당자의 확인을 받아야 합니다.\r\n&nbsp;",
+    "areaName": "종로구",
+    "detailAdress": "서울글로벌센터빌딩 국제회의장",
+    "imgUrl": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1672643033776R93HS3C1R3P33XTIZVVQ8U1NO"
+  }
+]
