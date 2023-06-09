@@ -44,7 +44,7 @@ const SubmitButton = styled.button`
 const ReservationAdd = () => {
   const formData = new FormData(); // 폼데이터 사용을 위해 선언 왜 여기다 쓰냐 함수 두 곳에 쓸 건데 한 함수 안에서 선언하면 다른 함수에서 사용 못 하니까 이 컴포넌트 안에서 모두 사용하도록 여기다 선언
 
-  const [areaName, setAreaName] = useState('')
+  const [areaName, setAreaName] = useState('용산구') // 용산구를 기본값으로 한 이유는 셀렉트 아무것도 안 고르면 값 안 변함 그래서 기본 선택 용산구를 기본값으로 놓으면 해결됨
   const [state, setState] = useState({ // state를 오브젝트 안에 넣어서 쓰면 가독성 좋게 작성 가능 단 원래 console.log(pay)이렇게 쓰던 걸 console.log(state.pay)일케 써야됨 why? 오브젝트니까
     placeName: '',
     detailAdress: '',
@@ -103,9 +103,12 @@ const ReservationAdd = () => {
       console.log("value : " + value);
     }
     try {
-      const url = ``
+      const url = `http://localhost:8080/reservation/set-office`
       const res = await axios.post(url, formData);
       console.log(res);
+      if (res.data.result) {
+        window.location.reload();
+      }
     } catch (error) {
       console.log(error);
     }

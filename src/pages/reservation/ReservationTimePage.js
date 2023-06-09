@@ -1,17 +1,19 @@
 import React from "react";
 import styled from "styled-components";
 import color from "./../assets/color.png";
-import Cal from "./../components/MainPage/Calendar/Calendar";
-import RoomCom from "../components/MainPage/Reservation/RoomCom";
-import Menubar from "../components/Menubar";
+import Cal from "../../components/MainPage/Calendar/Calendar";
+import { useNavigate } from "react-router-dom";
+import { AiOutlineCalendar } from "react-icons/ai";
 
 import { Link } from "react-router-dom";
 
 // icon
-import { AiOutlineCalendar } from "react-icons/ai";
 import { FaRegAddressBook } from "react-icons/fa";
 import { RiMapPinLine } from "react-icons/ri";
 import { HiOutlineMail } from "react-icons/hi";
+import ReservationCom from "../../components/MainPage/Reservation/ReservationCom";
+import ReservationDetail from "../../components/MainPage/Reservation/ReservationDetail";
+
 const Test = styled.div`
   width: 100vw;
   height: 100vh;
@@ -55,8 +57,10 @@ const Mid = styled.div`
   background: #f8f8f8;
   width: 30%;
   border-radius: 20px;
+  z-index: 3;
 `;
 const Title = styled.div`
+  margin-top: 50px;
   font-size: 20px;
   margin-top: 20px;
   margin-bottom: 5px;
@@ -66,13 +70,12 @@ const SubTitle = styled.div``;
 const Last = styled.div`
   background: #f8f8f8;
   width: 60%;
-  height: 100%;
+  height: 340px;
   border-radius: 20px;
   z-index: 3;
-  overflow: scroll;
 `;
 
-const ReservationPage = () => {
+const ReservationTimePage = () => {
   return (
     <Test>
       <MainDiv className="MainDiv">
@@ -92,15 +95,14 @@ const ReservationPage = () => {
           </Link>
         </Header>
         <Mid>
-          <Title>예약 일정</Title>
-          <SubTitle>Reservation status</SubTitle>
+          <ReservationCom />
         </Mid>
         <Last>
-          <RoomCom />
+          <ReservationDetail />
         </Last>
       </MainDiv>
     </Test>
   );
 };
 
-export default ReservationPage;
+export default ReservationTimePage;

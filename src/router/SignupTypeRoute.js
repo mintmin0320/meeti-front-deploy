@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import SignUpType from "../pages/SignupTypePage";
+import SignUpType from "../pages/auth/SignupTypePage";
 
 export default function LoginRoute() {
   return (

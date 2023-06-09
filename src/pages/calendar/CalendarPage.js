@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import color from "./../assets/color.png";
-import Cal from "./../components/MainPage/Calendar/Calendar";
+import color from "./../../assets/color.png";
+import Cal from "../../components/MainPage/Calendar/Calendar";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineCalendar } from "react-icons/ai";
 

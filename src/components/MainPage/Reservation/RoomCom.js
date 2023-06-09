@@ -1,10 +1,191 @@
-import React, { useState } from "react";
-import DataList from "../../../reservation.json";
+import React, { Fragment, useEffect, useState } from "react";
+// import DataList from "../../../reservation.json";
 import styled, { css } from "styled-components";
 import { RiMapPinLine } from "react-icons/ri";
 import { AiOutlineUnorderedList, AiOutlinePlusCircle } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import ReservationAdd from "./ReservationAdd";
+import axios from 'axios';
+import ReservationDetail from './ReservationDetail';
+
+const RoomCom = () => {
+  const areaArr = ['중구', '동대문구', '용산구', '광진구', '마포구', '종로구', '강북구', '서초구', '양천구', '동작구', '구로구', '노원구', '중랑구', '영등포구'];
+  const [isOpen, setIsOpen] = useState(true);
+  const [officeList, setOfficeList] = useState([]);
+  const [search, setSearch] = useState('');
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const HandleonClick = async (params, e) => {
+    try {
+      const url = `http://localhost:8080/reservation/classification/${params}`
+      const res = await axios.get(url);
+      console.log(res);
+      setOfficeList(res.data.office);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleOnClickBtn = () => {
+    if (search === '') alert('검색어를 입력해 주세요!');
+    else getSearchData();
+  };
+
+  const getSearchData = async () => {
+    try {
+      const url = `http://localhost:8080/reservation/office/${search}`
+      const res = await axios.get(url);
+      console.log(res);
+      setOfficeList(res.data.office);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getData = async () => {
+    try {
+      const url = `http://localhost:8080/reservation/get-office`;
+      const res = await axios.get(url);
+      setOfficeList(res.data.office);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const Classification = () => {
+    return (
+      <RoomArrayClass>
+        {areaArr.map((user) => {
+          return (
+            <SubOption
+              // className={yongsanguState ? "PlaceTrue" : "PlaceFalse"}
+              onClick={(e) => {
+                HandleonClick(user, e);
+              }}
+            >
+              {user}
+            </SubOption>
+          )
+        })}
+      </RoomArrayClass>
+    )
+  };
+
+  const Card = () => {
+    return (
+      <RoomArrayList>
+        {officeList.map((item, idx) => {
+          return (
+            <RoomDiv key={idx}>
+              <RoomImgDiv>
+                <RoomImg
+                  src={item.imgUrl}
+                  alt='이미지 없음'
+                />
+              </RoomImgDiv>
+              <RoomContents>
+                <RoomTitleDiv>
+                  <SubOption
+                    style={{
+                      width: "40px",
+                      border: "1px solid #9C9C9C",
+                      color: "#9C9C9C",
+                      margin: "2px",
+                    }}
+                  >
+                    {item.areaName}
+                  </SubOption>
+                  <div>{item.detailAdress}</div>
+                  <div>{item.pay}</div>
+                  {item.status === '접수중'
+                    ? <div>
+                      🟢{item.status}
+                    </div>
+                    :
+                    <div>
+                      🔴{item.status}
+                    </div>
+                  }
+                  <RoomTitle>{item.placeName}</RoomTitle>
+                  <SubOptionsDiv>
+                    <SubOption>미팅룸</SubOption>
+                    <SubOption>프레젠테이션룸</SubOption>
+                  </SubOptionsDiv>
+                </RoomTitleDiv>
+
+                <ButtonsDiv>
+                  <Link
+                    to="/reservationdetail"
+                    state={{ officeId: item._id }}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <RoomReservButton>예약하기</RoomReservButton>
+                  </Link>
+                  <RoomCallButton
+                    onClick={() => {
+                      window.alert(`${item.telNum}`);
+                    }}
+                  >
+                    전화하기
+                  </RoomCallButton>
+                </ButtonsDiv>
+              </RoomContents>
+            </RoomDiv>
+          )
+        })}
+      </RoomArrayList>
+    )
+  };
+
+
+  // Fragment는 빈태그 <> 대신 명시적으로 사용함
+  return (
+    <Fragment>
+      <Header>
+        <HeaderLeft>
+          <RiMapPinLine className="true" style={{ padding: "0" }} />
+          <HeadTitle>Reservation</HeadTitle>
+          {isOpen && (
+            <>
+              <input onChange={(e) => setSearch(e.target.value)} />
+              <button
+                onClick={handleOnClickBtn}>
+                검색
+              </button>
+            </>
+          )}
+        </HeaderLeft>
+
+        <AddButton
+          onClick={() => {
+            setIsOpen(!isOpen);
+          }}
+        >
+          {isOpen ? <AiOutlinePlusCircle /> : <AiOutlineUnorderedList />}
+        </AddButton>
+      </Header>
+      {isOpen ? (
+        <>
+          <Classification />
+          <Card />
+        </>
+      )
+        :
+        (
+          <RoomArrayList>
+            <ReservationAdd />
+          </RoomArrayList>
+        )}
+    </Fragment>
+  );
+};
+
+export default RoomCom;
+
 const Header = styled.div`
   display: flex;
   flex-direction: row;
@@ -27,14 +208,17 @@ const RoomDiv = styled.div`
   height: 87px;
   margin: 10px;
 `;
+
 const RoomImgDiv = styled.div`
   width: 25%;
 `;
+
 const RoomImg = styled.img`
   width: 140px;
   height: 87px;
   margin: 10px;
 `;
+
 const RoomArrayClass = styled.div`
   display: flex;
   margin-left: 20px;
@@ -44,6 +228,7 @@ const RoomArrayList = styled.div`
   display: flex;
   flex-direction: column;
 `;
+
 const RoomContents = styled.div`
   display: flex;
   flex-direction: row;
@@ -60,6 +245,7 @@ const RoomTitleDiv = styled.div`
   height: 87px;
   margin: 10px;
 `;
+
 const RoomTitle = styled.div`
   font-size: 14px;
   font-style: border;
@@ -67,11 +253,13 @@ const RoomTitle = styled.div`
   flex-direction: row;
   margin: 3px;
 `;
+
 const ButtonsDiv = styled.div`
   display: flex;
   flex-direction: column;
   margin-right: 50px;
 `;
+
 const RoomReservButton = styled.div`
   width: 61px;
   height: 18px;
@@ -86,6 +274,7 @@ const RoomReservButton = styled.div`
   display: flex;
   align-items: center;
 `;
+
 const RoomCallButton = styled.div`
   width: 61px;
   height: 18px;
@@ -100,6 +289,7 @@ const RoomCallButton = styled.div`
   display: flex;
   align-items: center;
 `;
+
 const SubOption = styled.div`
   margin: 3px;
   padding: 2px;
@@ -139,147 +329,3 @@ const AddButton = styled.div`
   margin: 30px;
   margin-right: 50px;
 `;
-const RoomCom = () => {
-  const meetingRoom = DataList.filter((it) => it.minclassnm === "회의실"); //회의실만
-  // const place = meetingRoom.map((it) => it.areanm); // 지역만 (임시))
-  // //지역별 배열
-  // const yongsangu = meetingRoom.filter((it) => it.areanm === "용산구");
-  // const seochogu = meetingRoom.filter((it) => it.areanm === "서초구");
-  // const gwangjingu = meetingRoom.filter((it) => it.areanm === "광진구");
-  // const songpagu = meetingRoom.filter((it) => it.areanm === "송파구");
-  // const junggu = meetingRoom.filter((it) => it.areanm === "중구");
-  // const ddmgu = meetingRoom.filter((it) => it.areanm === "동대문구");
-  // const jongnogu = meetingRoom.filter((it) => it.areanm === "종로구");
-  // const gangbukgu = meetingRoom.filter((it) => it.areanm === "강북구");
-  // const yangcheongu = meetingRoom.filter((it) => it.areanm === "양천구");
-  // const dongjakgu = meetingRoom.filter((it) => it.areanm === "동작구");
-  // const gurogu = meetingRoom.filter((it) => it.areanm === "구로구");
-  // const nowongu = meetingRoom.filter((it) => it.areanm === "노원구");
-  // const jungnanggu = meetingRoom.filter((it) => it.areanm === "중랑구");
-  // const ydpgu = meetingRoom.filter((it) => it.areanm === "영등포구");
-
-  // //지역별 State
-  const [yongsanguState, setYongsanguState] = useState(false);
-  const [seochoguState, setSeochoguState] = useState(false);
-  const [gwangjinguState, setGwangjinguState] = useState(false);
-  const [songpaguState, setSongpaguState] = useState(false);
-  const [jungguState, setJungguState] = useState(false);
-  const [ddmguState, setDdmguState] = useState(false);
-  const [jongnoguState, setJongnoguState] = useState(false);
-  const [gangbukguState, setGangbukguState] = useState(false);
-  const [yangcheonguState, setYangcheonguState] = useState(false);
-  const [dongjakguState, setDongjakguState] = useState(false);
-  const [guroguState, setGuroguState] = useState(false);
-  const [nowonguState, setNowonguState] = useState(false);
-  const [jungnangguState, setJungnangguState] = useState(false);
-  const [ydpguState, setYdpguState] = useState(false);
-
-  const [meetiArr, setMeetiArr] = useState(meetingRoom);
-
-  const HandleonClick = (params, e) => {
-    if (params === "용산구") {
-      setMeetiArr(meetingRoom.filter((it) => it.areanm === "용산구"));
-    } else if (params === "서초구") {
-      setMeetiArr(meetingRoom.filter((it) => it.areanm === "서초구"));
-    } else {
-      setMeetiArr(meetingRoom);
-    }
-  };
-  const arrayFilter = (local) => {
-    setMeetiArr(
-      meetingRoom.filter((it) => it.areanm === local.target.innerHTML)
-    );
-  };
-  const [isOpen, setIsOpen] = useState(true);
-  return (
-    <>
-      <Header>
-        <HeaderLeft>
-          <RiMapPinLine className="true" style={{ padding: "0" }} />
-          <HeadTitle>Reservation</HeadTitle>
-        </HeaderLeft>
-
-        <AddButton
-          onClick={() => {
-            setIsOpen(!isOpen);
-          }}
-        >
-          {isOpen ? <AiOutlinePlusCircle /> : <AiOutlineUnorderedList />}
-        </AddButton>
-      </Header>
-
-      {isOpen ? (
-        <>
-          <RoomArrayClass>
-            <SubOption
-              className={yongsanguState ? "PlaceTrue" : "PlaceFalse"}
-              onClick={(e) => {
-                HandleonClick("용산구", e);
-              }}
-            >
-              용산구
-            </SubOption>
-            <SubOption
-              className={seochoguState ? "PlaceTrue" : "PlaceFalse"}
-              onClick={(e) => {
-                HandleonClick("서초구", e);
-              }}
-            >
-              서초구
-            </SubOption>
-          </RoomArrayClass>
-          <RoomArrayList>
-            {meetiArr.map((arr) => (
-              <RoomDiv>
-                <RoomImgDiv>
-                  <RoomImg src={arr.imgurl} />
-                </RoomImgDiv>
-                <RoomContents>
-                  <RoomTitleDiv>
-                    <SubOption
-                      style={{
-                        width: "40px",
-                        border: "1px solid #9C9C9C",
-                        color: "#9C9C9C",
-                        margin: "2px",
-                      }}
-                    >
-                      {arr.areanm}
-                    </SubOption>
-                    <RoomTitle>{arr.svcnm}</RoomTitle>
-                    <SubOptionsDiv>
-                      <SubOption>미팅룸</SubOption>
-                      <SubOption>프레젠테이션룸</SubOption>
-                    </SubOptionsDiv>
-                  </RoomTitleDiv>
-
-                  <ButtonsDiv>
-                    <Link
-                      to="/reservationdetail"
-                      style={{ textDecoration: "none" }}
-                    >
-                      <RoomReservButton>예약하기</RoomReservButton>
-                    </Link>
-                    <RoomCallButton
-                      onClick={() => {
-                        window.alert(`${meetingRoom[0].telno}`);
-                      }}
-                    >
-                      전화하기
-                    </RoomCallButton>
-                  </ButtonsDiv>
-                </RoomContents>
-              </RoomDiv>
-            ))}
-          </RoomArrayList>
-        </>
-      ) : (
-        <RoomArrayList>
-          <ReservationAdd />
-        </RoomArrayList>
-      )}
-    </>
-  );
-};
-
-export default RoomCom;

@@ -3,7 +3,7 @@ import {
   Routes,
   Route
 } from "react-router-dom";
-import ReservationPage from '../pages/ReservationPage';
+import ReservationPage from '../pages/reservation/ReservationPage';
 
 export default function JobRoute() {
   return (

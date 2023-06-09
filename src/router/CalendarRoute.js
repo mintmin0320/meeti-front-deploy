@@ -3,7 +3,7 @@ import {
   Routes,
   Route
 } from "react-router-dom";
-import CalendarPage from '../pages/CalendarPage';
+import CalendarPage from '../pages/calendar/CalendarPage';
 
 export default function CalendarRoute() {
   return (

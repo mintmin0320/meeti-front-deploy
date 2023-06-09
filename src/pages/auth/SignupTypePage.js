@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import color from "./../assets/color.png";
+import color from "./../../assets/color.png";
 import { FaBookOpen } from "react-icons/fa";
 import { MdWork, MdPerson } from "react-icons/md";
-import Signup from "../components/User/Signup";
+import Signup from "../../components/User/Signup";
 
 const Test = styled.div`
   width: 100vw;

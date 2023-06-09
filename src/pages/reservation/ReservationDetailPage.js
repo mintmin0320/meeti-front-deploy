@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import color from "./../assets/color.png";
-import Cal from "./../components/MainPage/Calendar/Calendar";
+import color from "./../../assets/color.png";
+import Cal from "../../components/MainPage/Calendar/Calendar";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineCalendar } from "react-icons/ai";
 
@@ -11,8 +11,8 @@ import { Link } from "react-router-dom";
 import { FaRegAddressBook } from "react-icons/fa";
 import { RiMapPinLine } from "react-icons/ri";
 import { HiOutlineMail } from "react-icons/hi";
-import ReservationCom from "../components/MainPage/Reservation/ReservationCom";
-import ReservationDetail from "../components/MainPage/Reservation/ReservationDetail";
+import ReservationCom from "../../components/MainPage/Reservation/ReservationCom";
+import ReservationDetail from "../../components/MainPage/Reservation/ReservationDetail";
 
 const Test = styled.div`
   width: 100vw;
@@ -69,7 +69,7 @@ const SubTitle = styled.div``;
 
 const Last = styled.div`
   background: #f8f8f8;
-  width: 60%;
+  width: 90%;
   height: 340px;
   border-radius: 20px;
   z-index: 3;
@@ -94,9 +94,9 @@ const ReservationDetailPage = () => {
             <HiOutlineMail className="false" />
           </Link>
         </Header>
-        <Mid>
+        {/* <Mid>
           <ReservationCom />
-        </Mid>
+        </Mid> */}
         <Last>
           <ReservationDetail />
         </Last>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import color from "./../assets/color.png";
+import color from "./../../assets/color.png";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import SingupTypePage from "./SignupTypePage";

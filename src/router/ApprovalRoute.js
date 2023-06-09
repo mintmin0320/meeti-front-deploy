@@ -3,7 +3,7 @@ import {
   Routes,
   Route
 } from "react-router-dom";
-import ApprovalPage from '../pages/ApprovalPage';
+import ApprovalPage from '../pages/approval/ApprovalPage';
 
 export default function ApprovalRoute() {
   return (

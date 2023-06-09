@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 import { FaBookOpen } from "react-icons/fa";
 import { IoIosArrowForward } from "react-icons/io";
-import color from "./../assets/color.png";
+import color from "./../../assets/color.png";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 
