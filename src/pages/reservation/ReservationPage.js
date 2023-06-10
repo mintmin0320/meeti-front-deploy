@@ -24,7 +24,7 @@ const ReservationPage = () => {
 
   const getData = async () => {
     try {
-      const url = `http://${process.env.REACT_APP_SECRET_URL}/reservation/get-reservation`;
+      const url = `https://${process.env.REACT_APP_SECRET_URL}/reservation/get-reservation`;
       const res = await axios.get(url);
       console.log(res);
       setReservationList(res.data.office);

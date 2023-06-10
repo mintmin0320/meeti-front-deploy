@@ -32,7 +32,7 @@ const ReservationDetail = () => {
 
   const getData = async () => {
     try {
-      const url = `http://${process.env.REACT_APP_SECRET_URL}/reservation/detail/${officeId}`;
+      const url = `https://${process.env.REACT_APP_SECRET_URL}/reservation/detail/${officeId}`;
       const res = await axios.get(url);
       console.log(res);
       setOffice({

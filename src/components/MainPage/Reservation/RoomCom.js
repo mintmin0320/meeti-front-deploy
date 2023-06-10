@@ -36,7 +36,7 @@ const RoomCom = () => {
 
   const HandleonClick = async (params, e) => {
     try {
-      const url = `http://${process.env.REACT_APP_SECRET_URL}/reservation/classification/${params}`;
+      const url = `https://${process.env.REACT_APP_SECRET_URL}/reservation/classification/${params}`;
       const res = await axios.get(url);
       console.log(res);
       setOfficeList(res.data.office);
@@ -52,7 +52,7 @@ const RoomCom = () => {
 
   const getSearchData = async () => {
     try {
-      const url = `http://${process.env.REACT_APP_SECRET_URL}/reservation/office/${search}`;
+      const url = `https://${process.env.REACT_APP_SECRET_URL}/reservation/office/${search}`;
       const res = await axios.get(url);
       console.log(res);
       setOfficeList(res.data.office);
@@ -63,7 +63,7 @@ const RoomCom = () => {
 
   const getData = async () => {
     try {
-      const url = `http://${process.env.REACT_APP_SECRET_URL}/reservation/get-office`;
+      const url = `https://${process.env.REACT_APP_SECRET_URL}/reservation/get-office`;
       const res = await axios.get(url);
       setOfficeList(res.data.office);
       console.log(res);
