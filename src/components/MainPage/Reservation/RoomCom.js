@@ -3,16 +3,32 @@ import React, { Fragment, useEffect, useState } from "react";
 import styled, { css } from "styled-components";
 import { RiMapPinLine } from "react-icons/ri";
 import { AiOutlineUnorderedList, AiOutlinePlusCircle } from "react-icons/ai";
+import { BiSearch } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import ReservationAdd from "./ReservationAdd";
-import axios from 'axios';
-import ReservationDetail from './ReservationDetail';
+import axios from "axios";
+import ReservationDetail from "./ReservationDetail";
 
 const RoomCom = () => {
-  const areaArr = ['중구', '동대문구', '용산구', '광진구', '마포구', '종로구', '강북구', '서초구', '양천구', '동작구', '구로구', '노원구', '중랑구', '영등포구'];
+  const areaArr = [
+    "중구",
+    "동대문구",
+    "용산구",
+    "광진구",
+    "마포구",
+    "종로구",
+    "강북구",
+    "서초구",
+    "양천구",
+    "동작구",
+    "구로구",
+    "노원구",
+    "중랑구",
+    "영등포구",
+  ];
   const [isOpen, setIsOpen] = useState(true);
   const [officeList, setOfficeList] = useState([]);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     getData();
@@ -20,7 +36,7 @@ const RoomCom = () => {
 
   const HandleonClick = async (params, e) => {
     try {
-      const url = `http://localhost:8080/reservation/classification/${params}`
+      const url = `http://${process.env.REACT_APP_SECRET_URL}/reservation/classification/${params}`;
       const res = await axios.get(url);
       console.log(res);
       setOfficeList(res.data.office);
@@ -30,13 +46,13 @@ const RoomCom = () => {
   };
 
   const handleOnClickBtn = () => {
-    if (search === '') alert('검색어를 입력해 주세요!');
+    if (search === "") alert("검색어를 입력해 주세요!");
     else getSearchData();
   };
 
   const getSearchData = async () => {
     try {
-      const url = `http://localhost:8080/reservation/office/${search}`
+      const url = `http://${process.env.REACT_APP_SECRET_URL}/reservation/office/${search}`;
       const res = await axios.get(url);
       console.log(res);
       setOfficeList(res.data.office);
@@ -47,14 +63,14 @@ const RoomCom = () => {
 
   const getData = async () => {
     try {
-      const url = `http://localhost:8080/reservation/get-office`;
+      const url = `http://${process.env.REACT_APP_SECRET_URL}/reservation/get-office`;
       const res = await axios.get(url);
       setOfficeList(res.data.office);
       console.log(res);
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   const Classification = () => {
     return (
@@ -69,10 +85,10 @@ const RoomCom = () => {
             >
               {user}
             </SubOption>
-          )
+          );
         })}
       </RoomArrayClass>
-    )
+    );
   };
 
   const Card = () => {
@@ -82,39 +98,19 @@ const RoomCom = () => {
           return (
             <RoomDiv key={idx}>
               <RoomImgDiv>
-                <RoomImg
-                  src={item.imgUrl}
-                  alt='이미지 없음'
-                />
+                <RoomImg src={item.imgUrl} alt="이미지 없음" />
               </RoomImgDiv>
               <RoomContents>
                 <RoomTitleDiv>
-                  <SubOption
-                    style={{
-                      width: "40px",
-                      border: "1px solid #9C9C9C",
-                      color: "#9C9C9C",
-                      margin: "2px",
-                    }}
-                  >
-                    {item.areaName}
-                  </SubOption>
-                  <div>{item.detailAdress}</div>
-                  <div>{item.pay}</div>
-                  {item.status === '접수중'
-                    ? <div>
-                      🟢{item.status}
-                    </div>
-                    :
-                    <div>
-                      🔴{item.status}
-                    </div>
-                  }
-                  <RoomTitle>{item.placeName}</RoomTitle>
-                  <SubOptionsDiv>
-                    <SubOption>미팅룸</SubOption>
-                    <SubOption>프레젠테이션룸</SubOption>
-                  </SubOptionsDiv>
+                  <SubOptionArea>{item.areaName}</SubOptionArea>
+                  <RoomTitle>{item.detailAdress}</RoomTitle>
+                  <PayText>{item.pay}</PayText>
+                  {item.status === "접수중" ? (
+                    <StatusTextGreen>🟢 {item.status}</StatusTextGreen>
+                  ) : (
+                    <StatusTextRed>🔴 {item.status}</StatusTextRed>
+                  )}
+                  <RoomSubTitle>{item.placeName}</RoomSubTitle>
                 </RoomTitleDiv>
 
                 <ButtonsDiv>
@@ -135,12 +131,11 @@ const RoomCom = () => {
                 </ButtonsDiv>
               </RoomContents>
             </RoomDiv>
-          )
+          );
         })}
       </RoomArrayList>
-    )
+    );
   };
-
 
   // Fragment는 빈태그 <> 대신 명시적으로 사용함
   return (
@@ -150,13 +145,12 @@ const RoomCom = () => {
           <RiMapPinLine className="true" style={{ padding: "0" }} />
           <HeadTitle>Reservation</HeadTitle>
           {isOpen && (
-            <>
-              <input onChange={(e) => setSearch(e.target.value)} />
-              <button
-                onClick={handleOnClickBtn}>
-                검색
-              </button>
-            </>
+            <SearchDiv>
+              <SearchInput onChange={(e) => setSearch(e.target.value)} />
+              <SearchButton onClick={handleOnClickBtn}>
+                <BiSearch />
+              </SearchButton>
+            </SearchDiv>
           )}
         </HeaderLeft>
 
@@ -173,13 +167,11 @@ const RoomCom = () => {
           <Classification />
           <Card />
         </>
-      )
-        :
-        (
-          <RoomArrayList>
-            <ReservationAdd />
-          </RoomArrayList>
-        )}
+      ) : (
+        <RoomArrayList>
+          <ReservationAdd />
+        </RoomArrayList>
+      )}
     </Fragment>
   );
 };
@@ -193,6 +185,7 @@ const Header = styled.div`
 `;
 const HeaderLeft = styled.div`
   display: flex;
+  width: 90%;
 `;
 
 const HeadTitle = styled.div`
@@ -258,6 +251,7 @@ const ButtonsDiv = styled.div`
   display: flex;
   flex-direction: column;
   margin-right: 50px;
+  justify-content: center;
 `;
 
 const RoomReservButton = styled.div`
@@ -311,11 +305,46 @@ const SubOption = styled.div`
     }
   `}
 `;
+const SubOptionArea = styled.div`
+  margin: 3px;
+  padding: 2px;
+  padding-left: 6px;
+  padding-right: 6px;
+  background: #f8f8f8;
+  border: 1px solid #8165df;
+  border-radius: 50px;
+  width: 36px;
+  margin-top: 0px;
+  height: 15px;
+  font-size: 10px;
+  color: #8165df;
+  text-align: center;
+`;
 const SubOptionsDiv = styled.div`
   display: flex;
   flex-direction: row;
 `;
 
+const StatusTextRed = styled.div`
+  color: red;
+  font-size: 12px;
+`;
+const StatusTextGreen = styled.div`
+  color: green;
+  font-size: 12px;
+`;
+const PayText = styled.div`
+  color: #535571;
+  font-size: 12px;
+  &::before {
+    content: "💰";
+  }
+  margin: 3px;
+`;
+const RoomSubTitle = styled.div`
+  color: #535571;
+  font-size: 12px;
+`;
 const AddButton = styled.div`
   width: 32px;
   height: 32px;
@@ -328,4 +357,30 @@ const AddButton = styled.div`
   justify-content: center;
   margin: 30px;
   margin-right: 50px;
+`;
+
+const SearchDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+  align-items: center;
+`;
+const SearchInput = styled.input`
+  width: 80%;
+  height: 28px;
+  border: 1px solid #8165df;
+  border-radius: 30px;
+  padding-left: 15px;
+`;
+
+const SearchButton = styled.button`
+  background: #f0ebfa;
+  width: 32px;
+  height: 32px;
+  color: #6f5cea;
+  border: none;
+  cursor: pointer;
+  margin-left: -15px;
+  border-radius: 50%;
 `;

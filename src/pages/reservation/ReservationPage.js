@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
-import color from "./../../assets/color.png"
+import color from "./../../assets/color.png";
 import Cal from "../../components/MainPage/Calendar/Calendar";
 import RoomCom from "../../components/MainPage/Reservation/RoomCom";
 import Menubar from "../../components/Menubar";
@@ -12,41 +12,42 @@ import { AiOutlineCalendar } from "react-icons/ai";
 import { FaRegAddressBook } from "react-icons/fa";
 import { RiMapPinLine } from "react-icons/ri";
 import { HiOutlineMail } from "react-icons/hi";
-import axios from 'axios';
+import axios from "axios";
 
 const ReservationPage = () => {
   const [reservationList, setReservationList] = useState([]);
 
   useEffect(() => {
     getData();
-  }, [])
-
+  }, []);
 
   const getData = async () => {
     try {
-      const url = `http://localhost:8080/reservation/get-reservation`
+      const url = `http://localhost:8080/reservation/get-reservation`;
       const res = await axios.get(url);
       console.log(res);
       setReservationList(res.data.office);
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   const Card = () => {
     return (
       <Fragment>
-        {reservationList.map((item, idx) => {
-          return (
-            <ScheduleBox key={idx}>
-              <div>{item.date}</div>
-              <div>{item.placeName}</div>
-              <div>{item.areaName}</div>
-            </ScheduleBox>
-          )
-        })}
+        <>
+          {reservationList.map((item, idx) => {
+            return (
+              <ScheduleBox key={idx}>
+                <div>{item.date}</div>
+                <div>{item.placeName}</div>
+                <div>{item.areaName}</div>
+              </ScheduleBox>
+            );
+          })}
+        </>
       </Fragment>
-    )
+    );
   };
 
   return (
@@ -145,7 +146,7 @@ const Last = styled.div`
 const ScheduleBox = styled.div`
   width: 80%;
   height: 100px;
-  border: solid 1px #E6E6E6;
+  border: solid 1px #e6e6e6;
   border-radius: 15px;
   background-color: #fff;
   margin-bottom: 15px;
