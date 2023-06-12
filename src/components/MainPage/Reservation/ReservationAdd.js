@@ -2,45 +2,6 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 
-const AddDiv = styled.div`
-  display: flex;
-  justify-content: center;
-  margin: 20px;
-`;
-const AddText = styled.div`
-  width: 30%;
-  color: #8165df;
-`;
-const AddInput = styled.input`
-  width: 50%;
-  font-size: 14px;
-  border: none;
-`;
-const AddTextArea = styled.textarea`
-  width: 50%;
-  height: 60px;
-  font-size: 14px;
-  border: none;
-`;
-const AddPayButton = styled.input`
-  color: #8165df;
-  accent-color: #8165df;
-`;
-const AddPayLabel = styled.label`
-  color: #8165df;
-  margin: 10px;
-`;
-
-const SubmitButton = styled.button`
-  color: #ffffff;
-  width: 100px;
-  background-color: #8165df;
-  height: 30px;
-  border: none;
-  border-radius: 2px;
-  cursor: pointer;
-  margin-top: 100px;
-`;
 const ReservationAdd = () => {
   const formData = new FormData(); // 폼데이터 사용을 위해 선언 왜 여기다 쓰냐 함수 두 곳에 쓸 건데 한 함수 안에서 선언하면 다른 함수에서 사용 못 하니까 이 컴포넌트 안에서 모두 사용하도록 여기다 선언
 
@@ -191,3 +152,43 @@ const ReservationAdd = () => {
 };
 
 export default ReservationAdd;
+
+const AddDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+`;
+const AddText = styled.div`
+  width: 30%;
+  color: #8165df;
+`;
+const AddInput = styled.input`
+  width: 50%;
+  font-size: 14px;
+  border: none;
+`;
+const AddTextArea = styled.textarea`
+  width: 50%;
+  height: 60px;
+  font-size: 14px;
+  border: none;
+`;
+const AddPayButton = styled.input`
+  color: #8165df;
+  accent-color: #8165df;
+`;
+const AddPayLabel = styled.label`
+  color: #8165df;
+  margin: 10px;
+`;
+
+const SubmitButton = styled.button`
+  color: #ffffff;
+  width: 100px;
+  background-color: #8165df;
+  height: 30px;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  margin-top: 100px;
+`;
