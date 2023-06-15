@@ -133,8 +133,8 @@ const Calendar = () => {
             defaultView="dayGridMonth"
             plugins={[dayGridPlugin]}
             weekends={true}
-            // events={schedule} //data에 모든 이벤트 입력
-            events={data} //data에 모든 이벤트 입력
+            events={schedule} //data에 모든 이벤트 입력
+            // events={data} //data에 모든 이벤트 입력
             editable={true}
             navLinks={true}
             eventLimit={true}
