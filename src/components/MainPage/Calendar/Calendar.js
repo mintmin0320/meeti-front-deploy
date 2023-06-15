@@ -74,9 +74,9 @@ const Calendar = () => {
   const [isOpen, setIsOpen] = useState(true);
   const [schedule, setSchedule] = useState([]);
 
-  // useEffect(() => {
-  //   getDate();
-  // }, []);
+  useEffect(() => {
+    getDate();
+  }, []);
 
   const getDate = async () => {
     const url = `https://${process.env.REACT_APP_SECRET_URL}/schedule/get-schedule`;
