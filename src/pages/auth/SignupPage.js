@@ -31,7 +31,7 @@ const SignupForm = () => {
   // 인증코드 요청
   const getAuthNum = async e => {
     e.preventDefault();
-    const url = `http://${process.env.REACT_APP_SERVER_URI}/users/email-verify`;
+    const url = `http://${process.env.REACT_APP_SECRET_URL}/users/email-verify`;
     const data = {
       email: state.email,
     };
