@@ -115,7 +115,7 @@ const RoomCom = () => {
 
                 <ButtonsDiv>
                   <Link
-                    to="/reservationdetail"
+                    to="/reservation/detail"
                     state={{ officeId: item._id }}
                     style={{ textDecoration: "none" }}
                   >
