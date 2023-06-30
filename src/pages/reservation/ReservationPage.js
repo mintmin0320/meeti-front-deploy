@@ -36,28 +36,26 @@ const ReservationPage = () => {
   const Card = () => {
     return (
       <Fragment>
-        <>
-          {reservationList.map((item, idx) => {
-            return (
-              <ScheduleBox key={idx}>
-                <SubDiv>
-                  <SubLeftDiv>
-                    <SubOptionImg src={item.imgUrl} alt="이미지 없음" />
-                  </SubLeftDiv>
-                  <SubRightDiv>
-                    <SubOptionDate>{item.date}</SubOptionDate>
-                    <SubOptionArea>{item.areaName}</SubOptionArea>
-                    <SubOptionPlace>{item.placeName}</SubOptionPlace>
-                    <SubOptionTelDiv>
-                      <BiPhoneCall style={{ color: "#8165df" }} />
-                      <SubOptionTelNum>{item.telNum}</SubOptionTelNum>
-                    </SubOptionTelDiv>
-                  </SubRightDiv>
-                </SubDiv>
-              </ScheduleBox>
-            );
-          })}
-        </>
+        {reservationList.map((item) => {
+          return (
+            <ScheduleBox key={item._id}>
+              <SubDiv>
+                <SubLeftDiv>
+                  <SubOptionImg src={item.imgUrl} alt="이미지 없음" />
+                </SubLeftDiv>
+                <SubRightDiv>
+                  <SubOptionDate>{item.date}</SubOptionDate>
+                  <SubOptionArea>{item.areaName}</SubOptionArea>
+                  <SubOptionPlace>{item.placeName}</SubOptionPlace>
+                  <SubOptionTelDiv>
+                    <BiPhoneCall style={{ color: "#8165df" }} />
+                    <SubOptionTelNum>{item.telNum}</SubOptionTelNum>
+                  </SubOptionTelDiv>
+                </SubRightDiv>
+              </SubDiv>
+            </ScheduleBox>
+          );
+        })}
       </Fragment>
     );
   };

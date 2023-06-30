@@ -94,9 +94,9 @@ const RoomCom = () => {
   const Card = () => {
     return (
       <RoomArrayList>
-        {officeList.map((item, idx) => {
+        {officeList.map((item) => {
           return (
-            <RoomDiv key={idx}>
+            <RoomDiv key={item._id}>
               <RoomImgDiv>
                 <RoomImg src={item.imgUrl} alt="이미지 없음" />
               </RoomImgDiv>
