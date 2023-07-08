@@ -6,6 +6,7 @@ import ApprovalRoute from "./ApprovalRoute"; //  승인 Route
 import ReservationRoute from "./ReservationRoute"; // 예약 Route
 import LoginRoute from "./LoginRoute"; //로그인 Route
 import SignupRoute from "./SignupRoute";
+import MypageRoute from "./MypageRoute";
 
 export default function MainRoute() {
   return (
@@ -15,6 +16,7 @@ export default function MainRoute() {
       <Route path="/calendar/*" element={<CalendarRoute />} />
       <Route path="/approval/*" element={<ApprovalRoute />} />
       <Route path="/reservation/*" element={<ReservationRoute />} />
+      <Route path="/mypage/*" element={<MypageRoute />} />
     </Routes>
   );
 }
