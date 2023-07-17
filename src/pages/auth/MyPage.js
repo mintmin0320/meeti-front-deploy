@@ -10,7 +10,6 @@ import { RiMapPinLine } from "react-icons/ri";
 import { HiOutlineMail } from "react-icons/hi";
 
 const MyPage = () => {
-  const user = [];
   return (
     <Test>
       <MainDiv className="MainDiv">
@@ -35,22 +34,22 @@ const MyPage = () => {
             <Profileimg />
             <div>
               <Info>
-                이름 l<Text></Text>
+                이름 l<Text>설주희</Text>
               </Info>
               <Info>
-                소속 l<Text></Text>
+                소속 l<Text>동양미래대학교</Text>
               </Info>
               <Info>
-                이메일 l<Text></Text>
+                이메일 l<Text>juhee01176@gmail.com</Text>
               </Info>
               <Info>
-                전화번호 l<Text></Text>
+                전화번호 l<Text>010-3264-5936</Text>
               </Info>
             </div>
           </Profile>
           <Introduction>
             <Info>
-              소개 l<Text></Text>
+              소개 l<Text>안녕하세요~^^</Text>
             </Info>
           </Introduction>
           <Buttons>
@@ -141,8 +140,7 @@ const Introduction = styled.div`
 const Text = styled.div`
   margin-left: 15px;
   color: black;
-  white-space: nowrap;
-  overflow: hidden;
+  white-space: pre-wrap;
 `;
 const Buttons = styled.div`
   margin-top: 280px;
