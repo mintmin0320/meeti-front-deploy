@@ -91,7 +91,7 @@ const Color = styled.div`
       background-color: #535571;
     `}
 `;
-const ColorCom = () => {
+const ColorCom = (props) => {
   const [colorDiv, setColorDiv] = useState(false);
   const [colorState, setColorState] = useState("#8165df");
   const onClickColor = (e) => {

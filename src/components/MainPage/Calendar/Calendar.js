@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import FullCalendar from "@fullcalendar/react";
+import interactionPlugin from "@fullcalendar/interaction";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import styled from "styled-components";
 import data from "../../../data";
-import { BsPlusLg } from "react-icons/bs";
+
 import {
   AiOutlineCalendar,
   AiOutlineUserAdd,
@@ -129,14 +130,14 @@ const Calendar = () => {
               day: "day",
               list: "list",
             }}
-            locale={"ko"}
+            locale={"en"}
             defaultView="dayGridMonth"
-            plugins={[dayGridPlugin]}
+            plugins={[dayGridPlugin, interactionPlugin]}
             weekends={true}
-            events={schedule} //data에 모든 이벤트 입력
-            // events={data} //data에 모든 이벤트 입력
+            //events={schedule} //data에 모든 이벤트 입력
+            events={data} //data에 모든 이벤트 입력
             editable={true}
-            navLinks={true}
+            navLinks={false}
             eventLimit={true}
             eventRender={(events) => {
               Tooltip(events.el, {
@@ -145,6 +146,18 @@ const Calendar = () => {
                 trigger: "click",
                 container: "body",
               });
+            }}
+            eventAdd={() => {}} //event 추가될 때 실행되는 이벤트
+            eventChange={() => {}} //event 수정될 떄 실행되는 이벤트
+            eventRemove={() => {}} //event 삭제될 때 실행되는 이벤트
+            titleFormat={(date) => {
+              const year = date.date.year;
+              const month = date.date.month + 1;
+              return year + "년 " + month + "월";
+            }}
+            dateClick={(it) => {
+              alert(it.date.getDate());
+              console.log(it.date.getDate());
             }}
           />
         </CalendarDiv>

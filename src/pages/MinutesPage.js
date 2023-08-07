@@ -1,17 +1,14 @@
 import React from "react";
 import styled from "styled-components";
-import color from "./../../assets/color.png";
-import Cal from "../../components/MainPage/Calendar/Calendar";
-import { useNavigate } from "react-router-dom";
+// import color from "./../../assets/color.png";
 import { AiOutlineCalendar } from "react-icons/ai";
 
 import { Link } from "react-router-dom";
 
 // icon
 import { FaRegAddressBook } from "react-icons/fa";
-import { RiMapPinLine } from "react-icons/ri";
+import { RiMapPinLine, RiPlayList2Fill } from "react-icons/ri";
 import { HiOutlineMail } from "react-icons/hi";
-import Schedule from "../../components/MainPage/Calendar/Schedule";
 
 // Background_circle
 const Circle_frame = styled.div`
@@ -121,7 +118,7 @@ const Last = styled.div`
   z-index: 3;
 `;
 
-const CalendarPage = () => {
+const MinutesPage = () => {
   return (
     <Test>
       <div className="circle_frame" style={{ overflow: "hidden" }}>
@@ -132,10 +129,10 @@ const CalendarPage = () => {
       </div>
 
       <MainDiv className="MainDiv">
-        <BackColor src={color} style={{ opacity: 0.2 }} />
+        {/* <BackColor src={color} style={{ opacity: 0.2 }} /> */}
         <Header>
           <Link to="/calendar">
-            <AiOutlineCalendar className="true" />
+            <AiOutlineCalendar className="false" />
           </Link>
           <Link to="/">
             <FaRegAddressBook className="false" />
@@ -146,20 +143,19 @@ const CalendarPage = () => {
           <Link to="/approval">
             <HiOutlineMail className="false" />
           </Link>
+          <Link to="/">
+            <RiPlayList2Fill className="true" />
+          </Link>
         </Header>
         <Mid>
-          <Title>오늘의 일정</Title>
-          <SubTitle>It's today's schedule.</SubTitle>
-          <Schedule />
-          <Schedule />
-          <Schedule />
+          <Title>회의록</Title>
+          <SubTitle>It's Minutes</SubTitle>
+          {/* 회의록 목록 */}
         </Mid>
-        <Last>
-          <Cal />
-        </Last>
+        <Last>{/* 회의록 메인 */}</Last>
       </MainDiv>
     </Test>
   );
 };
 
-export default CalendarPage;
+export default MinutesPage;
