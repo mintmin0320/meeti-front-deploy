@@ -8,7 +8,6 @@ function App() {
     <div className="App">
       <Router>
         <MainRoute />
-        <ContactsPage />
       </Router>
     </div>
   );
