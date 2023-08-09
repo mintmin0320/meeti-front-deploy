@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import color from "./../../assets/color.png";
-import { FaBookOpen } from "react-icons/fa";
 import { MdWork, MdPerson } from "react-icons/md";
 import { Link } from "react-router-dom";
 
@@ -78,27 +77,22 @@ const Signup = () => {
         <SubTitle>저희는 “미티” 입니다👋</SubTitle>
       </TitleDiv>
       <ButtonDiv>
-        <Link to="/signup" style={{ textDecoration: "none" }}>
+        <Link to="/" style={{ textDecoration: "none" }}>
           <Button>
-            <FaBookOpen style={{ color: "#8165DF" }} />
-            <Text>학생용</Text>
+            <MdPerson style={{ color: "#8165DF" }} />
+            <Text>개인용</Text>
             <Br />
             <Join>회원가입하기</Join>
           </Button>
         </Link>
-
-        <Button>
-          <MdWork style={{ color: "#8165DF" }} />
-          <Text>기업용</Text>
-          <Br />
-          <Join>회원가입하기</Join>
-        </Button>
-        <Button>
-          <MdPerson style={{ color: "#8165DF" }} />
-          <Text>개인용</Text>
-          <Br />
-          <Join>회원가입하기</Join>
-        </Button>
+        <Link to="/corp" style={{ textDecoration: "none" }}>
+          <Button>
+            <MdWork style={{ color: "#8165DF" }} />
+            <Text>기업용</Text>
+            <Br />
+            <Join>회원가입하기</Join>
+          </Button>
+        </Link>
       </ButtonDiv>
     </SignupDiv>
   );
