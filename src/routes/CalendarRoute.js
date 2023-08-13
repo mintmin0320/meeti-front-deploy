@@ -1,5 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
+
 import CalendarPage from "../pages/calendar/CalendarPage";
 
 export default function CalendarRoute() {
@@ -8,4 +9,4 @@ export default function CalendarRoute() {
       <Route path="/" element={<CalendarPage />} />
     </Routes>
   );
-}
+};
