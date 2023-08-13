@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import profileExImg from "./../../../assets/profileExImg.png";
+
+// icon, dummy-data
 import { FiSend } from "react-icons/fi";
 import { FaRegAddressBook } from "react-icons/fa";
-import {
-  HiHeart,
-  HiOutlineHeart,
-  HiOutlineDotsHorizontal,
-} from "react-icons/hi";
+import { HiHeart, HiOutlineHeart, HiOutlineDotsHorizontal, } from "react-icons/hi";
 import { BiSearch } from "react-icons/bi";
+
+import profileExImg from "./../../assets/profileExImg.png";
+
 import data from "./contactsData.json";
 
 const MainContacts = () => {

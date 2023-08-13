@@ -1,21 +1,20 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import color from "./../../assets/color.png";
-import Cal from "../../components/MainPage/Calendar/Calendar";
-import RoomCom from "../../components/MainPage/Reservation/RoomCom";
-import Menubar from "../../components/Menubar";
-
 import { Link } from "react-router-dom";
 
-// icon
+import Cal from "../../components/calendar/Calendar";
+import RoomCom from "../../components/reservation/RoomCom";
+import MainContacts from "../../components/contact/MainContacts";
+import RecentContacts from "../../components/contact/RecentContacts";
+
+// icon, bg-color
 import { AiOutlineCalendar } from "react-icons/ai";
 import { FaRegAddressBook } from "react-icons/fa";
-import { RiMapPinLine } from "react-icons/ri";
+import { RiMapPinLine, RiPlayList2Fill } from "react-icons/ri";
 import { HiOutlineMail } from "react-icons/hi";
-import { BiPhoneCall } from "react-icons/bi";
-import axios from "axios";
-import MainContacts from "../../components/MainPage/Contacts/MainContacts";
-import RecentContacts from "../../components/MainPage/Contacts/RecentContacts";
+import { BiUserCircle } from "react-icons/bi";
+
+import color from "./../../assets/color.png";
 
 const ContactsPage = () => {
   return (
@@ -23,10 +22,10 @@ const ContactsPage = () => {
       <MainDiv className="MainDiv">
         <BackColor src={color} style={{ opacity: 0.2 }} />
         <Header>
-          <Link to="/calendar">
+          <Link to="/">
             <AiOutlineCalendar className="false" />
           </Link>
-          <Link to="/contacts">
+          <Link to="/contact">
             <FaRegAddressBook className="true" />
           </Link>
           <Link to="/reservation">
@@ -34,6 +33,12 @@ const ContactsPage = () => {
           </Link>
           <Link to="/approval">
             <HiOutlineMail className="false" />
+          </Link>
+          <Link to="/minutes">
+            <RiPlayList2Fill className="false" />
+          </Link>
+          <Link to="/profile">
+            <BiUserCircle className="true" />
           </Link>
         </Header>
         <Mid>
