@@ -1,8 +1,11 @@
 import React from "react";
 import styled from "styled-components";
+
+// icon
 import { AiOutlineSearch } from "react-icons/ai";
 import { FaRegPaperPlane } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
+
 const Header = styled.div`
   display: flex;
   flex-direction: row;
@@ -88,6 +91,7 @@ const SubmitButton = styled.div`
   color: #ffffff;
   margin-top: 20px;
 `;
+
 const ApprovalCom = () => {
   return (
     <>
@@ -116,4 +120,5 @@ const ApprovalCom = () => {
     </>
   );
 };
+
 export default ApprovalCom;
