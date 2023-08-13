@@ -1,24 +1,26 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import color from "./../../assets/color.png";
 import { Link } from "react-router-dom";
 
-// icon
+// icon, bg-color
 import { AiOutlineCalendar } from "react-icons/ai";
 import { FaRegAddressBook } from "react-icons/fa";
-import { RiMapPinLine } from "react-icons/ri";
+import { RiMapPinLine, RiPlayList2Fill } from "react-icons/ri";
 import { HiOutlineMail } from "react-icons/hi";
+import { BiUserCircle } from "react-icons/bi";
 
-const MyPage = () => {
+import color from "./../../assets/color.png";
+
+const ProfilePage = () => {
   return (
     <Test>
       <MainDiv className="MainDiv">
         <BackColor src={color} style={{ opacity: 0.2 }} />
         <Header>
-          <Link to="/calendar">
+          <Link to="/">
             <AiOutlineCalendar className="false" />
           </Link>
-          <Link to="/">
+          <Link to="/contact">
             <FaRegAddressBook className="false" />
           </Link>
           <Link to="/reservation">
@@ -26,6 +28,12 @@ const MyPage = () => {
           </Link>
           <Link to="/approval">
             <HiOutlineMail className="false" />
+          </Link>
+          <Link to="/minutes">
+            <RiPlayList2Fill className="false" />
+          </Link>
+          <Link to="/profile">
+            <BiUserCircle className="true" />
           </Link>
         </Header>
         <Mid>
@@ -63,7 +71,7 @@ const MyPage = () => {
     </Test>
   );
 };
-export default MyPage;
+export default ProfilePage;
 
 const Test = styled.div`
   width: 100vw;
