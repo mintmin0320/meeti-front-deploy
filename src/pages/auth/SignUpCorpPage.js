@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
@@ -8,7 +8,7 @@ import { IoIosArrowForward } from "react-icons/io";
 import color from "./../../assets/color.png";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 
-const SignupForm = () => {
+const SignUpCorpPage = () => {
   const navigate = useNavigate();
   const [state, setState] = useState({
     email: "",
@@ -114,8 +114,8 @@ const SignupForm = () => {
               name="email"
               onChange={_handleInputChange}
               required
-              // onChange={e => {
-              //handleOnChange("id", e);
+            // onChange={e => {
+            //handleOnChange("id", e);
             />
             <Button onClick={getAuthNum} type="button">
               인증번호받기
@@ -176,7 +176,7 @@ const SignupForm = () => {
     </Test>
   );
 };
-export default SignupForm;
+export default SignUpCorpPage;
 
 const Test = styled.div`
   width: 100vw;

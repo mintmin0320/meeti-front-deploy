@@ -9,7 +9,7 @@ import { IoIosArrowForward } from "react-icons/io";
 import color from "./../../assets/color.png";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 
-const SignupForm = () => {
+const SignUpPage = () => {
   const navigate = useNavigate();
   const [state, setState] = useState({
     email: "",
@@ -115,8 +115,8 @@ const SignupForm = () => {
               name="email"
               onChange={_handleInputChange}
               required
-              // onChange={e => {
-              //handleOnChange("id", e);
+            // onChange={e => {
+            //handleOnChange("id", e);
             />
             {/* <Button onClick={getAuthNum} type="button">
               인증번호받기
@@ -177,7 +177,7 @@ const SignupForm = () => {
     </Test>
   );
 };
-export default SignupForm;
+export default SignUpPage;
 
 const Test = styled.div`
   width: 100vw;

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import color from "./../../assets/color.png";
+
 import { MdWork, MdPerson } from "react-icons/md";
 import { Link } from "react-router-dom";
 
@@ -64,10 +64,11 @@ const Join = styled.div`
   color: #9c9c9c;
 `;
 
-const Signup = () => {
+const SignUp = () => {
   const [stuButton, setStuButton] = useState(false);
   const [offButton, setoffButton] = useState(false);
   const [usrButton, setUsrButton] = useState(false);
+
   return (
     <SignupDiv>
       <TitleDiv>
@@ -77,7 +78,7 @@ const Signup = () => {
         <SubTitle>저희는 “미티” 입니다👋</SubTitle>
       </TitleDiv>
       <ButtonDiv>
-        <Link to="/" style={{ textDecoration: "none" }}>
+        <Link to="/auth/personal" style={{ textDecoration: "none" }}>
           <Button>
             <MdPerson style={{ color: "#8165DF" }} />
             <Text>개인용</Text>
@@ -85,7 +86,7 @@ const Signup = () => {
             <Join>회원가입하기</Join>
           </Button>
         </Link>
-        <Link to="/corp" style={{ textDecoration: "none" }}>
+        <Link to="/auth/corp" style={{ textDecoration: "none" }}>
           <Button>
             <MdWork style={{ color: "#8165DF" }} />
             <Text>기업용</Text>
@@ -98,4 +99,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default SignUp;

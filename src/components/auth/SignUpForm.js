@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from "react";
 import styled from "styled-components";
+
 import color from "./../../assets/color.png";
 import { FaBookOpen } from "react-icons/fa";
 import { IoIosArrowForward } from "react-icons/io";
@@ -129,7 +130,7 @@ const NextBtn = styled.button`
   box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.25);
 `;
 
-const SignupForm = () => {
+const SignUpForm = () => {
   const [state, setState] = useState({
     email: "",
     userPw: "",
@@ -218,4 +219,4 @@ const SignupForm = () => {
     </Test>
   );
 };
-export default SignupForm;
+export default SignUpForm;

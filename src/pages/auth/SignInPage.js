@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import color from "./../../assets/color.png";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
-import SingupTypePage from "./SignupTypePage";
-import { Link } from "react-router-dom";
 
-const Login = () => {
+import color from "./../../assets/color.png";
+
+const SignInPage = () => {
   const navigate = useNavigate();
   const [userId, setUserId] = useState("");
   const [userPw, setUserPw] = useState("");
@@ -59,7 +58,7 @@ const Login = () => {
               }}
             />{" "}
             <SignupLink>
-              <Link to="/Signup">아직 미티의 회원이 아니신가요?</Link>
+              <Link to="/auth">아직 미티의 회원이 아니신가요?</Link>
             </SignupLink>
             <Btn>로그인</Btn>
           </form>
@@ -69,7 +68,7 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignInPage;
 
 const Test = styled.div`
   width: 100vw;
