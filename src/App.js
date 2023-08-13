@@ -1,8 +1,8 @@
 import { BrowserRouter as Router } from "react-router-dom";
+
 import "./App.css";
-import MainRoute from "./router/MainRoute";
-import ContactsPage from "./pages/contacts/ContactsPage";
-import MinutesPage from "./pages/MinutesPage";
+
+import MainRoute from "./routes/MainRoute";
 
 function App() {
   return (
@@ -12,6 +12,6 @@ function App() {
       </Router>
     </div>
   );
-}
+};
 
 export default App;
