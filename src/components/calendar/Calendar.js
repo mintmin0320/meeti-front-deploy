@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
+import styled from "styled-components";
+
 import FullCalendar from "@fullcalendar/react";
 import interactionPlugin from "@fullcalendar/interaction";
 import dayGridPlugin from "@fullcalendar/daygrid";
-import styled from "styled-components";
-import data from "../../../data";
-
-import {
-  AiOutlineCalendar,
-  AiOutlineUserAdd,
-  AiOutlinePlusCircle,
-} from "react-icons/ai";
-import { BiSearch } from "react-icons/bi";
-import AddContent from "./AddContent";
 import { Tooltip } from "react-tooltip";
-import axios from "axios";
+
+import AddContent from "./AddContent";
+
+// icon, dummy-data
+import { AiOutlineCalendar, AiOutlineUserAdd, AiOutlinePlusCircle } from "react-icons/ai";
+import { BiSearch } from "react-icons/bi";
+
+import data from "../../data";
 
 const Main = styled.div``;
 const CalendarDiv = styled.div`
@@ -71,12 +71,13 @@ const SearchButton = styled.div`
   justify-content: center;
   margin: 5px;
 `;
+
 const Calendar = () => {
   const [isOpen, setIsOpen] = useState(true);
   const [schedule, setSchedule] = useState([]);
 
   useEffect(() => {
-    getDate();
+    // getDate();
   }, []);
 
   const getDate = async () => {
@@ -94,7 +95,7 @@ const Calendar = () => {
       <Header>
         <Header>
           <AiOutlineCalendar className="true" style={{ padding: "0" }} />
-          <HeadTitle>Calendaer</HeadTitle>
+          <HeadTitle>Calendar</HeadTitle>
         </Header>
         <HeaderRight>
           <SearchButton>
@@ -131,10 +132,10 @@ const Calendar = () => {
               list: "list",
             }}
             locale={"en"}
-            defaultView="dayGridMonth"
+            initialView="dayGridMonth"
             plugins={[dayGridPlugin, interactionPlugin]}
             weekends={true}
-            //events={schedule} //data에 모든 이벤트 입력
+            // events={schedule} //data에 모든 이벤트 입력
             events={data} //data에 모든 이벤트 입력
             editable={true}
             navLinks={false}
@@ -147,9 +148,9 @@ const Calendar = () => {
                 container: "body",
               });
             }}
-            eventAdd={() => {}} //event 추가될 때 실행되는 이벤트
-            eventChange={() => {}} //event 수정될 떄 실행되는 이벤트
-            eventRemove={() => {}} //event 삭제될 때 실행되는 이벤트
+            eventAdd={() => { }} //event 추가될 때 실행되는 이벤트
+            eventChange={() => { }} //event 수정될 떄 실행되는 이벤트
+            eventRemove={() => { }} //event 삭제될 때 실행되는 이벤트
             titleFormat={(date) => {
               const year = date.date.year;
               const month = date.date.month + 1;
@@ -169,4 +170,5 @@ const Calendar = () => {
     </Main>
   );
 };
+
 export default Calendar;

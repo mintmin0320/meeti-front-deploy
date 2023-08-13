@@ -1,17 +1,18 @@
 import React from "react";
 import styled from "styled-components";
-import color from "./../../assets/color.png";
-import Cal from "../../components/MainPage/Calendar/Calendar";
-import { useNavigate } from "react-router-dom";
-import { AiOutlineCalendar } from "react-icons/ai";
+import { Link, useNavigate } from "react-router-dom";
 
-import { Link } from "react-router-dom";
+import Calendar from "../../components/calendar/Calendar";
+import Schedule from "../../components/calendar/Schedule";
 
-// icon
+// icon, bg-color
 import { FaRegAddressBook } from "react-icons/fa";
-import { RiMapPinLine } from "react-icons/ri";
+import { AiOutlineCalendar } from "react-icons/ai";
+import { RiMapPinLine, RiPlayList2Fill } from "react-icons/ri";
 import { HiOutlineMail } from "react-icons/hi";
-import Schedule from "../../components/MainPage/Calendar/Schedule";
+import { BiUserCircle } from "react-icons/bi";
+
+import color from "./../../assets/color.png";
 
 // Background_circle
 const Circle_frame = styled.div`
@@ -134,10 +135,10 @@ const CalendarPage = () => {
       <MainDiv className="MainDiv">
         <BackColor src={color} style={{ opacity: 0.2 }} />
         <Header>
-          <Link to="/calendar">
+          <Link to="/">
             <AiOutlineCalendar className="true" />
           </Link>
-          <Link to="/">
+          <Link to="/contact">
             <FaRegAddressBook className="false" />
           </Link>
           <Link to="/reservation">
@@ -145,6 +146,12 @@ const CalendarPage = () => {
           </Link>
           <Link to="/approval">
             <HiOutlineMail className="false" />
+          </Link>
+          <Link to="/minutes">
+            <RiPlayList2Fill className="false" />
+          </Link>
+          <Link to="/profile">
+            <BiUserCircle className="false" />
           </Link>
         </Header>
         <Mid>
@@ -155,7 +162,7 @@ const CalendarPage = () => {
           <Schedule />
         </Mid>
         <Last>
-          <Cal />
+          <Calendar />
         </Last>
       </MainDiv>
     </Test>
