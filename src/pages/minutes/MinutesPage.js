@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import { FaRegAddressBook } from "react-icons/fa";
 import { RiMapPinLine, RiPlayList2Fill } from "react-icons/ri";
 import { HiOutlineMail } from "react-icons/hi";
+import { BiUserCircle } from "react-icons/bi";
 
 // Background_circle
 const Circle_frame = styled.div`
@@ -131,10 +132,10 @@ const MinutesPage = () => {
       <MainDiv className="MainDiv">
         {/* <BackColor src={color} style={{ opacity: 0.2 }} /> */}
         <Header>
-          <Link to="/calendar">
+          <Link to="/">
             <AiOutlineCalendar className="false" />
           </Link>
-          <Link to="/">
+          <Link to="/contact">
             <FaRegAddressBook className="false" />
           </Link>
           <Link to="/reservation">
@@ -143,8 +144,11 @@ const MinutesPage = () => {
           <Link to="/approval">
             <HiOutlineMail className="false" />
           </Link>
-          <Link to="/">
+          <Link to="/minutes">
             <RiPlayList2Fill className="true" />
+          </Link>
+          <Link to="/profile">
+            <BiUserCircle className="false" />
           </Link>
         </Header>
         <Mid>
