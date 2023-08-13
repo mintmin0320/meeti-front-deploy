@@ -1,18 +1,19 @@
 import React from "react";
 import styled from "styled-components";
-import color from "./../../assets/color.png";
-import Cal from "../../components/MainPage/Calendar/Calendar";
-import { useNavigate } from "react-router-dom";
-import { AiOutlineCalendar } from "react-icons/ai";
-
 import { Link } from "react-router-dom";
 
+import ReservationCom from "../../components/reservation/ReservationCom";
+import ReservationDetail from '../../components/reservation/ReservationDetail';
+import Cal from "../../components/calendar/Calendar";
+
 // icon
+import { AiOutlineCalendar } from "react-icons/ai";
 import { FaRegAddressBook } from "react-icons/fa";
-import { RiMapPinLine } from "react-icons/ri";
+import { RiMapPinLine, RiPlayList2Fill } from "react-icons/ri";
 import { HiOutlineMail } from "react-icons/hi";
-import ReservationCom from "../../components/MainPage/Reservation/ReservationCom";
-import ReservationDetail from "../../components/MainPage/Reservation/ReservationDetail";
+import { BiUserCircle } from "react-icons/bi";
+
+import color from "./../../assets/color.png";
 
 const Test = styled.div`
   width: 100vw;
@@ -81,10 +82,10 @@ const ReservationDetailPage = () => {
       <MainDiv className="MainDiv">
         <BackColor src={color} style={{ opacity: 0.2 }} />
         <Header>
-          <Link to="/calendar">
+          <Link to="/">
             <AiOutlineCalendar className="false" />
           </Link>
-          <Link to="/">
+          <Link to="/contact">
             <FaRegAddressBook className="false" />
           </Link>
           <Link to="/reservation">
@@ -92,6 +93,12 @@ const ReservationDetailPage = () => {
           </Link>
           <Link to="/approval">
             <HiOutlineMail className="false" />
+          </Link>
+          <Link to="/minutes">
+            <RiPlayList2Fill className="false" />
+          </Link>
+          <Link to="/profile">
+            <BiUserCircle className="false" />
           </Link>
         </Header>
         {/* <Mid>

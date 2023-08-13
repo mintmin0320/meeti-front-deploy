@@ -1,13 +1,15 @@
 import React, { Fragment, useEffect, useState } from "react";
-// import DataList from "../../../reservation.json";
 import styled, { css } from "styled-components";
-import { RiMapPinLine } from "react-icons/ri";
-import { AiOutlineUnorderedList, AiOutlinePlusCircle } from "react-icons/ai";
-import { BiSearch } from "react-icons/bi";
-import { Link } from "react-router-dom";
-import ReservationAdd from "./ReservationAdd";
 import axios from "axios";
+import { Link } from "react-router-dom";
+
+import ReservationAdd from "./ReservationAdd";
 import ReservationDetail from "./ReservationDetail";
+
+// icon
+import { AiOutlineUnorderedList, AiOutlinePlusCircle } from "react-icons/ai";
+import { RiMapPinLine } from "react-icons/ri";
+import { BiSearch } from "react-icons/bi";
 
 const RoomCom = () => {
   const areaArr = [

@@ -1,19 +1,19 @@
 import React, { Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
-import color from "./../../assets/color.png";
-import Cal from "../../components/MainPage/Calendar/Calendar";
-import RoomCom from "../../components/MainPage/Reservation/RoomCom";
-import Menubar from "../../components/Menubar";
-
 import { Link } from "react-router-dom";
+import axios from "axios";
+
+import RoomCom from "../../components/reservation/RoomCom";
+import Cal from "../../components/calendar/Calendar";
+
+import color from "./../../assets/color.png";
 
 // icon
 import { AiOutlineCalendar } from "react-icons/ai";
 import { FaRegAddressBook } from "react-icons/fa";
-import { RiMapPinLine } from "react-icons/ri";
+import { RiMapPinLine, RiPlayList2Fill } from "react-icons/ri";
 import { HiOutlineMail } from "react-icons/hi";
-import { BiPhoneCall } from "react-icons/bi";
-import axios from "axios";
+import { BiPhoneCall, BiUserCircle } from "react-icons/bi";
 
 const ReservationPage = () => {
   const [reservationList, setReservationList] = useState([]);
@@ -65,10 +65,10 @@ const ReservationPage = () => {
       <MainDiv className="MainDiv">
         <BackColor src={color} style={{ opacity: 0.2 }} />
         <Header>
-          <Link to="/calendar">
+          <Link to="/">
             <AiOutlineCalendar className="false" />
           </Link>
-          <Link to="/">
+          <Link to="/contact">
             <FaRegAddressBook className="false" />
           </Link>
           <Link to="/reservation">
@@ -76,6 +76,12 @@ const ReservationPage = () => {
           </Link>
           <Link to="/approval">
             <HiOutlineMail className="false" />
+          </Link>
+          <Link to="/minutes">
+            <RiPlayList2Fill className="false" />
+          </Link>
+          <Link to="/profile">
+            <BiUserCircle className="false" />
           </Link>
         </Header>
         <Mid>

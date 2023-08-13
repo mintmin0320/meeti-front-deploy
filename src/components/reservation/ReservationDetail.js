@@ -1,12 +1,13 @@
 import React, { Fragment, useEffect, useState, forwardRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import DataList from "./../../../reservation.json";
 import styled, { css } from "styled-components";
+import axios from "axios";
+import DatePicker from "react-datepicker";
+
+// icon
 import { BsTelephone } from "react-icons/bs";
 import { BiTimeFive } from "react-icons/bi";
-import axios from "axios";
 import { ko } from "date-fns/esm/locale";
-import DatePicker from "react-datepicker";
 
 const ReservationDetail = () => {
   const location = useLocation();
