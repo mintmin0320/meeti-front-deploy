@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 
 import SignInPage from "../pages/auth/SignInPage";
 import SignUpPage from "../pages/auth/SignUpPage";
-import SignUpTypePage from '../pages/auth/SignUpTypePage';
+import SignUpTypePage from "../pages/auth/SignUpTypePage";
 import SignUpCorpPage from "../pages/auth/SignUpCorpPage";
 
 export default function AuthRoute() {
@@ -15,4 +15,4 @@ export default function AuthRoute() {
       <Route path="/corp" element={<SignUpCorpPage />} />
     </Routes>
   );
-};
+}

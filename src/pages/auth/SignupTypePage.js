@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import SignUp from '../../components/auth/SignUp';
+import SignUp from "../../components/auth/SignUp";
 
 // icon, bg-color
 import color from "./../../assets/color.png";
