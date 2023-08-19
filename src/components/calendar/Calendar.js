@@ -7,7 +7,7 @@ import interactionPlugin from "@fullcalendar/interaction";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import { Tooltip } from "react-tooltip";
 
-import AddContent from "./AddContent";
+import AddContent from "./AddSchedule";
 
 // icon, dummy-data
 import { AiOutlineCalendar, AiOutlineUserAdd, AiOutlinePlusCircle } from "react-icons/ai";
@@ -59,6 +59,7 @@ const AddButton = styled.div`
   justify-content: center;
   margin: 5px;
 `;
+
 const SearchButton = styled.div`
   width: 32px;
   height: 32px;
@@ -111,7 +112,6 @@ const Calendar = () => {
           </AddButton>
         </HeaderRight>
       </Header>
-
       {isOpen ? (
         <CalendarDiv>
           <FullCalendar
