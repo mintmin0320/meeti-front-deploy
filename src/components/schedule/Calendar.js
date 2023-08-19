@@ -1,5 +1,9 @@
+/*
+  일정을 조회할 수 있는 달력
+  서버와의 통신 작업을 진행하며 수정할 필요가 있음
+*/
+
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import styled from "styled-components";
 
 import FullCalendar from "@fullcalendar/react";
@@ -7,6 +11,7 @@ import interactionPlugin from "@fullcalendar/interaction";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import { Tooltip } from "react-tooltip";
 
+import { getSchedule } from '../../apis/schedule';
 import AddContent from "./AddSchedule";
 
 // icon, dummy-data
@@ -81,14 +86,14 @@ const Calendar = () => {
   const [schedule, setSchedule] = useState([]);
 
   useEffect(() => {
-    // getDate();
+    // fetchSchedule();
   }, []);
 
-  const getDate = async () => {
-    const url = `https://${process.env.REACT_APP_SECRET_URL}/schedule/get-schedule`;
+  const fetchSchedule = async () => {
     try {
-      const res = await axios.get(url);
-      setSchedule(res.data.schedule);
+      const res = await getSchedule();
+
+      console.log(res);
     } catch (error) {
       console.log(error);
     }

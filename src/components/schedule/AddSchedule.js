@@ -1,10 +1,14 @@
+/*
+  일정 날자 선택할 경우 setScheduleDate 코드 수정 필요
+*/
+
 import React, { useState } from "react";
 import styled, { css } from "styled-components";
-import axios from "axios";
 import { DateRange } from "react-date-range";
 import ko from "date-fns/locale/ko"; // 날짜 포맷 라이브러리 (한국어 기능을 임포트)
 
 import BackgroundPalette from './BackgroundPalette';
+import { setSchedule } from '../../apis/schedule';
 
 // hook
 import { useColor } from '../../hooks/context/colorContext';
@@ -99,7 +103,7 @@ const SummitButtonDiv = styled.div`
   margin-top: 80px;
 `;
 
-const AddSchedule = (props) => {
+const AddSchedule = () => {
   const { color } = useColor();
   const [state, setState] = useState([
     {
@@ -112,39 +116,36 @@ const AddSchedule = (props) => {
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
 
-  console.log(startTime)
-  console.log(endTime)
   const handleOnChange = (e) => {
     e.preventDefault();
     setTitle(e.target.value);
   };
 
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
-    setList();
-  };
 
-  const setSchedule = (item) => {
-    setState([item.selection]);
-
-    if (item.selection.endDate !== null) {
-    }
-  };
-
-  const setList = async () => {
-    const url = `https://${process.env.REACT_APP_SERVER_URI}/schedule/set-schedule`;
     const data = {
       title: title,
       color,
       start: state[0].startDate,
       end: state[0].endDate,
     };
+
     try {
-      const res = await axios.post(url, data);
+      const res = await setSchedule(data);
+
       console.log(res);
-      window.location.reload();
+      window.location.reload(); // 수정 필요
     } catch (error) {
-      console.log();
+      console.log(error);
+    }
+  };
+
+  // 리팩토링 필요
+  const setScheduleDate = (item) => {
+    setState([item.selection]);
+
+    if (item.selection.endDate !== null) {
     }
   };
 
@@ -160,7 +161,7 @@ const AddSchedule = (props) => {
         <DateRange
           locale={ko}
           editableDateInputs={true}
-          onChange={(item) => setSchedule(item)}
+          onChange={(item) => setScheduleDate(item)}
           moveRangeOnFirstSelection={false}
           ranges={state}
           retainEndDateOnFirstSelection={true}
