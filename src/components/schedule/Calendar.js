@@ -20,9 +20,9 @@ const CalendarDiv = styled.div`
   width: 80%;
   height: 70%;
   border-radius: 10px;
-
   background-color: #f8f8f8;
 `;
+
 const AddCal = styled.div`
   width: 85%;
   height: 84%;
@@ -30,17 +30,20 @@ const AddCal = styled.div`
   padding: 20px;
   background-color: #f8f8f8;
 `;
+
 const Header = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 `;
+
 const HeadTitle = styled.div`
   color: #6f5cea;
   font-size: 14px;
   margin-top: 30px;
   margin-left: -10px;
 `;
+
 const HeaderRight = styled.div`
   display: flex;
   margin-top: 20px;

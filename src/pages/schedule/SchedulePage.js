@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import Calendar from "../../components/calendar/Calendar";
-import ScheduleList from "../../components/calendar/ScheduleList";
+import Calendar from "../../components/schedule/Calendar";
+import ScheduleList from "../../components/schedule/ScheduleList";
 
 // icon, bg-color
 

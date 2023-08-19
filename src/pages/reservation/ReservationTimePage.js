@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import Cal from "../../components/MainPage/Calendar/Calendar";
 import ReservationCom from "../../components/reservation/ReservationCom";
 import ReservationDetail from "../../components/reservation/ReservationDetail";
 

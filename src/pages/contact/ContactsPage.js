@@ -2,8 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import Cal from "../../components/calendar/Calendar";
-import RoomCom from "../../components/reservation/RoomCom";
 import MainContacts from "../../components/contact/MainContacts";
 import RecentContacts from "../../components/contact/RecentContacts";
 

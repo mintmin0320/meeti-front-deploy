@@ -196,4 +196,3 @@ const AddSchedule = (props) => {
 };
 
 export default AddSchedule;
-

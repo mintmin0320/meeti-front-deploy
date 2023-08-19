@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { DateRange } from "react-date-range";
@@ -30,11 +31,6 @@ const MiniCalendar = () => {
     }
   };
 
-  // 작성완료버튼 css랑 위치 맞춰주고 아래 Input을 위에 인풋대신 사용 ㄱㄱ
-  // 지금은 밖에 컴포넌트에 빼놨잖아 그러면 form 안 되니까 여기서 완성해줘
-  // 정리하면 하나의 폼으로 제목이랑 일정 넘기게 이 틀대로 css짜서 형식 맞춰줘 위에 일정제목(지워줘) 지워줘
-  // 콘솔창에 날짜 찍고 제목 적고 작성완료 버튼 누르면 뭔말인지 알거임 모르면 카톡 ㄱㄱ
-
   return (
     <form onSubmit={handleOnSubmit}>
       <input
@@ -56,4 +52,5 @@ const MiniCalendar = () => {
     </form>
   );
 };
+
 export default MiniCalendar;
