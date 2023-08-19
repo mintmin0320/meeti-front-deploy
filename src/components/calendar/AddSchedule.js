@@ -110,8 +110,10 @@ const AddSchedule = (props) => {
   ]);
   const [title, setTitle] = useState("");
   const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
 
   console.log(startTime)
+  console.log(endTime)
   const handleOnChange = (e) => {
     e.preventDefault();
     setTitle(e.target.value);
@@ -170,7 +172,7 @@ const AddSchedule = (props) => {
         <TimeDiv>
           <Time type="time" value={startTime} onChange={(e) => setStartTime(e.target.value)} />
           <BiMinus className="BiMinus" />
-          <Time type="time" />
+          <Time type="time" value={endTime} onChange={(e) => setEndTime(e.target.value)} />
         </TimeDiv>
         <TitleFont>장소</TitleFont>
         <PlaceButton>
