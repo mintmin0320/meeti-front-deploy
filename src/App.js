@@ -3,6 +3,8 @@ import { BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
 
 import MainRoute from "./routes/MainRoute";
+import MainRoute from "./router/MainRoute";
+import ContactsPage from "./pages/contacts/ContactsPage";
 
 function App() {
   return (
@@ -12,6 +14,6 @@ function App() {
       </Router>
     </div>
   );
-};
+}
 
 export default App;
