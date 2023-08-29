@@ -8,13 +8,13 @@ import { DateRange } from "react-date-range";
 import ko from "date-fns/locale/ko"; // 날짜 포맷 라이브러리 (한국어 기능을 임포트)
 
 import BackgroundPalette from './BackgroundPalette';
-import { setSchedule } from '../../apis/schedule';
+import { setSchedule } from '../../api/schedule';
 
-// hook
+// hooks
 import { useColor } from '../../hooks/context/colorContext';
 
-// icon, library-CSS
-import { BiMinus, BiSearch, BiPlus } from "react-icons/bi";
+// icons, library-CSS
+import { BiMinus, BiPlus } from "react-icons/bi";
 
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
@@ -27,7 +27,6 @@ const AddTitle = styled.input`
   margin-bottom: 10px;
   padding: 5px;
   background-color: #f8f8f8;
-  //box-shadow: 3px 3px 10px #b3b3b3;
   width: 80%;
 `;
 
@@ -53,7 +52,12 @@ const Left = styled.div`
 `;
 
 const Right = styled.div`
-  width: 40%;
+  width: 45%;
+  height: 520px;
+
+  @media screen and (min-width: 1500px) {
+    height: 650px;
+  }
 `;
 
 const TimeDiv = styled.div`
@@ -66,22 +70,13 @@ const Time = styled.input`
   margin: 10px;
 `;
 
-const PlaceButton = styled.div`
-  width: 117px;
-  height: 23px;
+const PlaceInput = styled.input`
+  width: 90%;
+  height: 25px;
   background: #ffffff;
   border: 0.5px solid #535571;
   border-radius: 5px;
-  margin: 20px;
-  cursor: pointer;
-  display: flex;
-`;
-
-const PlaceText = styled.div`
-  font-size: 11px;
-  line-height: 13px;
-  margin: 5px;
-  color: #535571;
+  margin: 10px;
 `;
 
 const SubmitButton = styled.button`
@@ -97,10 +92,23 @@ const SubmitButton = styled.button`
   margin-top: 20px;
 `;
 
+const KaKaoMapBox = styled.div`
+  width: 100%;
+  height: 210px;
+  background: #8165df;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @media screen and (min-width: 1500px) {
+    height: 320px;
+  }
+`;
+
 const SummitButtonDiv = styled.div`
   display: flex;
-  justify-content: end;
-  margin-top: 80px;
+  justify-content: center;
+  margin-top: 5px;
 `;
 
 const AddSchedule = () => {
@@ -115,6 +123,7 @@ const AddSchedule = () => {
   const [title, setTitle] = useState("");
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
+  const [place, setPlace] = useState('');
 
   const handleOnChange = (e) => {
     e.preventDefault();
@@ -144,6 +153,8 @@ const AddSchedule = () => {
   // 리팩토링 필요
   const setScheduleDate = (item) => {
     setState([item.selection]);
+
+    console.log(item)
 
     if (item.selection.endDate !== null) {
     }
@@ -176,10 +187,8 @@ const AddSchedule = () => {
           <Time type="time" value={endTime} onChange={(e) => setEndTime(e.target.value)} />
         </TimeDiv>
         <TitleFont>장소</TitleFont>
-        <PlaceButton>
-          <BiSearch className="BiSearch" />
-          <PlaceText>회의실 예약하기</PlaceText>
-        </PlaceButton>
+        <PlaceInput />
+        <KaKaoMapBox>지도 자리</KaKaoMapBox>
         <SummitButtonDiv>
           <SubmitButton
             type="submit"
@@ -187,7 +196,7 @@ const AddSchedule = () => {
           >
             <BiPlus
               style={{ color: "#ffffff", marginRight: "5px" }}
-            ></BiPlus>
+            />
             일정 추가
           </SubmitButton>
         </SummitButtonDiv>

@@ -50,7 +50,7 @@ const Mid = styled.div`
 `;
 
 const ScheduleBox = styled.div`
-  width: 100%;
+  width: 90%;
   height: 503px;
   border-radius: 20px;
   position: relative;

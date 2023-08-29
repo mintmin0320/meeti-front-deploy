@@ -29,7 +29,7 @@ const ColorsDiv = styled.div`
   height: 19px;
   background: #ffffff;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
-  margin: 5px;
+  margin: 15px;
   display: flex;
 `;
 

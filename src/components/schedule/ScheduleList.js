@@ -8,7 +8,7 @@
 import React from "react";
 import styled from "styled-components";
 
-// icon, dummy-data
+// icons, dummy-data
 import { HiLocationMarker } from "react-icons/hi";
 
 import scheduleData from './scheduleData.json';
@@ -16,13 +16,17 @@ import scheduleData from './scheduleData.json';
 // CSS
 const Wrapper = styled.div`
   width: 100%;
-  height: 100%;
+  height: 500px;
   margin-top: 20px;
   overflow-y: scroll;
 
   &::-webkit-scrollbar {
     display: none;
-  };
+  }
+
+  @media screen and (min-width: 1500px) {
+    height: 650px;
+  }
 `;
 
 const ScheduleBox = styled.div`
@@ -63,22 +67,18 @@ const SchedulePlace = styled.div`
 const ScheduleList = () => {
   return (
     <Wrapper>
-      {
-        scheduleData.map((item) => {
-          return (
-            <ScheduleBox key={item.ScheduleId}>
-              <ScheduleContacts>
-                <ScheduleColor />
-                <ScheduleTitle>{item.ScheduleTittle}</ScheduleTitle>
-                <SchedulePlace>
-                  <HiLocationMarker />
-                  {item.SchedulePlace}
-                </SchedulePlace>
-              </ScheduleContacts>
-            </ScheduleBox>
-          )
-        })
-      }
+      {scheduleData.map((item) => (
+        <ScheduleBox key={item.ScheduleId}>
+          <ScheduleContacts>
+            <ScheduleColor />
+            <ScheduleTitle>{item.ScheduleTittle}</ScheduleTitle>
+            <SchedulePlace>
+              <HiLocationMarker />
+              {item.SchedulePlace}
+            </SchedulePlace>
+          </ScheduleContacts>
+        </ScheduleBox>
+      ))}
     </Wrapper>
   );
 };
