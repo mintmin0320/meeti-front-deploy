@@ -6,17 +6,17 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
+// fullcalendar-library
 import FullCalendar from "@fullcalendar/react";
 import interactionPlugin from "@fullcalendar/interaction";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import { Tooltip } from "react-tooltip";
 
-import { getSchedule } from '../../apis/schedule';
+import { getSchedule } from '../../api/schedule';
 import AddContent from "./AddSchedule";
 
-// icon, dummy-data
-import { AiOutlineCalendar, AiOutlineUserAdd, AiOutlinePlusCircle } from "react-icons/ai";
-import { BiSearch } from "react-icons/bi";
+// icons, dummy-data
+import { AiOutlineCalendar, AiOutlinePlusCircle } from "react-icons/ai";
 
 import data from "../../data";
 
@@ -68,26 +68,8 @@ const AddButton = styled.div`
   margin: 5px;
 `;
 
-const SearchButton = styled.div`
-  width: 32px;
-  height: 32px;
-  background: #f0ebfa;
-  border-radius: 5px;
-  cursor: pointer;
-  color: #6f5cea;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 5px;
-`;
-
 const Calendar = () => {
   const [isOpen, setIsOpen] = useState(true);
-  const [schedule, setSchedule] = useState([]);
-
-  useEffect(() => {
-    // fetchSchedule();
-  }, []);
 
   const fetchSchedule = async () => {
     try {
@@ -107,10 +89,6 @@ const Calendar = () => {
           <HeadTitle>Calendar</HeadTitle>
         </Header>
         <HeaderRight>
-          <SearchButton>
-            <AiOutlineUserAdd />
-          </SearchButton>
-
           <AddButton
             onClick={() => {
               setIsOpen(!isOpen);
