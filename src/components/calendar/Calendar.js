@@ -15,8 +15,6 @@ import {
   AiOutlinePlusCircle,
 } from "react-icons/ai";
 import { BiSearch } from "react-icons/bi";
-import AddContent from "./AddContent";
-import { Tooltip } from "react-tooltip";
 import axios from "axios";
 import styled from "styled-components";
 
