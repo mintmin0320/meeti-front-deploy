@@ -9,9 +9,9 @@ import { ko } from "date-fns/esm/locale";
 import DatePicker from "react-datepicker";
 
 const ReservationDetail = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const officeId = location.state.officeId;
+  // const location = useLocation();
+  // const navigate = useNavigate();
+  // const officeId = location.state.officeId;
   const [startDate, setStartDate] = useState(new Date());
   const [office, setOffice] = useState({
     imgUrl: "",
@@ -27,49 +27,49 @@ const ReservationDetail = () => {
   ));
 
   useEffect(() => {
-    getData();
+    // getData();
   }, []);
 
-  const getData = async () => {
-    try {
-      const url = `https://${process.env.REACT_APP_SECRET_URL}/reservation/detail/${officeId}`;
-      const res = await axios.get(url);
-      console.log(res);
-      setOffice({
-        ...office,
-        imgUrl: res.data.office.imgUrl,
-        detailAdress: res.data.office.detailAdress,
-        telNum: res.data.office.telNum,
-        placeName: res.data.office.placeName,
-        status: res.data.office.status,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const getData = async () => {
+  //   try {
+  //     const url = `https://${process.env.REACT_APP_SECRET_URL}/reservation/detail/${officeId}`;
+  //     const res = await axios.get(url);
+  //     console.log(res);
+  //     setOffice({
+  //       ...office,
+  //       imgUrl: res.data.office.imgUrl,
+  //       detailAdress: res.data.office.detailAdress,
+  //       telNum: res.data.office.telNum,
+  //       placeName: res.data.office.placeName,
+  //       status: res.data.office.status,
+  //     });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
-  const handleOnClick = () => {
-    if (office.status === "예약 완료") alert("아쉽지만 다음에 예약해 주세요!");
-    else setReservation();
-  };
+  // const handleOnClick = () => {
+  //   if (office.status === "예약 완료") alert("아쉽지만 다음에 예약해 주세요!");
+  //   else setReservation();
+  // };
 
-  const setReservation = async () => {
-    try {
-      const url = `http://${process.env.REACT_APP_SECRET_URL}/reservation`;
-      const data = {
-        id: officeId,
-        date: startDate,
-      };
-      const res = await axios.post(url, data);
-      console.log(res);
-      if (res.data.result) {
-        alert("예약 완료!");
-        navigate("/reservation");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const setReservation = async () => {
+  //   try {
+  //     const url = `http://${process.env.REACT_APP_SECRET_URL}/reservation`;
+  //     const data = {
+  //       id: officeId,
+  //       date: startDate,
+  //     };
+  //     const res = await axios.post(url, data);
+  //     console.log(res);
+  //     if (res.data.result) {
+  //       alert("예약 완료!");
+  //       navigate("/reservation");
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   return (
     <Fragment>
@@ -79,7 +79,7 @@ const ReservationDetail = () => {
           <DatePicker
             locale={ko}
             selected={startDate}
-            onChange={(date) => {
+            onChange={date => {
               setStartDate(date);
               console.log(date);
             }}
@@ -106,7 +106,7 @@ const ReservationDetail = () => {
                 있습니다.
               </CautionText>
             </Caution>
-            <SubmitButton onClick={handleOnClick}>예약하기</SubmitButton>
+            {/* <SubmitButton onClick={handleOnClick}>예약하기</SubmitButton> */}
           </CautionDiv>
         </LeftDiv>
         <RightDiv>
@@ -175,11 +175,11 @@ const TimeDiv = styled.div`
   display: flex;
 `;
 const TimeButton = styled.div`
-  background: ${(backColor) => (backColor.timeTrue ? "#6f5cea" : "#ffffff")};
+  background: ${backColor => (backColor.timeTrue ? "#6f5cea" : "#ffffff")};
   border: 1px solid #6f5cea;
   border-radius: 5px;
   padding: 5px;
-  color: ${(backColor) => (backColor.timeTrue ? "#ffffff" : "#6f5cea")};
+  color: ${backColor => (backColor.timeTrue ? "#ffffff" : "#6f5cea")};
   cursor: pointer;
   margin: 10px;
   width: 50px;

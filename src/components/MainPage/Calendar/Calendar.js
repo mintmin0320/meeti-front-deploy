@@ -1,9 +1,17 @@
 import React, { useEffect, useState } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
+<<<<<<< Updated upstream:src/components/MainPage/Calendar/Calendar.js
 import styled from "styled-components";
 import data from "../../../data";
 import { BsPlusLg } from "react-icons/bs";
+=======
+import { Tooltip } from "react-tooltip";
+
+import AddContent from "./AddContent";
+
+// icon, dummy-data
+>>>>>>> Stashed changes:src/components/calendar/Calendar.js
 import {
   AiOutlineCalendar,
   AiOutlineUserAdd,
@@ -112,7 +120,7 @@ const Calendar = () => {
 
       {isOpen ? (
         <CalendarDiv>
-          <FullCalendar
+          {/* <FullCalendar
             eventClick={(e) => {
               console.log("클릭"); //클릭이벤트
             }}
@@ -146,7 +154,23 @@ const Calendar = () => {
                 container: "body",
               });
             }}
+<<<<<<< Updated upstream:src/components/MainPage/Calendar/Calendar.js
           />
+=======
+            eventAdd={() => { }} //event 추가될 때 실행되는 이벤트
+            eventChange={() => { }} //event 수정될 떄 실행되는 이벤트
+            eventRemove={() => { }} //event 삭제될 때 실행되는 이벤트
+            titleFormat={(date) => {
+              const year = date.date.year;
+              const month = date.date.month + 1;
+              return year + "년 " + month + "월";
+            }}
+            dateClick={(it) => {
+              alert(it.date.getDate());
+              console.log(it.date.getDate());
+            }}
+          /> */}
+>>>>>>> Stashed changes:src/components/calendar/Calendar.js
         </CalendarDiv>
       ) : (
         <AddCal>
