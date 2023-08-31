@@ -1,4 +1,22 @@
 import React, { useEffect, useState } from "react";
+import FullCalendar from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import styled from "styled-components";
+import data from "../../../data";
+import { BsPlusLg } from "react-icons/bs";
+import { Tooltip } from "react-tooltip";
+
+import AddContent from "./AddContent";
+
+// icon, dummy-data
+import {
+  AiOutlineCalendar,
+  AiOutlineUserAdd,
+  AiOutlinePlusCircle,
+} from "react-icons/ai";
+import { BiSearch } from "react-icons/bi";
+import AddContent from "./AddContent";
+import { Tooltip } from "react-tooltip";
 import axios from "axios";
 import styled from "styled-components";
 
@@ -10,7 +28,11 @@ import { Tooltip } from "react-tooltip";
 import AddContent from "./AddContent";
 
 // icon, dummy-data
-import { AiOutlineCalendar, AiOutlineUserAdd, AiOutlinePlusCircle } from "react-icons/ai";
+import {
+  AiOutlineCalendar,
+  AiOutlineUserAdd,
+  AiOutlinePlusCircle,
+} from "react-icons/ai";
 import { BiSearch } from "react-icons/bi";
 
 import data from "../../data";
@@ -114,7 +136,7 @@ const Calendar = () => {
 
       {isOpen ? (
         <CalendarDiv>
-          <FullCalendar
+          {/* <FullCalendar
             eventClick={(e) => {
               console.log("클릭"); //클릭이벤트
             }}
@@ -161,6 +183,19 @@ const Calendar = () => {
               console.log(it.date.getDate());
             }}
           />
+            eventAdd={() => { }} //event 추가될 때 실행되는 이벤트
+            eventChange={() => { }} //event 수정될 떄 실행되는 이벤트
+            eventRemove={() => { }} //event 삭제될 때 실행되는 이벤트
+            titleFormat={(date) => {
+              const year = date.date.year;
+              const month = date.date.month + 1;
+              return year + "년 " + month + "월";
+            }}
+            dateClick={(it) => {
+              alert(it.date.getDate());
+              console.log(it.date.getDate());
+            }}
+          /> */}
         </CalendarDiv>
       ) : (
         <AddCal>
