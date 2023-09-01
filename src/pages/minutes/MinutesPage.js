@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 // import color from "./../../assets/color.png";
-import { AiOutlineCalendar } from "react-icons/ai";
-
+import Minutes from "./../../components/minutes/Minutes";
+import MinutesList from "./../../components/minutes/MinutesList";
 import { Link } from "react-router-dom";
 
 // icon
@@ -10,7 +10,7 @@ import { FaRegAddressBook } from "react-icons/fa";
 import { RiMapPinLine, RiPlayList2Fill } from "react-icons/ri";
 import { HiOutlineMail } from "react-icons/hi";
 import { BiUserCircle } from "react-icons/bi";
-
+import { AiOutlineCalendar } from "react-icons/ai";
 // Background_circle
 const Circle_frame = styled.div`
   width: 25px;
@@ -154,9 +154,11 @@ const MinutesPage = () => {
         <Mid>
           <Title>회의록</Title>
           <SubTitle>It's Minutes</SubTitle>
-          {/* 회의록 목록 */}
+          <MinutesList />
         </Mid>
-        <Last>{/* 회의록 메인 */}</Last>
+        <Last>
+          <Minutes />
+        </Last>
       </MainDiv>
     </Test>
   );
