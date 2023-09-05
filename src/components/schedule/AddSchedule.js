@@ -2,7 +2,7 @@
   일정 날자 선택할 경우 setScheduleDate 코드 수정 필요
 */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import { DateRange } from "react-date-range";
 import ko from "date-fns/locale/ko"; // 날짜 포맷 라이브러리 (한국어 기능을 임포트)
@@ -95,7 +95,7 @@ const SubmitButton = styled.button`
 const KaKaoMapBox = styled.div`
   width: 100%;
   height: 210px;
-  background: #8165df;
+  /* background: #8165df; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -112,7 +112,12 @@ const SummitButtonDiv = styled.div`
 `;
 
 const AddSchedule = () => {
+  const { kakao } = window;
+  const [map, setMap] = useState(null);
+  const [marker, setMarker] = useState(null);
   const { color } = useColor();
+  const [isSdkLoaded, setSdkLoaded] = useState(false);
+
   const [state, setState] = useState([
     {
       startDate: new Date(),
@@ -160,6 +165,73 @@ const AddSchedule = () => {
     }
   };
 
+  useEffect(() => {
+    if (window.kakao && window.kakao.maps && window.kakao.maps.services) {
+      console.log("Kakao Maps SDK 로드 완료");
+    } else {
+      console.log("Kakao Maps SDK 로드 중");
+    }
+  }, []);
+
+
+  const searchPlace = () => {
+    console.log("searchPlace 함수 호출됨");
+
+    if (!window.kakao.maps.services) {
+      console.log("kakao.maps.services 객체가 없습니다.");
+      return;
+    }
+
+    const geocoder = new kakao.maps.services.Geocoder();
+    const places = new kakao.maps.services.Places();
+
+
+    try {
+      places.keywordSearch(place, function (result, status) {
+        console.log('keywordSearch 결과 상태:', status);
+        if (status === kakao.maps.services.Status.OK) {
+          const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+          if (marker) {
+            marker.setMap(null);
+          }
+          const newMarker = new kakao.maps.Marker({
+            map: map,
+            position: coords
+          });
+          setMarker(newMarker);
+
+          var infowindow = new kakao.maps.InfoWindow({
+            content: `<div style="width:150px;text-align:center;padding:6px 0;">${result[0].place_name}</div>`  // 변경된 부분
+          });
+          infowindow.open(map, newMarker);
+          map.setCenter(coords);
+
+          // 도로명 주소 추출하기
+          geocoder.coord2Address(coords.getLng(), coords.getLat(), function (addrResult, addrStatus) {
+            if (addrStatus === kakao.maps.services.Status.OK) {
+              setPlace(addrResult[0].road_address.address_name);  // Set 도로명 주소 to PlaceInput
+            }
+          });
+        } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
+          alert('검색 결과가 존재하지 않습니다. 키워드를 다시 확인해주세요.');  // 변경된 부분
+        } else {
+          alert('키워드 검색 중 오류가 발생했습니다.');  // 변경된 부분
+        }
+      });
+    } catch (error) {
+      alert(error);
+    }
+  };
+
+  useEffect(() => {
+    if (!window.kakao) return;
+
+    const container = document.getElementById('map');
+    const options = { center: new kakao.maps.LatLng(33.450701, 126.570667), level: 3 };
+    const kakaoMap = new kakao.maps.Map(container, options);
+    setMap(kakaoMap);
+  }, []);
+
   return (
     <AddOther onSubmit={handleOnSubmit}>
       <Left>
@@ -187,8 +259,11 @@ const AddSchedule = () => {
           <Time type="time" value={endTime} onChange={(e) => setEndTime(e.target.value)} />
         </TimeDiv>
         <TitleFont>장소</TitleFont>
-        <PlaceInput />
-        <KaKaoMapBox>지도 자리</KaKaoMapBox>
+        <PlaceInput value={place} onChange={e => setPlace(e.target.value)} />
+        <button onClick={searchPlace} type='button'>장소 검색</button>
+        <KaKaoMapBox>
+          <div id="map" style={{ width: "100%", height: "100%" }}></div>
+        </KaKaoMapBox>
         <SummitButtonDiv>
           <SubmitButton
             type="submit"
