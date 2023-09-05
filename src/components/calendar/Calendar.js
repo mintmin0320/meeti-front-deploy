@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
+import styled from "styled-components";
+
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
-import styled from "styled-components";
-import data from "../../data";
-import { BsPlusLg } from "react-icons/bs";
 import { Tooltip } from "react-tooltip";
 
 import AddContent from "./AddContent";
-
-// icon, dummy-data
-
-import axios from "axios";
 
 // icon, dummy-data
 import {
@@ -19,6 +15,8 @@ import {
   AiOutlinePlusCircle,
 } from "react-icons/ai";
 import { BiSearch } from "react-icons/bi";
+
+import data from "../../data";
 
 const Main = styled.div``;
 const CalendarDiv = styled.div`
