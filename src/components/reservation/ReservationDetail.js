@@ -1,8 +1,10 @@
+/* global kakap */
 import React, { Fragment, useEffect, useState, forwardRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 import axios from "axios";
 import DatePicker from "react-datepicker";
+import Map from "../Map";
 
 // icon
 import { BsTelephone } from "react-icons/bs";
@@ -122,6 +124,9 @@ const ReservationDetail = () => {
             <BiTimeFive className="SubDivIcons" />
             <ContentsDiv>10:00 ~ 17:00</ContentsDiv>
           </SubDiv>
+          <MapContainer>
+            <Map />
+          </MapContainer>
         </RightDiv>
       </MainDiv>
     </Fragment>
@@ -140,6 +145,7 @@ const LeftDiv = styled.div`
 `;
 const RightDiv = styled.div`
   width: 70%;
+  position: relative;
 `;
 const ImgDiv = styled.img`
   width: 100%;
@@ -233,4 +239,9 @@ const SubmitButton = styled.div`
   text-align: center;
   margin-left: 30px;
   cursor: pointer;
+`;
+const MapContainer = styled.div`
+  position: absolute;
+  bottom: -100px;
+  right: 20px;
 `;

@@ -11,7 +11,7 @@ export default function Map() {
     let container = document.getElementById("map");
     let options = {
       center: new kakao.maps.LatLng(roomlist[0].y, roomlist[0].x),
-      level: 3,
+      level: 5,
     };
 
     //map
@@ -25,12 +25,7 @@ export default function Map() {
 
     //마커 표시
     marker.setMap(map);
-    console.log(roomlist[0].x);
   };
 
-  return (
-    <div>
-      <div id="map" style={{ width: "700px", height: "500px" }}></div>
-    </div>
-  );
+  return <div id="map" style={{ width: "500px", height: "200px" }}></div>;
 }
