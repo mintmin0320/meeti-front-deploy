@@ -122,12 +122,12 @@ const Last = styled.div`
 const MinutesPage = () => {
   return (
     <Test>
-      <div className="circle_frame" style={{ overflow: "hidden" }}>
+      {/* <div className="circle_frame" style={{ overflow: "hidden" }}>
         <Circle1 />
         <Circle2 />
         <Circle3 />
         <Circle4 />
-      </div>
+      </div> */}
 
       <MainDiv className="MainDiv">
         {/* <BackColor src={color} style={{ opacity: 0.2 }} /> */}
@@ -154,6 +154,8 @@ const MinutesPage = () => {
         <Mid>
           <Title>회의록</Title>
           <SubTitle>It's Minutes</SubTitle>
+          <MinutesList />
+          <MinutesList />
           <MinutesList />
         </Mid>
         <Last>

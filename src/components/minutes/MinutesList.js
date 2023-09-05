@@ -1,13 +1,21 @@
 import React from "react";
 import styled from "styled-components";
+import { BsFillArrowRightCircleFill } from "react-icons/bs";
 
 const MinutesList = () => {
   return (
     <MinutesDiv>
       <MinutesBox>
         <MinutesContacts>
-          <MinutesDate>회의록 작성한 날짜 들어갈 자리</MinutesDate>
-          <MinutesTitle>회의록 제목들어갈 자리</MinutesTitle>
+          <MinutesContactsLeft>
+            <MinutesDate>2023-09-01</MinutesDate>
+            <MinutesTitle>회의 제목</MinutesTitle>
+          </MinutesContactsLeft>
+          <MinutesContactsRight>
+            <MinutesButton>
+              <BsFillArrowRightCircleFill />
+            </MinutesButton>
+          </MinutesContactsRight>
         </MinutesContacts>
       </MinutesBox>
     </MinutesDiv>
@@ -35,6 +43,7 @@ const MinutesBox = styled.div`
 const MinutesContacts = styled.div`
   margin-top: 8px;
   margin-left: 8px;
+  display: flex;
 `;
 const MinutesDate = styled.div`
   color: #374957;
@@ -46,4 +55,27 @@ const MinutesTitle = styled.div`
   font-size: 16px;
   margin-bottom: 8px;
   cursor: pointer;
+`;
+
+const MinutesContactsLeft = styled.div`
+  width: 80%;
+`;
+const MinutesContactsRight = styled.div`
+  width: 20%;
+`;
+const MinutesButton = styled.div`
+  color: #8165df;
+  background-color: #f0ebfa;
+  padding: 10px;
+  margin: 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  width: 20%;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  &:hover {
+    color: #f0ebfa;
+    background-color: #8165df;
+  }
 `;
