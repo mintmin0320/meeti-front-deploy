@@ -8,7 +8,7 @@ import { DateRange } from "react-date-range";
 import ko from "date-fns/locale/ko"; // 날짜 포맷 라이브러리 (한국어 기능을 임포트)
 
 import BackgroundPalette from './BackgroundPalette';
-import { setSchedule } from '../../api/schedule';
+import { fetchAddSchedule } from '../../api/schedule';
 
 // hooks
 import { useColor } from '../../hooks/context/colorContext';
@@ -18,6 +18,7 @@ import { BiMinus, BiPlus } from "react-icons/bi";
 
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
+import { useNavigate } from 'react-router-dom';
 
 // CSS
 const AddTitle = styled.input`
@@ -112,6 +113,7 @@ const SummitButtonDiv = styled.div`
 `;
 
 const AddSchedule = () => {
+  const navigate = useNavigate();
   const { kakao } = window;
   const [map, setMap] = useState(null);
   const [marker, setMarker] = useState(null);
@@ -128,7 +130,7 @@ const AddSchedule = () => {
   const [title, setTitle] = useState("");
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
-  const [place, setPlace] = useState('');
+  const [place, setPlace] = useState("");
 
   const handleOnChange = (e) => {
     e.preventDefault();
@@ -139,17 +141,21 @@ const AddSchedule = () => {
     e.preventDefault();
 
     const data = {
-      title: title,
+      title,
       color,
-      start: state[0].startDate,
-      end: state[0].endDate,
+      startDate: state[0].startDate,
+      endDate: state[0].endDate,
+      startTime,
+      endTime,
+      place,
     };
 
     try {
-      const res = await setSchedule(data);
+      const res = await fetchAddSchedule(data);
+
+      // window.location.reload();
 
       console.log(res);
-      window.location.reload(); // 수정 필요
     } catch (error) {
       console.log(error);
     }
@@ -227,7 +233,7 @@ const AddSchedule = () => {
     if (!window.kakao) return;
 
     const container = document.getElementById('map');
-    const options = { center: new kakao.maps.LatLng(33.450701, 126.570667), level: 3 };
+    const options = { center: new kakao.maps.LatLng(37.50057852126737, 126.86813651454828), level: 3 };
     const kakaoMap = new kakao.maps.Map(container, options);
     setMap(kakaoMap);
   }, []);
@@ -244,7 +250,7 @@ const AddSchedule = () => {
         <DateRange
           locale={ko}
           editableDateInputs={true}
-          onChange={(item) => setScheduleDate(item)}
+          onChange={(item) => { setScheduleDate(item); let a = item.selection.startDate; console.log(a) }}
           moveRangeOnFirstSelection={false}
           ranges={state}
           retainEndDateOnFirstSelection={true}
@@ -254,7 +260,7 @@ const AddSchedule = () => {
         <BackgroundPalette />
         <TitleFont>시간</TitleFont>
         <TimeDiv>
-          <Time type="time" value={startTime} onChange={(e) => setStartTime(e.target.value)} />
+          <Time type="time" value={startTime} onChange={(e) => { setStartTime(e.target.value) }} />
           <BiMinus className="BiMinus" />
           <Time type="time" value={endTime} onChange={(e) => setEndTime(e.target.value)} />
         </TimeDiv>

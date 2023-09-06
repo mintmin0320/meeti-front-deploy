@@ -12,7 +12,7 @@ import interactionPlugin from "@fullcalendar/interaction";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import { Tooltip } from "react-tooltip";
 
-import { getSchedule } from '../../api/schedule';
+import { fetchGetSchedule } from '../../api/schedule';
 import AddContent from "./AddSchedule";
 
 // icons, dummy-data
@@ -71,9 +71,13 @@ const AddButton = styled.div`
 const Calendar = () => {
   const [isOpen, setIsOpen] = useState(true);
 
+  useEffect(() => {
+    fetchSchedule();
+  }, [])
+
   const fetchSchedule = async () => {
     try {
-      const res = await getSchedule();
+      const res = await fetchGetSchedule();
 
       console.log(res);
     } catch (error) {
