@@ -2,7 +2,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 
 import {
-  CalendarRoute,    // 달력
+  ScheduleRoute,    // 일정
   AuthRoute,        // 인증
   ContactRoute,     // 연락처
   ReservationRoute, // 예약
@@ -14,7 +14,7 @@ import {
 export default function MainRoute() {
   return (
     <Routes>
-      <Route path="/*" element={<CalendarRoute />} />
+      <Route path="/*" element={<ScheduleRoute />} />
       <Route path="/auth/*" element={<AuthRoute />} />
       <Route path="/contact/*" element={<ContactRoute />} />
       <Route path="/reservation/*" element={<ReservationRoute />} />

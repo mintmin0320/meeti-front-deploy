@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 import RoomCom from "../../components/reservation/RoomCom";
-import Cal from "../../components/calendar/Calendar";
+import Cal from "../../components/schedule/Calendar";
 
 import color from "./../../assets/color.png";
 

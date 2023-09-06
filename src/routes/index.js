@@ -1,4 +1,4 @@
-export { default as CalendarRoute } from './CalendarRoute';
+export { default as ScheduleRoute } from './ScheduleRoute';
 export { default as AuthRoute } from './AuthRoute';
 export { default as ContactRoute } from './ContactRoute';
 export { default as ReservationRoute } from './ReservationRoute';

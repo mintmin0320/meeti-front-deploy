@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import styled, { css } from "styled-components";
 
+// hook
+import { useColor } from '../../hooks/context/colorContext';
+
 // icon
 import { FaSortDown } from "react-icons/fa";
 
+// CSS
 const ColorPick = styled.div`
   width: 51px;
   height: 18px;
@@ -13,19 +17,22 @@ const ColorPick = styled.div`
   display: flex;
   cursor: pointer;
 `;
+
 const ColorText = styled.div`
   font-size: 8px;
   color: white;
   padding: 3px;
 `;
+
 const ColorsDiv = styled.div`
   width: 220px;
   height: 19px;
   background: #ffffff;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
-  margin: 5px;
+  margin: 15px;
   display: flex;
 `;
+
 const Color = styled.div`
   width: 10px;
   height: 10px;
@@ -91,14 +98,18 @@ const Color = styled.div`
     props.color12 &&
     css`
       background-color: #535571;
-    `}
+  `}
 `;
-const ColorCom = (props) => {
+
+const BackgroundPalette = () => {
+  const { setColor } = useColor();
   const [colorDiv, setColorDiv] = useState(false);
   const [colorState, setColorState] = useState("#8165df");
+
   const onClickColor = (e) => {
-    setColorState(e.target.id);
+    setColor(e.target.id);
   };
+
   return (
     <>
       <ColorPick
@@ -129,4 +140,4 @@ const ColorCom = (props) => {
   );
 };
 
-export default ColorCom;
+export default BackgroundPalette
