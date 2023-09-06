@@ -1,15 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 
 import Calendar from "../../components/schedule/Calendar";
 import ScheduleList from "../../components/schedule/ScheduleList";
-
-// icon, bg-color
-
-
-import color from "./../../assets/color.png";
 import Header from '../../common/Header';
+
+// bg-color
+import color from "./../../assets/color.png";
 
 // CSS
 const Test = styled.div`

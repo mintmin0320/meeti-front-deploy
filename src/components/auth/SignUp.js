@@ -8,12 +8,14 @@ const SignupDiv = styled.div`
   margin: auto;
   z-index: 3;
 `;
+
 const TitleDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
 `;
+
 const Title = styled.div`
   font-size: 20px;
   font-weight: bold;
@@ -21,16 +23,19 @@ const Title = styled.div`
   margin-bottom: 20px;
   color: #535571;
 `;
+
 const SubTitle = styled.div`
   font-size: 12px;
   margin-bottom: 5px;
   color: #535571;
 `;
+
 const ButtonDiv = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: row;
 `;
+
 const Button = styled.button`
   width: 85px;
   height: 115px;
@@ -46,11 +51,13 @@ const Button = styled.button`
   align-items: center;
   cursor: pointer;
 `;
+
 const Text = styled.div`
   color: #8165df;
   font-size: 12px;
   margin-top: 5px;
 `;
+
 const Br = styled.div`
   background-color: #9c9c9c;
   width: 60%;
@@ -58,6 +65,7 @@ const Br = styled.div`
   margin-top: 5px;
   margin-bottom: 5px;
 `;
+
 const Join = styled.div`
   font-size: 8px;
   margin-top: 5px;
