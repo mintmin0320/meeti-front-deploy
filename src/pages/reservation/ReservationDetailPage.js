@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 import ReservationCom from "../../components/reservation/ReservationCom";
-import ReservationDetail from '../../components/reservation/ReservationDetail';
+import ReservationDetail from "../../components/reservation/ReservationDetail";
 import Cal from "../../components/calendar/Calendar";
 
 // icon

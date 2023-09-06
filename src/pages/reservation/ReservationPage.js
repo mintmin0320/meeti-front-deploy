@@ -36,7 +36,7 @@ const ReservationPage = () => {
   const Card = () => {
     return (
       <Fragment>
-        {reservationList.map((item) => {
+        {reservationList.map(item => {
           return (
             <ScheduleBox key={item._id}>
               <SubDiv>

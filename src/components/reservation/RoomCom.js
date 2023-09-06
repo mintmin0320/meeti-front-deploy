@@ -77,11 +77,11 @@ const RoomCom = () => {
   const Classification = () => {
     return (
       <RoomArrayClass>
-        {areaArr.map((user) => {
+        {areaArr.map(user => {
           return (
             <SubOption
               // className={yongsanguState ? "PlaceTrue" : "PlaceFalse"}
-              onClick={(e) => {
+              onClick={e => {
                 HandleonClick(user, e);
               }}
             >
@@ -96,7 +96,7 @@ const RoomCom = () => {
   const Card = () => {
     return (
       <RoomArrayList>
-        {officeList.map((item) => {
+        {officeList.map(item => {
           return (
             <RoomDiv key={item._id}>
               <RoomImgDiv>
@@ -116,13 +116,13 @@ const RoomCom = () => {
                 </RoomTitleDiv>
 
                 <ButtonsDiv>
-                  <Link
+                  {/* <Link
                     to="/reservation/detail"
                     state={{ officeId: item._id }}
                     style={{ textDecoration: "none" }}
                   >
                     <RoomReservButton>예약하기</RoomReservButton>
-                  </Link>
+                  </Link> */}
                   <RoomCallButton
                     onClick={() => {
                       window.alert(`${item.telNum}`);
@@ -148,7 +148,7 @@ const RoomCom = () => {
           <HeadTitle>Reservation</HeadTitle>
           {isOpen && (
             <SearchDiv>
-              <SearchInput onChange={(e) => setSearch(e.target.value)} />
+              <SearchInput onChange={e => setSearch(e.target.value)} />
               <SearchButton onClick={handleOnClickBtn}>
                 <BiSearch />
               </SearchButton>
