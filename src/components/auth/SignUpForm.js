@@ -2,6 +2,8 @@ import React, { useState, useCallback } from "react";
 import styled from "styled-components";
 
 import color from "./../../assets/color.png";
+
+// icons
 import { FaBookOpen } from "react-icons/fa";
 import { IoIosArrowForward } from "react-icons/io";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
