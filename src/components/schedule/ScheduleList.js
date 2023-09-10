@@ -10,13 +10,14 @@ import styled from "styled-components";
 
 // icons, dummy-data
 import { HiLocationMarker } from "react-icons/hi";
+import { AiFillDelete } from "react-icons/ai";
 
-// api
-import { fetchGetSchedule } from '../../api/schedule';
+// apis
+import { fetchGetSchedule, fetchDeleteSchedule } from '../../api/schedule';
 
-import scheduleData from './scheduleData.json';
+// import scheduleData from './scheduleData.json';
 
-// CSS
+// styles
 const Wrapper = styled.div`
   width: 100%;
   height: 500px;
@@ -35,7 +36,7 @@ const Wrapper = styled.div`
 const ScheduleBox = styled.div`
   background-color: #fff;
   width: 90%;
-  height: 80px;
+  height: 90px;
   border-radius: 10px;
   box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -44,21 +45,34 @@ const ScheduleBox = styled.div`
 `;
 
 const ScheduleContacts = styled.div`
-  margin-top: 8px;
+  margin-top: 6px;
+  margin-left: 6px;
+`;
+
+const ScheduleTimeBox = styled.div`
+  display: flex;
+  align-items: center;
+
+`;
+
+const ScheduleTime = styled.div`
+  font-size: 11px;
+  height: 20px;
+  display: flex;
+  align-items: center;
   margin-left: 8px;
 `;
 
 const ScheduleColor = styled.div`
-  width: 9px;
-  height: 9px;
-  border-radius: 9px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
   background-color: #6f5cea;
-  margin-bottom: 11px;
 `;
 
 const ScheduleTitle = styled.div`
   color: #374957;
-  font-size: 12px;
+  font-size: 14px;
   margin-bottom: 11px;
 `;
 
@@ -67,14 +81,34 @@ const SchedulePlace = styled.div`
   font-size: 10px;
 `;
 
+const ScheduleDeleteBox = styled.div`
+  width: 95%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+`;
+
+const ScheduleDeleteBtn = styled.div`
+  width: 21px;
+  height: 21px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bolder;
+  font-size: 18px;
+  background-color: #d8d8d8;
+  border-radius: 8px;
+  cursor: pointer;
+`;
+
 const ScheduleList = () => {
   const [scheduleList, setScheduleList] = useState([]);
 
   useEffect(() => {
-    fetchSchedule();
+    getScheduleData();
   }, []);
 
-  const fetchSchedule = async () => {
+  const getScheduleData = async () => {
     try {
       const res = await fetchGetSchedule();
       console.log(res);
@@ -85,21 +119,40 @@ const ScheduleList = () => {
     }
   };
 
+  const handleOnDeleteBtn = async (scheduleId) => {
+    try {
+      const res = await fetchDeleteSchedule(scheduleId);
+      console.log(res)
+
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Wrapper>
-      {scheduleList.map((item) => (
-        <ScheduleBox key={item.id}>
+      {scheduleList.map((schedule) => (
+        <ScheduleBox key={schedule.id}>
           <ScheduleContacts>
-            {console.log(item)}
-            <ScheduleColor />
-            <ScheduleTitle>{item.title}</ScheduleTitle>
+            <ScheduleTimeBox>
+              <ScheduleColor />
+              <ScheduleTime>
+                {schedule.initTime} ~ {schedule.finishTime}
+              </ScheduleTime>
+            </ScheduleTimeBox>
+            <ScheduleTitle>{schedule.title}</ScheduleTitle>
             <SchedulePlace>
               <HiLocationMarker />
-              {item.place}
+              {schedule.place}
             </SchedulePlace>
-            <SchedulePlace>
-              {item.initTime} ~ {item.finishTime}
-            </SchedulePlace>
+            <ScheduleDeleteBox>
+              <ScheduleDeleteBtn
+                onClick={() => handleOnDeleteBtn(schedule.id)}
+              >
+                <AiFillDelete />
+              </ScheduleDeleteBtn>
+            </ScheduleDeleteBox>
           </ScheduleContacts>
         </ScheduleBox>
       ))}
