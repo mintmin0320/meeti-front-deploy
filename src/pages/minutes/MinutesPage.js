@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import Header from '../../common/Header';
 import Minutes from "./../../components/minutes/Minutes";
 import MinutesList from "./../../components/minutes/MinutesList";
+
+import color from "./../../assets/color.png"
 
 // CSS
 const Test = styled.div`
@@ -11,6 +13,7 @@ const Test = styled.div`
   height: 100vh;
   background: #f5f3fe;
 `;
+
 const MainDiv = styled.div`
   position: absolute;
   width: 90vw;
@@ -40,13 +43,11 @@ const Mid = styled.div`
   background: #f8f8f8;
   width: 30%;
   border-radius: 20px;
-  /* overflow: scroll; */
 `;
 
 const Title = styled.div`
   margin-top: 50px;
   font-size: 20px;
-  margin-top: 20px;
   margin-bottom: 5px;
 `;
 
@@ -63,6 +64,8 @@ const Last = styled.div`
 `;
 
 const MinutesPage = () => {
+  const [selectedMinute, setSelectedMinute] = useState(null);
+
   return (
     <Test>
       <MainDiv className="MainDiv">
@@ -71,12 +74,10 @@ const MinutesPage = () => {
         <Mid>
           <Title>회의록</Title>
           <SubTitle>It's Minutes</SubTitle>
-          <MinutesList />
-          <MinutesList />
-          <MinutesList />
+          <MinutesList setSelectedMinute={setSelectedMinute} />
         </Mid>
         <Last>
-          <Minutes />
+          <Minutes detail={selectedMinute} />
         </Last>
       </MainDiv>
     </Test>
