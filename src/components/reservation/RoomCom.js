@@ -1,190 +1,28 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled, { css } from "styled-components";
-import axios from "axios";
 import { Link } from "react-router-dom";
 
 import ReservationAdd from "./ReservationAdd";
-import ReservationDetail from "./ReservationDetail";
 
-// icon
+// icons
 import { AiOutlineUnorderedList, AiOutlinePlusCircle } from "react-icons/ai";
 import { RiMapPinLine } from "react-icons/ri";
 import { BiSearch } from "react-icons/bi";
 
-const RoomCom = () => {
-  const areaArr = [
-    "중구",
-    "동대문구",
-    "용산구",
-    "광진구",
-    "마포구",
-    "종로구",
-    "강북구",
-    "서초구",
-    "양천구",
-    "동작구",
-    "구로구",
-    "노원구",
-    "중랑구",
-    "영등포구",
-  ];
-  const [isOpen, setIsOpen] = useState(true);
-  const [officeList, setOfficeList] = useState([]);
-  const [search, setSearch] = useState("");
+// apis
+import {
+  fetchGetOfficeData,
+  fetchSearchOfficeData,
+  fetchClassificationOfficeData
+} from '../../api/reservation';
 
-  useEffect(() => {
-    getData();
-  }, []);
-
-  const HandleonClick = async (params, e) => {
-    try {
-      const url = `https://${process.env.REACT_APP_SECRET_URL}/reservation/classification/${params}`;
-      const res = await axios.get(url);
-      console.log(res);
-      setOfficeList(res.data.office);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleOnClickBtn = () => {
-    if (search === "") alert("검색어를 입력해 주세요!");
-    else getSearchData();
-  };
-
-  const getSearchData = async () => {
-    try {
-      const url = `https://${process.env.REACT_APP_SECRET_URL}/reservation/office/${search}`;
-      const res = await axios.get(url);
-      console.log(res);
-      setOfficeList(res.data.office);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getData = async () => {
-    try {
-      const url = `https://${process.env.REACT_APP_SECRET_URL}/reservation/get-office`;
-      const res = await axios.get(url);
-      setOfficeList(res.data.office);
-      console.log(res);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const Classification = () => {
-    return (
-      <RoomArrayClass>
-        {areaArr.map(user => {
-          return (
-            <SubOption
-              // className={yongsanguState ? "PlaceTrue" : "PlaceFalse"}
-              onClick={e => {
-                HandleonClick(user, e);
-              }}
-            >
-              {user}
-            </SubOption>
-          );
-        })}
-      </RoomArrayClass>
-    );
-  };
-
-  const Card = () => {
-    return (
-      <RoomArrayList>
-        {officeList.map(item => {
-          return (
-            <RoomDiv key={item._id}>
-              <RoomImgDiv>
-                <RoomImg src={item.imgUrl} alt="이미지 없음" />
-              </RoomImgDiv>
-              <RoomContents>
-                <RoomTitleDiv>
-                  <SubOptionArea>{item.areaName}</SubOptionArea>
-                  <RoomTitle>{item.detailAdress}</RoomTitle>
-                  <PayText>{item.pay}</PayText>
-                  {item.status === "접수중" ? (
-                    <StatusTextGreen>🟢 {item.status}</StatusTextGreen>
-                  ) : (
-                    <StatusTextRed>🔴 {item.status}</StatusTextRed>
-                  )}
-                  <RoomSubTitle>{item.placeName}</RoomSubTitle>
-                </RoomTitleDiv>
-
-                <ButtonsDiv>
-                  {/* <Link
-                    to="/reservation/detail"
-                    state={{ officeId: item._id }}
-                    style={{ textDecoration: "none" }}
-                  >
-                    <RoomReservButton>예약하기</RoomReservButton>
-                  </Link> */}
-                  <RoomCallButton
-                    onClick={() => {
-                      window.alert(`${item.telNum}`);
-                    }}
-                  >
-                    전화하기
-                  </RoomCallButton>
-                </ButtonsDiv>
-              </RoomContents>
-            </RoomDiv>
-          );
-        })}
-      </RoomArrayList>
-    );
-  };
-
-  // Fragment는 빈태그 <> 대신 명시적으로 사용함
-  return (
-    <Fragment>
-      <Header>
-        <HeaderLeft>
-          <RiMapPinLine className="true" style={{ padding: "0" }} />
-          <HeadTitle>Reservation</HeadTitle>
-          {isOpen && (
-            <SearchDiv>
-              <SearchInput onChange={e => setSearch(e.target.value)} />
-              <SearchButton onClick={handleOnClickBtn}>
-                <BiSearch />
-              </SearchButton>
-            </SearchDiv>
-          )}
-        </HeaderLeft>
-
-        <AddButton
-          onClick={() => {
-            setIsOpen(!isOpen);
-          }}
-        >
-          {isOpen ? <AiOutlinePlusCircle /> : <AiOutlineUnorderedList />}
-        </AddButton>
-      </Header>
-      {isOpen ? (
-        <>
-          <Classification />
-          <Card />
-        </>
-      ) : (
-        <RoomArrayList>
-          <ReservationAdd />
-        </RoomArrayList>
-      )}
-    </Fragment>
-  );
-};
-
-export default RoomCom;
-
+// styles
 const Header = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 `;
+
 const HeaderLeft = styled.div`
   display: flex;
   width: 90%;
@@ -196,6 +34,7 @@ const HeadTitle = styled.div`
   margin-top: 30px;
   margin-left: -10px;
 `;
+
 const RoomDiv = styled.div`
   width: 100%;
   height: 150px;
@@ -229,7 +68,6 @@ const RoomContents = styled.div`
   flex-direction: row;
   width: 100%;
   height: 87px;
-
   justify-content: space-between;
 `;
 
@@ -256,7 +94,7 @@ const ButtonsDiv = styled.div`
   justify-content: center;
 `;
 
-const RoomReservButton = styled.div`
+const OfficeReservationBtn = styled.div`
   width: 61px;
   height: 18px;
   background: #8165df;
@@ -307,6 +145,7 @@ const SubOption = styled.div`
     }
   `}
 `;
+
 const SubOptionArea = styled.div`
   margin: 3px;
   padding: 2px;
@@ -322,6 +161,7 @@ const SubOptionArea = styled.div`
   color: #8165df;
   text-align: center;
 `;
+
 const SubOptionsDiv = styled.div`
   display: flex;
   flex-direction: row;
@@ -331,10 +171,12 @@ const StatusTextRed = styled.div`
   color: red;
   font-size: 12px;
 `;
+
 const StatusTextGreen = styled.div`
   color: green;
   font-size: 12px;
 `;
+
 const PayText = styled.div`
   color: #535571;
   font-size: 12px;
@@ -343,10 +185,12 @@ const PayText = styled.div`
   }
   margin: 3px;
 `;
+
 const RoomSubTitle = styled.div`
   color: #535571;
   font-size: 12px;
 `;
+
 const AddButton = styled.div`
   width: 32px;
   height: 32px;
@@ -368,6 +212,7 @@ const SearchDiv = styled.div`
   width: 100%;
   align-items: center;
 `;
+
 const SearchInput = styled.input`
   width: 80%;
   height: 28px;
@@ -386,3 +231,153 @@ const SearchButton = styled.button`
   margin-left: -15px;
   border-radius: 50%;
 `;
+
+const RoomCom = () => {
+  const areaArr = ["중구", "동대문구", "용산구", "광진구", "마포구", "종로구", "강북구", "서초구", "양천구", "동작구", "구로구", "노원구", "중랑구", "영등포구",];
+  const [isOpen, setIsOpen] = useState(true);
+  const [officeList, setOfficeList] = useState([]);
+  const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    getOfficeData();
+  }, []);
+
+  const handleOnClick = async (address) => {
+    try {
+      const res = await fetchClassificationOfficeData(address);
+      setOfficeList(res);
+    } catch (error) {
+      alert(error);
+    }
+  };
+
+  const handleOnClickBtn = () => {
+    if (search === "") {
+      alert("검색어를 입력해 주세요!");
+    } else {
+      getSearchData();
+    }
+  };
+
+  const getSearchData = async () => {
+    try {
+      const res = await fetchSearchOfficeData(search);
+      setOfficeList(res);
+    } catch (error) {
+      alert(error);
+    }
+  };
+
+  const getOfficeData = async () => {
+    try {
+      const res = await fetchGetOfficeData(1);
+
+      if (!res || res.length === 0) {
+        setOfficeList([]);
+
+        return;
+      }
+
+      setOfficeList(res);
+    } catch (error) {
+      alert.log(error);
+    }
+  };
+
+  const Classification = () => {
+    return (
+      <RoomArrayClass>
+        {areaArr.map((item) =>
+          <SubOption
+            key={item}
+            onClick={() => handleOnClick(item)}
+          >
+            {item}
+          </SubOption>
+        )}
+      </RoomArrayClass>
+    );
+  };
+
+  const Card = () => {
+    return (
+      <RoomArrayList>
+        {officeList.map((office) => (
+          <RoomDiv key={office.id}>
+            <RoomImgDiv>
+              <RoomImg src={office.image} alt="이미지 없음" />
+            </RoomImgDiv>
+            <RoomContents>
+              <RoomTitleDiv>
+                <SubOptionArea>{office.address}</SubOptionArea>
+                <RoomTitle>{office.addressDetail}</RoomTitle>
+                <PayText>{office.pay}</PayText>
+                {office.status ? (
+                  <StatusTextGreen>🟢 {office.status}</StatusTextGreen>
+                ) : (
+                  <StatusTextRed>🔴 {office.status}</StatusTextRed>
+                )}
+                <RoomSubTitle>{office.placeName}</RoomSubTitle>
+              </RoomTitleDiv>
+              <ButtonsDiv>
+                <Link
+                  to="/reservation/detail"
+                  state={{ officeId: office.id }}
+                  style={{ textDecoration: "none" }}
+                >
+                  <OfficeReservationBtn>예약하기</OfficeReservationBtn>
+                </Link>
+                <RoomCallButton
+                  onClick={() => {
+                    window.alert(`${office.telNum}`);
+                  }}
+                >
+                  전화하기
+                </RoomCallButton>
+              </ButtonsDiv>
+            </RoomContents>
+          </RoomDiv>
+        ))}
+      </RoomArrayList>
+    );
+  };
+
+  return (
+    <>
+      <Header>
+        <HeaderLeft>
+          <RiMapPinLine className="true" style={{ padding: "0" }} />
+          <HeadTitle>Reservation</HeadTitle>
+          {isOpen && (
+            <SearchDiv>
+              <SearchInput onChange={e => setSearch(e.target.value)} />
+              <SearchButton onClick={() => handleOnClickBtn()}>
+                <BiSearch />
+              </SearchButton>
+            </SearchDiv>
+          )}
+        </HeaderLeft>
+
+        <AddButton
+          onClick={() => {
+            setIsOpen(!isOpen);
+          }}
+        >
+          {isOpen ? <AiOutlinePlusCircle /> : <AiOutlineUnorderedList />}
+        </AddButton>
+      </Header>
+      {isOpen ? (
+        <>
+          <Classification />
+          <Card />
+        </>
+      ) : (
+        <RoomArrayList>
+          <ReservationAdd />
+        </RoomArrayList>
+      )}
+    </>
+  );
+};
+
+export default RoomCom;

@@ -1,15 +1,14 @@
 import React, { Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
-import axios from "axios";
 
 import Header from '../../common/Header';
 import RoomCom from "../../components/reservation/RoomCom";
-import Cal from "../../components/schedule/Calendar";
 
 import color from "./../../assets/color.png";
 
 // icons
 import { BiPhoneCall } from "react-icons/bi";
+import { fetchGetOfficeData } from '../../api/reservation';
 
 // CSS
 const Test = styled.div`
@@ -146,18 +145,23 @@ const SubOptionTelNum = styled.div`
 `;
 
 const ReservationPage = () => {
-  const [reservationList, setReservationList] = useState([]);
+  const [officeList, setOfficeList] = useState([]);
 
   useEffect(() => {
-    getData();
+    getOfficeData();
   }, []);
 
-  const getData = async () => {
+  const getOfficeData = async () => {
     try {
-      const url = `https://${process.env.REACT_APP_SECRET_URL}/reservation/get-reservation`;
-      const res = await axios.get(url);
-      console.log(res);
-      setReservationList(res.data.office);
+      const res = await fetchGetOfficeData(1);
+
+      if (!res || res.length === 0) {
+        setOfficeList([]);
+
+        return;
+      }
+      console.log(res)
+      setOfficeList(res);
     } catch (error) {
       console.log(error);
     }
@@ -166,26 +170,24 @@ const ReservationPage = () => {
   const Card = () => {
     return (
       <Fragment>
-        {reservationList.map(item => {
-          return (
-            <ScheduleBox key={item._id}>
-              <SubDiv>
-                <SubLeftDiv>
-                  <SubOptionImg src={item.imgUrl} alt="이미지 없음" />
-                </SubLeftDiv>
-                <SubRightDiv>
-                  <SubOptionDate>{item.date}</SubOptionDate>
-                  <SubOptionArea>{item.areaName}</SubOptionArea>
-                  <SubOptionPlace>{item.placeName}</SubOptionPlace>
-                  <SubOptionTelDiv>
-                    <BiPhoneCall style={{ color: "#8165df" }} />
-                    <SubOptionTelNum>{item.telNum}</SubOptionTelNum>
-                  </SubOptionTelDiv>
-                </SubRightDiv>
-              </SubDiv>
-            </ScheduleBox>
-          );
-        })}
+        {officeList.map((office) =>
+          <ScheduleBox key={office.id}>
+            <SubDiv>
+              <SubLeftDiv>
+                <SubOptionImg src={office.image} alt="이미지 없음" />
+              </SubLeftDiv>
+              <SubRightDiv>
+                <SubOptionDate>{office.date}</SubOptionDate>
+                <SubOptionArea>{office.address}</SubOptionArea>
+                <SubOptionPlace>{office.placeName}</SubOptionPlace>
+                <SubOptionTelDiv>
+                  <BiPhoneCall style={{ color: "#8165df" }} />
+                  <SubOptionTelNum>{office.telNum}</SubOptionTelNum>
+                </SubOptionTelDiv>
+              </SubRightDiv>
+            </SubDiv>
+          </ScheduleBox>
+        )}
       </Fragment>
     );
   };
@@ -196,7 +198,7 @@ const ReservationPage = () => {
         <BackColor src={color} style={{ opacity: 0.2 }} />
         <Header />
         <Mid>
-          <Title>예약 일정</Title>
+          <Title>공유 오피스 예약</Title>
           <SubTitle>Reservation status</SubTitle>
           <Card />
         </Mid>

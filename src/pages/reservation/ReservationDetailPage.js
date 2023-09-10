@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-import ReservationCom from "../../components/reservation/ReservationCom";
 import ReservationDetail from "../../components/reservation/ReservationDetail";
 import Header from '../../common/Header';
 
@@ -39,7 +38,6 @@ const BackColor = styled.img`
 `;
 
 const Last = styled.div`
-  background: #f8f8f8;
   width: 90%;
   height: 340px;
   border-radius: 20px;
