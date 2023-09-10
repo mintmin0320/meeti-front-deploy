@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = `http://${process.env.REACT_APP_SERVER_URI}`;
+const BASE_URL = `https://${process.env.REACT_APP_SERVER_URI}`;
 
 export const fetchSignIn = async (data) => {
   try {
