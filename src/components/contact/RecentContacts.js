@@ -9,6 +9,7 @@ import { HiHeart, HiOutlineHeart, HiOutlineDotsHorizontal, } from "react-icons/h
 
 const RecentContacts = () => {
   const [heart, setHeart] = useState(false);
+
   return (
     <ContactDiv>
       <ContactLeft>

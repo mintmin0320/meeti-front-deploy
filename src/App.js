@@ -3,7 +3,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
 import MainRoute from "./routes/MainRoute";
 
-function App() {
+const App = () => {
   return (
     <div className="App">
       <Router>

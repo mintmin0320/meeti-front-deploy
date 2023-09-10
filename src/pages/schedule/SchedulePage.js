@@ -80,8 +80,8 @@ const CalendarPage = () => {
         <BackColor src={color} style={{ opacity: 0.2 }} />
         <Header />
         <Mid>
-          <Title>오늘의 일정</Title>
-          <SubTitle>It's today's schedule.</SubTitle>
+          <Title>일정</Title>
+          <SubTitle>My Schedule</SubTitle>
           <ScheduleBox>
             <ScheduleList />
           </ScheduleBox>

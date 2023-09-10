@@ -56,15 +56,13 @@ const Profile = styled.div`
   margin: 30px;
 `;
 
-const ProfileImg = styled.div`
+const ProfileImg = styled.img`
   width: 128px;
   height: 128px;
   margin-right: 50px;
   border-radius: 50%;
-  border: solid 1px;
   background: #d9d9d9;
   float: left;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 1px 2px;
 `;
 
 const Info = styled.div`
@@ -109,7 +107,6 @@ const Last = styled.div`
   border-radius: 20px;
 `;
 
-
 const ProfilePage = () => {
   return (
     <Test>
@@ -119,13 +116,10 @@ const ProfilePage = () => {
         <Mid>
           <Title>마이페이지</Title>
           <Profile>
-            <ProfileImg />
+            <ProfileImg src='./profile.png' />
             <div>
               <Info>
                 이름 l<Text>설주희</Text>
-              </Info>
-              <Info>
-                소속 l<Text>동양미래대학교</Text>
               </Info>
               <Info>
                 이메일 l<Text>juhee01176@gmail.com</Text>
@@ -136,9 +130,6 @@ const ProfilePage = () => {
             </div>
           </Profile>
           <Introduction>
-            <Info>
-              소개 l<Text>안녕하세요~^^</Text>
-            </Info>
           </Introduction>
           <Buttons>
             <Btn>회원 정보 수정</Btn>
@@ -151,4 +142,5 @@ const ProfilePage = () => {
     </Test>
   );
 };
+
 export default ProfilePage;

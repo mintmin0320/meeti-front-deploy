@@ -11,14 +11,13 @@ import BackgroundPalette from './BackgroundPalette';
 import { fetchAddSchedule } from '../../api/schedule';
 
 // hooks
-import { useColor } from '../../hooks/context/colorContext';
+import { useColor } from '../../hooks/context/ColorContext';
 
 // icons, library-CSS
 import { BiMinus, BiPlus } from "react-icons/bi";
 
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
-import { useNavigate } from 'react-router-dom';
 
 // CSS
 const AddTitle = styled.input`
@@ -96,7 +95,6 @@ const SubmitButton = styled.button`
 const KaKaoMapBox = styled.div`
   width: 100%;
   height: 210px;
-  /* background: #8165df; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -113,13 +111,10 @@ const SummitButtonDiv = styled.div`
 `;
 
 const AddSchedule = () => {
-  const navigate = useNavigate();
   const { kakao } = window;
   const [map, setMap] = useState(null);
   const [marker, setMarker] = useState(null);
   const { color } = useColor();
-  const [isSdkLoaded, setSdkLoaded] = useState(false);
-
   const [state, setState] = useState([
     {
       startDate: new Date(),
@@ -128,8 +123,8 @@ const AddSchedule = () => {
     },
   ]);
   const [title, setTitle] = useState("");
-  const [startTime, setStartTime] = useState("");
-  const [endTime, setEndTime] = useState("");
+  const [initTime, setStartTime] = useState("");
+  const [finishTime, setEndTime] = useState("");
   const [place, setPlace] = useState("");
 
   const handleOnChange = (e) => {
@@ -143,17 +138,17 @@ const AddSchedule = () => {
     const data = {
       title,
       color,
-      startDate: state[0].startDate,
-      endDate: state[0].endDate,
-      startTime,
-      endTime,
+      start: state[0].startDate,
+      end: state[0].endDate,
+      initTime,
+      finishTime,
       place,
     };
 
     try {
       const res = await fetchAddSchedule(data);
 
-      // window.location.reload();
+      window.location.reload();
 
       console.log(res);
     } catch (error) {
@@ -207,7 +202,7 @@ const AddSchedule = () => {
           setMarker(newMarker);
 
           var infowindow = new kakao.maps.InfoWindow({
-            content: `<div style="width:150px;text-align:center;padding:6px 0;">${result[0].place_name}</div>`  // 변경된 부분
+            content: `<div style="width:150px;text-align:center;padding:6px 0;">${result[0].place_name}</div>`
           });
           infowindow.open(map, newMarker);
           map.setCenter(coords);
@@ -219,9 +214,9 @@ const AddSchedule = () => {
             }
           });
         } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
-          alert('검색 결과가 존재하지 않습니다. 키워드를 다시 확인해주세요.');  // 변경된 부분
+          alert('검색 결과가 존재하지 않습니다. 키워드를 다시 확인해주세요.');
         } else {
-          alert('키워드 검색 중 오류가 발생했습니다.');  // 변경된 부분
+          alert('키워드 검색 중 오류가 발생했습니다.');
         }
       });
     } catch (error) {
@@ -260,9 +255,9 @@ const AddSchedule = () => {
         <BackgroundPalette />
         <TitleFont>시간</TitleFont>
         <TimeDiv>
-          <Time type="time" value={startTime} onChange={(e) => { setStartTime(e.target.value) }} />
+          <Time type="time" value={initTime} onChange={(e) => { setStartTime(e.target.value) }} />
           <BiMinus className="BiMinus" />
-          <Time type="time" value={endTime} onChange={(e) => setEndTime(e.target.value)} />
+          <Time type="time" value={finishTime} onChange={(e) => setEndTime(e.target.value)} />
         </TimeDiv>
         <TitleFont>장소</TitleFont>
         <PlaceInput value={place} onChange={e => setPlace(e.target.value)} />

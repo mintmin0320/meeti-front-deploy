@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled, { css } from "styled-components";
 
 // hook
-import { useColor } from '../../hooks/context/colorContext';
+import { useColor } from '../../hooks/context/ColorContext';
 
 // icon
 import { FaSortDown } from "react-icons/fa";
