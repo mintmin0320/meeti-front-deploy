@@ -1,14 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import Header from '../../common/Header';
-import ReservationCom from "../../components/reservation/ReservationCom";
-import ReservationDetail from "../../components/reservation/ReservationDetail";
+import Minutes from "./../../components/minutes/Minutes";
+import MinutesList from "./../../components/minutes/MinutesList";
 
-// bg-color
+import color from "./../../assets/color.png"
 
-import color from "./../assets/color.png";
-
+// CSS
 const Test = styled.div`
   width: 100vw;
   height: 100vh;
@@ -44,16 +43,17 @@ const Mid = styled.div`
   background: #f8f8f8;
   width: 30%;
   border-radius: 20px;
-  z-index: 3;
 `;
+
 const Title = styled.div`
   margin-top: 50px;
   font-size: 20px;
-  margin-top: 20px;
   margin-bottom: 5px;
 `;
 
-const SubTitle = styled.div``;
+const SubTitle = styled.div`
+  margin-bottom: 38px;
+`;
 
 const Last = styled.div`
   background: #f8f8f8;
@@ -63,21 +63,25 @@ const Last = styled.div`
   z-index: 3;
 `;
 
-const ReservationTimePage = () => {
+const MinutesPage = () => {
+  const [selectedMinute, setSelectedMinute] = useState(null);
+
   return (
     <Test>
       <MainDiv className="MainDiv">
-        <BackColor src={color} style={{ opacity: 0.2 }} />
+        {/* <BackColor src={color} style={{ opacity: 0.2 }} /> */}
         <Header />
         <Mid>
-          <ReservationCom />
+          <Title>회의록</Title>
+          <SubTitle>It's Minutes</SubTitle>
+          <MinutesList setSelectedMinute={setSelectedMinute} />
         </Mid>
         <Last>
-          <ReservationDetail />
+          <Minutes detail={selectedMinute} />
         </Last>
       </MainDiv>
     </Test>
   );
 };
 
-export default ReservationTimePage;
+export default MinutesPage;

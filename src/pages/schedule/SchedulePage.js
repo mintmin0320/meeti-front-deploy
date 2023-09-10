@@ -1,14 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 
+import Calendar from "../../components/schedule/Calendar";
+import ScheduleList from "../../components/schedule/ScheduleList";
 import Header from '../../common/Header';
-import ReservationCom from "../../components/reservation/ReservationCom";
-import ReservationDetail from "../../components/reservation/ReservationDetail";
 
 // bg-color
+import color from "./../../assets/color.png";
 
-import color from "./../assets/color.png";
-
+// CSS
 const Test = styled.div`
   width: 100vw;
   height: 100vh;
@@ -27,7 +27,7 @@ const MainDiv = styled.div`
   border-radius: 20px;
   display: flex;
   flex-direction: row;
-  z-index: 2;
+  z-index: 1;
 `;
 
 const BackColor = styled.img`
@@ -37,15 +37,23 @@ const BackColor = styled.img`
   margin-left: 100px;
   margin-top: 100px;
   background: #f8f8f8;
-  z-index: 1;
+  z-index: 2;
 `;
 
 const Mid = styled.div`
   background: #f8f8f8;
   width: 30%;
   border-radius: 20px;
+`;
+
+const ScheduleBox = styled.div`
+  width: 90%;
+  height: 503px;
+  border-radius: 20px;
+  position: relative;
   z-index: 3;
 `;
+
 const Title = styled.div`
   margin-top: 50px;
   font-size: 20px;
@@ -53,7 +61,9 @@ const Title = styled.div`
   margin-bottom: 5px;
 `;
 
-const SubTitle = styled.div``;
+const SubTitle = styled.div`
+  margin-bottom: 38px;
+`;
 
 const Last = styled.div`
   background: #f8f8f8;
@@ -63,21 +73,25 @@ const Last = styled.div`
   z-index: 3;
 `;
 
-const ReservationTimePage = () => {
+const CalendarPage = () => {
   return (
     <Test>
       <MainDiv className="MainDiv">
         <BackColor src={color} style={{ opacity: 0.2 }} />
         <Header />
         <Mid>
-          <ReservationCom />
+          <Title>일정</Title>
+          <SubTitle>My Schedule</SubTitle>
+          <ScheduleBox>
+            <ScheduleList />
+          </ScheduleBox>
         </Mid>
         <Last>
-          <ReservationDetail />
+          <Calendar />
         </Last>
       </MainDiv>
     </Test>
   );
 };
 
-export default ReservationTimePage;
+export default CalendarPage;

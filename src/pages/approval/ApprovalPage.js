@@ -1,16 +1,17 @@
 import React from "react";
 import styled from "styled-components";
-import color from "./../../assets/color.png";
-import { useNavigate } from "react-router-dom";
-import ApprovalCom from "../../components/MainPage/Approval/ApprovalCom";
-
 import { Link } from "react-router-dom";
 
-// icon
+import ApprovalCom from "../../components/approval/ApprovalCom";
+
+// icon, bg-color
 import { AiOutlineCalendar } from "react-icons/ai";
 import { FaRegAddressBook } from "react-icons/fa";
-import { RiMapPinLine } from "react-icons/ri";
+import { RiMapPinLine, RiPlayList2Fill } from "react-icons/ri";
 import { HiOutlineMail } from "react-icons/hi";
+import { BiUserCircle } from "react-icons/bi";
+
+import color from "./../../assets/color.png";
 
 const Test = styled.div`
   width: 100vw;
@@ -76,10 +77,10 @@ const ApprovalPage = () => {
       <MainDiv className="MainDiv">
         <BackColor src={color} style={{ opacity: 0.2 }} />
         <Header>
-          <Link to="/calendar">
+          <Link to="/">
             <AiOutlineCalendar className="false" />
           </Link>
-          <Link to="/">
+          <Link to="/contact">
             <FaRegAddressBook className="false" />
           </Link>
           <Link to="/reservation">
@@ -87,6 +88,12 @@ const ApprovalPage = () => {
           </Link>
           <Link to="/approval">
             <HiOutlineMail className="true" />
+          </Link>
+          <Link to="/minutes">
+            <RiPlayList2Fill className="false" />
+          </Link>
+          <Link to="/profile">
+            <BiUserCircle className="false" />
           </Link>
         </Header>
         <Mid>
@@ -100,4 +107,5 @@ const ApprovalPage = () => {
     </Test>
   );
 };
+
 export default ApprovalPage;

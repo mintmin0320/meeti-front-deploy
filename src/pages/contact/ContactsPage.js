@@ -1,16 +1,14 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 import Header from '../../common/Header';
-import RoomCom from "../../components/reservation/RoomCom";
+import MainContacts from "../../components/contact/MainContacts";
+import RecentContacts from "../../components/contact/RecentContacts";
 
+// icons, bg-color
 import color from "./../../assets/color.png";
 
-// icons
-import { BiPhoneCall } from "react-icons/bi";
-import { fetchGetMyOfficeData } from '../../api/reservation';
-
-// styles
+// CSS
 const Test = styled.div`
   width: 100vw;
   height: 100vh;
@@ -46,6 +44,7 @@ const Mid = styled.div`
   background: #f8f8f8;
   width: 30%;
   border-radius: 20px;
+  z-index: 3;
 `;
 
 const Title = styled.div`
@@ -113,7 +112,7 @@ const SubOptionPlace = styled.div`
   margin: 5px;
 `;
 
-const SubOptionTime = styled.div`
+const SubOptionArea = styled.div`
   margin: 3px;
   padding: 2px;
   padding-left: 6px;
@@ -121,7 +120,7 @@ const SubOptionTime = styled.div`
   background: #f8f8f8;
   border: 1px solid #8165df;
   border-radius: 50px;
-  width: 75%;
+  width: 36px;
   margin-top: 0px;
   height: 15px;
   font-size: 10px;
@@ -144,70 +143,30 @@ const SubOptionTelNum = styled.div`
   align-items: center;
 `;
 
-const ReservationPage = () => {
-  const [officeList, setOfficeList] = useState([]);
-
-  useEffect(() => {
-    getOfficeData();
-  }, []);
-
-  const getOfficeData = async () => {
-    try {
-      const res = await fetchGetMyOfficeData(1);
-
-      if (!res || res.length === 0) {
-        setOfficeList([]);
-
-        return;
-      }
-      console.log(res)
-      setOfficeList(res);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const Card = () => {
-    return (
-      <Fragment>
-        {officeList.map((office) =>
-          <ScheduleBox key={office.id}>
-            <SubDiv>
-              <SubLeftDiv>
-                <SubOptionImg src={office.image} alt="이미지 없음" />
-              </SubLeftDiv>
-              <SubRightDiv>
-                <SubOptionDate>{office.date}</SubOptionDate>
-                <SubOptionTime>{office.startTime} : {office.endTime}</SubOptionTime>
-                <SubOptionPlace>{office.officeName}</SubOptionPlace>
-                <SubOptionTelDiv>
-                  <BiPhoneCall style={{ color: "#8165df" }} />
-                  <SubOptionTelNum>{office.telNum}</SubOptionTelNum>
-                </SubOptionTelDiv>
-              </SubRightDiv>
-            </SubDiv>
-          </ScheduleBox>
-        )}
-      </Fragment>
-    );
-  };
-
+const ContactsPage = () => {
   return (
     <Test>
       <MainDiv className="MainDiv">
         <BackColor src={color} style={{ opacity: 0.2 }} />
         <Header />
         <Mid>
-          <Title>공유 오피스 예약</Title>
-          <SubTitle>Reservation status</SubTitle>
-          <Card />
+          <Title>최근 연락처</Title>
+          <SubTitle>Recent Contacts</SubTitle>
+          <RecentContacts />
+          <RecentContacts />
+          <RecentContacts />
+          <Title>즐겨찾기</Title>
+          <SubTitle>Bookmark</SubTitle>
+          <RecentContacts />
+          <RecentContacts />
+          <RecentContacts />
         </Mid>
         <Last>
-          <RoomCom />
+          <MainContacts />
         </Last>
       </MainDiv>
     </Test>
   );
 };
 
-export default ReservationPage;
+export default ContactsPage;

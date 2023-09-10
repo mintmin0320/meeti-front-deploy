@@ -70,6 +70,40 @@
 .fc-day-sat a {
   color: blue;
 }
+.fc-direction-ltr {
+  margin: 10px;
+}
+.fc .fc-toolbar-title {
+  font-size: 20px;
+}
+.fc-event-title {
+  padding: 0.25px;
+}
+.fc .fc-toolbar.fc-header-toolbar {
+  margin-bottom: 0;
+}
+.fc .fc-button-primary {
+  background-color: #f0ebfa;
+  border: none;
+  color: #8165df;
+}
+
+.fc .fc-button {
+  margin: 10px;
+  border-radius: 0.25em;
+}
+.fc .fc-button-primary:disabled {
+  background-color: #8165df;
+  border: none;
+  color: #f0ebfa;
+  cursor: pointer;
+}
+.fc-h-event .fc-event-title {
+  font-size: 10px;
+}
+.fc .fc-daygrid-day-number {
+  font-size: 10px;
+}
 
 .BiMinus {
   width: 30px;
@@ -229,4 +263,14 @@
   width: 50%;
   padding: 5px;
   border: none;
+}
+
+/* minutes */
+
+.MinuTrue {
+  color: #8165df;
+  background-color: #f0ebfa;
+  padding: 20px;
+  border-radius: 20px;
+  cursor: pointer;
 }

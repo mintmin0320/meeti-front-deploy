@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "styled-components";
+
+import SignUp from "../../components/auth/SignUp";
+
+// icon, bg-color
 import color from "./../../assets/color.png";
-import { FaBookOpen } from "react-icons/fa";
-import { MdWork, MdPerson } from "react-icons/md";
-import Signup from "../../components/User/Signup";
 
 const Test = styled.div`
   width: 100vw;
@@ -34,15 +35,15 @@ const BackColor = styled.img`
   z-index: 1;
 `;
 
-const SignupTypePage = () => {
+const SignUpTypePage = () => {
   return (
     <Test>
       <MainDiv className="MainDiv">
         <BackColor src={color} style={{ opacity: 0.2 }} />
-        <Signup />
+        <SignUp />
       </MainDiv>
     </Test>
   );
 };
 
-export default SignupTypePage;
+export default SignUpTypePage;

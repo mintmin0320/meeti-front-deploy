@@ -1,15 +1,14 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 
-import { MdPerson } from "react-icons/md";
-import { FaBookOpen } from "react-icons/fa";
+import { MdWork } from "react-icons/md";
 import { IoIosArrowForward } from "react-icons/io";
 import color from "./../../assets/color.png";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 
-const SignUpPage = () => {
+const SignUpCorpPage = () => {
   const navigate = useNavigate();
   const [state, setState] = useState({
     email: "",
@@ -97,7 +96,7 @@ const SignUpPage = () => {
       <MainDiv className="MainDiv">
         <BackColor src={color} style={{ opacity: 0.2 }} />
         <Usertype>
-          <MdPerson /> 개인용
+          <MdWork /> 기업용
         </Usertype>
         <SignupDiv>
           <form onSubmit={e => handleSubmit(e)}>
@@ -118,14 +117,14 @@ const SignUpPage = () => {
             // onChange={e => {
             //handleOnChange("id", e);
             />
-            {/* <Button onClick={getAuthNum} type="button">
+            <Button onClick={getAuthNum} type="button">
               인증번호받기
-            </Button> */}
+            </Button>
             <Green>
               {/* <BsFillCheckCircleFill /> */}
               {/* 사용가능한 아이디입니다! */}
             </Green>
-            {/* <Label>
+            <Label>
               인증번호를 입력해주세요.<Ms>*</Ms>
             </Label>
             <Input
@@ -137,7 +136,7 @@ const SignUpPage = () => {
             />
             <Button onClick={codeCheck} type="button">
               확인
-            </Button> */}
+            </Button>
             <Label>
               비밀번호를 입력해주세요.<Ms>*</Ms>
             </Label>
@@ -177,7 +176,7 @@ const SignUpPage = () => {
     </Test>
   );
 };
-export default SignUpPage;
+export default SignUpCorpPage;
 
 const Test = styled.div`
   width: 100vw;
