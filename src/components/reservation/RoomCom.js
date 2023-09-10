@@ -233,7 +233,7 @@ const SearchButton = styled.button`
 `;
 
 const RoomCom = () => {
-  const areaArr = ["중구", "동대문구", "용산구", "광진구", "마포구", "종로구", "강북구", "서초구", "양천구", "동작구", "구로구", "노원구", "중랑구", "영등포구",];
+  const areaArr = ["전체", "중구", "동대문구", "용산구", "광진구", "마포구", "종로구", "강북구", "서초구", "양천구", "동작구", "구로구", "노원구", "중랑구", "영등포구",];
   const [isOpen, setIsOpen] = useState(true);
   const [officeList, setOfficeList] = useState([]);
   const [search, setSearch] = useState("");
@@ -243,6 +243,12 @@ const RoomCom = () => {
   }, []);
 
   const handleOnClick = async (address) => {
+    if (address === "전체") {
+      getOfficeData();
+
+      return;
+    }
+
     try {
       const res = await fetchClassificationOfficeData(address);
       setOfficeList(res);
