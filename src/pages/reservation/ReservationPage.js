@@ -8,9 +8,9 @@ import color from "./../../assets/color.png";
 
 // icons
 import { BiPhoneCall } from "react-icons/bi";
-import { fetchGetOfficeData } from '../../api/reservation';
+import { fetchGetMyOfficeData } from '../../api/reservation';
 
-// CSS
+// styles
 const Test = styled.div`
   width: 100vw;
   height: 100vh;
@@ -113,7 +113,7 @@ const SubOptionPlace = styled.div`
   margin: 5px;
 `;
 
-const SubOptionArea = styled.div`
+const SubOptionTime = styled.div`
   margin: 3px;
   padding: 2px;
   padding-left: 6px;
@@ -121,7 +121,7 @@ const SubOptionArea = styled.div`
   background: #f8f8f8;
   border: 1px solid #8165df;
   border-radius: 50px;
-  width: 36px;
+  width: 75%;
   margin-top: 0px;
   height: 15px;
   font-size: 10px;
@@ -153,7 +153,7 @@ const ReservationPage = () => {
 
   const getOfficeData = async () => {
     try {
-      const res = await fetchGetOfficeData(1);
+      const res = await fetchGetMyOfficeData(1);
 
       if (!res || res.length === 0) {
         setOfficeList([]);
@@ -178,8 +178,8 @@ const ReservationPage = () => {
               </SubLeftDiv>
               <SubRightDiv>
                 <SubOptionDate>{office.date}</SubOptionDate>
-                <SubOptionArea>{office.address}</SubOptionArea>
-                <SubOptionPlace>{office.placeName}</SubOptionPlace>
+                <SubOptionTime>{office.startTime} : {office.endTime}</SubOptionTime>
+                <SubOptionPlace>{office.officeName}</SubOptionPlace>
                 <SubOptionTelDiv>
                   <BiPhoneCall style={{ color: "#8165df" }} />
                   <SubOptionTelNum>{office.telNum}</SubOptionTelNum>
