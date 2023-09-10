@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate, Link } from "react-router-dom";
-import axios from "axios";
+
+// apis
+import { fetchSignIn } from '../../api/auth';
 
 import color from "./../../assets/color.png";
+
 
 const SignInPage = () => {
   const navigate = useNavigate();
@@ -14,17 +17,19 @@ const SignInPage = () => {
     params === "id" ? setUserId(e.target.value) : setUserPw(e.target.value);
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const url = `https://${process.env.REACT_APP_SECRET_URL}/users/sign-in`;
+
     const data = {
       email: userId,
       password: userPw,
     };
+
     try {
-      const res = await axios.post(url, data, { withCredentials: true });
+      // const res = await axios.post(url, data, { withCredentials: true });
+      const res = await fetchSignIn(data);
       console.log(res);
-      navigate("/calendar");
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
