@@ -70,16 +70,18 @@ const AddButton = styled.div`
 
 const Calendar = () => {
   const [isOpen, setIsOpen] = useState(true);
+  const [scheduleList, setScheduleList] = useState([]);
 
   useEffect(() => {
     fetchSchedule();
-  }, [])
+  }, []);
 
   const fetchSchedule = async () => {
     try {
       const res = await fetchGetSchedule();
-
       console.log(res);
+      setScheduleList(res);
+
     } catch (error) {
       console.log(error);
     }
@@ -125,8 +127,7 @@ const Calendar = () => {
             initialView="dayGridMonth"
             plugins={[dayGridPlugin, interactionPlugin]}
             weekends={true}
-            // events={schedule} //data에 모든 이벤트 입력
-            events={data} //data에 모든 이벤트 입력
+            events={scheduleList}
             editable={true}
             navLinks={false}
             eventLimit={true}
@@ -147,8 +148,8 @@ const Calendar = () => {
               return year + "년 " + month + "월";
             }}
             dateClick={(it) => {
-              alert(it.date.getDate());
-              console.log(it.date.getDate());
+              // alert(it.date.getDate());
+              // console.log(it.date.getDate());
             }}
           />
         </CalendarDiv>

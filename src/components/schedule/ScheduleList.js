@@ -5,11 +5,14 @@
   - 특정 날짜 클릭 시 해당 날짜 일정만 출력되도록 react query 사용 예정
 */
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 // icons, dummy-data
 import { HiLocationMarker } from "react-icons/hi";
+
+// api
+import { fetchGetSchedule } from '../../api/schedule';
 
 import scheduleData from './scheduleData.json';
 
@@ -65,16 +68,37 @@ const SchedulePlace = styled.div`
 `;
 
 const ScheduleList = () => {
+  const [scheduleList, setScheduleList] = useState([]);
+
+  useEffect(() => {
+    fetchSchedule();
+  }, []);
+
+  const fetchSchedule = async () => {
+    try {
+      const res = await fetchGetSchedule();
+      console.log(res);
+      setScheduleList(res);
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Wrapper>
-      {scheduleData.map((item) => (
-        <ScheduleBox key={item.ScheduleId}>
+      {scheduleList.map((item) => (
+        <ScheduleBox key={item.id}>
           <ScheduleContacts>
+            {console.log(item)}
             <ScheduleColor />
-            <ScheduleTitle>{item.ScheduleTittle}</ScheduleTitle>
+            <ScheduleTitle>{item.title}</ScheduleTitle>
             <SchedulePlace>
               <HiLocationMarker />
-              {item.SchedulePlace}
+              {item.place}
+            </SchedulePlace>
+            <SchedulePlace>
+              {item.initTime} ~ {item.finishTime}
             </SchedulePlace>
           </ScheduleContacts>
         </ScheduleBox>
