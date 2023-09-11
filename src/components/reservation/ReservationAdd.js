@@ -89,7 +89,7 @@ const ReservationAdd = () => {
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    formData.append("image", null);
+    formData.append("image", "");
     formData.append("telNum", state.telNum);
     formData.append("pay", state.pay);
     formData.append("placeName", state.placeName);
