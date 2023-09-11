@@ -366,7 +366,7 @@ const RoomCom = () => {
 
         <AddButton
           onClick={() => {
-            setIsOpen(!isOpen);
+            // setIsOpen(!isOpen);
           }}
         >
           {isOpen ? <AiOutlinePlusCircle /> : <AiOutlineUnorderedList />}
