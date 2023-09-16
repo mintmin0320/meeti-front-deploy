@@ -13,11 +13,11 @@ export const fetchGetMinutes = async () => {
   }
 };
 
-export const fetchAddMinutes = async (data) => {
+export const fetchAddMinutes = (data) => {
   try {
-    const res = await axios.post(`${BASE_URL}/meeti/meeting/reg/${userId}`, data);
+    const res = axios.post(`${BASE_URL}/meeti/meeting/reg/${userId}`, data);
 
-    return res.data;
+    return res;
   } catch (error) {
     throw error;
   }

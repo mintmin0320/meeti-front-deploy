@@ -4,12 +4,12 @@ import styled from "styled-components";
 import { useMinutes } from "../../hooks/context/MinutesContext";
 
 // api
-import { fetchGetMinutes } from '../../api/minutes';
+import { fetchGetMinutes, test1 } from '../../api/minutes';
 
 // icons
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
 
-//styled
+// styles
 const MinutesDiv = styled.div`
   width: 100%;
   margin-top: 20px;
@@ -75,7 +75,8 @@ const MinutesList = ({ setSelectedMinute }) => {
   const { minutesData, setMinutesData } = useMinutes();
 
   useEffect(() => {
-    getMinutesList();
+    // getMinutesList();
+    test();
   }, []);
 
   const getMinutesList = async () => {
@@ -88,7 +89,7 @@ const MinutesList = ({ setSelectedMinute }) => {
         return;
       }
 
-      setMinutesData(res);
+      setMinutesData(res.data);
     } catch (error) {
       console.log(error);
     }
