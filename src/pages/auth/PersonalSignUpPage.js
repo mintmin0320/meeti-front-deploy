@@ -121,6 +121,7 @@ const NextBtn = styled.button`
   border: none;
   color: white;
   background: #8165df;
+  
   box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.25);
 `;
 
@@ -208,7 +209,7 @@ const SignUpPage = () => {
             />
             <BtnDiv>
               <NextBtn>
-                <IoIosArrowForward style={{ width: 25, height: 25 }} />
+                <IoIosArrowForward style={{ width: 25, height: 25, cursor: 'pointer' }} />
               </NextBtn>
             </BtnDiv>
           </form>
