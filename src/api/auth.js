@@ -17,4 +17,12 @@ export const fetchSignIn = async (data) => {
   }
 };
 
+export const fetchSignUp = (data) => {
+  try {
+    const res = axios.post(`${BASE_URL}/meeti/user/join`, data);
 
+    return res;
+  } catch (error) {
+    throw error;
+  }
+};

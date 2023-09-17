@@ -5,3 +5,4 @@ export { default as ReservationRoute } from './ReservationRoute';
 export { default as ApprovalRoute } from './ApprovalRoute';
 export { default as ProfileRoute } from './ProfileRoute';
 export { default as MinutesRoute } from './MinuteRoute';
+export { default as PrivateRoute } from './PrivateRoute';

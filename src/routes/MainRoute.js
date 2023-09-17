@@ -8,14 +8,16 @@ import {
   ReservationRoute, // 예약
   ApprovalRoute,    // 승인
   ProfileRoute,     // 프로필
-  MinutesRoute      // 회의록
+  MinutesRoute,      // 회의록
+  PrivateRoute
 } from './index'
 
 export default function MainRoute() {
   return (
     <Routes>
-      <Route path="/*" element={<ScheduleRoute />} />
       <Route path="/auth/*" element={<AuthRoute />} />
+
+      <Route path="/*" element={<ScheduleRoute />} />
       <Route path="/contact/*" element={<ContactRoute />} />
       <Route path="/reservation/*" element={<ReservationRoute />} />
       <Route path="/approval/*" element={<ApprovalRoute />} />
