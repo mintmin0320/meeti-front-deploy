@@ -4,7 +4,7 @@ import axios from "axios";
 import styled from "styled-components";
 
 // apis
-import { fetchOfficeSignUp } from '../../api/auth';
+import { fetchGetAuthCode, fetchOfficeSignUp } from '../../api/auth';
 
 // icons
 import { MdWork } from "react-icons/md";
@@ -168,22 +168,20 @@ const SignUpCorpPage = () => {
   };
 
   // 인증코드 요청
-  const getAuthNum = async e => {
+  const getAuthCode = async (e) => {
     e.preventDefault();
-    // const url = `http://${process.env.REACT_APP_SECRET_URL}/users/email-verify`;
-    // const data = {
-    //   email: signUp.email,
-    // };
-    // try {
-    //   const res = await axios.post(url, data, { withCredentials: true });
-    //   setState({
-    //     ...state,
-    //     codeCheck: false,
-    //   });
-    //   console.log(res);
-    // } catch (error) {
-    //   console.log(error);
-    // }
+
+    try {
+      const res = await fetchGetAuthCode(form.email);
+
+      if (res.status === 200) {
+        alert('인증번호 요청!');
+      } else {
+        alert('요청 실패!');
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // 인증코드 확인
@@ -253,8 +251,8 @@ const SignUpCorpPage = () => {
               onChange={handleInputChange}
               required
             />
-            <Button onClick={getAuthNum} type="button">
-              인증번호받기
+            <Button onClick={getAuthCode} type="button">
+              인증번호 요청
             </Button>
             <Label>
               인증번호를 입력해주세요.<Ms>*</Ms>

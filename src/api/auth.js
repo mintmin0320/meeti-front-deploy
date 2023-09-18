@@ -36,3 +36,13 @@ export const fetchOfficeSignUp = (data) => {
     throw error;
   }
 };
+
+export const fetchGetAuthCode = (data) => {
+  try {
+    const res = axios.post(`${BASE_URL}/email/valid`, data);
+
+    return res;
+  } catch (error) {
+    throw error;
+  }
+};
