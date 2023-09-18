@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 import { MdWork, MdPerson } from "react-icons/md";
-import { Link } from "react-router-dom";
 
 const SignupDiv = styled.div`
   margin: auto;
@@ -73,10 +73,6 @@ const Join = styled.div`
 `;
 
 const SignUp = () => {
-  const [stuButton, setStuButton] = useState(false);
-  const [offButton, setoffButton] = useState(false);
-  const [usrButton, setUsrButton] = useState(false);
-
   return (
     <SignupDiv>
       <TitleDiv>

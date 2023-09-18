@@ -16,7 +16,6 @@ export default function MainRoute() {
   return (
     <Routes>
       <Route path="/auth/*" element={<AuthRoute />} />
-
       <Route path="/*" element={<ScheduleRoute />} />
       <Route path="/contact/*" element={<ContactRoute />} />
       <Route path="/reservation/*" element={<ReservationRoute />} />
