@@ -172,7 +172,11 @@ const SignUpCorpPage = () => {
     e.preventDefault();
 
     try {
-      const res = await fetchGetAuthCode(form.email);
+      const data = {
+        email: form.email,
+      };
+
+      const res = await fetchGetAuthCode(data);
 
       if (res.status === 200) {
         alert('인증번호 요청!');
