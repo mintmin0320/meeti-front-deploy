@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-import { fetchSignUp } from '../../api/auth';
+// apis
+import { fetchPersonalSignUp } from '../../api/auth';
 
 // icons
 import { MdPerson } from "react-icons/md";
@@ -121,21 +122,20 @@ const NextBtn = styled.button`
   border: none;
   color: white;
   background: #8165df;
-  
   box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.25);
 `;
 
 const SignUpPage = () => {
   const navigate = useNavigate();
-  const [signUp, setSignUp] = useState({
+  const [form, setForm] = useState({
     email: null,
     password: null,
     username: "",
   });
 
   const handleInputChange = (e) => {
-    setSignUp({
-      ...signUp,
+    setForm({
+      ...form,
       [e.target.name]: e.target.value,
     });
   };
@@ -145,16 +145,16 @@ const SignUpPage = () => {
     e.preventDefault();
 
     const data = {
-      email: signUp.email,
-      password: signUp.password,
-      username: signUp.username,
+      email: form.email,
+      password: form.password,
+      username: form.username,
     };
 
     try {
-      const res = await fetchSignUp(data);
+      const res = await fetchPersonalSignUp(data);
 
       if (res.data) {
-        navigate("/");
+        navigate("/auth/sign-in");
       } else {
         alert("회원가입 실패");
       }
