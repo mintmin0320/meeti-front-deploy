@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import styled from "styled-components";
 
 // apis
-import { fetchGetAuthCode, fetchOfficeSignUp } from '../../api/auth';
+import {
+  fetchGetAuthCode,
+  fetchOfficeSignUp,
+  fetchEmailVerificationCode
+} from '../../api/auth';
 
 // icons
 import { MdWork } from "react-icons/md";
@@ -123,6 +126,7 @@ const Button = styled.button`
   font-size: 8px;
   line-height: 10px;
   color: #ffffff;
+  cursor: pointer;
 `;
 
 const PwMsg = styled.div`
@@ -148,11 +152,13 @@ const NextBtn = styled.button`
   color: white;
   background: #8165df;
   box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
 `;
 
 const SignUpCorpPage = () => {
   const navigate = useNavigate();
-  const [authCode, setAuthCode] = useState(null);
+  const [code, setCode] = useState(null);
+  const [isEmailVerificationRequested, setIsEmailVerificationRequested] = useState(false);
   const [isAuthCode, setIsAuthCode] = useState(false);
   const [form, setForm] = useState({
     email: null,
@@ -168,10 +174,13 @@ const SignUpCorpPage = () => {
   };
 
   // 인증코드 요청
+  /* 입력 데이터 검증 및 공백 시 처리 필요 */
   const getAuthCode = async (e) => {
     e.preventDefault();
 
     try {
+      setIsEmailVerificationRequested(true);
+
       const data = {
         email: form.email,
       };
@@ -189,27 +198,26 @@ const SignUpCorpPage = () => {
   };
 
   // 인증코드 확인
-  const codeCheck = async e => {
+  const codeCheck = async (e) => {
     e.preventDefault();
-    // const url = `http://${process.env.REACT_APP_SERVER_URI}/users/email-authentication`;
-    // const data = {
-    //   authNum: state.authCode,
-    // };
-    // try {
-    //   const res = await axios.post(url, data);
-    //   console.log(res);
-    //   if (res.data.result) {
-    //     setState({
-    //       ...state,
-    //       emailCheck: true,
-    //     });
-    //     alert("인증 성공");
-    //   } else {
-    //     alert("잘못된 인증번호입니다.");
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    // }
+
+    try {
+      const data = {
+        code,
+      };
+
+      const res = await fetchEmailVerificationCode(data);
+
+      if (res.status === 200) {
+        alert('인증번호 일치!');
+
+        setIsAuthCode(true);
+      } else {
+        alert('인증번호 불일치!');
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // 회원가입
@@ -262,9 +270,9 @@ const SignUpCorpPage = () => {
               인증번호를 입력해주세요.<Ms>*</Ms>
             </Label>
             <Input
-              disabled={isAuthCode}
+              disabled={!isEmailVerificationRequested}
               type="text"
-              name="authCode"
+              name="code"
               onChange={handleInputChange}
               required
             />
@@ -295,7 +303,7 @@ const SignUpCorpPage = () => {
               required
             />
             <BtnDiv>
-              <NextBtn>
+              <NextBtn disabled={!isAuthCode}>
                 <IoIosArrowForward style={{ width: 25, height: 25 }} />
               </NextBtn>
             </BtnDiv>

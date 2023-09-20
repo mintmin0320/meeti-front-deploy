@@ -46,3 +46,13 @@ export const fetchGetAuthCode = (data) => {
     throw error;
   }
 };
+
+export const fetchEmailVerificationCode = (data) => {
+  try {
+    const res = axios.post(`${BASE_URL}/email/valid/code`, data);
+
+    return res;
+  } catch (error) {
+    throw error;
+  }
+};
