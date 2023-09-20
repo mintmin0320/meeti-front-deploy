@@ -157,20 +157,24 @@ const NextBtn = styled.button`
 
 const SignUpCorpPage = () => {
   const navigate = useNavigate();
-  const [code, setCode] = useState(null);
+  const [code, setCode] = useState('');
   const [isEmailVerificationRequested, setIsEmailVerificationRequested] = useState(false);
   const [isAuthCode, setIsAuthCode] = useState(false);
   const [form, setForm] = useState({
-    email: null,
-    password: null,
-    username: null,
+    email: '',
+    password: '',
+    username: '',
   });
 
   const handleInputChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
+    if (e.target.name === 'code') {
+      setCode(e.target.value);
+    } else {
+      setForm({
+        ...form,
+        [e.target.name]: e.target.value,
+      });
+    }
   };
 
   // 인증코드 요청
