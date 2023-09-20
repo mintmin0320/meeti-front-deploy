@@ -237,7 +237,7 @@ const SignUpCorpPage = () => {
     try {
       const res = await fetchOfficeSignUp(data);
 
-      if (res.data) {
+      if (res.status === 200) {
         navigate("/auth/sign-in");
       } else {
         alert("회원가입 실패");
