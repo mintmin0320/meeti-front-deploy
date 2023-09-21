@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-import SpeechRecognition, {
-  useSpeechRecognition,
-} from "react-speech-recognition";
-import styled, { css } from "styled-components";
+import React, { useState, useRef } from "react";
+import { useReactToPrint } from 'react-to-print';
+import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
+import styled from "styled-components";
 
 // icons
 import { BsFillMicFill, BsFillPencilFill } from "react-icons/bs";
@@ -15,6 +14,8 @@ import {
   AiOutlineShareAlt,
   AiFillPrinter,
 } from "react-icons/ai";
+
+// apis
 import { fetchAddMinutes, fetchDeleteMinutes } from '../../api/minutes';
 
 // styles
@@ -71,6 +72,11 @@ const TopTableContacts = styled.div`
   justify-content: center;
 `;
 
+const MinutesDataWrap = styled.div`
+  width: 100%;
+  height: 100%;
+`;
+
 const MainDiv = styled.div`
   width: 80%;
   height: 70%;
@@ -117,7 +123,7 @@ const HeaderRight = styled.div`
   margin-right: 100px;
 `;
 
-const ButtonsDiv = styled.div`
+const ButtonWrap = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -159,7 +165,7 @@ const ListenDelButton = styled.div`
   }
 `;
 
-const Textdiv = styled.div`
+const TextDiv = styled.div`
   font-size: 12px;
 `;
 
@@ -175,25 +181,29 @@ const TitleText = styled.span`
 `;
 
 const ScriptDiv = styled.div`
-  margin: 30px;
-  background: white;
-  font-size: 14px;
   width: 90%;
+  height: 70%;
   display: flex;
   flex-direction: row;
-  height: 100%;
+  background: #fff;
+  font-size: 14px;
+  margin: 30px;
 `;
 
 const Script = styled.div`
-  font-size: 14px;
-  overflow: scroll;
-  width: 87%;
+  width: 100%;
+  font-size: 18px;
+  overflow-y: scroll;
+  padding: 4px;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const SpeechPage = ({ detail = {} }) => {
   const [isOpen, setIsOpen] = useState(true);
   const [title, setTitle] = useState(null);
-  const [check, setCheck] = useState(false);
   const defaultDetail = {
     id: "",
     date: "",
@@ -201,9 +211,15 @@ const SpeechPage = ({ detail = {} }) => {
     title: "",
     details: ""
   };
+  const detailProps = { ...defaultDetail, ...detail };
+  const componentRef = useRef();
 
-  const finalDetail = { ...defaultDetail, ...detail };
+  // 회의록 프린트
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
 
+  // 브라우저 설정 확인
   const {
     transcript,
     listening,
@@ -215,6 +231,8 @@ const SpeechPage = ({ detail = {} }) => {
     return <span>Browser doesn't support speech recognition.</span>;
   }
 
+
+  // 음성 녹음 시작
   const handleOnStartBtn = () => {
     SpeechRecognition.startListening({
       continuous: true,
@@ -222,11 +240,12 @@ const SpeechPage = ({ detail = {} }) => {
     });
   };
 
+  // 음성 녹음 중지
   const handleOnStopBtn = () => {
     SpeechRecognition.stopListening();
-    // prompt("회의록을 저장하시겠습니까?\n제목을 입력해주세요.");
   };
 
+  // 음성 녹음 저장
   const handleOnSaveBtn = async () => {
     SpeechRecognition.stopListening();
     try {
@@ -245,6 +264,7 @@ const SpeechPage = ({ detail = {} }) => {
     resetTranscript();
   };
 
+  // 음성 녹음 삭제
   const handleOnDeleteBtn = async (id) => {
     try {
       await fetchDeleteMinutes(id);
@@ -275,55 +295,48 @@ const SpeechPage = ({ detail = {} }) => {
 
       {isOpen ? (
         <MainDiv>
-          <TopTableDiv>
-            <TopTableSub>
-              <TopTableTitle>문서번호</TopTableTitle>
-              <TopTableContacts>{finalDetail.id}</TopTableContacts>
-            </TopTableSub>
-            <TopTableSub>
-              <TopTableTitle>회의일자</TopTableTitle>
-              <TopTableContacts>{finalDetail.date}</TopTableContacts>
-            </TopTableSub>
-            <TopTableSub>
-              <TopTableTitle>작성자</TopTableTitle>
-              <TopTableContacts>{finalDetail.username}</TopTableContacts>
-            </TopTableSub>
-          </TopTableDiv>
-          <ButtonsDiv>
+          <ButtonWrap>
             <ListenButton>
               <BsFillPencilFill />
             </ListenButton>
             <ListenButton>
               <AiOutlineShareAlt />
             </ListenButton>
-            <ListenButton>
+            <ListenButton onClick={handlePrint}>
               <AiFillPrinter />
             </ListenButton>
-            <ListenDelButton onClick={() => handleOnDeleteBtn(finalDetail.id)}>
+            <ListenDelButton onClick={() => handleOnDeleteBtn(detailProps.id)}>
               <AiFillDelete />
             </ListenDelButton>
-          </ButtonsDiv>
-          <TitleBox>
-            <TopTableTitle>회의명</TopTableTitle>
-            <TitleDiv>{finalDetail.title}</TitleDiv>
-          </TitleBox>
-          <ScriptDiv>
-            <TitleText>회의내용</TitleText>
-            <Script>{finalDetail.detail}</Script>
-          </ScriptDiv>
+          </ButtonWrap>
+          <MinutesDataWrap ref={componentRef}>
+            <TopTableDiv>
+              <TopTableSub>
+                <TopTableTitle>문서번호</TopTableTitle>
+                <TopTableContacts>{detailProps.id}</TopTableContacts>
+              </TopTableSub>
+              <TopTableSub>
+                <TopTableTitle>회의일자</TopTableTitle>
+                <TopTableContacts>{detailProps.date}</TopTableContacts>
+              </TopTableSub>
+              <TopTableSub>
+                <TopTableTitle>작성자</TopTableTitle>
+                <TopTableContacts>{detailProps.username}</TopTableContacts>
+              </TopTableSub>
+            </TopTableDiv>
+            <TitleBox>
+              <TopTableTitle>회의명</TopTableTitle>
+              <TitleDiv>{detailProps.title}</TitleDiv>
+            </TitleBox >
+            <ScriptDiv>
+              <TitleText>회의내용</TitleText>
+              <Script>{detailProps.details + '테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다. 박하민 짱'}</Script>
+            </ScriptDiv>
+          </MinutesDataWrap>
         </MainDiv>
       ) : (
         <MainForm>
-          <TopTableDiv>
-            <TopTableSub>
-              <TopTableTitle>회의명</TopTableTitle>
-              <TopTableInput onChange={(e) => setTitle(e.target.value)} />
-            </TopTableSub>
-            <TopTableSub>
-            </TopTableSub>
-          </TopTableDiv>
-          <Textdiv>Microphone: {listening ? "🟢" : "🔴"}</Textdiv>
-          <ButtonsDiv>
+          <ButtonWrap>
             <ListenButton onClick={() => handleOnStartBtn()}>
               <BsFillMicFill />
             </ListenButton>
@@ -336,7 +349,16 @@ const SpeechPage = ({ detail = {} }) => {
             <ListenButton onClick={() => handleOnSaveBtn()}>
               <BiSave />
             </ListenButton>
-          </ButtonsDiv>
+          </ButtonWrap>
+          <TextDiv>Microphone: {listening ? "🟢" : "🔴"}</TextDiv>
+          <TopTableDiv>
+            <TopTableSub>
+              <TopTableTitle>회의명</TopTableTitle>
+              <TopTableInput onChange={(e) => setTitle(e.target.value)} />
+            </TopTableSub>
+            <TopTableSub>
+            </TopTableSub>
+          </TopTableDiv>
           <ScriptDiv>
             <TitleText>회의내용</TitleText>
             <Script>{transcript}</Script>
