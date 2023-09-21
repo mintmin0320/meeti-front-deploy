@@ -3,11 +3,11 @@ import axios from 'axios';
 const BASE_URL = `https://${process.env.REACT_APP_SERVER_URI}`;
 const userId = localStorage.getItem('userId');
 
-export const fetchGetMinutes = async () => {
+export const fetchGetMinutes = () => {
   try {
-    const res = await axios.get(`${BASE_URL}/meeti/meeting/search/${userId}`);
+    const res = axios.get(`${BASE_URL}/meeti/meeting/search/${userId}`);
 
-    return res.data;
+    return res;
   } catch (error) {
     throw error;
   }
@@ -23,11 +23,11 @@ export const fetchAddMinutes = (data) => {
   }
 };
 
-export const fetchDeleteMinutes = async (minutesId) => {
+export const fetchDeleteMinutes = (minutesId) => {
   try {
-    const res = await axios.delete(`${BASE_URL}/meeti/meeting/delete/${minutesId}`);
+    const res = axios.delete(`${BASE_URL}/meeti/meeting/delete/${minutesId}`);
 
-    return res.data;
+    return res;
   } catch (error) {
     throw error;
   }
