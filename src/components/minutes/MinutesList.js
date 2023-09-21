@@ -3,8 +3,8 @@ import styled from "styled-components";
 
 import { useMinutes } from "../../hooks/context/MinutesContext";
 
-// api
-import { fetchGetMinutes, test1 } from '../../api/minutes';
+// apis
+import { fetchGetMinutes } from '../../api/minutes';
 
 // icons
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
