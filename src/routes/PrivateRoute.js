@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import { Navigate } from 'react-router-dom';
 
-const PrivateRoute = ({ children }) => {
+export default function PrivateRoute({ children }) {
   const isLogIn = localStorage.getItem('userId');
 
   return isLogIn ?
@@ -9,5 +9,3 @@ const PrivateRoute = ({ children }) => {
     :
     <Navigate to="/auth/sign-in" />
 };
-
-export default PrivateRoute;

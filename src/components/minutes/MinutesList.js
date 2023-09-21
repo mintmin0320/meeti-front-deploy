@@ -75,8 +75,7 @@ const MinutesList = ({ setSelectedMinute }) => {
   const { minutesData, setMinutesData } = useMinutes();
 
   useEffect(() => {
-    // getMinutesList();
-    test();
+    getMinutesList();
   }, []);
 
   const getMinutesList = async () => {
