@@ -244,7 +244,6 @@ const SpeechPage = ({ detail = {} }) => {
     return <span>Browser doesn't support speech recognition.</span>;
   }
 
-
   // 음성 녹음 시작
   const handleOnStartBtn = () => {
     SpeechRecognition.startListening({
@@ -296,6 +295,17 @@ const SpeechPage = ({ detail = {} }) => {
     alert('회의록 수정 성공!');
   };
 
+  // 회의내용 클립보드 복사
+  const handleCopyClipBoard = (text) => {
+    navigator.clipboard.writeText(text)
+      .then(() => {
+        alert('텍스트가 복사되었습니다.');
+      })
+      .catch((error) => {
+        console.error('복사 실패:', error);
+      });
+  };
+
   // 회의록 삭제
   const handleOnDeleteBtn = async (meetingId) => {
     try {
@@ -338,7 +348,7 @@ const SpeechPage = ({ detail = {} }) => {
                 <BiSave />
               </ListenButton>
             }
-            <ListenButton>
+            <ListenButton onClick={() => handleCopyClipBoard(content)}>
               <AiOutlineShareAlt />
             </ListenButton>
             <ListenButton onClick={handlePrint}>
