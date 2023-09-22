@@ -121,9 +121,9 @@ const SignInPage = () => {
     try {
       const res = await fetchSignIn(data);
 
-      if (res.status === 200) {
-        navigate("/");
-      }
+      // if (res.status === 200) {
+      navigate("/");
+      // }
     } catch (error) {
       console.log(error);
     }
