@@ -144,13 +144,13 @@ const SignInPage = () => {
             <Input
               type="text"
               name="email"
-              onChange={e => { handleInputChange("id", e) }}
+              onChange={(e) => setSignIn({ ...signIn, email: e.target.value })}
             />
             <Label>PW</Label>
             <Input
               type="password"
               name="password"
-              onChange={e => { handleInputChange("pw", e) }}
+              onChange={(e) => setSignIn({ ...signIn, password: e.target.value })}
             />
             <SignupLink>
               <Link to="/auth">아직 미티의 회원이 아니신가요?</Link>
