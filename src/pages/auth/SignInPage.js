@@ -114,7 +114,7 @@ const SignInPage = () => {
     e.preventDefault();
 
     const data = {
-      email: signIn.signIn,
+      email: signIn.email,
       password: signIn.password,
     };
 
