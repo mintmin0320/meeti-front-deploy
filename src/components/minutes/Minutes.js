@@ -16,7 +16,11 @@ import {
 } from "react-icons/ai";
 
 // apis
-import { fetchAddMinutes, fetchDeleteMinutes } from '../../api/minutes';
+import {
+  fetchAddMinutes,
+  fetchDeleteMinutes,
+  fetchEditMinutes,
+} from '../../api/minutes';
 
 // styles
 const TopTableDiv = styled.div`
@@ -201,9 +205,17 @@ const Script = styled.div`
   }
 `;
 
+const ScriptTextarea = styled.textarea`
+  width: 100%;
+  font-size: 18px;
+  padding: 4px;
+`
+
 const SpeechPage = ({ detail = {} }) => {
+  const userId = localStorage.getItem('userId');
   const [isOpen, setIsOpen] = useState(true);
-  const [title, setTitle] = useState(null);
+  const [isEdit, setIsEdit] = useState(false);
+  const [title, setTitle] = useState(' ');
   const defaultDetail = {
     id: "",
     date: "",
@@ -212,6 +224,7 @@ const SpeechPage = ({ detail = {} }) => {
     details: ""
   };
   const detailProps = { ...defaultDetail, ...detail };
+  const [content, setContent] = useState(detailProps.details + 'hi');
   const componentRef = useRef();
 
   // 회의록 프린트
@@ -252,8 +265,9 @@ const SpeechPage = ({ detail = {} }) => {
       const data = {
         title,
         detail: transcript,
-      }
-      const res = await fetchAddMinutes(data);
+      };
+
+      const res = await fetchAddMinutes(data, userId);
 
       window.location.reload();
 
@@ -264,10 +278,28 @@ const SpeechPage = ({ detail = {} }) => {
     resetTranscript();
   };
 
-  // 음성 녹음 삭제
-  const handleOnDeleteBtn = async (id) => {
+  // 회의록 수정
+  const handleOnEditBtn = async (meetingId) => {
+    console.log(content)
+    setIsEdit(false);
+
     try {
-      await fetchDeleteMinutes(id);
+      const data = {
+        detail: content,
+      };
+
+      await fetchEditMinutes(data, meetingId, userId);
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+    alert('회의록 수정 성공!');
+  };
+
+  // 회의록 삭제
+  const handleOnDeleteBtn = async (meetingId) => {
+    try {
+      await fetchDeleteMinutes(meetingId);
       window.location.reload();
     } catch (error) {
       console.log(error);
@@ -295,10 +327,17 @@ const SpeechPage = ({ detail = {} }) => {
 
       {isOpen ? (
         <MainDiv>
+
           <ButtonWrap>
-            <ListenButton>
-              <BsFillPencilFill />
-            </ListenButton>
+            {!isEdit ?
+              <ListenButton onClick={() => setIsEdit(true)}>
+                <BsFillPencilFill />
+              </ListenButton>
+              :
+              <ListenButton onClick={() => handleOnEditBtn(detailProps.id)}>
+                <BiSave />
+              </ListenButton>
+            }
             <ListenButton>
               <AiOutlineShareAlt />
             </ListenButton>
@@ -330,7 +369,15 @@ const SpeechPage = ({ detail = {} }) => {
             </TitleBox >
             <ScriptDiv>
               <TitleText>회의내용</TitleText>
-              <Script>{detailProps.details + '테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다.테스트입니다. 박하민 짱'}</Script>
+              {!isEdit ?
+                <Script>{detailProps.details}</Script>
+                :
+                <ScriptTextarea
+                  type="text"
+                  value={content}
+                  onChange={(e) => setContent(e.target.value)}
+                />
+              }
             </ScriptDiv>
           </MinutesDataWrap>
         </MainDiv>
