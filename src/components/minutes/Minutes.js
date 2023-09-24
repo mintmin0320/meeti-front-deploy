@@ -226,7 +226,7 @@ const SpeechPage = ({ detail = {} }) => {
   };
 
   const [detailProps, setDetailProps] = useState({ ...defaultDetail, ...detail });
-  const [minutesBody, setMinutesBody] = useState(detail.detail || "");
+  const [minutesBody, setMinutesBody] = useState(detail?.detail || "");
 
   useEffect(() => {
     setDetailProps({ ...defaultDetail, ...detail });
