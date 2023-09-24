@@ -224,7 +224,7 @@ const SpeechPage = ({ detail = {} }) => {
     detail: ""
   };
   const detailProps = { ...defaultDetail, ...detail };
-  const [content, setContent] = useState(detailProps.detail);
+  const [minutesBody, setMinutesBody] = useState(detailProps.detail);
   const componentRef = useRef();
 
   // 회의록 프린트
@@ -232,7 +232,6 @@ const SpeechPage = ({ detail = {} }) => {
     content: () => componentRef.current,
   });
 
-  // 브라우저 설정 확인
   const {
     transcript,
     listening,
@@ -240,6 +239,7 @@ const SpeechPage = ({ detail = {} }) => {
     browserSupportsSpeechRecognition,
   } = useSpeechRecognition();
 
+  // 브라우저 설정 확인
   if (!browserSupportsSpeechRecognition) {
     return <span>Browser doesn't support speech recognition.</span>;
   }
@@ -279,12 +279,12 @@ const SpeechPage = ({ detail = {} }) => {
 
   // 회의록 수정
   const handleOnEditBtn = async (meetingId) => {
-    console.log(content)
+    console.log(minutesBody)
     setIsEdit(false);
 
     try {
       const data = {
-        detail: content,
+        detail: minutesBody,
       };
 
       await fetchEditMinutes(data, meetingId, userId);
@@ -348,7 +348,7 @@ const SpeechPage = ({ detail = {} }) => {
                 <BiSave />
               </ListenButton>
             }
-            <ListenButton onClick={() => handleCopyClipBoard(content)}>
+            <ListenButton onClick={() => handleCopyClipBoard(minutesBody)}>
               <AiOutlineShareAlt />
             </ListenButton>
             <ListenButton onClick={handlePrint}>
@@ -384,8 +384,8 @@ const SpeechPage = ({ detail = {} }) => {
                 :
                 <ScriptTextarea
                   type="text"
-                  value={detailProps.detail}
-                  onChange={(e) => setContent(e.target.value)}
+                  value={minutesBody}
+                  onChange={(e) => setMinutesBody(e.target.value)}
                 />
               }
             </ScriptDiv>
@@ -411,7 +411,10 @@ const SpeechPage = ({ detail = {} }) => {
           <TopTableDiv>
             <TopTableSub>
               <TopTableTitle>회의명</TopTableTitle>
-              <TopTableInput onChange={(e) => setTitle(e.target.value)} />
+              <TopTableInput
+                onChange={(e) => setTitle(e.target.value)}
+                value={title}
+              />
             </TopTableSub>
             <TopTableSub>
             </TopTableSub>
