@@ -226,12 +226,10 @@ const SpeechPage = ({ detail = {} }) => {
 
   const detailProps = { ...defaultDetail, ...detail };
   const [writeTitle, setWriteTitle] = useState(' ');
-  const [readTitle, setReadTitle] = useState(detail?.title || " ");
   const [minutesBody, setMinutesBody] = useState(detail?.detail || " ");
 
   useEffect(() => {
     setMinutesBody(detail?.detail || " ");
-    setReadTitle(detail?.title || " ");
   }, [detail]);
 
   // 회의록 프린트
@@ -273,11 +271,9 @@ const SpeechPage = ({ detail = {} }) => {
         detail: transcript,
       };
 
-      const res = await fetchAddMinutes(data, userId);
+      await fetchAddMinutes(data, userId);
 
       window.location.reload();
-
-      console.log(res)
     } catch (error) {
       console.log(error);
     }
@@ -286,7 +282,6 @@ const SpeechPage = ({ detail = {} }) => {
 
   // 회의록 수정
   const handleOnEditBtn = async (meetingId) => {
-    console.log(minutesBody)
     setIsEdit(false);
 
     try {
@@ -295,11 +290,13 @@ const SpeechPage = ({ detail = {} }) => {
       };
 
       await fetchEditMinutes(data, meetingId, userId);
+
+      alert('회의록 수정 성공!');
+
       window.location.reload();
     } catch (error) {
       console.log(error);
     }
-    alert('회의록 수정 성공!');
   };
 
   // 회의내용 클립보드 복사
@@ -317,15 +314,13 @@ const SpeechPage = ({ detail = {} }) => {
   const handleOnDeleteBtn = async (meetingId) => {
     try {
       await fetchDeleteMinutes(meetingId);
+
       window.location.reload();
     } catch (error) {
       console.log(error);
     }
     alert('회의록 삭제완료');
   };
-
-  console.log(minutesBody)
-  console.log(detail)
 
   return (
     <>
@@ -344,10 +339,8 @@ const SpeechPage = ({ detail = {} }) => {
           </AddButton>
         </HeaderRight>
       </Header>
-
       {isOpen ? (
         <MainDiv>
-
           <ButtonWrap>
             {!isEdit ?
               <ListenButton onClick={() => setIsEdit(true)}>
@@ -385,7 +378,7 @@ const SpeechPage = ({ detail = {} }) => {
             </TopTableDiv>
             <TitleBox>
               <TopTableTitle>회의명</TopTableTitle>
-              <TitleDiv>{readTitle}</TitleDiv>
+              <TitleDiv>{detailProps.title}</TitleDiv>
             </TitleBox >
             <ScriptDiv>
               <TitleText>회의내용</TitleText>
@@ -437,6 +430,6 @@ const SpeechPage = ({ detail = {} }) => {
       )}
     </>
   );
-}
+};
 
 export default SpeechPage;

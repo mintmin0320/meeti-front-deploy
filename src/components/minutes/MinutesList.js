@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 
 import { useMinutes } from "../../hooks/context/MinutesContext";
@@ -90,7 +90,6 @@ const MinutesList = ({ setSelectedMinute }) => {
       }
 
       setMinutesData(res.data);
-      console.log(res.data)
     } catch (error) {
       console.log(error);
     }
@@ -98,7 +97,6 @@ const MinutesList = ({ setSelectedMinute }) => {
 
   return (
     <MinutesDiv>
-      {console.log(minutesData)}
       {minutesData && minutesData.map((minute) => (
         <MinutesBox key={minute.id}>
           <MinutesContacts >
