@@ -226,7 +226,7 @@ const SpeechPage = ({ detail = {} }) => {
   };
 
   const detailProps = { ...defaultDetail, ...detail };
-  const [minutesBody, setMinutesBody] = useState(detail.detail);
+  const [minutesBody, setMinutesBody] = useState(detail?.detail || " ");
 
   // 회의록 프린트
   const handlePrint = useReactToPrint({
