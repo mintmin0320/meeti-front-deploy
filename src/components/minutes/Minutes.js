@@ -216,7 +216,6 @@ const SpeechPage = ({ detail = {} }) => {
   const userId = localStorage.getItem('userId');
   const [isOpen, setIsOpen] = useState(true);
   const [isEdit, setIsEdit] = useState(false);
-  const [minutesTitle, setMinutesTitle] = useState(' ');
   const defaultDetail = {
     id: "",
     date: "",
@@ -226,10 +225,13 @@ const SpeechPage = ({ detail = {} }) => {
   };
 
   const detailProps = { ...defaultDetail, ...detail };
+  const [writeTitle, setWriteTitle] = useState(' ');
+  const [readTitle, setReadTitle] = useState(detail?.title || " ");
   const [minutesBody, setMinutesBody] = useState(detail?.detail || " ");
 
   useEffect(() => {
     setMinutesBody(detail?.detail || " ");
+    setReadTitle(detail?.title || " ");
   }, [detail]);
 
   // 회의록 프린트
@@ -267,7 +269,7 @@ const SpeechPage = ({ detail = {} }) => {
     SpeechRecognition.stopListening();
     try {
       const data = {
-        title: minutesTitle,
+        title: writeTitle,
         detail: transcript,
       };
 
@@ -293,7 +295,7 @@ const SpeechPage = ({ detail = {} }) => {
       };
 
       await fetchEditMinutes(data, meetingId, userId);
-      window.location.reload();
+      // window.location.reload();
     } catch (error) {
       console.log(error);
     }
@@ -383,7 +385,7 @@ const SpeechPage = ({ detail = {} }) => {
             </TopTableDiv>
             <TitleBox>
               <TopTableTitle>회의명</TopTableTitle>
-              <TitleDiv>{detailProps.title}</TitleDiv>
+              <TitleDiv>{readTitle}</TitleDiv>
             </TitleBox >
             <ScriptDiv>
               <TitleText>회의내용</TitleText>
@@ -420,8 +422,8 @@ const SpeechPage = ({ detail = {} }) => {
             <TopTableSub>
               <TopTableTitle>회의명</TopTableTitle>
               <TopTableInput
-                onChange={(e) => setMinutesTitle(e.target.value)}
-                value={minutesTitle}
+                onChange={(e) => setWriteTitle(e.target.value)}
+                value={writeTitle}
               />
             </TopTableSub>
             <TopTableSub>
