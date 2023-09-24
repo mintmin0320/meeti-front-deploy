@@ -384,7 +384,7 @@ const SpeechPage = ({ detail = {} }) => {
                 :
                 <ScriptTextarea
                   type="text"
-                  value={content}
+                  value={detailProps.detail}
                   onChange={(e) => setContent(e.target.value)}
                 />
               }
