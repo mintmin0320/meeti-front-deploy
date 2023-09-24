@@ -5,6 +5,7 @@ const BASE_URL = `https://${process.env.REACT_APP_SERVER_URI}`;
 export const fetchGetMinutes = (userId) => {
   try {
     const res = axios.get(`${BASE_URL}/meeti/meeting/search/${userId}`);
+    console.log(res);
 
     return res;
   } catch (error) {
