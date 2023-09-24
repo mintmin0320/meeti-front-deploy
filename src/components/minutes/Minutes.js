@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useReactToPrint } from 'react-to-print';
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 import styled from "styled-components";
@@ -212,6 +212,7 @@ const ScriptTextarea = styled.textarea`
 `
 
 const SpeechPage = ({ detail = {} }) => {
+  const componentRef = useRef();
   const userId = localStorage.getItem('userId');
   const [isOpen, setIsOpen] = useState(true);
   const [isEdit, setIsEdit] = useState(false);
@@ -223,9 +224,13 @@ const SpeechPage = ({ detail = {} }) => {
     title: "",
     detail: ""
   };
-  const detailProps = { ...defaultDetail, ...detail };
-  const [minutesBody, setMinutesBody] = useState(detailProps.detail);
-  const componentRef = useRef();
+
+  const [detailProps, setDetailProps] = useState({ ...defaultDetail, ...detail });
+  const [minutesBody, setMinutesBody] = useState(detail.detail || "");
+
+  useEffect(() => {
+    setDetailProps({ ...defaultDetail, ...detail });
+  }, [detail]);
 
   // 회의록 프린트
   const handlePrint = useReactToPrint({
