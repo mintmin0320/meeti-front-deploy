@@ -90,6 +90,7 @@ const MinutesList = ({ setSelectedMinute }) => {
       }
 
       setMinutesData(res.data);
+      console.log(res.data)
     } catch (error) {
       console.log(error);
     }
@@ -97,6 +98,7 @@ const MinutesList = ({ setSelectedMinute }) => {
 
   return (
     <MinutesDiv>
+      {console.log(minutesData)}
       {minutesData && minutesData.map((minute) => (
         <MinutesBox key={minute.id}>
           <MinutesContacts >
