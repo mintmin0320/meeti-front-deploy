@@ -221,10 +221,10 @@ const SpeechPage = ({ detail = {} }) => {
     date: "",
     username: "",
     title: "",
-    details: ""
+    detail: ""
   };
   const detailProps = { ...defaultDetail, ...detail };
-  const [content, setContent] = useState(detailProps.details + 'hi');
+  const [content, setContent] = useState(detailProps.detail);
   const componentRef = useRef();
 
   // 회의록 프린트
@@ -380,7 +380,7 @@ const SpeechPage = ({ detail = {} }) => {
             <ScriptDiv>
               <TitleText>회의내용</TitleText>
               {!isEdit ?
-                <Script>{detailProps.details}</Script>
+                <Script>{detailProps.detail}</Script>
                 :
                 <ScriptTextarea
                   type="text"

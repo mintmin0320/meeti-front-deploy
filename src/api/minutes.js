@@ -34,7 +34,7 @@ export const fetchDeleteMinutes = (meetingId) => {
 
 export const fetchEditMinutes = (data, meetingId, userId) => {
   try {
-    const res = axios.post(`${BASE_URL}/meeti/meeting/${meetingId}/${userId}`, data);
+    const res = axios.post(`${BASE_URL}/meeti/meeting/update/${meetingId}/${userId}`, data);
 
     return res;
   } catch (error) {
