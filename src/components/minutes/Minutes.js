@@ -216,7 +216,7 @@ const SpeechPage = ({ detail = {} }) => {
   const userId = localStorage.getItem('userId');
   const [isOpen, setIsOpen] = useState(true);
   const [isEdit, setIsEdit] = useState(false);
-  const [title, setTitle] = useState(' ');
+  const [minutesTitle, setMinutesTitle] = useState(' ');
   const defaultDetail = {
     id: "",
     date: "",
@@ -225,12 +225,8 @@ const SpeechPage = ({ detail = {} }) => {
     detail: ""
   };
 
-  const [detailProps, setDetailProps] = useState({ ...defaultDetail, ...detail });
-  const [minutesBody, setMinutesBody] = useState(detail?.detail || "");
-
-  useEffect(() => {
-    setDetailProps({ ...defaultDetail, ...detail });
-  }, [detail]);
+  const detailProps = { ...defaultDetail, ...detail };
+  const [minutesBody, setMinutesBody] = useState(detail.detail);
 
   // 회의록 프린트
   const handlePrint = useReactToPrint({
@@ -267,7 +263,7 @@ const SpeechPage = ({ detail = {} }) => {
     SpeechRecognition.stopListening();
     try {
       const data = {
-        title,
+        title: minutesTitle,
         detail: transcript,
       };
 
@@ -321,6 +317,9 @@ const SpeechPage = ({ detail = {} }) => {
     }
     alert('회의록 삭제완료');
   };
+
+  console.log(minutesBody)
+  console.log(detail)
 
   return (
     <>
@@ -417,8 +416,8 @@ const SpeechPage = ({ detail = {} }) => {
             <TopTableSub>
               <TopTableTitle>회의명</TopTableTitle>
               <TopTableInput
-                onChange={(e) => setTitle(e.target.value)}
-                value={title}
+                onChange={(e) => setMinutesTitle(e.target.value)}
+                value={minutesTitle}
               />
             </TopTableSub>
             <TopTableSub>
