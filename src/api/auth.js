@@ -63,4 +63,20 @@ export const fetchEmailVerificationCode = (data) => {
   } catch (error) {
     throw error;
   }
+
+};
+
+// 회원탈퇴
+export const fetchAccountDeletion = (userId) => {
+  try {
+    const res = axios.delete(`/meeti/user/delete/${userId}`);
+
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('userId');
+
+    return res;
+  } catch (error) {
+    throw error;
+  }
 };

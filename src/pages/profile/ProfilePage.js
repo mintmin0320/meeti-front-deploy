@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 
 import Header from '../../common/Header';
 
 // bg-color
 import color from "./../../assets/color.png";
+
+// apis
 import { fetchGetUserInfo } from '../../api/profile';
+import {
+  fetchAccountDeletion,
+} from '../../api/auth';
 
 // CSS
 const Test = styled.div`
@@ -109,6 +115,8 @@ const Last = styled.div`
 `;
 
 const ProfilePage = () => {
+  const navigate = useNavigate();
+  const userId = localStorage.getItem('userId');
   const [info, setInfo] = useState({
     username: '',
     profile: '',
@@ -129,6 +137,21 @@ const ProfilePage = () => {
       role: res.data.role,
     });
   };
+
+  const handleAccountDeletionClick = async () => {
+    const userConfirmation = prompt("회원탈퇴를 진행하려면 '회원탈퇴'라고 입력해주세요.");
+
+    if (userConfirmation === '회원탈퇴') {
+      const res = await fetchAccountDeletion(userId);
+
+      if (res.data) {
+        navigate('./auth/sign-in');
+      }
+    } else {
+      alert("입력이 일치하지 않습니다. 회원탈퇴를 원하시면 '회원탈퇴'라고 정확히 입력해주세요.");
+    }
+  };
+
 
   return (
     <Test>
@@ -156,7 +179,7 @@ const ProfilePage = () => {
           <Buttons>
             <Btn>회원 정보 수정</Btn>
             <Btn>로그아웃</Btn>
-            <Btn>회원탈퇴</Btn>
+            <Btn onClick={handleAccountDeletionClick}>회원탈퇴</Btn>
           </Buttons>
         </Mid>
         <Last></Last>
