@@ -84,7 +84,7 @@ export const fetchAccountDeletion = (userId) => {
 // 로그아웃
 export const fetchSignOut = () => {
   try {
-    const res = axios.post(`${BASE_URL}/meeti/user/logout`);
+    const res = axios.post(`/meeti/user/logout`);
 
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
