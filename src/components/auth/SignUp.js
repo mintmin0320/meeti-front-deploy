@@ -17,7 +17,7 @@ const TitleDiv = styled.div`
 `;
 
 const Title = styled.div`
-  font-size: 20px;
+  font-size: 2rem;
   font-weight: bold;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -25,8 +25,8 @@ const Title = styled.div`
 `;
 
 const SubTitle = styled.div`
-  font-size: 12px;
-  margin-bottom: 5px;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
   color: #535571;
 `;
 
@@ -37,8 +37,8 @@ const ButtonDiv = styled.div`
 `;
 
 const Button = styled.button`
-  width: 85px;
-  height: 115px;
+  width: 8.5rem;
+  height: 11.5rem;
   border-radius: 10px;
   border: solid #9c9c9c 0.5px;
   background-color: white;
@@ -54,21 +54,21 @@ const Button = styled.button`
 
 const Text = styled.div`
   color: #8165df;
-  font-size: 12px;
-  margin-top: 5px;
+  font-size: 1.2rem;
+  margin-top: 0.5rem;
 `;
 
 const Br = styled.div`
   background-color: #9c9c9c;
   width: 60%;
   height: 1px;
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 `;
 
 const Join = styled.div`
-  font-size: 8px;
-  margin-top: 5px;
+  font-size: 1rem;
+  margin-top: 0.5rem;
   color: #9c9c9c;
 `;
 
@@ -84,7 +84,7 @@ const SignUp = () => {
       <ButtonDiv>
         <Link to="/auth/personal" style={{ textDecoration: "none" }}>
           <Button>
-            <MdPerson style={{ color: "#8165DF" }} />
+            <MdPerson style={{ color: "#8165DF" }} size="1.6rem" />
             <Text>개인용</Text>
             <Br />
             <Join>회원가입하기</Join>
@@ -92,7 +92,7 @@ const SignUp = () => {
         </Link>
         <Link to="/auth/corp" style={{ textDecoration: "none" }}>
           <Button>
-            <MdWork style={{ color: "#8165DF" }} />
+            <MdWork style={{ color: "#8165DF" }} size="1.6rem" />
             <Text>기업용</Text>
             <Br />
             <Join>회원가입하기</Join>
