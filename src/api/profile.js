@@ -1,11 +1,9 @@
 import axios from 'axios';
 
-const BASE_URL = `https://${process.env.REACT_APP_SERVER_URI}`;
-
 // 유저 정보 조회
 export const fetchGetUserInfo = () => {
   try {
-    const res = axios.get(`${BASE_URL}/meeti/user/info`);
+    const res = axios.get(`/meeti/user/info`);
 
     return res;
   } catch (error) {

@@ -95,33 +95,3 @@ export const fetchSignOut = () => {
     throw error;
   }
 };
-
-// 회원탈퇴
-export const fetchAccountDeletion = (userId) => {
-  try {
-    const res = axios.delete(`${BASE_URL}/meeti/user/delete/${userId}`);
-
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
-    localStorage.removeItem('userId');
-
-    return res;
-  } catch (error) {
-    throw error;
-  }
-};
-
-// 로그아웃
-export const fetchSignOut = () => {
-  try {
-    const res = axios.post(`${BASE_URL}/meeti/user/logout`);
-
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
-    localStorage.removeItem('userId');
-
-    return res;
-  } catch (error) {
-    throw error;
-  }
-};
