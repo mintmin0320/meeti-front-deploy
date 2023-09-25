@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled, { css } from "styled-components";
 
 // hook
-import { useColor } from '../../hooks/context/ColorContext';
+import { useColor } from "../../hooks/context/BackContext";
 
 // icon
 import { FaSortDown } from "react-icons/fa";
@@ -98,7 +98,7 @@ const Color = styled.div`
     props.color12 &&
     css`
       background-color: #535571;
-  `}
+    `}
 `;
 
 const BackgroundPalette = () => {
@@ -140,4 +140,4 @@ const BackgroundPalette = () => {
   );
 };
 
-export default BackgroundPalette
+export default BackgroundPalette;
