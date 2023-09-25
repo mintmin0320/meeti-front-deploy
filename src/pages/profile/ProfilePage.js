@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import Header from '../../common/Header';
 
 // bg-color
 import color from "./../../assets/color.png";
+import { fetchGetUserInfo } from '../../api/profile';
 
 // CSS
 const Test = styled.div`
@@ -108,6 +109,27 @@ const Last = styled.div`
 `;
 
 const ProfilePage = () => {
+  const [info, setInfo] = useState({
+    username: '',
+    profile: '',
+    role: '',
+  });
+
+  useEffect(() => {
+    getUserInfo();
+  });
+
+  const getUserInfo = async () => {
+    const res = await fetchGetUserInfo();
+
+    setInfo({
+      ...info,
+      username: res.data.username,
+      profile: res.data.profile,
+      role: res.data.role,
+    });
+  };
+
   return (
     <Test>
       <MainDiv className="MainDiv">
@@ -119,7 +141,7 @@ const ProfilePage = () => {
             <ProfileImg src='./profile.png' />
             <div>
               <Info>
-                이름 l<Text>설주희</Text>
+                이름 l<Text>{info.username}</Text>
               </Info>
               <Info>
                 이메일 l<Text>juhee01176@gmail.com</Text>
