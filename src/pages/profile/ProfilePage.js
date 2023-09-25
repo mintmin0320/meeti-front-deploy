@@ -10,7 +10,7 @@ import color from "./../../assets/color.png";
 // apis
 import { fetchGetUserInfo } from '../../api/profile';
 import {
-  fetchAccountDeletion,
+  fetchAccountDeletion, fetchSignOut,
 } from '../../api/auth';
 
 // CSS
@@ -152,6 +152,15 @@ const ProfilePage = () => {
     }
   };
 
+  const handleSignOutClick = async () => {
+    const res = await fetchSignOut();
+
+    if (res.data) {
+      navigate('./auth/sign-in');
+    } else {
+      alert('로그아웃 실패!');
+    }
+  };
 
   return (
     <Test>
@@ -178,7 +187,7 @@ const ProfilePage = () => {
           </Introduction>
           <Buttons>
             <Btn>회원 정보 수정</Btn>
-            <Btn>로그아웃</Btn>
+            <Btn onClick={handleSignOutClick}>로그아웃</Btn>
             <Btn onClick={handleAccountDeletionClick}>회원탈퇴</Btn>
           </Buttons>
         </Mid>
