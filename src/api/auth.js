@@ -1,10 +1,8 @@
 import axios from 'axios';
 
-const BASE_URL = `https://${process.env.REACT_APP_SERVER_URI}`;
-
 export const fetchSignIn = async (data) => {
   try {
-    const res = await axios.post(`${BASE_URL}/meeti/user/login`, data);
+    const res = await axios.post(`/meeti/user/login`, data);
     const { accessToken, refreshToken } = res.data;
 
     localStorage.setItem('accessToken', accessToken);
@@ -17,9 +15,19 @@ export const fetchSignIn = async (data) => {
   }
 };
 
+export const fetchGetRefreshToken = (refreshToken) => {
+  try {
+    const res = axios.post(`/meeti/access-token/issue`, { refreshToken });
+
+    return res;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const fetchPersonalSignUp = (data) => {
   try {
-    const res = axios.post(`${BASE_URL}/meeti/user/join`, data);
+    const res = axios.post(`/meeti/user/join`, data);
 
     return res;
   } catch (error) {
@@ -29,7 +37,7 @@ export const fetchPersonalSignUp = (data) => {
 
 export const fetchOfficeSignUp = (data) => {
   try {
-    const res = axios.post(`${BASE_URL}/meeti/user/join/office`, data);
+    const res = axios.post(`/meeti/user/join/office`, data);
 
     return res;
   } catch (error) {
@@ -39,7 +47,7 @@ export const fetchOfficeSignUp = (data) => {
 
 export const fetchGetAuthCode = (data) => {
   try {
-    const res = axios.post(`${BASE_URL}/email/valid`, data);
+    const res = axios.post(`/email/valid`, data);
 
     return res;
   } catch (error) {
@@ -49,7 +57,7 @@ export const fetchGetAuthCode = (data) => {
 
 export const fetchEmailVerificationCode = (data) => {
   try {
-    const res = axios.post(`${BASE_URL}/email/valid/code`, data);
+    const res = axios.post(`/email/valid/code`, data);
 
     return res;
   } catch (error) {

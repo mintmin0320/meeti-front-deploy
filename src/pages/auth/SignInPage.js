@@ -67,7 +67,7 @@ const Label = styled.label`
   font-size: 12px;
 `;
 
-const SignupLink = styled.a`
+const SignupLink = styled(Link)`
   color: #8165df;
   text-align: left;
   padding-left: 10px;
@@ -121,9 +121,11 @@ const SignInPage = () => {
     try {
       const res = await fetchSignIn(data);
 
-      // if (res.status === 200) {
-      navigate("/");
-      // }
+      if (res.data) {
+        navigate("/");
+      } else {
+        alert('회원가입 실패!');
+      }
     } catch (error) {
       console.log(error);
     }
@@ -152,9 +154,7 @@ const SignInPage = () => {
               name="password"
               onChange={(e) => setSignIn({ ...signIn, password: e.target.value })}
             />
-            <SignupLink>
-              <Link to="/auth">아직 미티의 회원이 아니신가요?</Link>
-            </SignupLink>
+            <SignupLink to="/auth">아직 미티의 회원이 아니신가요?</SignupLink>
             <Btn>로그인</Btn>
           </form>
         </LoginDiv>

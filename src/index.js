@@ -1,3 +1,4 @@
+
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
@@ -5,7 +6,11 @@ import axios from 'axios';
 
 import Providers from './hooks/context/Providers';
 
-const BASE_URL = `http://${process.env.REACT_APP_SERVER_URI}`;
+// apis
+import { fetchGetRefreshToken } from './api/auth';
+
+const BASE_URL = `${process.env.REACT_APP_SERVER_URL}`;
+axios.defaults.baseURL = BASE_URL;
 
 // 요청 인터셉터 설정: 매번 요청 전에 헤더에 accessToken 추가
 axios.interceptors.request.use(config => {
@@ -25,7 +30,7 @@ axios.interceptors.response.use(response => {
     originalRequest._retry = true;
     const refreshToken = localStorage.getItem('refreshToken');
 
-    const res = await axios.post(`${BASE_URL}/refresh-token-endpoint`, { refreshToken });
+    const res = await fetchGetRefreshToken(refreshToken);
     const newAccessToken = res.data.accessToken;
 
     localStorage.setItem('accessToken', newAccessToken);
