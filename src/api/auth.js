@@ -71,3 +71,18 @@ export const fetchAccountDeletion = (userId) => {
     throw error;
   }
 };
+
+// 로그아웃
+export const fetchSignOut = () => {
+  try {
+    const res = axios.post(`${BASE_URL}/meeti/user/logout`);
+
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('userId');
+
+    return res;
+  } catch (error) {
+    throw error;
+  }
+};
