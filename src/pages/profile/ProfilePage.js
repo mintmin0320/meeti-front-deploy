@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 
@@ -7,14 +7,18 @@ import Header from '../../common/Header';
 // bg-color
 import color from "./../../assets/color.png";
 
+// icons
+import { FcAddImage } from "react-icons/fc";
+
 // apis
-import { fetchGetUserInfo } from '../../api/profile';
+import { fetchEditInfo, fetchGetUserInfo } from '../../api/profile';
 import {
   fetchAccountDeletion, fetchSignOut,
 } from '../../api/auth';
+import UserInfo from '../../components/profile/UserInfo';
 
 // CSS
-const Test = styled.div`
+const Container = styled.div`
   width: 100vw;
   height: 100vh;
   background: #f5f3fe;
@@ -59,6 +63,20 @@ const Title = styled.div`
   margin-bottom: 5px;
 `;
 
+const EditNameInputBox = styled.div`
+  width: 250px;
+  height: 100px;
+  margin-top: 80px;
+`;
+
+const Buttons = styled.div`
+  margin-top: 50px;
+  width: 250px;
+  /* background-color: red; */
+  display: flex;
+  justify-content: space-around;
+`;
+
 const Profile = styled.div`
   margin: 30px;
 `;
@@ -68,33 +86,27 @@ const ProfileImg = styled.img`
   height: 128px;
   margin-right: 50px;
   border-radius: 50%;
-  background: #d9d9d9;
+  border: solid 1px #d8d8d8;
   float: left;
 `;
 
-const Info = styled.div`
+const AddProfileBox = styled.button`
+  width: 128px;
+  height: 128px;
+  margin-right: 50px;
+  border-radius: 50%;
+  border: solid 1px #d8d8d8;
   display: flex;
-  margin: 15px;
-  color: #9c9c9c;
-  white-space: nowrap;
-  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  float: left;
 `;
 
-const Introduction = styled.div`
-  margin: 20px;
-`;
-
-const Text = styled.div`
-  margin-left: 15px;
-  color: black;
-  white-space: pre-wrap;
-`;
-
-const Buttons = styled.div`
-  margin-top: 280px;
-  width: 250px;
-  display: flex;
-  justify-content: space-around;
+const Input = styled.input`
+  width: 150px;
+  height: 80px;
+  border: 0;
 `;
 
 const Btn = styled.button`
@@ -116,12 +128,16 @@ const Last = styled.div`
 
 const ProfilePage = () => {
   const navigate = useNavigate();
+  const InputRef = useRef(null);
+  const formData = new FormData();
   const userId = localStorage.getItem('userId');
   const [info, setInfo] = useState({
     username: '',
-    profile: '',
+    profile: './profile.png',
     role: '',
   });
+  const [isEdit, setIsEdit] = useState(false);
+  const [editName, setEditName] = useState(info.username);
 
   useEffect(() => {
     getUserInfo();
@@ -162,38 +178,85 @@ const ProfilePage = () => {
     }
   };
 
+  const handleOnEditInfoBtn = async () => {
+    formData.append('profile', info.profile);
+    formData.append('username', info.username);
+
+    try {
+      const res = await fetchEditInfo(formData);
+
+      if (res.data) {
+        alert('수정 성공!');
+
+        isEdit(false);
+      } else {
+        alert('수정 실패!');
+      }
+    } catch (error) {
+      alert(error);
+    }
+  };
+
+  const handleOnImgUpload = async (e) => {
+    if (!e.target.files) {
+      return;
+    };
+
+    setInfo({
+      ...info,
+      profile: e.target.files[0],
+    });
+  };
+
   return (
-    <Test>
+    <Container>
       <MainDiv className="MainDiv">
         <BackColor src={color} style={{ opacity: 0.2 }} />
         <Header />
         <Mid>
           <Title>마이페이지</Title>
           <Profile>
-            <ProfileImg src='./profile.png' />
-            <div>
-              <Info>
-                이름 l<Text>{info.username}</Text>
-              </Info>
-              <Info>
-                이메일 l<Text>juhee01176@gmail.com</Text>
-              </Info>
-              <Info>
-                전화번호 l<Text>010-3264-5936</Text>
-              </Info>
-            </div>
+            {!isEdit ?
+              <ProfileImg src={info.profile} />
+              :
+              <>
+                <AddProfileBox
+                  onClick={() => {
+                    InputRef.current?.click();
+                  }}>
+                  <FcAddImage size='45px' />
+                </AddProfileBox>
+                <Input onChange={handleOnImgUpload} type='file' hidden={true} ref={InputRef} multiple='multiple'
+                  accept="image/jpg, image/png, image/jpeg" />
+              </>
+            }
+            <UserInfo
+              username={info.username}
+            />
           </Profile>
-          <Introduction>
-          </Introduction>
+          {isEdit && (
+            <EditNameInputBox>
+              <p>변경할이름</p>
+              <input
+                name='editName'
+                value={editName}
+                onChange={(e) => setEditName(e.target.value)}
+              />
+            </EditNameInputBox>
+          )}
           <Buttons>
-            <Btn>회원 정보 수정</Btn>
-            <Btn onClick={handleSignOutClick}>로그아웃</Btn>
-            <Btn onClick={handleAccountDeletionClick}>회원탈퇴</Btn>
+            {!isEdit ?
+              <Btn onClick={() => setIsEdit(true)}>회원 정보 수정</Btn>
+              :
+              <Btn onClick={() => handleOnEditInfoBtn()}>변경된 정보 저장</Btn>
+            }
+            <Btn onClick={() => handleSignOutClick()}>로그아웃</Btn>
+            <Btn onClick={() => handleAccountDeletionClick()}>회원탈퇴</Btn>
           </Buttons>
         </Mid>
         <Last></Last>
       </MainDiv>
-    </Test>
+    </Container>
   );
 };
 

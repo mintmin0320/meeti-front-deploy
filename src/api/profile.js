@@ -11,15 +11,15 @@ export const fetchGetUserInfo = () => {
   }
 };
 
-// export const fetchAddMinutes = (data, userId) => {
-//   try {
-//     const res = axios.post(`${BASE_URL}/meeti/meeting/reg/${userId}`, data);
+export const fetchEditInfo = (formData) => {
+  try {
+    const res = axios.post(`/meeti/user/update`, formData);
 
-//     return res;
-//   } catch (error) {
-//     throw error;
-//   }
-// };
+    return res;
+  } catch (error) {
+    throw error;
+  }
+};
 
 // export const fetchDeleteMinutes = (meetingId) => {
 //   try {
