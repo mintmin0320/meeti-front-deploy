@@ -178,6 +178,7 @@ const ProfilePage = () => {
     }
   };
 
+  // 이름 수정
   const handleOnEditInfoBtn = async () => {
     formData.append('profile', info.profile);
     formData.append('username', info.username);
@@ -232,6 +233,7 @@ const ProfilePage = () => {
             }
             <UserInfo
               username={info.username}
+              role={info.role}
             />
           </Profile>
           {isEdit && (

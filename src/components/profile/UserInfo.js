@@ -16,17 +16,14 @@ const Text = styled.div`
   white-space: pre-wrap;
 `;
 
-const UserInfo = ({ username }) => {
+const UserInfo = ({ username, role }) => {
   return (
     <>
       <Info>
         이름 l<Text>{username}</Text>
       </Info>
       <Info>
-        이메일 l<Text>juhee01176@gmail.com</Text>
-      </Info>
-      <Info>
-        전화번호 l<Text>010-3264-5936</Text>
+        등급 l<Text>{role}</Text>
       </Info>
     </>
   );
