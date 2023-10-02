@@ -4,7 +4,7 @@ import axios from 'axios';
 import {
   USER_INFO,
   EDIT_INFO
-} from '../constants/url/profileUrls';
+} from '../constants/urls/profileUrls';
 
 // 유저 정보 조회
 export const fetchGetUserInfo = () => {
