@@ -1,9 +1,15 @@
 import axios from 'axios';
 
+// constants
+import {
+  USER_INFO,
+  EDIT_INFO
+} from '../constants/url/profileUrls';
+
 // 유저 정보 조회
 export const fetchGetUserInfo = () => {
   try {
-    const res = axios.get(`/meeti/user/info`);
+    const res = axios.get(USER_INFO);
 
     return res;
   } catch (error) {
@@ -13,7 +19,7 @@ export const fetchGetUserInfo = () => {
 
 export const fetchEditInfo = (formData) => {
   try {
-    const res = axios.post(`/meeti/user/update`, formData);
+    const res = axios.post(EDIT_INFO, formData);
 
     return res;
   } catch (error) {
