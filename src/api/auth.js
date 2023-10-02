@@ -77,10 +77,6 @@ export const fetchAccountDeletion = (userId) => {
   try {
     const res = axios.delete(`${ACCOUNT_DELETION}/${userId}`);
 
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
-    localStorage.removeItem('userId');
-
     return res;
   } catch (error) {
     throw error;
@@ -91,10 +87,6 @@ export const fetchAccountDeletion = (userId) => {
 export const fetchSignOut = () => {
   try {
     const res = axios.post(SIGN_OUT);
-
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
-    localStorage.removeItem('userId');
 
     return res;
   } catch (error) {
