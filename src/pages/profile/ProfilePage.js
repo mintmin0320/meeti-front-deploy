@@ -161,7 +161,7 @@ const ProfilePage = () => {
       const res = await fetchAccountDeletion(userId);
 
       if (res.data) {
-        navigate('./auth/sign-in');
+        navigate('/auth/sign-in');
       }
     } else {
       alert("입력이 일치하지 않습니다. 회원탈퇴를 원하시면 '회원탈퇴'라고 정확히 입력해주세요.");
@@ -172,7 +172,7 @@ const ProfilePage = () => {
     const res = await fetchSignOut();
 
     if (res.data) {
-      navigate('./auth/sign-in');
+      navigate('/auth/sign-in');
     } else {
       alert('로그아웃 실패!');
     }
