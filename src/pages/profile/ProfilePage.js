@@ -180,7 +180,7 @@ const ProfilePage = () => {
 
   // 이름 수정
   const handleOnEditInfoBtn = async () => {
-    formData.append('profile', info.profile);
+    formData.append('image', info.profile);
     formData.append('username', info.username);
 
     try {
