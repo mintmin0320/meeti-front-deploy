@@ -1,5 +1,11 @@
 import axios from 'axios';
 
+// constants
+import {
+  ACCOUNT_DELETION,
+  SIGN_OUT
+} from '../constants/urls/authUrls';
+
 export const fetchSignIn = async (data) => {
   try {
     const res = await axios.post(`/meeti/user/login`, data);
@@ -69,7 +75,7 @@ export const fetchEmailVerificationCode = (data) => {
 // 회원탈퇴
 export const fetchAccountDeletion = (userId) => {
   try {
-    const res = axios.delete(`/ meeti / user / delete /${userId}`);
+    const res = axios.delete(`${ACCOUNT_DELETION}/${userId}`);
 
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
@@ -84,7 +90,7 @@ export const fetchAccountDeletion = (userId) => {
 // 로그아웃
 export const fetchSignOut = () => {
   try {
-    const res = axios.post(`/meeti/user/logout`);
+    const res = axios.post(SIGN_OUT);
 
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
