@@ -167,6 +167,10 @@ const ProfilePage = () => {
         const res = await fetchAccountDeletion(userId);
 
         if (res.data) {
+          localStorage.removeItem('accessToken');
+          localStorage.removeItem('refreshToken');
+          localStorage.removeItem('userId');
+
           navigate('/auth/sign-in');
         }
       } else {
@@ -183,11 +187,11 @@ const ProfilePage = () => {
       const res = await fetchSignOut();
 
       if (res.data) {
-        navigate('/auth/sign-in');
-
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
         localStorage.removeItem('userId');
+
+        navigate('/auth/sign-in');
       } else {
         alert('로그아웃 실패!');
       }
@@ -207,9 +211,6 @@ const ProfilePage = () => {
       if (res.data) {
         alert('수정 성공!');
 
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('refreshToken');
-        localStorage.removeItem('userId');
         setIsEdit(false);
       } else {
         alert('수정 실패!');
