@@ -9,6 +9,9 @@ import Providers from './hooks/context/Providers';
 // apis
 import { fetchGetRefreshToken } from './api/auth';
 
+const BASE_URL = `${process.env.REACT_APP_SERVER_URL}`;
+axios.defaults.baseURL = BASE_URL;
+
 // 요청 인터셉터 설정: 매번 요청 전에 헤더에 accessToken 추가
 axios.interceptors.request.use(config => {
   const accessToken = localStorage.getItem('accessToken');

@@ -1,10 +1,8 @@
 import axios from 'axios';
 
-const BASE_URL = `${process.env.REACT_APP_SERVER_URL}`;
-
 export const fetchSignIn = async (data) => {
   try {
-    const res = await axios.post(`${BASE_URL}/meeti/user/login`, data);
+    const res = await axios.post(`/meeti/user/login`, data);
     const { accessToken, refreshToken } = res.data;
 
     localStorage.setItem('accessToken', accessToken);
@@ -19,7 +17,7 @@ export const fetchSignIn = async (data) => {
 
 export const fetchGetRefreshToken = (refreshToken) => {
   try {
-    const res = axios.post(`${BASE_URL}/meeti/access-token/issue`, { refreshToken });
+    const res = axios.post(`/meeti/access-token/issue`, { refreshToken });
 
     return res;
   } catch (error) {
@@ -29,7 +27,7 @@ export const fetchGetRefreshToken = (refreshToken) => {
 
 export const fetchPersonalSignUp = (data) => {
   try {
-    const res = axios.post(`${BASE_URL}/meeti/user/join`, data);
+    const res = axios.post(`/meeti/user/join`, data);
 
     return res;
   } catch (error) {
@@ -39,7 +37,7 @@ export const fetchPersonalSignUp = (data) => {
 
 export const fetchOfficeSignUp = (data) => {
   try {
-    const res = axios.post(`${BASE_URL}/meeti/user/join/office`, data);
+    const res = axios.post(`/meeti/user/join/office`, data);
 
     return res;
   } catch (error) {
@@ -49,7 +47,7 @@ export const fetchOfficeSignUp = (data) => {
 
 export const fetchGetAuthCode = (data) => {
   try {
-    const res = axios.post(`${BASE_URL}/email/valid`, data);
+    const res = axios.post(`/email/valid`, data);
 
     return res;
   } catch (error) {
@@ -59,7 +57,7 @@ export const fetchGetAuthCode = (data) => {
 
 export const fetchEmailVerificationCode = (data) => {
   try {
-    const res = axios.post(`${BASE_URL}/email/valid/code`, data);
+    const res = axios.post(`/email/valid / code`, data);
 
     return res;
   } catch (error) {
@@ -71,7 +69,7 @@ export const fetchEmailVerificationCode = (data) => {
 // 회원탈퇴
 export const fetchAccountDeletion = (userId) => {
   try {
-    const res = axios.delete(`${BASE_URL}/meeti/user/delete/${userId}`);
+    const res = axios.delete(`/ meeti / user / delete /${userId}`);
 
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
@@ -86,7 +84,7 @@ export const fetchAccountDeletion = (userId) => {
 // 로그아웃
 export const fetchSignOut = () => {
   try {
-    const res = axios.post(`${BASE_URL}/meeti/user/logout`);
+    const res = axios.post(`/meeti/user/logout`);
 
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
