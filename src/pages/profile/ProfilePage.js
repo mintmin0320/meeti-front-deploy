@@ -17,7 +17,7 @@ import {
 } from '../../api/auth';
 import UserInfo from '../../components/profile/UserInfo';
 
-// CSS
+// styles
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
@@ -143,42 +143,56 @@ const ProfilePage = () => {
     getUserInfo();
   }, []);
 
+  // 유저정보 조회
   const getUserInfo = async () => {
-    const res = await fetchGetUserInfo();
+    try {
+      const res = await fetchGetUserInfo();
 
-    setInfo({
-      ...info,
-      username: res.data.username,
-      profile: res.data.profile,
-      role: res.data.role,
-    });
+      setInfo({
+        ...info,
+        username: res.data.username,
+        profile: res.data.profile,
+        role: res.data.role,
+      });
+    } catch (error) {
+      alert(error);
+    }
   };
 
+  // 회원탈퇴 버튼 클릭
   const handleAccountDeletionClick = async () => {
     const userConfirmation = prompt("회원탈퇴를 진행하려면 '회원탈퇴'라고 입력해주세요.");
+    try {
+      if (userConfirmation === '회원탈퇴') {
+        const res = await fetchAccountDeletion(userId);
 
-    if (userConfirmation === '회원탈퇴') {
-      const res = await fetchAccountDeletion(userId);
+        if (res.data) {
+          navigate('/auth/sign-in');
+        }
+      } else {
+        alert("입력이 일치하지 않습니다. 회원탈퇴를 원하시면 '회원탈퇴'라고 정확히 입력해주세요.");
+      }
+    } catch (error) {
+      alert(error);
+    }
+  };
+
+  // 로그아웃 버튼 클릭
+  const handleSignOutClick = async () => {
+    try {
+      const res = await fetchSignOut();
 
       if (res.data) {
         navigate('/auth/sign-in');
+      } else {
+        alert('로그아웃 실패!');
       }
-    } else {
-      alert("입력이 일치하지 않습니다. 회원탈퇴를 원하시면 '회원탈퇴'라고 정확히 입력해주세요.");
+    } catch (error) {
+      alert(error);
     }
   };
 
-  const handleSignOutClick = async () => {
-    const res = await fetchSignOut();
-
-    if (res.data) {
-      navigate('/auth/sign-in');
-    } else {
-      alert('로그아웃 실패!');
-    }
-  };
-
-  // 이름 수정
+  // 프로필, 이름 수정 버튼 클릭
   const handleOnEditInfoBtn = async () => {
     formData.append('image', info.profile);
     formData.append('username', info.username);
@@ -189,7 +203,7 @@ const ProfilePage = () => {
       if (res.data) {
         alert('수정 성공!');
 
-        isEdit(false);
+        setIsEdit(false);
       } else {
         alert('수정 실패!');
       }
