@@ -141,7 +141,7 @@ const ProfilePage = () => {
 
   useEffect(() => {
     getUserInfo();
-  });
+  }, []);
 
   const getUserInfo = async () => {
     const res = await fetchGetUserInfo();
