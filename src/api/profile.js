@@ -6,10 +6,12 @@ import {
   EDIT_INFO
 } from '../constants/urls/profileUrls';
 
+const BASE_URL = `${process.env.REACT_APP_SERVER_URL}`;
+
 // 유저 정보 조회
 export const fetchGetUserInfo = () => {
   try {
-    const res = axios.get(USER_INFO);
+    const res = axios.get(BASE_URL + USER_INFO);
 
     return res;
   } catch (error) {
@@ -19,7 +21,7 @@ export const fetchGetUserInfo = () => {
 
 export const fetchEditInfo = (formData) => {
   try {
-    const res = axios.post(EDIT_INFO, formData);
+    const res = axios.post(BASE_URL + EDIT_INFO, formData);
 
     return res;
   } catch (error) {
