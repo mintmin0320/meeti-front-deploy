@@ -18,9 +18,9 @@ export const fetchGetUserInfo = () => {
   }
 };
 
-export const fetchEditInfo = (formData) => {
+export const fetchEditInfo = (userId, formData) => {
   try {
-    const res = axios.post(EDIT_INFO, formData);
+    const res = axios.post(EDIT_INFO + `/${userId}`, formData);
 
     return res;
   } catch (error) {

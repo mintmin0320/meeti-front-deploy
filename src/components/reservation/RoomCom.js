@@ -286,7 +286,7 @@ const RoomCom = () => {
 
       setOfficeList(res);
     } catch (error) {
-      alert.log(error);
+      alert(error);
     }
   };
 

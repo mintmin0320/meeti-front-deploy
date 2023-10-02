@@ -184,7 +184,7 @@ const ProfilePage = () => {
     formData.append('username', info.username);
 
     try {
-      const res = await fetchEditInfo(formData);
+      const res = await fetchEditInfo(userId, formData);
 
       if (res.data) {
         alert('수정 성공!');
