@@ -11,9 +11,9 @@ import { BiSearch } from "react-icons/bi";
 
 // apis
 import {
-  fetchGetOfficeData,
-  fetchSearchOfficeData,
-  fetchClassificationOfficeData
+  fetchGetOfficeList,
+  fetchGetMyOfficeList,
+  fetchClassificationOffice
 } from '../../api/reservation';
 
 // styles

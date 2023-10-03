@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
 
 import Header from '../../common/Header';
-import RoomCom from "../../components/reservation/RoomCom";
+import OfficeList from "../../components/reservation/OfficeList";
 
 import color from "./../../assets/color.png";
 
@@ -203,7 +203,7 @@ const ReservationPage = () => {
           <Card />
         </Mid>
         <Last>
-          <RoomCom />
+          <OfficeList />
         </Last>
       </MainDiv>
     </Test>
