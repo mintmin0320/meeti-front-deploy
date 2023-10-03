@@ -1,11 +1,20 @@
 import axios from 'axios';
 
-const BASE_URL = `https://${process.env.REACT_APP_SERVER_URI}`;
-const userId = localStorage.getItem('userId');
+// constants
+import {
+  READ_OFFICE_LIST,
+  READ_MY_OFFICE_LIST,
+  ADD_OFFICE_LIST,
+  CLASSIFICATION_OFFICE,
+  DETAIL_OFFICE_INFO,
+  RESERVATION_OFFICE,
+  SEARCH_OFFICE
+} from '../constants/urls';
 
-export const fetchGetOfficeData = async () => {
+// 공유 가능한 오피스 조회
+export const fetchGetOfficeList = async () => {
   try {
-    const res = await axios.get(`${BASE_URL}/meeti/office/search`);
+    const res = await axios.get(READ_OFFICE_LIST);
 
     return res.data;
   } catch (error) {
@@ -13,9 +22,10 @@ export const fetchGetOfficeData = async () => {
   }
 };
 
-export const fetchGetMyOfficeData = async () => {
+// 예약한 공유 오피스 조회
+export const fetchGetMyOfficeList = async () => {
   try {
-    const res = await axios.get(`${BASE_URL}/meeti/reservation/search/user/${userId}`);
+    const res = await axios.get(`${READ_MY_OFFICE_LIST}/${userId}`);
 
     return res.data;
   } catch (error) {
@@ -23,9 +33,10 @@ export const fetchGetMyOfficeData = async () => {
   }
 };
 
+// 공유 오피스 등록
 export const fetchAddOffice = async (formData) => {
   try {
-    const res = await axios.post(`${BASE_URL}/meeti/reg/office/${userId}`, formData);
+    const res = await axios.post(`${ADD_OFFICE_LIST}/${userId}`, formData);
 
     return res.data;
   } catch (error) {
@@ -35,7 +46,7 @@ export const fetchAddOffice = async (formData) => {
 
 export const fetchSearchOfficeData = async (keyword) => {
   try {
-    const res = await axios.get(`${BASE_URL}/meeti/office/search/place/${keyword}`);
+    const res = await axios.get(`${SEARCH_OFFICE}/${keyword}`);
 
     return res.data;
   } catch (error) {
@@ -45,7 +56,7 @@ export const fetchSearchOfficeData = async (keyword) => {
 
 export const fetchClassificationOfficeData = async (address) => {
   try {
-    const res = await axios.get(`${BASE_URL}/meeti/office/search/address/${address}`);
+    const res = await axios.get(`${CLASSIFICATION_OFFICE}/${address}`);
 
     return res.data;
   } catch (error) {
@@ -55,7 +66,7 @@ export const fetchClassificationOfficeData = async (address) => {
 
 export const fetchDetailOfficeData = async (officeId) => {
   try {
-    const res = await axios.get(`${BASE_URL}/meeti/office/search/${officeId}`);
+    const res = await axios.get(`${DETAIL_OFFICE_INFO}/${officeId}`);
 
     return res.data;
   } catch (error) {
@@ -65,7 +76,7 @@ export const fetchDetailOfficeData = async (officeId) => {
 
 export const fetchReservationOffice = async (data) => {
   try {
-    const res = await axios.post(`${BASE_URL}/meeti/reg/reservation/${userId}`, data);
+    const res = await axios.post(`${RESERVATION_OFFICE}/${userId}`, data);
 
     return res.data;
   } catch (error) {
