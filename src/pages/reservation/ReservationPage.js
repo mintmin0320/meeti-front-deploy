@@ -8,7 +8,7 @@ import color from "./../../assets/color.png";
 
 // icons
 import { BiPhoneCall } from "react-icons/bi";
-import { fetchGetMyOffice } from '../../api/reservation';
+import { fetchGetMyOfficeList } from '../../api/reservation';
 
 // styles
 const Test = styled.div`
@@ -154,7 +154,7 @@ const ReservationPage = () => {
 
   const getOfficeData = async () => {
     try {
-      const res = await fetchGetMyOffice(userId);
+      const res = await fetchGetMyOfficeList(userId);
 
       if (!res.data || res.data.length === 0) {
         setOfficeList([]);
