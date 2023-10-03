@@ -1,13 +1,16 @@
-import React, { Fragment, useEffect, useState, forwardRef } from "react";
+import React, { useEffect, useState, forwardRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 import DatePicker from "react-datepicker";
 
+// CSS
 import "react-datepicker/dist/react-datepicker.css"
-import Map from "../Map";
 
 // apis
-import { fetchDetailOfficeData, fetchReservationOffice } from '../../api/reservation';
+import {
+  fetchDetailOfficeData,
+  fetchReservationOffice
+} from '../../api/reservation';
 
 // icons
 import { BsTelephone, BsFillExclamationTriangleFill } from "react-icons/bs";
@@ -144,6 +147,7 @@ const Time = styled.input`
 `;
 
 const ReservationDetail = () => {
+  const userId = localStorage.getItem('userId');
   const location = useLocation();
   const navigate = useNavigate();
   const officeId = location.state.officeId;
@@ -155,8 +159,10 @@ const ReservationDetail = () => {
     addressDetail: "",
     telNum: "",
     placeName: "",
-    status: "",
+    status: true,
     description: "",
+    pay: "",
+    address: "",
   });
 
   const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
@@ -174,12 +180,14 @@ const ReservationDetail = () => {
       const res = await fetchDetailOfficeData(officeId);
       setOffice({
         ...office,
-        image: res.image,
-        addressDetail: res.addressDetail,
-        telNum: res.telNum,
-        placeName: res.placeName,
-        status: res.status,
-        description: res.description,
+        placeName: res.data.placeName,
+        pay: res.data.pay,
+        description: res.data.description,
+        address: res.data.address,
+        addressDetail: res.data.addressDetail,
+        telNum: res.data.telNum,
+        image: res.data.image,
+        status: res.data.status,
       });
     } catch (error) {
       console.log(error);
@@ -195,14 +203,15 @@ const ReservationDetail = () => {
       return;
     }
 
+    const data = {
+      officeId,
+      date: startDate,
+      startTime,
+      endTime,
+    };
+
     try {
-      const data = {
-        officeId,
-        date: startDate,
-        startTime,
-        endTime,
-      };
-      await fetchReservationOffice(data);
+      await fetchReservationOffice(userId, data);
 
       alert("예약 완료!");
       navigate("/reservation");
@@ -257,7 +266,6 @@ const ReservationDetail = () => {
                 있습니다.
               </CautionText>
             </Caution>
-            {/* <SubmitButton onClick={handleOnClick}>예약하기</SubmitButton> */}
             <SubmitButton>예약하기</SubmitButton>
           </CautionDiv>
         </LeftDiv>
@@ -278,7 +286,6 @@ const ReservationDetail = () => {
             <ContentsDiv>{office.description}</ContentsDiv>
           </SubDiv>
           <MapContainer>
-            {/* <Map /> */}
           </MapContainer>
         </RightDiv>
       </MainDiv>

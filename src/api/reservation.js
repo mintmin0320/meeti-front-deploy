@@ -12,11 +12,11 @@ import {
 } from '../constants/urls';
 
 // 공유 가능한 오피스 조회
-export const fetchGetOfficeList = async () => {
+export const fetchGetOfficeList = () => {
   try {
-    const res = await axios.get(READ_OFFICE_LIST);
+    const res = axios.get(READ_OFFICE_LIST);
 
-    return res.data;
+    return res;
   } catch (error) {
     throw error;
   }
@@ -54,7 +54,7 @@ export const fetchSearchOfficeData = async (keyword) => {
   }
 };
 
-export const fetchClassificationOfficeData = async (address) => {
+export const fetchClassificationOffice = async (address) => {
   try {
     const res = await axios.get(`${CLASSIFICATION_OFFICE}/${address}`);
 
@@ -64,21 +64,18 @@ export const fetchClassificationOfficeData = async (address) => {
   }
 };
 
-export const fetchDetailOfficeData = async (officeId) => {
+// 공유 오피스 상세페이지
+export const fetchDetailOfficeData = (officeId) => {
   try {
-    const res = await axios.get(`${DETAIL_OFFICE_INFO}/${officeId}`);
-
-    return res.data;
+    return axios.get(`${DETAIL_OFFICE_INFO}/${officeId}`);
   } catch (error) {
     throw error;
   }
 };
 
-export const fetchReservationOffice = async (data) => {
+export const fetchReservationOffice = (userId, data) => {
   try {
-    const res = await axios.post(`${RESERVATION_OFFICE}/${userId}`, data);
-
-    return res.data;
+    return axios.post(`${RESERVATION_OFFICE}/${userId}`, data);
   } catch (error) {
     throw error;
   }
