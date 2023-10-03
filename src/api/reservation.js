@@ -1,73 +1,71 @@
 import axios from 'axios';
 
-const BASE_URL = `https://${process.env.REACT_APP_SERVER_URI}`;
-const userId = localStorage.getItem('userId');
+// constants
+import {
+  READ_OFFICE_LIST,
+  READ_MY_OFFICE_LIST,
+  ADD_OFFICE_LIST,
+  CLASSIFICATION_OFFICE,
+  DETAIL_OFFICE_INFO,
+  RESERVATION_OFFICE,
+  SEARCH_OFFICE
+} from '../constants/urls';
 
-export const fetchGetOfficeData = async () => {
+// 공유 가능한 오피스 조회
+export const fetchGetOfficeList = () => {
   try {
-    const res = await axios.get(`${BASE_URL}/meeti/office/search`);
-
-    return res.data;
+    return axios.get(READ_OFFICE_LIST);
   } catch (error) {
     throw error;
   }
 };
 
-export const fetchGetMyOfficeData = async () => {
+// 예약한 공유 오피스 조회
+export const fetchGetMyOfficeList = (userId) => {
   try {
-    const res = await axios.get(`${BASE_URL}/meeti/reservation/search/user/${userId}`);
-
-    return res.data;
+    return axios.get(`${READ_MY_OFFICE_LIST}/${userId}`);
   } catch (error) {
     throw error;
   }
 };
 
-export const fetchAddOffice = async (formData) => {
+// 공유 오피스 등록
+export const fetchAddOffice = (userId, formData) => {
   try {
-    const res = await axios.post(`${BASE_URL}/meeti/reg/office/${userId}`, formData);
-
-    return res.data;
+    return axios.post(`${ADD_OFFICE_LIST}/${userId}`, formData);
   } catch (error) {
     throw error;
   }
 };
 
-export const fetchSearchOfficeData = async (keyword) => {
+export const fetchSearchOffice = (placeName) => {
   try {
-    const res = await axios.get(`${BASE_URL}/meeti/office/search/place/${keyword}`);
-
-    return res.data;
+    return axios.get(`${SEARCH_OFFICE}/${placeName}`);
   } catch (error) {
     throw error;
   }
 };
 
-export const fetchClassificationOfficeData = async (address) => {
+export const fetchClassificationOffice = (address) => {
   try {
-    const res = await axios.get(`${BASE_URL}/meeti/office/search/address/${address}`);
-
-    return res.data;
+    return axios.get(`${CLASSIFICATION_OFFICE}/${address}`);
   } catch (error) {
     throw error;
   }
 };
 
-export const fetchDetailOfficeData = async (officeId) => {
+// 공유 오피스 상세페이지
+export const fetchDetailOfficeData = (officeId) => {
   try {
-    const res = await axios.get(`${BASE_URL}/meeti/office/search/${officeId}`);
-
-    return res.data;
+    return axios.get(`${DETAIL_OFFICE_INFO}/${officeId}`);
   } catch (error) {
     throw error;
   }
 };
 
-export const fetchReservationOffice = async (data) => {
+export const fetchReservationOffice = (userId, data) => {
   try {
-    const res = await axios.post(`${BASE_URL}/meeti/reg/reservation/${userId}`, data);
-
-    return res.data;
+    return axios.post(`${RESERVATION_OFFICE}/${userId}`, data);
   } catch (error) {
     throw error;
   }

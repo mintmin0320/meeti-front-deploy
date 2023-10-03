@@ -11,9 +11,9 @@ import { BiSearch } from "react-icons/bi";
 
 // apis
 import {
-  fetchGetOfficeData,
-  fetchSearchOfficeData,
-  fetchClassificationOfficeData
+  fetchGetOfficeList,
+  fetchSearchOffice,
+  fetchClassificationOffice
 } from '../../api/reservation';
 
 // styles
@@ -250,8 +250,8 @@ const RoomCom = () => {
     }
 
     try {
-      const res = await fetchClassificationOfficeData(address);
-      setOfficeList(res);
+      const res = await fetchClassificationOffice(address);
+      setOfficeList(res.data);
     } catch (error) {
       alert(error);
     }
@@ -267,8 +267,8 @@ const RoomCom = () => {
 
   const getSearchData = async () => {
     try {
-      const res = await fetchSearchOfficeData(search);
-      setOfficeList(res);
+      const res = await fetchSearchOffice(search);
+      setOfficeList(res.data);
     } catch (error) {
       alert(error);
     }
@@ -276,15 +276,15 @@ const RoomCom = () => {
 
   const getOfficeData = async () => {
     try {
-      const res = await fetchGetOfficeData(1);
+      const res = await fetchGetOfficeList();
 
-      if (!res || res.length === 0) {
+      if (!res.data || res.data.length === 0) {
         setOfficeList([]);
 
         return;
       }
 
-      setOfficeList(res);
+      setOfficeList(res.data);
     } catch (error) {
       alert(error);
     }
@@ -317,11 +317,11 @@ const RoomCom = () => {
               <RoomTitleDiv>
                 <SubOptionArea>{office.address}</SubOptionArea>
                 <RoomTitle>{office.addressDetail}</RoomTitle>
-                <PayText>{office.pay}</PayText>
+                <PayText>₩ {office.pay}원</PayText>
                 {office.status ? (
-                  <StatusTextGreen>🟢 {office.status}</StatusTextGreen>
+                  <StatusTextGreen>🟢 대여가능</StatusTextGreen>
                 ) : (
-                  <StatusTextRed>🔴 {office.status}</StatusTextRed>
+                  <StatusTextRed>🔴 대여완료</StatusTextRed>
                 )}
                 <RoomSubTitle>{office.placeName}</RoomSubTitle>
               </RoomTitleDiv>
@@ -335,7 +335,7 @@ const RoomCom = () => {
                 </Link>
                 <RoomCallButton
                   onClick={() => {
-                    window.alert(`${office.telNum}`);
+                    alert(`${office.telNum}`);
                   }}
                 >
                   전화하기
@@ -363,10 +363,9 @@ const RoomCom = () => {
             </SearchDiv>
           )}
         </HeaderLeft>
-
         <AddButton
           onClick={() => {
-            // setIsOpen(!isOpen);
+            setIsOpen(!isOpen);
           }}
         >
           {isOpen ? <AiOutlinePlusCircle /> : <AiOutlineUnorderedList />}

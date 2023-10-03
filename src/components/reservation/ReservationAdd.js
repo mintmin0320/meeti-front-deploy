@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
+// apis
 import { fetchAddOffice } from '../../api/reservation';
 
 // styles
@@ -50,26 +51,31 @@ const SubmitButton = styled.button`
 `;
 
 const ReservationAdd = () => {
+  const userId = localStorage.getItem('userId');
   const formData = new FormData();
-  const [address, setAddress] = useState("용산구");
-  const [state, setState] = useState({
+  const [officeForm, setOfficeForm] = useState({
     placeName: "",
-    detailAddress: "",
-    description: "",
-    telNum: "",
     pay: "",
+    detailAddress: "",
+    address: "용산구",
+    description: "",
     file: "",
+    telNum: "",
   });
 
   const handleOnAreaName = (e) => {
     e.preventDefault();
-    setAddress(e.target.value);
+
+    setOfficeForm({
+      ...officeForm,
+      address: e.target.value
+    });
   };
 
   const handleInputChange = (e) => {
     e.preventDefault();
-    setState({
-      ...state,
+    setOfficeForm({
+      ...officeForm,
       [e.target.name]: e.target.value,
     });
   };
@@ -79,23 +85,22 @@ const ReservationAdd = () => {
       return;
     }
 
-    setState({
-      ...state,
+    setOfficeForm({
+      ...officeForm,
       file: e.target.files[0],
     });
-
-    console.log(state.file);
   };
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    formData.append("image", "");
-    formData.append("telNum", state.telNum);
-    formData.append("pay", state.pay);
-    formData.append("placeName", state.placeName);
-    formData.append("description", state.description);
-    formData.append("address", address);
-    formData.append("detailAddress", state.detailAddress);
+
+    formData.append("placeName", officeForm.placeName);
+    formData.append("pay", officeForm.pay);
+    formData.append("description", officeForm.description);
+    formData.append("address", officeForm.address);
+    formData.append("detailAddress", officeForm.detailAddress);
+    formData.append("image", officeForm.file);
+    formData.append("telNum", officeForm.telNum);
 
     //Key 확인하기
     for (let key of formData.keys()) {
@@ -107,9 +112,7 @@ const ReservationAdd = () => {
       console.log("value : " + value);
     }
     try {
-      const res = await fetchAddOffice(formData);
-
-      console.log(res);
+      const res = await fetchAddOffice(userId, formData);
     } catch (error) {
       console.log(error);
     }
@@ -123,7 +126,7 @@ const ReservationAdd = () => {
       </AddDiv>
       <AddDiv>
         <AddText>자치구 : </AddText>
-        <select name="place" id="place" onChange={handleOnAreaName}>
+        <select name="address" id="address" onChange={handleOnAreaName}>
           <option value="용산구">용산구</option>
           <option value="서초구">서초구</option>
           <option value="광진구">광진구</option>
@@ -153,32 +156,8 @@ const ReservationAdd = () => {
         <AddInput type="file" onChange={(e) => handleImgUpload(e)} />
       </AddDiv>
       <AddDiv>
-        <AddText></AddText>
-        <AddPayButton
-          id="payFree"
-          type="radio"
-          onClick={() => {
-            setState({
-              ...state,
-              pay: "무료",
-            });
-          }}
-          name="pay"
-        />
-
-        <AddPayLabel htmlFor="payFree">무료</AddPayLabel>
-        <AddPayButton
-          id="payCharged"
-          type="radio"
-          onClick={() => {
-            setState({
-              ...state,
-              pay: "유료",
-            });
-          }}
-          name="pay"
-        />
-        <AddPayLabel htmlFor="payCharged">유료</AddPayLabel>
+        <AddText>회의실 예약 비용 : </AddText>
+        <AddInput onChange={handleInputChange} name="pay" />
       </AddDiv>
       <AddDiv>
         <AddText>회의실 부가설명 : </AddText>
