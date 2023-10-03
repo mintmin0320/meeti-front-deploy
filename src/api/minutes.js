@@ -1,10 +1,16 @@
 import axios from 'axios';
 
-const BASE_URL = `https://${process.env.REACT_APP_SERVER_URI}`;
+// constants
+import {
+  ADD_MINUTES,
+  DELETE_MINUTES,
+  EDIT_MINUTES,
+  READ_MINUTES
+} from '../constants/urls/minutesUrls';
 
 export const fetchGetMinutes = (userId) => {
   try {
-    const res = axios.get(`${BASE_URL}/meeti/meeting/search/${userId}`);
+    const res = axios.get(`${READ_MINUTES}/${userId}`);
 
     return res;
   } catch (error) {
@@ -14,7 +20,7 @@ export const fetchGetMinutes = (userId) => {
 
 export const fetchAddMinutes = (data, userId) => {
   try {
-    const res = axios.post(`${BASE_URL}/meeti/meeting/reg/${userId}`, data);
+    const res = axios.post(`${ADD_MINUTES}/${userId}`, data);
 
     return res;
   } catch (error) {
@@ -24,7 +30,7 @@ export const fetchAddMinutes = (data, userId) => {
 
 export const fetchDeleteMinutes = (meetingId) => {
   try {
-    const res = axios.delete(`${BASE_URL}/meeti/meeting/delete/${meetingId}`);
+    const res = axios.delete(`${DELETE_MINUTES}/${meetingId}`);
 
     return res;
   } catch (error) {
@@ -34,7 +40,7 @@ export const fetchDeleteMinutes = (meetingId) => {
 
 export const fetchEditMinutes = (data, meetingId, userId) => {
   try {
-    const res = axios.post(`${BASE_URL}/meeti/meeting/update/${meetingId}/${userId}`, data);
+    const res = axios.post(`${EDIT_MINUTES}/${meetingId}/${userId}`, data);
 
     return res;
   } catch (error) {
