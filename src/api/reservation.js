@@ -14,51 +14,41 @@ import {
 // 공유 가능한 오피스 조회
 export const fetchGetOfficeList = () => {
   try {
-    const res = axios.get(READ_OFFICE_LIST);
-
-    return res;
+    return axios.get(READ_OFFICE_LIST);
   } catch (error) {
     throw error;
   }
 };
 
 // 예약한 공유 오피스 조회
-export const fetchGetMyOfficeList = async () => {
+export const fetchGetMyOfficeList = (userId) => {
   try {
-    const res = await axios.get(`${READ_MY_OFFICE_LIST}/${userId}`);
-
-    return res.data;
+    return axios.get(`${READ_MY_OFFICE_LIST}/${userId}`);
   } catch (error) {
     throw error;
   }
 };
 
 // 공유 오피스 등록
-export const fetchAddOffice = async (formData) => {
+export const fetchAddOffice = (userId, formData) => {
   try {
-    const res = await axios.post(`${ADD_OFFICE_LIST}/${userId}`, formData);
-
-    return res.data;
+    return axios.post(`${ADD_OFFICE_LIST}/${userId}`, formData);
   } catch (error) {
     throw error;
   }
 };
 
-export const fetchSearchOfficeData = async (keyword) => {
+export const fetchSearchOffice = (placeName) => {
   try {
-    const res = await axios.get(`${SEARCH_OFFICE}/${keyword}`);
-
-    return res.data;
+    return axios.get(`${SEARCH_OFFICE}/${placeName}`);
   } catch (error) {
     throw error;
   }
 };
 
-export const fetchClassificationOffice = async (address) => {
+export const fetchClassificationOffice = (address) => {
   try {
-    const res = await axios.get(`${CLASSIFICATION_OFFICE}/${address}`);
-
-    return res.data;
+    return axios.get(`${CLASSIFICATION_OFFICE}/${address}`);
   } catch (error) {
     throw error;
   }
