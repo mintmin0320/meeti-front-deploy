@@ -8,7 +8,7 @@ import color from "./../../assets/color.png";
 
 // icons
 import { BiPhoneCall } from "react-icons/bi";
-import { fetchGetMyOfficeData } from '../../api/reservation';
+import { fetchGetMyOfficeList } from '../../api/reservation';
 
 // styles
 const Test = styled.div`
@@ -145,6 +145,7 @@ const SubOptionTelNum = styled.div`
 `;
 
 const ReservationPage = () => {
+  const userId = localStorage.getItem('userId');
   const [officeList, setOfficeList] = useState([]);
 
   useEffect(() => {
@@ -153,15 +154,15 @@ const ReservationPage = () => {
 
   const getOfficeData = async () => {
     try {
-      const res = await fetchGetMyOfficeData(1);
+      const res = await fetchGetMyOfficeList(userId);
 
-      if (!res || res.length === 0) {
+      if (!res.data || res.data.length === 0) {
         setOfficeList([]);
 
         return;
       }
-      console.log(res)
-      setOfficeList(res);
+
+      setOfficeList(res.data);
     } catch (error) {
       console.log(error);
     }
