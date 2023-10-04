@@ -1,8 +1,3 @@
-/*
-  일정을 조회할 수 있는 달력
-  서버와의 통신 작업을 진행하며 수정할 필요가 있음
-*/
-
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
@@ -12,13 +7,13 @@ import interactionPlugin from "@fullcalendar/interaction";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import { Tooltip } from "react-tooltip";
 
-import { fetchGetSchedule } from '../../api/schedule';
 import AddContent from "./AddSchedule";
 
-// icons, dummy-data
-import { AiOutlineCalendar, AiOutlinePlusCircle } from "react-icons/ai";
+// apis
+import { fetchGetScheduleList } from '../../api/schedule';
 
-import data from "../../data";
+// icons
+import { AiOutlineCalendar, AiOutlinePlusCircle } from "react-icons/ai";
 
 const Main = styled.div``;
 const CalendarDiv = styled.div`
@@ -69,19 +64,18 @@ const AddButton = styled.div`
 `;
 
 const Calendar = () => {
+  const userId = localStorage.getItem('userId');
   const [isOpen, setIsOpen] = useState(true);
   const [scheduleList, setScheduleList] = useState([]);
 
   useEffect(() => {
-    fetchSchedule();
+    getScheduleList();
   }, []);
 
-  const fetchSchedule = async () => {
+  const getScheduleList = async () => {
     try {
-      const res = await fetchGetSchedule();
-      console.log(res);
-      setScheduleList(res);
-
+      const res = await fetchGetScheduleList(userId);
+      setScheduleList(res.data);
     } catch (error) {
       console.log(error);
     }
@@ -108,7 +102,7 @@ const Calendar = () => {
         <CalendarDiv>
           <FullCalendar
             eventClick={(e) => {
-              console.log("클릭"); //클릭이벤트
+              console.log("클릭");
             }}
             droppable={true}
             headerToolbar={{

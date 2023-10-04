@@ -8,14 +8,12 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
-// icons, dummy-data
+// icons
 import { HiLocationMarker } from "react-icons/hi";
 import { AiFillDelete } from "react-icons/ai";
 
 // apis
 import { fetchGetSchedule, fetchDeleteSchedule } from '../../api/schedule';
-
-// import scheduleData from './scheduleData.json';
 
 // styles
 const Wrapper = styled.div`
@@ -102,18 +100,17 @@ const ScheduleDeleteBtn = styled.div`
 `;
 
 const ScheduleList = () => {
+  const userId = localStorage.getItem('userId');
   const [scheduleList, setScheduleList] = useState([]);
 
   useEffect(() => {
-    getScheduleData();
+    getScheduleList();
   }, []);
 
-  const getScheduleData = async () => {
+  const getScheduleList = async () => {
     try {
-      const res = await fetchGetSchedule();
-      console.log(res);
-      setScheduleList(res);
-
+      const res = await fetchGetSchedule(userId);
+      setScheduleList(res.data);
     } catch (error) {
       console.log(error);
     }
@@ -122,9 +119,11 @@ const ScheduleList = () => {
   const handleOnDeleteBtn = async (scheduleId) => {
     try {
       const res = await fetchDeleteSchedule(scheduleId);
-      console.log(res)
 
-      window.location.reload();
+      if (res.data) {
+        alert('일정 삭제 성공!');
+        window.location.reload();
+      }
     } catch (error) {
       console.log(error);
     }
