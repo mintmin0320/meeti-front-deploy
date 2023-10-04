@@ -13,7 +13,7 @@ import { HiLocationMarker } from "react-icons/hi";
 import { AiFillDelete } from "react-icons/ai";
 
 // apis
-import { fetchGetSchedule, fetchDeleteSchedule } from '../../api/schedule';
+import { fetchGetScheduleList, fetchDeleteSchedule } from '../../api/schedule';
 
 // styles
 const Wrapper = styled.div`
@@ -109,7 +109,7 @@ const ScheduleList = () => {
 
   const getScheduleList = async () => {
     try {
-      const res = await fetchGetSchedule(userId);
+      const res = await fetchGetScheduleList(userId);
       setScheduleList(res.data);
     } catch (error) {
       console.log(error);
