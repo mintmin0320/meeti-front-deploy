@@ -9,7 +9,7 @@ import BackgroundPalette from './BackgroundPalette';
 import { fetchAddSchedule } from '../../api/schedule';
 
 // hooks
-import { useColor } from '../../hooks/context/ColorContext';
+import { useColor } from "../../hooks/context/BackContext";
 
 // icons
 import { BiMinus, BiPlus } from "react-icons/bi";
@@ -170,7 +170,6 @@ const AddSchedule = () => {
     }
   }, []);
 
-
   const searchPlace = () => {
     if (!window.kakao.maps.services) {
       alert("kakao.maps.services 객체가 없습니다.");
@@ -182,7 +181,7 @@ const AddSchedule = () => {
 
     try {
       places.keywordSearch(place, function (result, status) {
-        console.log('keywordSearch 결과 상태:', status);
+        console.log("keywordSearch 결과 상태:", status);
         if (status === kakao.maps.services.Status.OK) {
           const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
           if (marker) {
@@ -190,26 +189,30 @@ const AddSchedule = () => {
           }
           const newMarker = new kakao.maps.Marker({
             map: map,
-            position: coords
+            position: coords,
           });
           setMarker(newMarker);
 
           var infowindow = new kakao.maps.InfoWindow({
-            content: `<div style="width:150px;text-align:center;padding:6px 0;">${result[0].place_name}</div>`
+            content: `<div style="width:150px;text-align:center;padding:6px 0;">${result[0].place_name}</div>`,
           });
           infowindow.open(map, newMarker);
           map.setCenter(coords);
 
           // 도로명 주소 추출하기
-          geocoder.coord2Address(coords.getLng(), coords.getLat(), function (addrResult, addrStatus) {
-            if (addrStatus === kakao.maps.services.Status.OK) {
-              setPlace(addrResult[0].road_address.address_name);
+          geocoder.coord2Address(
+            coords.getLng(),
+            coords.getLat(),
+            function (addrResult, addrStatus) {
+              if (addrStatus === kakao.maps.services.Status.OK) {
+                setPlace(addrResult[0].road_address.address_name); // Set 도로명 주소 to PlaceInput
+              }
             }
-          });
+          );
         } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
-          alert('검색 결과가 존재하지 않습니다. 키워드를 다시 확인해주세요.');
+          alert("검색 결과가 존재하지 않습니다. 키워드를 다시 확인해주세요.");
         } else {
-          alert('키워드 검색 중 오류가 발생했습니다.');
+          alert("키워드 검색 중 오류가 발생했습니다.");
         }
       });
     } catch (error) {
@@ -220,8 +223,11 @@ const AddSchedule = () => {
   useEffect(() => {
     if (!window.kakao) return;
 
-    const container = document.getElementById('map');
-    const options = { center: new kakao.maps.LatLng(37.50057852126737, 126.86813651454828), level: 3 };
+    const container = document.getElementById("map");
+    const options = {
+      center: new kakao.maps.LatLng(37.50057852126737, 126.86813651454828),
+      level: 3,
+    };
     const kakaoMap = new kakao.maps.Map(container, options);
     setMap(kakaoMap);
   }, []);
@@ -248,28 +254,36 @@ const AddSchedule = () => {
         <BackgroundPalette />
         <TitleFont>시간</TitleFont>
         <TimeDiv>
-          <Time type="time" value={initTime} onChange={(e) => { setStartTime(e.target.value) }} />
+          <Time
+            type="time"
+            value={initTime}
+            onChange={(e) => {
+              setStartTime(e.target.value);
+            }}
+          />
           <BiMinus className="BiMinus" />
-          <Time type="time" value={finishTime} onChange={(e) => setEndTime(e.target.value)} />
+          <Time
+            type="time"
+            value={finishTime}
+            onChange={(e) => setEndTime(e.target.value)}
+          />
         </TimeDiv>
         <TitleFont>장소</TitleFont>
-        <PlaceInput value={place} onChange={e => setPlace(e.target.value)} />
-        <button onClick={searchPlace} type='button'>장소 검색</button>
+        <PlaceInput value={place} onChange={(e) => setPlace(e.target.value)} />
+        <button onClick={searchPlace} type="button">
+          장소 검색
+        </button>
         <KaKaoMapBox>
           <div id="map" style={{ width: "100%", height: "100%" }}></div>
         </KaKaoMapBox>
         <SummitButtonDiv>
-          <SubmitButton
-            type="submit"
-          >
-            <BiPlus
-              style={{ color: "#ffffff", marginRight: "5px" }}
-            />
+          <SubmitButton type="submit">
+            <BiPlus style={{ color: "#ffffff", marginRight: "5px" }} />
             일정 추가
           </SubmitButton>
         </SummitButtonDiv>
-      </Right>
-    </AddOther>
+      </Right >
+    </AddOther >
   );
 };
 

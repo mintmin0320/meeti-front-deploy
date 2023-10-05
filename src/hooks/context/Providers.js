@@ -1,11 +1,9 @@
-import { ColorProvider } from './ColorContext';
-import { MinutesProvider } from './MinutesContext';
+import { ColorProvider } from "./BackContext";
+import { MinutesProvider } from "./MinutesContext";
 
 const Providers = ({ children }) => (
   <ColorProvider>
-    <MinutesProvider>
-      {children}
-    </MinutesProvider>
+    <MinutesProvider>{children}</MinutesProvider>
   </ColorProvider>
 );
 
