@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 // apis
-import { fetchPersonalSignUp } from '../../api/auth';
+import { fetchPersonalSignUp } from "../../api/auth";
 
 // icons
 import { MdPerson } from "react-icons/md";
@@ -45,13 +45,13 @@ const BackColor = styled.img`
 
 const UserType = styled.div`
   position: absolute;
-  margin: 35px 100px;
+  margin: 3.5rem 10rem;
   color: #8165df;
-  width: 500px;
-  height: 50px;
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 24px;
+  width: 25vw;
+  /* height: 50px;
+  font-weight: 700; */
+  font-size: 1.6rem;
+  line-height: 2.4rem;
 `;
 
 const SignupDiv = styled.div`
@@ -64,8 +64,8 @@ const SignupDiv = styled.div`
 const Ms = styled.span`
   font-style: normal;
   font-weight: 700;
-  font-size: 7px;
-  line-height: 8px;
+  font-size: 1rem;
+  line-height: 0.8rem;
   color: #d63031;
   text-align: left;
 `;
@@ -73,12 +73,12 @@ const Ms = styled.span`
 const Label = styled.div`
   color: #404248;
   text-align: left;
-  margin: 15px 0 5px 0;
-  margin-bottom: 5px;
+  margin: 5vh 0 3vh 0;
+  margin-bottom: 2vh;
   font-style: normal;
   font-weight: 400;
-  font-size: 11px;
-  line-height: 13px;
+  font-size: 1.1rem;
+  line-height: 1.3rem;
 `;
 
 const Green = styled.div`
@@ -93,7 +93,7 @@ const Green = styled.div`
 `;
 
 const Input = styled.input`
-  width: 300px;
+  width: 20vw;
   height: 20px;
   border: solid #9c9c9c 0.5px;
   background: #ffffff;
@@ -103,11 +103,11 @@ const Input = styled.input`
 const PwMsg = styled.div`
   font-style: normal;
   font-weight: 400;
-  font-size: 9px;
-  line-height: 11px;
+  font-size: 0.9rem;
+  line-height: 1.1rem;
   color: #d63031;
   text-align: left;
-  margin: 5px 10px;
+  margin: 0.5rem 1em;
 `;
 
 const BtnDiv = styled.div`
@@ -116,13 +116,16 @@ const BtnDiv = styled.div`
 `;
 
 const NextBtn = styled.button`
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+  /* width: 4vw;
+  height: 3vh; */
+  padding: 1vw 2vh;
+  border-radius: 10%;
   border: none;
   color: white;
   background: #8165df;
   box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.25);
+  font-size: 1rem;
+  cursor: pointer;
 `;
 
 const SignUpPage = () => {
@@ -168,7 +171,7 @@ const SignUpPage = () => {
       <MainDiv className="MainDiv">
         <BackColor src={color} style={{ opacity: 0.2 }} />
         <UserType>
-          <MdPerson /> 개인용
+          <MdPerson size="1.3rem" /> 개인용
         </UserType>
         <SignupDiv>
           <form onSubmit={(e) => handleSubmit(e)}>
@@ -209,7 +212,10 @@ const SignUpPage = () => {
             />
             <BtnDiv>
               <NextBtn>
-                <IoIosArrowForward style={{ width: 25, height: 25, cursor: 'pointer' }} />
+                {/* <IoIosArrowForward
+                  style={{ width: 25, height: 25, cursor: "pointer" }}
+                /> */}
+                다음
               </NextBtn>
             </BtnDiv>
           </form>

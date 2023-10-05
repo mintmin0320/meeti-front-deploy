@@ -1,34 +1,34 @@
 import axios from 'axios';
 
-const BASE_URL = `https://${process.env.REACT_APP_SERVER_URI}`;
-const userId = localStorage.getItem('userId');
+// constants
+import {
+  ADD_SCHEDULE,
+  DELETE_SCHEDULE,
+  READ_SCHEDULE
+} from '../constants/urls/scheduleUrls';
 
-export const fetchAddSchedule = async (data) => {
-
+// 일정 - 일정 등록
+export const fetchAddSchedule = (userId, data) => {
   try {
-    const res = await axios.post(`${BASE_URL}/meeti/reg/calender/${userId}`, data);
-
-    return res.data;
+    return axios.post(`${ADD_SCHEDULE}/${userId}`, data);
   } catch (error) {
     throw error;
   }
 };
 
-export const fetchGetSchedule = async () => {
+// 일정 - 일정 조회
+export const fetchGetScheduleList = (userId) => {
   try {
-    const res = await axios.get(`${BASE_URL}/meeti/calender/search/${userId}`);
-
-    return res.data;
+    return axios.get(`${READ_SCHEDULE}/${userId}`);
   } catch (error) {
     throw error;
   }
 };
 
-export const fetchDeleteSchedule = async (scheduleId) => {
+// 일정 - 일정 삭제
+export const fetchDeleteSchedule = (scheduleId) => {
   try {
-    const res = await axios.delete(`${BASE_URL}/meeti/calender/delete/${scheduleId}`);
-
-    return res.data;
+    return axios.delete(`${DELETE_SCHEDULE}/${scheduleId}`);
   } catch (error) {
     throw error;
   }

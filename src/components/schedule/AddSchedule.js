@@ -1,25 +1,24 @@
-/*
-  일정 날자 선택할 경우 setScheduleDate 코드 수정 필요
-*/
-
 import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import { DateRange } from "react-date-range";
 import ko from "date-fns/locale/ko"; // 날짜 포맷 라이브러리 (한국어 기능을 임포트)
 
 import BackgroundPalette from './BackgroundPalette';
+
+// apis
 import { fetchAddSchedule } from '../../api/schedule';
 
 // hooks
-import { useColor } from '../../hooks/context/ColorContext';
+import { useColor } from "../../hooks/context/BackContext";
 
-// icons, library-CSS
+// icons
 import { BiMinus, BiPlus } from "react-icons/bi";
 
-import "react-date-range/dist/styles.css"; // main css file
-import "react-date-range/dist/theme/default.css"; // theme css file
-
 // CSS
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
+
+// styles
 const AddTitle = styled.input`
   font-size: 24px;
   border: none;
@@ -111,11 +110,12 @@ const SummitButtonDiv = styled.div`
 `;
 
 const AddSchedule = () => {
+  const userId = localStorage.getItem('userId');
   const { kakao } = window;
   const [map, setMap] = useState(null);
   const [marker, setMarker] = useState(null);
   const { color } = useColor();
-  const [state, setState] = useState([
+  const [date, setDate] = useState([
     {
       startDate: new Date(),
       endDate: null,
@@ -129,6 +129,7 @@ const AddSchedule = () => {
 
   const handleOnChange = (e) => {
     e.preventDefault();
+
     setTitle(e.target.value);
   };
 
@@ -138,32 +139,27 @@ const AddSchedule = () => {
     const data = {
       title,
       color,
-      start: state[0].startDate,
-      end: state[0].endDate,
+      start: date[0].startDate,
+      end: date[0].endDate,
       initTime,
       finishTime,
       place,
     };
 
     try {
-      const res = await fetchAddSchedule(data);
+      const res = await fetchAddSchedule(userId, data);
 
-      window.location.reload();
-
-      console.log(res);
+      if (res.data) {
+        alert('일정 등록 성공!');
+        window.location.reload();
+      }
     } catch (error) {
       console.log(error);
     }
   };
 
-  // 리팩토링 필요
   const setScheduleDate = (item) => {
-    setState([item.selection]);
-
-    console.log(item)
-
-    if (item.selection.endDate !== null) {
-    }
+    setDate([item.selection]);
   };
 
   useEffect(() => {
@@ -174,22 +170,18 @@ const AddSchedule = () => {
     }
   }, []);
 
-
   const searchPlace = () => {
-    console.log("searchPlace 함수 호출됨");
-
     if (!window.kakao.maps.services) {
-      console.log("kakao.maps.services 객체가 없습니다.");
+      alert("kakao.maps.services 객체가 없습니다.");
       return;
     }
 
     const geocoder = new kakao.maps.services.Geocoder();
     const places = new kakao.maps.services.Places();
 
-
     try {
       places.keywordSearch(place, function (result, status) {
-        console.log('keywordSearch 결과 상태:', status);
+        console.log("keywordSearch 결과 상태:", status);
         if (status === kakao.maps.services.Status.OK) {
           const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
           if (marker) {
@@ -197,26 +189,30 @@ const AddSchedule = () => {
           }
           const newMarker = new kakao.maps.Marker({
             map: map,
-            position: coords
+            position: coords,
           });
           setMarker(newMarker);
 
           var infowindow = new kakao.maps.InfoWindow({
-            content: `<div style="width:150px;text-align:center;padding:6px 0;">${result[0].place_name}</div>`
+            content: `<div style="width:150px;text-align:center;padding:6px 0;">${result[0].place_name}</div>`,
           });
           infowindow.open(map, newMarker);
           map.setCenter(coords);
 
           // 도로명 주소 추출하기
-          geocoder.coord2Address(coords.getLng(), coords.getLat(), function (addrResult, addrStatus) {
-            if (addrStatus === kakao.maps.services.Status.OK) {
-              setPlace(addrResult[0].road_address.address_name);  // Set 도로명 주소 to PlaceInput
+          geocoder.coord2Address(
+            coords.getLng(),
+            coords.getLat(),
+            function (addrResult, addrStatus) {
+              if (addrStatus === kakao.maps.services.Status.OK) {
+                setPlace(addrResult[0].road_address.address_name); // Set 도로명 주소 to PlaceInput
+              }
             }
-          });
+          );
         } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
-          alert('검색 결과가 존재하지 않습니다. 키워드를 다시 확인해주세요.');
+          alert("검색 결과가 존재하지 않습니다. 키워드를 다시 확인해주세요.");
         } else {
-          alert('키워드 검색 중 오류가 발생했습니다.');
+          alert("키워드 검색 중 오류가 발생했습니다.");
         }
       });
     } catch (error) {
@@ -227,8 +223,11 @@ const AddSchedule = () => {
   useEffect(() => {
     if (!window.kakao) return;
 
-    const container = document.getElementById('map');
-    const options = { center: new kakao.maps.LatLng(37.50057852126737, 126.86813651454828), level: 3 };
+    const container = document.getElementById("map");
+    const options = {
+      center: new kakao.maps.LatLng(37.50057852126737, 126.86813651454828),
+      level: 3,
+    };
     const kakaoMap = new kakao.maps.Map(container, options);
     setMap(kakaoMap);
   }, []);
@@ -245,9 +244,9 @@ const AddSchedule = () => {
         <DateRange
           locale={ko}
           editableDateInputs={true}
-          onChange={(item) => { setScheduleDate(item); let a = item.selection.startDate; console.log(a) }}
+          onChange={(item) => setScheduleDate(item)}
           moveRangeOnFirstSelection={false}
-          ranges={state}
+          ranges={date}
           retainEndDateOnFirstSelection={true}
         />
       </Left>
@@ -255,29 +254,36 @@ const AddSchedule = () => {
         <BackgroundPalette />
         <TitleFont>시간</TitleFont>
         <TimeDiv>
-          <Time type="time" value={initTime} onChange={(e) => { setStartTime(e.target.value) }} />
+          <Time
+            type="time"
+            value={initTime}
+            onChange={(e) => {
+              setStartTime(e.target.value);
+            }}
+          />
           <BiMinus className="BiMinus" />
-          <Time type="time" value={finishTime} onChange={(e) => setEndTime(e.target.value)} />
+          <Time
+            type="time"
+            value={finishTime}
+            onChange={(e) => setEndTime(e.target.value)}
+          />
         </TimeDiv>
         <TitleFont>장소</TitleFont>
-        <PlaceInput value={place} onChange={e => setPlace(e.target.value)} />
-        <button onClick={searchPlace} type='button'>장소 검색</button>
+        <PlaceInput value={place} onChange={(e) => setPlace(e.target.value)} />
+        <button onClick={searchPlace} type="button">
+          장소 검색
+        </button>
         <KaKaoMapBox>
           <div id="map" style={{ width: "100%", height: "100%" }}></div>
         </KaKaoMapBox>
         <SummitButtonDiv>
-          <SubmitButton
-            type="submit"
-            onClick={() => console.log(state, title)}
-          >
-            <BiPlus
-              style={{ color: "#ffffff", marginRight: "5px" }}
-            />
+          <SubmitButton type="submit">
+            <BiPlus style={{ color: "#ffffff", marginRight: "5px" }} />
             일정 추가
           </SubmitButton>
         </SummitButtonDiv>
-      </Right>
-    </AddOther>
+      </Right >
+    </AddOther >
   );
 };
 

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useNavigate, Link } from "react-router-dom";
 
 // apis
-import { fetchSignIn } from '../../api/auth';
+import { fetchSignIn } from "../../api/auth";
 
 import color from "./../../assets/color.png";
 
@@ -55,24 +55,23 @@ const Title = styled.div`
 `;
 
 const SubTitle = styled.div`
-  font-size: 12px;
-  margin-bottom: 25px;
+  font-size: 1rem;
+  margin-bottom: 3vh;
   color: #535571;
 `;
 
 const Label = styled.label`
   color: #8165df;
   text-align: left;
-  padding-left: 10px;
-  font-size: 12px;
+  padding-left: 0.8rem;
+  font-size: 1rem;
 `;
 
 const SignupLink = styled(Link)`
   color: #8165df;
   text-align: left;
   padding-left: 10px;
-  font-size: 8px;
-  font-weight: bold;
+  font-size: 0.2rem;
 `;
 
 const Input = styled.input`
@@ -84,10 +83,11 @@ const Input = styled.input`
 `;
 
 const Btn = styled.button`
-  width: 290px;
-  height: 30px;
-  font-size: 11px;
-  margin: 40px auto;
+  /* width: 290px;
+  height: 30px; */
+  padding: 2vh 4vh;
+  font-size: 1.1rem;
+  margin: 4rem auto;
   color: white;
   background-color: #8165df;
   border: none;
@@ -101,7 +101,7 @@ const SignInPage = () => {
   const [signIn, setSignIn] = useState({
     email: null,
     password: null,
-  })
+  });
 
   const handleInputChange = (e) => {
     setSignIn({
@@ -140,7 +140,7 @@ const SignInPage = () => {
           <SubTitle>반갑습니다 미티에 오신 것을 환영해요!👋</SubTitle>
           <form
             style={{ display: "flex", flexDirection: "column" }}
-            onSubmit={e => handleSubmit(e)}
+            onSubmit={(e) => handleSubmit(e)}
           >
             <Label>ID</Label>
             <Input
