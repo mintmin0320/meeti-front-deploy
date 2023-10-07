@@ -93,8 +93,8 @@ const Green = styled.div`
 `;
 
 const Input = styled.input`
-  width: 20vw;
-  height: 20px;
+  width: auto;
+  height: auto;
   border: solid #9c9c9c 0.5px;
   background: #ffffff;
   margin-left: 10px;
