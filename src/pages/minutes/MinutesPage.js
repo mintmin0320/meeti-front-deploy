@@ -58,7 +58,7 @@ const SubTitle = styled.div`
 const Last = styled.div`
   background: #f8f8f8;
   width: 60%;
-  height: 340px;
+  height: 100%;
   border-radius: 20px;
   z-index: 3;
 `;

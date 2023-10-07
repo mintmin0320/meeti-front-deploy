@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import { Navigate } from 'react-router-dom';
 
-const PublicOnlyRoute = ({ children }) => {
+export default function PublicOnlyRoute({ children }) {
   const isLogIn = localStorage.getItem('userId');
 
   return !isLogIn ?
@@ -9,5 +9,3 @@ const PublicOnlyRoute = ({ children }) => {
     :
     <Navigate to="/" />
 };
-
-export default PublicOnlyRoute;

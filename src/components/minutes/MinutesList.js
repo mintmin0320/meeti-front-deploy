@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 
 import { useMinutes } from "../../hooks/context/MinutesContext";
 
-// api
-import { fetchGetMinutes, test1 } from '../../api/minutes';
+// apis
+import { fetchGetMinutes } from '../../api/minutes';
 
 // icons
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
@@ -72,16 +72,16 @@ const MinutesButton = styled.div`
 `;
 
 const MinutesList = ({ setSelectedMinute }) => {
+  const userId = localStorage.getItem('userId');
   const { minutesData, setMinutesData } = useMinutes();
 
   useEffect(() => {
-    // getMinutesList();
-    test();
+    getMinutesList();
   }, []);
 
   const getMinutesList = async () => {
     try {
-      const res = await fetchGetMinutes(1);
+      const res = await fetchGetMinutes(userId);
 
       if (!res || res.length === 0) {
         setMinutesData([]);

@@ -1,25 +1,24 @@
-/*
-  일정 날자 선택할 경우 setScheduleDate 코드 수정 필요
-*/
-
 import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import { DateRange } from "react-date-range";
 import ko from "date-fns/locale/ko"; // 날짜 포맷 라이브러리 (한국어 기능을 임포트)
 
-import BackgroundPalette from "./BackgroundPalette";
-import { fetchAddSchedule } from "../../api/schedule";
+import BackgroundPalette from './BackgroundPalette';
+
+// apis
+import { fetchAddSchedule } from '../../api/schedule';
 
 // hooks
 import { useColor } from "../../hooks/context/BackContext";
 
-// icons, library-CSS
+// icons
 import { BiMinus, BiPlus } from "react-icons/bi";
 
-import "react-date-range/dist/styles.css"; // main css file
-import "react-date-range/dist/theme/default.css"; // theme css file
-
 // CSS
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
+
+// styles
 const AddTitle = styled.input`
   font-size: 24px;
   border: none;
@@ -111,11 +110,12 @@ const SummitButtonDiv = styled.div`
 `;
 
 const AddSchedule = () => {
+  const userId = localStorage.getItem('userId');
   const { kakao } = window;
   const [map, setMap] = useState(null);
   const [marker, setMarker] = useState(null);
   const { color } = useColor();
-  const [state, setState] = useState([
+  const [date, setDate] = useState([
     {
       startDate: new Date(),
       endDate: null,
@@ -129,6 +129,7 @@ const AddSchedule = () => {
 
   const handleOnChange = (e) => {
     e.preventDefault();
+
     setTitle(e.target.value);
   };
 
@@ -138,32 +139,27 @@ const AddSchedule = () => {
     const data = {
       title,
       color,
-      start: state[0].startDate,
-      end: state[0].endDate,
+      start: date[0].startDate,
+      end: date[0].endDate,
       initTime,
       finishTime,
       place,
     };
 
     try {
-      const res = await fetchAddSchedule(data);
+      const res = await fetchAddSchedule(userId, data);
 
-      window.location.reload();
-
-      console.log(res);
+      if (res.data) {
+        alert('일정 등록 성공!');
+        window.location.reload();
+      }
     } catch (error) {
       console.log(error);
     }
   };
 
-  // 리팩토링 필요
   const setScheduleDate = (item) => {
-    setState([item.selection]);
-
-    console.log(item);
-
-    if (item.selection.endDate !== null) {
-    }
+    setDate([item.selection]);
   };
 
   useEffect(() => {
@@ -175,10 +171,8 @@ const AddSchedule = () => {
   }, []);
 
   const searchPlace = () => {
-    console.log("searchPlace 함수 호출됨");
-
     if (!window.kakao.maps.services) {
-      console.log("kakao.maps.services 객체가 없습니다.");
+      alert("kakao.maps.services 객체가 없습니다.");
       return;
     }
 
@@ -250,13 +244,9 @@ const AddSchedule = () => {
         <DateRange
           locale={ko}
           editableDateInputs={true}
-          onChange={(item) => {
-            setScheduleDate(item);
-            let a = item.selection.startDate;
-            console.log(a);
-          }}
+          onChange={(item) => setScheduleDate(item)}
           moveRangeOnFirstSelection={false}
-          ranges={state}
+          ranges={date}
           retainEndDateOnFirstSelection={true}
         />
       </Left>
@@ -287,13 +277,13 @@ const AddSchedule = () => {
           <div id="map" style={{ width: "100%", height: "100%" }}></div>
         </KaKaoMapBox>
         <SummitButtonDiv>
-          <SubmitButton type="submit" onClick={() => console.log(state, title)}>
+          <SubmitButton type="submit">
             <BiPlus style={{ color: "#ffffff", marginRight: "5px" }} />
             일정 추가
           </SubmitButton>
         </SummitButtonDiv>
-      </Right>
-    </AddOther>
+      </Right >
+    </AddOther >
   );
 };
 
