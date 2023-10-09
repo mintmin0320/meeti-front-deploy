@@ -229,7 +229,7 @@ const SpeechPage = ({ detail = {} }) => {
   const [minutesBody, setMinutesBody] = useState(detail?.detail || " ");
 
   useEffect(() => {
-    setMinutesBody(detail?.detail || " ");
+    // setMinutesBody(detail?.detail || " ");
   }, [detail]);
 
   // 회의록 프린트

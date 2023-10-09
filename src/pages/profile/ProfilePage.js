@@ -140,7 +140,7 @@ const ProfilePage = () => {
   const [editName, setEditName] = useState(info.username);
 
   useEffect(() => {
-    getUserInfo();
+    // getUserInfo();
   }, []);
 
   // 유저정보 조회
