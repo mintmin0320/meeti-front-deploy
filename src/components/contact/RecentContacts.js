@@ -6,6 +6,7 @@ import profileImg from "./../../assets/profileExImg.png";
 // icon
 import { AiOutlineCalendar } from "react-icons/ai";
 import { HiHeart, HiOutlineHeart, HiOutlineDotsHorizontal, } from "react-icons/hi";
+import { TiUserDelete } from "react-icons/ti";
 
 const RecentContacts = () => {
   const [heart, setHeart] = useState(false);
@@ -20,7 +21,7 @@ const RecentContacts = () => {
           <AiOutlineCalendar style={{ color: "#fff" }} />
         </CalendarButton>
         <OtherButtons>
-          <HiOutlineDotsHorizontal style={{ color: "#fff" }} />
+          <TiUserDelete style={{ color: "#fff" }} />
         </OtherButtons>
         <OtherButtons
           onClick={() => {

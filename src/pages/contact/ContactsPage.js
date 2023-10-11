@@ -9,24 +9,21 @@ import RecentContacts from "../../components/contact/RecentContacts";
 import color from "./../../assets/color.png";
 
 // CSS
-const Test = styled.div`
+const Container = styled.main`
   width: 100vw;
   height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background: #f5f3fe;
 `;
 
 const MainDiv = styled.div`
-  position: absolute;
   width: 90vw;
   height: 85vh;
-  margin-top: 78px;
-  margin-left: 69px;
-  margin-right: 69px;
-  background: #f8f8f8;
-  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.2);
-  border-radius: 20px;
   display: flex;
-  flex-direction: row;
+  border-radius: 20px;
+  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.2);
   z-index: 2;
 `;
 
@@ -40,29 +37,27 @@ const BackColor = styled.img`
   z-index: 1;
 `;
 
-const Mid = styled.div`
-  background: #f8f8f8;
+const LeftSection = styled.section`
   width: 30%;
-  border-radius: 20px;
   z-index: 3;
+  background: #f8f8f8;
 `;
 
-const Title = styled.div`
+const Title = styled.p`
   font-size: 20px;
   margin-top: 20px;
   margin-bottom: 5px;
 `;
 
-const SubTitle = styled.div`
+const SubTitle = styled.p`
   margin-bottom: 10px;
 `;
 
-const Last = styled.div`
-  background: #f8f8f8;
+const RightSection = styled.section`
   width: 60%;
   height: 100%;
-  border-radius: 20px;
   z-index: 3;
+  background: #f8f8f8;
   overflow: scroll;
 `;
 
@@ -145,11 +140,11 @@ const SubOptionTelNum = styled.div`
 
 const ContactsPage = () => {
   return (
-    <Test>
+    <Container>
       <MainDiv className="MainDiv">
         <BackColor src={color} style={{ opacity: 0.2 }} />
         <Header />
-        <Mid>
+        <LeftSection>
           <Title>최근 연락처</Title>
           <SubTitle>Recent Contacts</SubTitle>
           <RecentContacts />
@@ -160,12 +155,12 @@ const ContactsPage = () => {
           <RecentContacts />
           <RecentContacts />
           <RecentContacts />
-        </Mid>
-        <Last>
+        </LeftSection>
+        <RightSection>
           <MainContacts />
-        </Last>
+        </RightSection>
       </MainDiv>
-    </Test>
+    </Container>
   );
 };
 
