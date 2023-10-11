@@ -58,7 +58,6 @@ const RightSection = styled.section`
   height: 100%;
   z-index: 3;
   background: #f8f8f8;
-  overflow: scroll;
 `;
 
 const ScheduleBox = styled.div`
