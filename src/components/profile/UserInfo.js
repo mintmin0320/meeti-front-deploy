@@ -9,7 +9,7 @@ const UserInfoBox = styled.div`
 
 const Info = styled.div`
   display: flex;
-  margin: 30px;
+  margin: 40px;
   color: #9c9c9c;
   white-space: nowrap;
   overflow: hidden;

@@ -71,8 +71,8 @@ const NameInput = styled.input`
 `;
 
 const Buttons = styled.div`
-  margin-top: 30vh;
-  margin-left: 57vw;
+  margin-top: 20vh;
+  margin-left: 55vw;
   width: 250px;
   /* background-color: red; */
   display: flex;
@@ -80,7 +80,8 @@ const Buttons = styled.div`
 `;
 
 const Profile = styled.div`
-  margin: 30px;
+  margin-top: 80px;
+  margin-left: 120px;
 `;
 
 const ProfileImg = styled.img`
