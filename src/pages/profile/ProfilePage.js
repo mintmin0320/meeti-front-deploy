@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-import Header from '../../common/Header';
+import Header from "../../common/Header";
 
 // bg-color
 import color from "./../../assets/color.png";
@@ -11,11 +11,9 @@ import color from "./../../assets/color.png";
 import { FcAddImage } from "react-icons/fc";
 
 // apis
-import { fetchEditInfo, fetchGetUserInfo } from '../../api/profile';
-import {
-  fetchAccountDeletion, fetchSignOut,
-} from '../../api/auth';
-import UserInfo from '../../components/profile/UserInfo';
+import { fetchEditInfo, fetchGetUserInfo } from "../../api/profile";
+import { fetchAccountDeletion, fetchSignOut } from "../../api/auth";
+import UserInfo from "../../components/profile/UserInfo";
 
 // styles
 const Container = styled.div`
@@ -63,14 +61,18 @@ const Title = styled.div`
   margin-bottom: 5px;
 `;
 
-const EditNameInputBox = styled.div`
-  width: 250px;
-  height: 100px;
-  margin-top: 80px;
+const NameInput = styled.input`
+  width: 100%;
+  height: 20px;
+  font-size: 14px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 `;
 
 const Buttons = styled.div`
-  margin-top: 50px;
+  margin-top: 30vh;
+  margin-left: 57vw;
   width: 250px;
   /* background-color: red; */
   display: flex;
@@ -130,11 +132,11 @@ const ProfilePage = () => {
   const navigate = useNavigate();
   const InputRef = useRef(null);
   const formData = new FormData();
-  const userId = localStorage.getItem('userId');
+  const userId = localStorage.getItem("userId");
   const [info, setInfo] = useState({
-    username: '',
-    profile: './profile.png',
-    role: '',
+    username: "",
+    profile: "./profile.png",
+    role: "",
   });
   const [isEdit, setIsEdit] = useState(false);
   const [editName, setEditName] = useState(info.username);
@@ -161,20 +163,24 @@ const ProfilePage = () => {
 
   // 회원탈퇴 버튼 클릭
   const handleAccountDeletionClick = async () => {
-    const userConfirmation = prompt("회원탈퇴를 진행하려면 '회원탈퇴'라고 입력해주세요.");
+    const userConfirmation = prompt(
+      "회원탈퇴를 진행하려면 '회원탈퇴'라고 입력해주세요."
+    );
     try {
-      if (userConfirmation === '회원탈퇴') {
+      if (userConfirmation === "회원탈퇴") {
         const res = await fetchAccountDeletion(userId);
 
         if (res.data) {
-          localStorage.removeItem('accessToken');
-          localStorage.removeItem('refreshToken');
-          localStorage.removeItem('userId');
+          localStorage.removeItem("accessToken");
+          localStorage.removeItem("refreshToken");
+          localStorage.removeItem("userId");
 
-          navigate('/auth/sign-in');
+          navigate("/auth/sign-in");
         }
       } else {
-        alert("입력이 일치하지 않습니다. 회원탈퇴를 원하시면 '회원탈퇴'라고 정확히 입력해주세요.");
+        alert(
+          "입력이 일치하지 않습니다. 회원탈퇴를 원하시면 '회원탈퇴'라고 정확히 입력해주세요."
+        );
       }
     } catch (error) {
       alert(error);
@@ -187,13 +193,13 @@ const ProfilePage = () => {
       const res = await fetchSignOut();
 
       if (res.data) {
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('refreshToken');
-        localStorage.removeItem('userId');
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        localStorage.removeItem("userId");
 
-        navigate('/auth/sign-in');
+        navigate("/auth/sign-in");
       } else {
-        alert('로그아웃 실패!');
+        alert("로그아웃 실패!");
       }
     } catch (error) {
       alert(error);
@@ -202,28 +208,28 @@ const ProfilePage = () => {
 
   // 프로필, 이름 수정 버튼 클릭
   const handleOnEditInfoBtn = async () => {
-    formData.append('image', info.profile);
-    formData.append('username', info.username);
+    formData.append("image", info.profile);
+    formData.append("username", info.username);
 
     try {
       const res = await fetchEditInfo(userId, formData);
 
       if (res.data) {
-        alert('수정 성공!');
+        alert("수정 성공!");
 
         setIsEdit(false);
       } else {
-        alert('수정 실패!');
+        alert("수정 실패!");
       }
     } catch (error) {
       alert(error);
     }
   };
 
-  const handleOnImgUpload = async (e) => {
+  const handleOnImgUpload = async e => {
     if (!e.target.files) {
       return;
-    };
+    }
 
     setInfo({
       ...info,
@@ -239,41 +245,47 @@ const ProfilePage = () => {
         <Mid>
           <Title>마이페이지</Title>
           <Profile>
-            {!isEdit ?
-              <ProfileImg src={info.profile} />
-              :
+            {!isEdit ? (
+              <>
+                <ProfileImg src={info.profile} />
+                <UserInfo username={info.username} role={info.role} />
+              </>
+            ) : (
               <>
                 <AddProfileBox
                   onClick={() => {
                     InputRef.current?.click();
-                  }}>
-                  <FcAddImage size='45px' />
+                  }}
+                >
+                  <FcAddImage size="45px" />
                 </AddProfileBox>
-                <Input onChange={handleOnImgUpload} type='file' hidden={true} ref={InputRef} multiple='multiple'
-                  accept="image/jpg, image/png, image/jpeg" />
+                <Input
+                  onChange={handleOnImgUpload}
+                  type="file"
+                  hidden={true}
+                  ref={InputRef}
+                  multiple="multiple"
+                  accept="image/jpg, image/png, image/jpeg"
+                />
+                <UserInfo
+                  username={
+                    <NameInput
+                      name="editName"
+                      value={editName}
+                      onChange={e => setEditName(e.target.value)}
+                    />
+                  }
+                  role={info.role}
+                />
               </>
-            }
-            <UserInfo
-              username={info.username}
-              role={info.role}
-            />
+            )}
           </Profile>
-          {isEdit && (
-            <EditNameInputBox>
-              <p>변경할이름</p>
-              <input
-                name='editName'
-                value={editName}
-                onChange={(e) => setEditName(e.target.value)}
-              />
-            </EditNameInputBox>
-          )}
           <Buttons>
-            {!isEdit ?
+            {!isEdit ? (
               <Btn onClick={() => setIsEdit(true)}>회원 정보 수정</Btn>
-              :
+            ) : (
               <Btn onClick={() => handleOnEditInfoBtn()}>변경된 정보 저장</Btn>
-            }
+            )}
             <Btn onClick={() => handleSignOutClick()}>로그아웃</Btn>
             <Btn onClick={() => handleAccountDeletionClick()}>회원탈퇴</Btn>
           </Buttons>
