@@ -67,7 +67,7 @@ const TopTableTitle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.8rem;
+  font-size: 1rem;
 `;
 
 const TopTableInput = styled.input`
@@ -103,7 +103,6 @@ const MainDiv = styled.div`
 const MainForm = styled.form`
   width: 80%;
   height: 70%;
-  border-radius: 10px;
   background-color: #f8f8f8;
 `;
 
@@ -424,21 +423,26 @@ const SpeechPage = ({ detail = {} }) => {
               <BiSave />
             </ListenButton>
           </ButtonWrap>
-          <TextDiv>Microphone: {listening ? "🟢" : "🔴"}</TextDiv>
-          <TopTableDiv>
-            <TopTableSub>
-              <TopTableTitle>회의명</TopTableTitle>
-              <TopTableInput
-                onChange={(e) => setWriteTitle(e.target.value)}
-                value={writeTitle}
-              />
-            </TopTableSub>
-            <TopTableSub></TopTableSub>
-          </TopTableDiv>
-          <ScriptDiv>
-            <TitleText>회의내용</TitleText>
-            <Script>{transcript}</Script>
-          </ScriptDiv>
+          <MinutesDataWrap>
+            <TextDiv>Microphone: {listening ? "🟢" : "🔴"}</TextDiv>
+            <TopTableDiv>
+              <TopTableSub>
+                <TopTableTitle>회의명</TopTableTitle>
+                <TopTableInput
+                  onChange={(e) => setWriteTitle(e.target.value)}
+                  value={writeTitle}
+                />
+              </TopTableSub>
+              <TopTableSub>
+                <TopTableTitle>작성자</TopTableTitle>
+                <TopTableInput />
+              </TopTableSub>
+            </TopTableDiv>
+            <ScriptDiv>
+              <TitleText>회의내용</TitleText>
+              <Script>{transcript}</Script>
+            </ScriptDiv>
+          </MinutesDataWrap>
         </MainForm>
       )}
     </>
