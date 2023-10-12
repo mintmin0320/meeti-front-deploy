@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useReactToPrint } from 'react-to-print';
-import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
+import { useReactToPrint } from "react-to-print";
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from "react-speech-recognition";
 import styled from "styled-components";
 
 // icons
@@ -20,32 +22,37 @@ import {
   fetchAddMinutes,
   fetchDeleteMinutes,
   fetchEditMinutes,
-} from '../../api/minutes';
+} from "../../api/minutes";
 
 // styles
 const TopTableDiv = styled.div`
   margin: 20px;
   display: flex;
+  height: 8%;
+  font-size: 0.7rem;
+  width: 90%;
 `;
 
 const TopTableSub = styled.div`
   width: 100%;
-  font-size: 11px;
   display: flex;
-  height: 35px;
+  height: 100%;
+  border: 0.05rem solid gray;
+  margin: 0.3rem;
 `;
 
 const TitleBox = styled.div`
-  width: 65%;
-  font-size: 11px;
+  width: 90%;
+  font-size: 1rem;
   display: flex;
-  height: 35px;
-  margin: auto;
+  height: 8%;
+  border: 0.05rem solid gray;
+  margin: 0.3rem;
 `;
 
 const TitleDiv = styled.div`
   width: 75%;
-  height: 35px;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -53,17 +60,18 @@ const TitleDiv = styled.div`
 `;
 
 const TopTableTitle = styled.div`
-  width: 25%;
+  width: 33%;
   border-right: 1px solid #6d6272;
   text-align: center;
   background-color: #f0ebfa;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 0.8rem;
 `;
 
 const TopTableInput = styled.input`
-  width: 75%;
+  width: 70%;
   border: none;
 `;
 
@@ -79,6 +87,10 @@ const TopTableContacts = styled.div`
 const MinutesDataWrap = styled.div`
   width: 100%;
   height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const MainDiv = styled.div`
@@ -176,7 +188,7 @@ const TextDiv = styled.div`
 const TitleText = styled.span`
   width: 13%;
   padding: 5px;
-  font-size: 14px;
+  font-size: 1rem;
   border-right: 1px solid #6d6272;
   background-color: #f0ebfa;
   display: flex;
@@ -191,7 +203,8 @@ const ScriptDiv = styled.div`
   flex-direction: row;
   background: #fff;
   font-size: 14px;
-  margin: 30px;
+  border: 0.05rem solid gray;
+  margin: 0.3rem;
 `;
 
 const Script = styled.div`
@@ -209,11 +222,11 @@ const ScriptTextarea = styled.textarea`
   width: 100%;
   font-size: 18px;
   padding: 4px;
-`
+`;
 
 const SpeechPage = ({ detail = {} }) => {
   const componentRef = useRef();
-  const userId = localStorage.getItem('userId');
+  const userId = localStorage.getItem("userId");
   const [isOpen, setIsOpen] = useState(true);
   const [isEdit, setIsEdit] = useState(false);
   const defaultDetail = {
@@ -221,11 +234,11 @@ const SpeechPage = ({ detail = {} }) => {
     date: "",
     username: "",
     title: "",
-    detail: ""
+    detail: "",
   };
 
   const detailProps = { ...defaultDetail, ...detail };
-  const [writeTitle, setWriteTitle] = useState(' ');
+  const [writeTitle, setWriteTitle] = useState(" ");
   const [minutesBody, setMinutesBody] = useState(detail?.detail || " ");
 
   useEffect(() => {
@@ -291,7 +304,7 @@ const SpeechPage = ({ detail = {} }) => {
 
       await fetchEditMinutes(data, meetingId, userId);
 
-      alert('회의록 수정 성공!');
+      alert("회의록 수정 성공!");
 
       window.location.reload();
     } catch (error) {
@@ -301,12 +314,13 @@ const SpeechPage = ({ detail = {} }) => {
 
   // 회의내용 클립보드 복사
   const handleCopyClipBoard = (text) => {
-    navigator.clipboard.writeText(text)
+    navigator.clipboard
+      .writeText(text)
       .then(() => {
-        alert('텍스트가 복사되었습니다.');
+        alert("텍스트가 복사되었습니다.");
       })
       .catch((error) => {
-        console.error('복사 실패:', error);
+        console.error("복사 실패:", error);
       });
   };
 
@@ -319,7 +333,7 @@ const SpeechPage = ({ detail = {} }) => {
     } catch (error) {
       console.log(error);
     }
-    alert('회의록 삭제완료');
+    alert("회의록 삭제완료");
   };
 
   return (
@@ -342,15 +356,15 @@ const SpeechPage = ({ detail = {} }) => {
       {isOpen ? (
         <MainDiv>
           <ButtonWrap>
-            {!isEdit ?
+            {!isEdit ? (
               <ListenButton onClick={() => setIsEdit(true)}>
                 <BsFillPencilFill />
               </ListenButton>
-              :
+            ) : (
               <ListenButton onClick={() => handleOnEditBtn(detailProps.id)}>
                 <BiSave />
               </ListenButton>
-            }
+            )}
             <ListenButton onClick={() => handleCopyClipBoard(minutesBody)}>
               <AiOutlineShareAlt />
             </ListenButton>
@@ -379,18 +393,18 @@ const SpeechPage = ({ detail = {} }) => {
             <TitleBox>
               <TopTableTitle>회의명</TopTableTitle>
               <TitleDiv>{detailProps.title}</TitleDiv>
-            </TitleBox >
+            </TitleBox>
             <ScriptDiv>
               <TitleText>회의내용</TitleText>
-              {!isEdit ?
+              {!isEdit ? (
                 <Script>{detailProps.detail}</Script>
-                :
+              ) : (
                 <ScriptTextarea
                   type="text"
                   value={minutesBody}
                   onChange={(e) => setMinutesBody(e.target.value)}
                 />
-              }
+              )}
             </ScriptDiv>
           </MinutesDataWrap>
         </MainDiv>
@@ -419,8 +433,7 @@ const SpeechPage = ({ detail = {} }) => {
                 value={writeTitle}
               />
             </TopTableSub>
-            <TopTableSub>
-            </TopTableSub>
+            <TopTableSub></TopTableSub>
           </TopTableDiv>
           <ScriptDiv>
             <TitleText>회의내용</TitleText>
