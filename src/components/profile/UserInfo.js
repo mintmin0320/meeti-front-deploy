@@ -30,15 +30,6 @@ const UserInfo = ({ username, role }) => {
       <Info>
         등급 l <Text>{role}</Text>
       </Info>
-      <Info>
-        소속 l <Text></Text>
-      </Info>
-      <Info>
-        이메일 l <Text></Text>
-      </Info>
-      <Info>
-        연락처 l <Text></Text>
-      </Info>
     </UserInfoBox>
   );
 };
