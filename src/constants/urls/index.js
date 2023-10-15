@@ -3,3 +3,4 @@ export * from './authUrls';
 export * from './minutesUrls';
 export * from './reservationUrls';
 export * from './scheduleUrls';
+export * from './contactUrls';
