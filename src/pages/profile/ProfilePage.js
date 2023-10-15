@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import Header from "../../common/Header";
+import UserInfo from "../../components/profile/UserInfo";
 
 // bg-color
 import color from "./../../assets/color.png";
@@ -13,40 +14,9 @@ import { FcAddImage } from "react-icons/fc";
 // apis
 import { fetchEditInfo, fetchGetUserInfo } from "../../api/profile";
 import { fetchAccountDeletion, fetchSignOut } from "../../api/auth";
-import UserInfo from "../../components/profile/UserInfo";
 
 // styles
-const Container = styled.div`
-  width: 100vw;
-  height: 100vh;
-  background: #f5f3fe;
-`;
-
-const MainDiv = styled.div`
-  position: absolute;
-  width: 90vw;
-  height: 85vh;
-  margin-top: 78px;
-  margin-left: 69px;
-  margin-right: 69px;
-  background: #f8f8f8;
-  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.2);
-  border-radius: 20px;
-  display: flex;
-  flex-direction: row;
-  z-index: 2;
-  justify-content: center;
-`;
-
-const BackColor = styled.img`
-  position: absolute;
-  width: 548px;
-  height: 503px;
-  margin-left: 100px;
-  margin-top: 100px;
-  background: #f8f8f8;
-  z-index: 1;
-`;
+import { Container, BackColor, MainSection } from '../../styles/CommonStyles';
 
 const Mid = styled.div`
   background: #f8f8f8;
@@ -143,7 +113,7 @@ const ProfilePage = () => {
   const [editName, setEditName] = useState(info.username);
 
   useEffect(() => {
-    // getUserInfo();
+    getUserInfo();
   }, []);
 
   // 유저정보 조회
@@ -240,7 +210,7 @@ const ProfilePage = () => {
 
   return (
     <Container>
-      <MainDiv className="MainDiv">
+      <MainSection className="MainDiv">
         <BackColor src={color} style={{ opacity: 0.2 }} />
         <Header />
         <Mid>
@@ -291,8 +261,8 @@ const ProfilePage = () => {
             <Btn onClick={() => handleAccountDeletionClick()}>회원탈퇴</Btn>
           </Buttons>
         </Mid>
-        <Last></Last>
-      </MainDiv>
+        <Last />
+      </MainSection>
     </Container>
   );
 };
