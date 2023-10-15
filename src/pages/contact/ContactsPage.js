@@ -58,15 +58,15 @@ const ContactsPage = () => {
         <LeftSection>
           <TextBox>
             <Tittle
-              onClick={() => setIsStatus(true)}
-              isActive={isStatus}
+              onClick={() => setIsStatus(false)}
+              isActive={!isStatus}
             >
               연락처 |
             </Tittle>
             &nbsp;
             <Tittle
-              onClick={() => setIsStatus(false)}
-              isActive={!isStatus}
+              onClick={() => setIsStatus(true)}
+              isActive={isStatus}
             >
               즐겨찾기
             </Tittle>

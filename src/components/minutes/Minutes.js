@@ -316,7 +316,7 @@ const SpeechPage = ({ detail = {} }) => {
     navigator.clipboard
       .writeText(text)
       .then(() => {
-        alert("텍스트가 복사되었습니다.");
+        alert("회의내용이 복사되었습니다.");
       })
       .catch((error) => {
         console.error("복사 실패:", error);
