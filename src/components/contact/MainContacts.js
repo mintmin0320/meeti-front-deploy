@@ -1,15 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 // icons
 import { FaRegAddressBook } from "react-icons/fa";
-import { HiHeart, HiOutlineHeart } from "react-icons/hi";
 import { BiSearch } from "react-icons/bi";
 import { BsFillPersonPlusFill } from "react-icons/bs";
 
-import profileExImg from "./../../assets/profileExImg.png";
-
-import data from "./contactsData.json";
+import { fetchAddFriend, fetchAllUser, fetchSearchList } from '../../api/contact';
 
 // style
 const ContactWrap = styled.div`
@@ -79,8 +76,8 @@ const BottomBox = styled.div`
 
 // 회원 카드 디자인 box
 const ContactDiv = styled.div`
-  width: 147px;
-  height: 219px;
+  width: 150px;
+  height: 220px;
   border-radius: 10px;
   background: #fff;
   box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.25);
@@ -88,13 +85,7 @@ const ContactDiv = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 20px;
-`;
-
-const MenuDiv = styled.div`
-  margin-left: 110px;
-  margin-top: -30px;
-  cursor: pointer;
+  margin: 15px;
 `;
 
 const ProfileImg = styled.img`
@@ -103,9 +94,10 @@ const ProfileImg = styled.img`
   border-radius: 60px;
 `;
 
-const NameText = styled.div`
+const NameText = styled.p`
   margin-top: 10px;
-  font-size: 13px;
+  font-size: 14px;
+  font-weight: 700;
 `;
 
 // 스케줄 확인 버튼
@@ -116,7 +108,8 @@ const ScheduleCheckButton = styled.button`
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
   color: #fff;
   text-align: center;
-  font-size: 8px;
+  font-size: 13px;
+  font-weight: bolder;
   margin-top: 20px;
   margin-bottom: 10px;
   padding-top: 5px;
@@ -137,8 +130,8 @@ const ButtonBox = styled.div`
 `;
 
 const Button = styled.button`
-  width: 52px;
-  height: 22px;
+  width: 114px;
+  height: 26px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -151,16 +144,47 @@ const Button = styled.button`
 `;
 
 const MainContacts = () => {
-  const arr = data;
+  const userId = localStorage.getItem("userId");
+  const [userList, setUserList] = useState([]);
   const [search, setSearch] = useState("");
-  const [menu, setMenu] = useState(false);
-  const [heart, setHeart] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(false);
 
-  const handleOnSearchButton = () => {
+  useEffect(() => {
+    getFriendList();
+  }, [refreshKey]);
+
+  const getFriendList = async () => {
+    try {
+      const res = await fetchAllUser(userId);
+
+      setUserList(res?.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleRequestFriend = async (friendId) => {
+    try {
+      await fetchAddFriend(userId, friendId);
+
+      setRefreshKey(!refreshKey);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleOnSearchButton = async () => {
     if (search === "") {
       alert("검색어를 입력해 주세요!");
 
       return;
+    }
+
+    try {
+      const res = await fetchSearchList(search);
+      setUserList(res?.data);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -177,29 +201,17 @@ const MainContacts = () => {
         </SearchDiv>
       </TopBox>
       <BottomBox>
-        {arr.map((user) => {
+        {userList.map((user) => {
           return (
-            <ContactDiv>
-              {/* <MenuDiv>
-                <HiOutlineDotsHorizontal style={{ color: "lightgray" }} />
-              </MenuDiv> */}
-              <ProfileImg src={profileExImg} />
-              <NameText>{user.name}</NameText>
+            <ContactDiv key={user.id}>
+              <ProfileImg src={user.profile} />
+              <NameText>{user.username}</NameText>
               <ScheduleCheckButton>Schedule</ScheduleCheckButton>
-              <ButtonBox>
+              <ButtonBox
+                onClick={() => handleRequestFriend(user.id)}
+              >
                 <Button>
-                  <BsFillPersonPlusFill style={{ width: "12px" }} />
-                </Button>
-                <Button
-                  onClick={() => {
-                    setHeart(!heart);
-                  }}
-                >
-                  {heart ? (
-                    <HiHeart style={{ width: "12px" }} />
-                  ) : (
-                    <HiOutlineHeart style={{ width: "12px" }} />
-                  )}
+                  <BsFillPersonPlusFill />
                 </Button>
               </ButtonBox>
             </ContactDiv>
