@@ -1,13 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
-import profileImg from "./../../assets/profileExImg.png";
-import data from "./contactsData.json";
-
 // icons, dummy-data
-import { AiOutlineCalendar } from "react-icons/ai";
-import { HiHeart, HiOutlineHeart } from "react-icons/hi";
-import { TiUserDelete } from "react-icons/ti";
+import { TiUserAdd } from "react-icons/ti";
+
+// apis
+import { fetchRequestUserList } from '../../api/contact';
 
 // styles
 const ContactListWrap = styled.div`
@@ -59,7 +57,7 @@ const ContactUserInfoBox = styled.div`
 
 const ContactUserInfo = styled.div`
   width: 100%;
-  height: 50%;
+  height: 100%;
   display: flex;
   align-items: center;
   padding-left: 8px;
@@ -76,8 +74,8 @@ const ButtonBox = styled.div`
 `;
 
 const Button = styled.button`
-  width: 26px;
-  height: 26px;
+  width: 30px;
+  height: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -90,28 +88,48 @@ const Button = styled.button`
 `;
 
 const FriendRequest = () => {
+  const userId = localStorage.getItem("userId");
+  const [userList, setUserList] = useState([]);
+  const [refreshKey, setRefreshKey] = useState(false);
+
+  useEffect(() => {
+    getFriendList();
+  }, [refreshKey]);
+
+  const getFriendList = async () => {
+    try {
+      const res = await fetchRequestUserList(userId);
+
+      setUserList(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleOnAccept = async (userId, friendId) => {
+    try {
+      await fetchRequestUserList(userId, friendId);
+
+      setRefreshKey(!refreshKey);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <ContactListWrap>
-      {data.map((user) => {
+      {userList.map((user) => {
         return (
-          <ContactListBox>
+          <ContactListBox key={user?.id}>
             <ContactProfileBox>
-              <ProfileImg src={profileImg} />
+              <ProfileImg src={user?.profile} />
             </ContactProfileBox>
             <ContactUserInfoBox>
-              <ContactUserInfo>동양미래대학교</ContactUserInfo>
-              <ContactUserInfo>{user.name}</ContactUserInfo>
+              <ContactUserInfo>{user?.username}</ContactUserInfo>
             </ContactUserInfoBox>
             <ButtonBox>
-              <Button
-                style={{ backgroundColor: "#9c9c9c" }}
-              >
-                <AiOutlineCalendar style={{ color: "#fff" }} />
-              </Button>
-              <Button>
-                <TiUserDelete style={{ color: "#fff" }} />
-              </Button>
-              <Button>
+              <Button onClick={() => handleOnAccept(user?.id)}>
+                <TiUserAdd color='#fff' size='20px' />
               </Button>
             </ButtonBox>
           </ContactListBox>

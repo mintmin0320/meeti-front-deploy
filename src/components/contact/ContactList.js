@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-
-import profileImg from "./../../assets/profileExImg.png";
 
 // icons, dummy-data
 import { AiOutlineCalendar } from "react-icons/ai";
 import { HiHeart, HiOutlineHeart } from "react-icons/hi";
 import { TiUserDelete } from "react-icons/ti";
-import data from "./contactsData.json";
+
+// apis
+import { fetchDeleteFriend, fetchMyFriend, fetchOnFavorite } from '../../api/contact';
 
 // styles
 const ContactListWrap = styled.div`
@@ -59,7 +59,7 @@ const ContactUserInfoBox = styled.div`
 
 const ContactUserInfo = styled.div`
   width: 100%;
-  height: 50%;
+  height: 100%;
   display: flex;
   align-items: center;
   padding-left: 8px;
@@ -89,20 +89,57 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
+
+
 const RecentContacts = () => {
-  const [heart, setHeart] = useState(false);
+  const userId = localStorage.getItem("userId");
+  const [userList, setUserList] = useState([]);
+  const [refreshKey, setRefreshKey] = useState(false);
+
+  useEffect(() => {
+    getFriendList();
+  }, [refreshKey]);
+
+  const getFriendList = async () => {
+    try {
+      const res = await fetchMyFriend(userId);
+
+      setUserList(res?.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleDeleteFriend = async (friendId) => {
+    try {
+      await fetchDeleteFriend(userId, friendId);
+
+      setRefreshKey(!refreshKey);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleOnFavorite = async (friendId) => {
+    try {
+      await fetchOnFavorite(userId, friendId);
+
+      setRefreshKey(!refreshKey);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <ContactListWrap>
-      {data.map((user) => {
+      {userList.map((user) => {
         return (
-          <ContactListBox>
+          <ContactListBox key={user.id}>
             <ContactProfileBox>
-              <ProfileImg src={profileImg} />
+              <ProfileImg src={user.profile} />
             </ContactProfileBox>
             <ContactUserInfoBox>
-              <ContactUserInfo>동양미래대학교</ContactUserInfo>
-              <ContactUserInfo>{user.name}</ContactUserInfo>
+              <ContactUserInfo>{user.username}</ContactUserInfo>
             </ContactUserInfoBox>
             <ButtonBox>
               <Button
@@ -110,18 +147,16 @@ const RecentContacts = () => {
               >
                 <AiOutlineCalendar style={{ color: "#fff" }} />
               </Button>
-              <Button>
+              <Button onClick={() => handleDeleteFriend(user.id)}>
                 <TiUserDelete style={{ color: "#fff" }} />
               </Button>
               <Button
-                onClick={() => {
-                  setHeart(!heart);
-                }}
+                onClick={() => handleOnFavorite(user.id)}
               >
-                {heart ? (
-                  <HiHeart style={{ width: "12px" }} />
+                {user.favorite ? (
+                  <HiHeart style={{ width: "14px" }} />
                 ) : (
-                  <HiOutlineHeart style={{ width: "12px" }} />
+                  <HiOutlineHeart style={{ width: "14px" }} />
                 )}
               </Button>
             </ButtonBox>
