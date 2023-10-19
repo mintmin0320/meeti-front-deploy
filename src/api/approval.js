@@ -3,22 +3,13 @@ import axios from 'axios';
 // constants
 import {
   APPROVAL_LIST,
-  APPROVAL_REQUEST,
-  APPROVAL_REJECT,
-  ADD_APPROVAL_REQUEST
+  DECISION_APPROVAL,
+  ADD_APPROVAL_REQUEST,
+  ADMIN_LIST
 } from '../constants/urls/approval';
 
-// 결재 등록
-export const fetchAddRequest = (userId, data) => {
-  try {
-    return axios.post(`${ADD_APPROVAL_REQUEST}/${userId}`, data);
-  } catch (error) {
-    throw error;
-  }
-};
-
-// 결재 - 결재 요청 목록
-export const fetchGetApprovalList = (userId) => {
+// 결재 대기 리스트
+export const fetchApprovalList = (userId) => {
   try {
     return axios.get(`${APPROVAL_LIST}/${userId}`);
   } catch (error) {
@@ -26,21 +17,29 @@ export const fetchGetApprovalList = (userId) => {
   }
 };
 
-// 결재 - 결재 승인
-export const fetchApprovalRequest = (userId) => {
+// 결재 담당자 리스트
+export const fetchAdminList = (userId) => {
   try {
-    return axios.get(`${APPROVAL_REQUEST}/${userId}`);
+    return axios.get(`${ADMIN_LIST}/${userId}`);
   } catch (error) {
     throw error;
   }
 };
 
-// 결재 - 결재 거절
-export const fetchRejectRequest = (userId) => {
+// 결재 요청 등록
+export const fetchAddApproval = (userId, formData) => {
   try {
-    return axios.get(`${APPROVAL_REJECT}/${userId}`);
+    return axios.post(`${ADD_APPROVAL_REQUEST}/${userId}`, formData);
   } catch (error) {
     throw error;
   }
 };
 
+// 결재 결정
+export const fetchDecisionApproval = (approvalId, data) => {
+  try {
+    return axios.get(`${DECISION_APPROVAL}/${approvalId}`, data);
+  } catch (error) {
+    throw error;
+  }
+};
