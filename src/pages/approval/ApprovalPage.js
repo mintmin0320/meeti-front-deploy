@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import ApprovalCom from "../../components/approval/ApprovalCom";
+import ApprovalWrite from "../../components/approval/ApprovalWrite";
 
 // bg-color
 import color from "./../../assets/color.png";
@@ -14,14 +14,16 @@ import {
   LeftSection
 } from '../../styles/CommonStyles';
 import Header from '../../common/Header';
+import ReqApprovalList from '../../components/approval/ReqApprovalList';
 
-const Title = styled.div`
+const Title = styled.p`
+  height: 30px;
   font-size: 20px;
-  margin-top: 20px;
+  margin-top: 30px;
   margin-bottom: 5px;
 `;
 
-const Last = styled.div`
+const RightSection = styled.section`
   width: 60vw;
   height: 340px;
   border-radius: 20px;
@@ -36,11 +38,11 @@ const ApprovalPage = () => {
         <Header />
         <LeftSection>
           <Title>승인요청</Title>
-          <p>Request Approval</p>
+          <ReqApprovalList />
         </LeftSection>
-        <Last>
-          <ApprovalCom />
-        </Last>
+        <RightSection>
+          <ApprovalWrite />
+        </RightSection>
       </MainSection>
     </Container>
   );
