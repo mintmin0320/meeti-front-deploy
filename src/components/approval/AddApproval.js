@@ -4,7 +4,6 @@ import styled from "styled-components";
 // icons
 import { FaRegPaperPlane } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
-import { fetchAddRequest } from '../../api/approval';
 
 const TitleBox = styled.div`
   width: 100%;
@@ -109,64 +108,30 @@ const Textarea = styled.textarea`
   border-radius: 8px;
 `;
 
-const SubmitButton = styled.div`
+const SubmitButton = styled.button`
   width: 111px;
   height: 33px;
-  background: #8165df;
-  border-radius: 3px;
-  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  border: none;
+  border-radius: 3px;
+  background: #8165df;
   color: #ffffff;
   margin-top: 20px;
   margin-left: 8px;
+  cursor: pointer;
 `;
 
-const ApprovalCom = () => {
-  const userId = localStorage.getItem("userId");
-  const formData = new FormData();
-  const [approvalForm, setApprovalForm] = useState({
-    file: '',
-    request: '',
-    proceeding: '',
-  })
-
+const AddApproval = ({
+  adminList,
+  handleAdminName,
+  handleImgUpload,
+  handleSubmit,
+  handleChange,
+}) => {
   const InputRef = useRef(null);
-  const data = [
-    { name: "하민", content: "3월 31일날 미팅하려고" },
-    { name: "하민", content: "3월 31일날 미팅하려고" },
-    { name: "하민", content: "3월 31일날 미팅하려고" },
-    { name: "하민", content: "3월 31일날 미팅하려고" },
-    { name: "하민", content: "3월 31일날 미팅하려고" },
-    { name: "하민", content: "3월 31일날 미팅하려고" },
-  ];
-
-  // 파일 업로드
-  const handleImgUpload = async (e) => {
-    if (!e.target.files) {
-      return;
-    }
-
-    setApprovalForm((prevState) => ({
-      ...prevState,
-      file: e.target.files[0],
-    }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    formData.append("request", approvalForm.request);
-    formData.append("proceeding", approvalForm.proceeding);
-    formData.append("file", approvalForm.file);
-
-    try {
-      fetchAddRequest(userId, formData);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const [isSelected, setIsSelected] = useState(null);
 
   return (
     <form onSubmit={handleSubmit}>
@@ -176,11 +141,21 @@ const ApprovalCom = () => {
       </TitleBox>
       <InfoTitle>결재자 선택</InfoTitle>
       <UserInfoBox>
-        {data.map((item) => (
+        {adminList.map((item, index) => (
           <UserInfo
-            key={item.name}
+            key={item?.id}
+            type='button'
+            style={
+              index === isSelected ? {
+                backgroundColor: "#8165df", color: "#fff"
+              } : {}
+            }
+            onClick={() => {
+              handleAdminName(item?.username);
+              setIsSelected(index);
+            }}
           >
-            {item.name}
+            {item?.username}
           </UserInfo>
         ))}
       </UserInfoBox>
@@ -199,7 +174,7 @@ const ApprovalCom = () => {
         />
       </FileUpdateBox>
       <InfoTitle>기타</InfoTitle>
-      <Textarea />
+      <Textarea name='request' onChange={handleChange} />
       <SubmitButton>
         <FaRegPaperPlane style={{ color: "#ffffff", marginRight: "10px" }} />
         전송하기
@@ -208,4 +183,4 @@ const ApprovalCom = () => {
   );
 };
 
-export default ApprovalCom;
+export default AddApproval;
