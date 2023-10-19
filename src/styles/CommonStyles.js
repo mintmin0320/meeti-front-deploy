@@ -35,3 +35,10 @@ export const LeftSection = styled.section`
   width: 30%;
   z-index: 3;
 `;
+
+// 컨텐츠 헤더 옆 우측 섹션
+export const RightSection = styled.section`
+  width: 60vw;
+  height: 100%;
+  border-radius: 20px;
+`;

@@ -1,5 +1,4 @@
 import React, { useState, useCallback, useEffect } from "react";
-import styled from "styled-components";
 
 import AddApproval from "../../components/approval/AddApproval";
 
@@ -9,14 +8,6 @@ import color from "./../../assets/color.png";
 import Header from '../../common/Header';
 import ApprovalRequestList from '../../components/approval/ApprovalRequestList';
 
-// styles
-import {
-  Container,
-  BackColor,
-  MainSection,
-  LeftSection
-} from '../../styles/CommonStyles';
-
 // apis
 import {
   fetchApprovalList,
@@ -25,19 +16,15 @@ import {
   fetchDecisionApproval
 } from '../../api/approval';
 
-const Title = styled.p`
-  height: 30px;
-  font-size: 20px;
-  margin-top: 30px;
-  margin-bottom: 5px;
-`;
-
-const RightSection = styled.section`
-  width: 60vw;
-  height: 340px;
-  border-radius: 20px;
-  z-index: 3;
-`;
+// styles
+import * as S from './ApprovalPage.style';
+import {
+  Container,
+  BackColor,
+  MainSection,
+  LeftSection,
+  RightSection
+} from '../../styles/CommonStyles';
 
 const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB
 
@@ -175,7 +162,7 @@ const ApprovalPage = () => {
         <BackColor src={color} style={{ opacity: 0.2 }} />
         <Header />
         <LeftSection>
-          <Title>승인요청</Title>
+          <S.TitleText>승인요청</S.TitleText>
           <ApprovalRequestList
             approvalList={approvalList}
             handleDecisionApproval={handleDecisionApproval}
