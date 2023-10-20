@@ -14,7 +14,7 @@ export const OfficeItem = styled.div`
 
 export const OfficeImgBox = styled.div`
   width: 40%;
-  height: 100%;
+  height: 120px;
   display: flex;
   justify-content: center;
   align-items: center;
