@@ -10,7 +10,6 @@ const ApprovalRequestList = ({
 }) => {
   const [decision, setDecision] = useState('');
 
-  console.log(approvalList);
   return (
     <S.ApprovalListWrap>
       {approvalList.map((item) => (

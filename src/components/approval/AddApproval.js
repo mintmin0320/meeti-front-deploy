@@ -7,8 +7,6 @@ import { HiOutlineMail } from "react-icons/hi";
 // styles
 import * as S from './styles/AddApproval.style';
 
-
-
 const AddApproval = ({
   adminList,
   handleAdminName,
