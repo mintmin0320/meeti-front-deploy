@@ -38,7 +38,7 @@ export const fetchAddApproval = (userId, formData) => {
 // 결재 결정
 export const fetchDecisionApproval = (approvalId, data) => {
   try {
-    return axios.get(`${DECISION_APPROVAL}/${approvalId}`, data);
+    return axios.post(`${DECISION_APPROVAL}/${approvalId}`, data);
   } catch (error) {
     throw error;
   }
