@@ -19,7 +19,11 @@ const ApprovalRequestList = ({
           <S.FileBox>
             <a href={item?.requestFile}>첨부파일</a>
           </S.FileBox>
-          <S.Form onSubmit={(e) => handleDecisionApproval(e, item?.id, decision)}>
+          <S.Form onSubmit={(e) => {
+            handleDecisionApproval(item?.id, decision);
+            e.preventDefault()
+          }
+          }>
             <S.DetailDecisionTextarea
               name='decisionDetail'
               onChange={handleChange}

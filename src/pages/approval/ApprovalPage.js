@@ -69,8 +69,7 @@ const ApprovalPage = () => {
   };
 
   // 승인 결정
-  const handleDecisionApproval = async (e, approvalId, decision) => {
-    e.preventDefault();
+  const handleDecisionApproval = async (approvalId, decision) => {
     const data = {
       decisionDetail: decisionForm.decisionDetail,
       decision,
