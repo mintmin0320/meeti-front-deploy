@@ -17,13 +17,13 @@ import {
 } from '../../api/approval';
 
 // styles
-import * as S from './ApprovalPage.style';
 import {
   Container,
   BackColor,
   MainSection,
   LeftSection,
-  RightSection
+  RightSection,
+  TitleText,
 } from '../../styles/CommonStyles';
 
 const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB
@@ -167,7 +167,7 @@ const ApprovalPage = () => {
         <BackColor src={color} style={{ opacity: 0.2 }} />
         <Header />
         <LeftSection>
-          <S.TitleText>승인요청</S.TitleText>
+          <TitleText>승인요청</TitleText>
           <ApprovalRequestList
             approvalList={approvalList}
             handleDecisionApproval={handleDecisionApproval}

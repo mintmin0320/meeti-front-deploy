@@ -40,5 +40,25 @@ export const LeftSection = styled.section`
 export const RightSection = styled.section`
   width: 60vw;
   height: 100%;
-  border-radius: 20px;
+`;
+
+// 페이지 타이틀
+export const TitleText = styled.p`
+  height: 30px;
+  font-size: 20px;
+  margin-top: 30px;
+  margin-bottom: 5px;
+`;
+
+// 좌측 단일 메뉴 wrap
+export const OfficeListWrap = styled.div`
+  width: 90%;
+  height: calc(100% - 70px);
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
