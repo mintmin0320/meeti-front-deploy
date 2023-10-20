@@ -68,25 +68,9 @@ const ApprovalPage = () => {
     }
   };
 
-  // 승인 결정
-  const handleDecisionApproval = async (approvalId, decision) => {
-    const data = {
-      decisionDetail: decisionForm.decisionDetail,
-      decision,
-    };
-
-    try {
-      await fetchDecisionApproval(approvalId, data);
-      setRefreshKey(!refreshKey);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const handleChange = useCallback((e) => {
     const { name, value } = e.target;
 
-    console.log(name, value);
     if (name === 'request') {
       setApprovalForm((prevState) => ({
         ...prevState,
@@ -99,6 +83,22 @@ const ApprovalPage = () => {
       }));
     }
   }, []);
+
+  // 승인 결정
+  const handleDecisionApproval = async (approvalId, decision) => {
+    const data = {
+      decisionDetail: decisionForm.decisionDetail,
+      decision,
+    };
+
+    try {
+      alert('정상 처리되었습니다.');
+      await fetchDecisionApproval(approvalId, data);
+      setRefreshKey(!refreshKey);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   /*
     결재 요청 등록 로직
@@ -151,7 +151,11 @@ const ApprovalPage = () => {
     formData.append("file", approvalForm.file);
 
     try {
+      alert('승인 요청 전송!');
+
       await fetchAddApproval(userId, formData);
+      setDecisionForm(prevState => ({ ...prevState, request: '' }));
+      getAdminList();
     } catch (error) {
       console.log(error);
     }
