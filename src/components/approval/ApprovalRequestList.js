@@ -28,13 +28,13 @@ const ApprovalRequestList = ({
             <S.SubmitButtonBox>
               <S.SubmitButton
                 style={{ backgroundColor: '#01DF01' }}
-                onClick={setDecision("CONFIRM")}
+                onClick={() => setDecision("CONFIRM")}
               >
                 승인
               </S.SubmitButton>
               <S.SubmitButton
                 style={{ backgroundColor: '#FE2E2E' }}
-                onClick={setDecision("REJECT")}
+                onClick={() => setDecision("REJECT")}
               >
                 반려
               </S.SubmitButton>
