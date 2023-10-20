@@ -158,15 +158,6 @@ const ApprovalPage = () => {
     }
   };
 
-  const data = [
-    { name: "하민1", content: "3월 31일날 미팅하려고" },
-    { name: "하민2", content: "3월 31일날 미팅하려고" },
-    { name: "하민3", content: "3월 31일날 미팅하려고" },
-    { name: "하민4", content: "3월 31일날 미팅하려고" },
-    { name: "하민5", content: "3월 31일날 미팅하려고" },
-    { name: "하민6", content: "3월 31일날 미팅하려고" },
-  ];
-
   return (
     <Container>
       <MainSection className="MainDiv">
@@ -175,7 +166,7 @@ const ApprovalPage = () => {
         <LeftSection>
           <S.TitleText>승인요청</S.TitleText>
           <ApprovalRequestList
-            approvalList={data}
+            approvalList={approvalList}
             handleDecisionApproval={handleDecisionApproval}
             handleChange={handleChange}
           />
