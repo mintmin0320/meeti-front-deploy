@@ -21,7 +21,7 @@ export const fetchGetOfficeList = () => {
 };
 
 // 예약한 공유 오피스 조회
-export const fetchGetMyOfficeList = (userId) => {
+export const fetchReservationList = (userId) => {
   try {
     return axios.get(`${READ_MY_OFFICE_LIST}/${userId}`);
   } catch (error) {
