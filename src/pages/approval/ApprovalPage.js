@@ -70,13 +70,13 @@ const ApprovalPage = () => {
 
   // 승인 결정
   const handleDecisionApproval = async (approvalId, decision) => {
-    setDecisionForm({
-      ...decisionForm,
+    const data = {
+      decisionDetail: decisionForm.decisionDetail,
       decision,
-    });
+    };
 
     try {
-      await fetchDecisionApproval(approvalId, decisionForm);
+      await fetchDecisionApproval(approvalId, data);
       setRefreshKey(!refreshKey);
     } catch (error) {
       console.log(error);
@@ -86,6 +86,7 @@ const ApprovalPage = () => {
   const handleChange = useCallback((e) => {
     const { name, value } = e.target;
 
+    console.log(name, value);
     if (name === 'request') {
       setApprovalForm((prevState) => ({
         ...prevState,
@@ -156,6 +157,15 @@ const ApprovalPage = () => {
     }
   };
 
+  const data = [
+    { name: "하민1", content: "3월 31일날 미팅하려고" },
+    { name: "하민2", content: "3월 31일날 미팅하려고" },
+    { name: "하민3", content: "3월 31일날 미팅하려고" },
+    { name: "하민4", content: "3월 31일날 미팅하려고" },
+    { name: "하민5", content: "3월 31일날 미팅하려고" },
+    { name: "하민6", content: "3월 31일날 미팅하려고" },
+  ];
+
   return (
     <Container>
       <MainSection className="MainDiv">
@@ -164,7 +174,7 @@ const ApprovalPage = () => {
         <LeftSection>
           <S.TitleText>승인요청</S.TitleText>
           <ApprovalRequestList
-            approvalList={approvalList}
+            approvalList={data}
             handleDecisionApproval={handleDecisionApproval}
             handleChange={handleChange}
           />
