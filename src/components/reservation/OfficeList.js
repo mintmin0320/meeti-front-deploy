@@ -16,125 +16,139 @@ import {
   fetchClassificationOffice
 } from '../../api/reservation';
 
+const officeList = [
+  {
+    id: 1,
+    image: "https://via.placeholder.com/150",
+    address: "서울특별시 강남구",
+    addressDetail: "테헤란로 1",
+    pay: 50000,
+    status: true,
+    placeName: "서울 사무실 1",
+    telNum: "02-1234-5678"
+  },
+  {
+    id: 2,
+    image: "https://via.placeholder.com/150",
+    address: "서울특별시 중구",
+    addressDetail: "명동길 2",
+    pay: 45000,
+    status: false,
+    placeName: "서울 사무실 2",
+    telNum: "02-8765-4321"
+  },
+  {
+    id: 3,
+    image: "https://via.placeholder.com/150",
+    address: "부산광역시 해운대구",
+    addressDetail: "해운대로 3",
+    pay: 55000,
+    status: true,
+    placeName: "부산 사무실",
+    telNum: "051-4567-8910"
+  },
+  {
+    id: 4,
+    image: "https://via.placeholder.com/150",
+    address: "대구광역시 중구",
+    addressDetail: "중앙대로 4",
+    pay: 49000,
+    status: false,
+    placeName: "대구 사무실",
+    telNum: "053-1234-5678"
+  },
+  {
+    id: 5,
+    image: "https://via.placeholder.com/150",
+    address: "인천광역시 연수구",
+    addressDetail: "송도동 5",
+    pay: 52000,
+    status: true,
+    placeName: "인천 사무실",
+    telNum: "032-9876-5432"
+  },
+  {
+    id: 6,
+    image: "https://via.placeholder.com/150",
+    address: "광주광역시 서구",
+    addressDetail: "첨단로 6",
+    pay: 48000,
+    status: false,
+    placeName: "광주 사무실",
+    telNum: "062-4567-8910"
+  }
+];
+
 // styles
-const Header = styled.div`
+const MenuBox = styled.div`
+  width: 100%;
+  height: 85px;
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
 `;
 
-const HeaderLeft = styled.div`
-  display: flex;
+const SearchWrap = styled.div`
   width: 90%;
+  height: 100%;
+  display: flex;
+  align-items: center;
 `;
 
-const HeadTitle = styled.div`
+const PageTitle = styled.p`
+  height: 100%;
+  display: flex;
+  align-items: center;
   color: #6f5cea;
-  font-size: 14px;
-  margin-top: 30px;
-  margin-left: -10px;
+  font-size: 15px;
 `;
 
-const RoomDiv = styled.div`
+const SearchBox = styled.div`
   width: 100%;
-  height: 150px;
+  height: 100%;
   display: flex;
-  height: 87px;
-  margin: 10px;
+  justify-content: space-around;
+  align-items: center;
 `;
 
-const RoomImgDiv = styled.div`
-  width: 25%;
+const SearchInput = styled.input`
+  width: 80%;
+  height: 28px;
+  border-radius: 30px;
+  padding-left: 15px;
+  border: 1px solid #8165df;
 `;
 
-const RoomImg = styled.img`
-  width: 140px;
-  height: 87px;
-  margin: 10px;
+const SearchButton = styled.button`
+  width: 35px;
+  height: 35px;
+  color: #6f5cea;
+  border: none;
+  background: #f0ebfa;
+  border-radius: 50%;
+  margin-left: -15px;
+  cursor: pointer;
 `;
 
-const RoomArrayClass = styled.div`
-  display: flex;
+// 지역별 분류
+const AreaClassification = styled.div`
+  width: 95%;
+  height: 80px;
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(8, 1fr);
   margin-left: 20px;
 `;
 
-const RoomArrayList = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const RoomContents = styled.div`
-  display: flex;
-  flex-direction: row;
+const AreaButton = styled.div`
   width: 100%;
-  height: 87px;
-  justify-content: space-between;
-`;
-
-const RoomTitleDiv = styled.div`
+  height: 100%;
   display: flex;
-  flex-direction: column;
-  margin-left: 50px;
-  height: 87px;
-  margin: 10px;
-`;
-
-const RoomTitle = styled.div`
-  font-size: 14px;
-  font-style: border;
-  display: flex;
-  flex-direction: row;
-  margin: 3px;
-`;
-
-const ButtonsDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-right: 50px;
   justify-content: center;
-`;
-
-const OfficeReservationBtn = styled.div`
-  width: 61px;
-  height: 18px;
-  background: #8165df;
-  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 5px;
-  font-size: 10px;
-  justify-content: center;
-  margin: 5px;
-  color: #ffffff;
-  cursor: pointer;
-  display: flex;
   align-items: center;
-`;
-
-const RoomCallButton = styled.div`
-  width: 61px;
-  height: 18px;
-  background: #ffffff;
-  border: 0.5px solid #535571;
-  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 5px;
-  font-size: 10px;
-  justify-content: center;
-  margin: 5px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-`;
-
-const SubOption = styled.div`
-  margin: 3px;
-  padding: 2px;
-  padding-left: 6px;
-  padding-right: 6px;
   background: #f8f8f8;
   border: 1px solid #8165df;
-  border-radius: 50px;
-  width: auto;
-  height: 15px;
-  font-size: 10px;
+  font-size: 13px;
+  font-weight: 700;
   color: #8165df;
   text-align: center;
   cursor: pointer;
@@ -146,243 +160,249 @@ const SubOption = styled.div`
   `}
 `;
 
-const SubOptionArea = styled.div`
-  margin: 3px;
-  padding: 2px;
-  padding-left: 6px;
-  padding-right: 6px;
-  background: #f8f8f8;
-  border: 1px solid #8165df;
-  border-radius: 50px;
-  width: 36px;
-  margin-top: 0px;
-  height: 15px;
-  font-size: 10px;
-  color: #8165df;
-  text-align: center;
-`;
-
-const SubOptionsDiv = styled.div`
+const OfficeItem = styled.div`
+  width: 100%;
+  height: 120px;
   display: flex;
-  flex-direction: row;
+  margin: 10px;  
+  border-bottom: solid 1px #E6E6E6;
 `;
 
-const StatusTextRed = styled.div`
-  color: red;
-  font-size: 12px;
+const OfficeImgBox = styled.div`
+  width: 25%;
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
-const StatusTextGreen = styled.div`
-  color: green;
-  font-size: 12px;
+// 오피스 이미지
+const OfficeImg = styled.img`
+  width: 140px;
+  height: 80px;
 `;
 
-const PayText = styled.div`
+const OfficeInfoWrap = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const OfficeInfoBox = styled.div`
+  width: 75%;
+  height: 95%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+`;
+
+const PlaceName = styled.p`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
   color: #535571;
-  font-size: 12px;
+  font-size: 14px;
+`;
+
+const AreaName = styled.p`
+  width: 100px;
+  height: 15px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #8165df;
+  background: #f8f8f8;
+`;
+
+const PayText = styled.p`
+  color: #535571;
+  font-size: 13px;
   &::before {
     content: "💰";
   }
   margin: 3px;
 `;
 
-const RoomSubTitle = styled.div`
-  color: #535571;
+const OfficeStatus = styled.div`
+  color: red;
   font-size: 12px;
 `;
 
-const AddButton = styled.div`
-  width: 32px;
-  height: 32px;
-  background: #f0ebfa;
+// 아이템 좌측 버튼 box
+const TooltipBox = styled.div`
+  width: 15%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+`;
+
+const ReservationTooltipButton = styled.button`
+  width: 65px;
+  height: 26px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  border: none;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
+  margin: 5px;
+  font-size: 12px;
+  background: #8165df;
   cursor: pointer;
-  color: #6f5cea;
+  `;
+
+const TelNumTooltipButton = styled.button`
+  width: 65px;
+  height: 26px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0.5px solid #535571;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  font-size: 12px;
+  margin: 5px;
+  background: #ffffff;
+  cursor: pointer;
+`;
+
+// 오피스 리스트
+const OfficeListBox = styled.div`
+  width: 100%;
+  height: calc(100% - 180px);
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+const AddButton = styled.button`
+  width: 35px;
+  height: 35px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 30px;
-  margin-right: 50px;
-`;
-
-const SearchDiv = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  width: 100%;
-  align-items: center;
-`;
-
-const SearchInput = styled.input`
-  width: 80%;
-  height: 28px;
-  border: 1px solid #8165df;
-  border-radius: 30px;
-  padding-left: 15px;
-`;
-
-const SearchButton = styled.button`
-  background: #f0ebfa;
-  width: 32px;
-  height: 32px;
-  color: #6f5cea;
+  margin: auto;
   border: none;
+  border-radius: 5px;
+  color: #6f5cea;
+  background: #f0ebfa;
   cursor: pointer;
-  margin-left: -15px;
-  border-radius: 50%;
 `;
 
-const RoomCom = () => {
+const OfficeList = () => {
   const areaArr = ["전체", "중구", "동대문구", "용산구", "광진구", "마포구", "종로구", "강북구", "서초구", "양천구", "동작구", "구로구", "노원구", "중랑구", "영등포구",];
   const [isOpen, setIsOpen] = useState(true);
-  const [officeList, setOfficeList] = useState([]);
-  const [search, setSearch] = useState("");
 
-  useEffect(() => {
-    getOfficeData();
-  }, []);
 
-  const handleOnClick = async (address) => {
-    if (address === "전체") {
-      getOfficeData();
-
-      return;
-    }
-
-    try {
-      const res = await fetchClassificationOffice(address);
-      setOfficeList(res.data);
-    } catch (error) {
-      alert(error);
-    }
-  };
-
-  const handleOnClickBtn = () => {
-    if (search === "") {
-      alert("검색어를 입력해 주세요!");
-    } else {
-      getSearchData();
-    }
-  };
-
-  const getSearchData = async () => {
-    try {
-      const res = await fetchSearchOffice(search);
-      setOfficeList(res.data);
-    } catch (error) {
-      alert(error);
-    }
-  };
-
-  const getOfficeData = async () => {
-    try {
-      const res = await fetchGetOfficeList();
-
-      if (!res.data || res.data.length === 0) {
-        setOfficeList([]);
-
-        return;
-      }
-
-      setOfficeList(res.data);
-    } catch (error) {
-      alert(error);
-    }
-  };
 
   const Classification = () => {
     return (
-      <RoomArrayClass>
+      <AreaClassification>
         {areaArr.map((item) =>
-          <SubOption
+          <AreaButton
             key={item}
-            onClick={() => handleOnClick(item)}
+          // onClick={() => handleOnClick(item)}
           >
             {item}
-          </SubOption>
+          </AreaButton>
         )}
-      </RoomArrayClass>
+      </AreaClassification>
     );
   };
 
   const Card = () => {
     return (
-      <RoomArrayList>
+      <OfficeListBox>
         {officeList.map((office) => (
-          <RoomDiv key={office.id}>
-            <RoomImgDiv>
-              <RoomImg src={office.image} alt="이미지 없음" />
-            </RoomImgDiv>
-            <RoomContents>
-              <RoomTitleDiv>
-                <SubOptionArea>{office.address}</SubOptionArea>
-                <RoomTitle>{office.addressDetail}</RoomTitle>
-                <PayText>₩ {office.pay}원</PayText>
+          <OfficeItem key={office.id}>
+            <OfficeImgBox>
+              <OfficeImg src={office.image} alt="이미지 없음" />
+            </OfficeImgBox>
+            <OfficeInfoWrap>
+              <OfficeInfoBox>
+                <PlaceName>{office.placeName}</PlaceName>
+                <AreaName>{office.address}</AreaName>
+                <PayText>{office.pay}원</PayText>
                 {office.status ? (
-                  <StatusTextGreen>🟢 대여가능</StatusTextGreen>
+                  <OfficeStatus style={{ color: 'green' }}>
+                    🟢 대여가능
+                  </OfficeStatus>
                 ) : (
-                  <StatusTextRed>🔴 대여완료</StatusTextRed>
+                  <OfficeStatus style={{ color: 'red' }}>
+                    🔴 대여완료
+                  </OfficeStatus>
                 )}
-                <RoomSubTitle>{office.placeName}</RoomSubTitle>
-              </RoomTitleDiv>
-              <ButtonsDiv>
+              </OfficeInfoBox>
+              <TooltipBox>
                 <Link
                   to="/reservation/detail"
                   state={{ officeId: office.id }}
                   style={{ textDecoration: "none" }}
                 >
-                  <OfficeReservationBtn>예약하기</OfficeReservationBtn>
+                  <ReservationTooltipButton>예약하기</ReservationTooltipButton>
                 </Link>
-                <RoomCallButton
+                <TelNumTooltipButton
                   onClick={() => {
                     alert(`${office.telNum}`);
                   }}
                 >
                   전화하기
-                </RoomCallButton>
-              </ButtonsDiv>
-            </RoomContents>
-          </RoomDiv>
+                </TelNumTooltipButton>
+              </TooltipBox>
+            </OfficeInfoWrap>
+          </OfficeItem>
         ))}
-      </RoomArrayList>
+      </OfficeListBox>
     );
   };
 
   return (
     <>
-      <Header>
-        <HeaderLeft>
+      <MenuBox>
+        <SearchWrap>
           <RiMapPinLine className="true" style={{ padding: "0" }} />
-          <HeadTitle>Reservation</HeadTitle>
+          <PageTitle>Reservation</PageTitle>
           {isOpen && (
-            <SearchDiv>
-              <SearchInput onChange={e => setSearch(e.target.value)} />
-              <SearchButton onClick={() => handleOnClickBtn()}>
-                <BiSearch />
+            <SearchBox>
+              <SearchInput />
+              <SearchButton>
+                <BiSearch size='20px' />
               </SearchButton>
-            </SearchDiv>
+            </SearchBox>
           )}
-        </HeaderLeft>
+        </SearchWrap>
         <AddButton
           onClick={() => {
             setIsOpen(!isOpen);
           }}
         >
-          {isOpen ? <AiOutlinePlusCircle /> : <AiOutlineUnorderedList />}
+          {isOpen ?
+            <AiOutlinePlusCircle size='20px' />
+            :
+            <AiOutlineUnorderedList size='20px' />}
         </AddButton>
-      </Header>
+      </MenuBox>
       {isOpen ? (
         <>
           <Classification />
           <Card />
         </>
       ) : (
-        <RoomArrayList>
+        <OfficeListBox>
           <ReservationAdd />
-        </RoomArrayList>
+        </OfficeListBox>
       )}
     </>
   );
 };
 
-export default RoomCom;
+export default OfficeList;
