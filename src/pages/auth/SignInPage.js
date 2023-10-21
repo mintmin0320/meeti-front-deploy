@@ -71,7 +71,7 @@ const SignupLink = styled(Link)`
   color: #8165df;
   text-align: left;
   padding-left: 10px;
-  font-size: 0.2rem;
+  font-size: 1;
 `;
 
 const Input = styled.input`
