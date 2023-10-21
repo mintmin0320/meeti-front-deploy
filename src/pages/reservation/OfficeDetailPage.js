@@ -42,9 +42,9 @@ const OfficeDetailPage = () => {
   });
   const [date, setDate] = useState(new Date());
 
-  // useEffect(() => {
-  //   getDetailOfficeData();
-  // }, []);
+  useEffect(() => {
+    getDetailOfficeData();
+  }, []);
 
   // 오피스 상세 데이터
   const getDetailOfficeData = () => {
@@ -85,11 +85,11 @@ const OfficeDetailPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // if (!office.status) {
-    //   alert("아쉽지만 다음에 예약해 주세요!");
+    if (!office.status) {
+      alert("아쉽지만 다음에 예약해 주세요!");
 
-    //   return;
-    // }
+      return;
+    }
 
     const data = {
       officeId,

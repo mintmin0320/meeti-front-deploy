@@ -25,13 +25,13 @@ const ReservationPage = () => {
   const [officeList, setOfficeList] = useState([]);
   const [search, setSearch] = useState("");
 
-  // useEffect(() => {
-  //   // getReservationData();
-  // }, []);
+  useEffect(() => {
+    getReservationData();
+  }, []);
 
-  // useEffect(() => {
-  //   // getOfficeData();
-  // }, [officeList]);
+  useEffect(() => {
+    getOfficeData();
+  }, [officeList]);
 
   // 예약한 오피스 조회
   const getReservationData = async () => {
@@ -54,13 +54,14 @@ const ReservationPage = () => {
   };
 
   // 회의실 이름 검색
-  const handleSearchButton = () => {
+  const handleSearchOffice = () => {
     if (search === "") {
       alert("검색어를 입력해 주세요!");
     } else {
       try {
         const res = fetchSearchOffice();
         setOfficeList(res?.data);
+        setSearch('');
       } catch (error) {
         console.log(error);
       }
@@ -68,7 +69,7 @@ const ReservationPage = () => {
   };
 
   // 지역별 분류
-  const handleAreaButtonClick = async (address) => {
+  const handleAreaButton = async (address) => {
     if (address === "전체") {
       getOfficeData();
     } else {
@@ -104,8 +105,8 @@ const ReservationPage = () => {
         <RightSection>
           <OfficeList
             officeList={officeList}
-            handleSearchButton={handleSearchButton}
-            handleAreaButtonClick={handleAreaButtonClick}
+            handleSearchOffice={handleSearchOffice}
+            handleAreaButton={handleAreaButton}
             handleChange={handleChange}
           />
         </RightSection>

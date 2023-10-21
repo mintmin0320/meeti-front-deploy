@@ -1,83 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useNavigate } from 'react-router-dom';
 import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 
-import ReservationAdd from "./ReservationAdd";
-
 // icons
-import { AiOutlineUnorderedList, AiOutlinePlusCircle } from "react-icons/ai";
+import { AiOutlinePlusCircle } from "react-icons/ai";
 import { RiMapPinLine } from "react-icons/ri";
 import { BiSearch } from "react-icons/bi";
-
-// apis
-import {
-  fetchGetOfficeList,
-  fetchSearchOffice,
-  fetchClassificationOffice
-} from '../../api/reservation';
-
-const officeList = [
-  {
-    id: 1,
-    image: "https://via.placeholder.com/150",
-    address: "서울특별시 강남구",
-    addressDetail: "테헤란로 1",
-    pay: 50000,
-    status: true,
-    placeName: "서울 사무실 1",
-    telNum: "02-1234-5678"
-  },
-  {
-    id: 2,
-    image: "https://via.placeholder.com/150",
-    address: "서울특별시 중구",
-    addressDetail: "명동길 2",
-    pay: 45000,
-    status: false,
-    placeName: "서울 사무실 2",
-    telNum: "02-8765-4321"
-  },
-  {
-    id: 3,
-    image: "https://via.placeholder.com/150",
-    address: "부산광역시 해운대구",
-    addressDetail: "해운대로 3",
-    pay: 55000,
-    status: true,
-    placeName: "부산 사무실",
-    telNum: "051-4567-8910"
-  },
-  {
-    id: 4,
-    image: "https://via.placeholder.com/150",
-    address: "대구광역시 중구",
-    addressDetail: "중앙대로 4",
-    pay: 49000,
-    status: false,
-    placeName: "대구 사무실",
-    telNum: "053-1234-5678"
-  },
-  {
-    id: 5,
-    image: "https://via.placeholder.com/150",
-    address: "인천광역시 연수구",
-    addressDetail: "송도동 5",
-    pay: 52000,
-    status: true,
-    placeName: "인천 사무실",
-    telNum: "032-9876-5432"
-  },
-  {
-    id: 6,
-    image: "https://via.placeholder.com/150",
-    address: "광주광역시 서구",
-    addressDetail: "첨단로 6",
-    pay: 48000,
-    status: false,
-    placeName: "광주 사무실",
-    telNum: "062-4567-8910"
-  }
-];
 
 // styles
 const MenuBox = styled.div`
@@ -94,7 +23,7 @@ const SearchWrap = styled.div`
   align-items: center;
 `;
 
-const PageTitle = styled.p`
+const PageTitle = styled.h1`
   height: 100%;
   display: flex;
   align-items: center;
@@ -240,7 +169,7 @@ const TooltipBox = styled.div`
   align-items: flex-start;
 `;
 
-const ReservationTooltipButton = styled.button`
+const TooltipButton = styled.button`
   width: 65px;
   height: 26px;
   display: flex;
@@ -298,11 +227,14 @@ const AddButton = styled.button`
   cursor: pointer;
 `;
 
-const OfficeList = () => {
+const OfficeList = ({
+  officeList,
+  handleAreaButton,
+  handleSearchOffice,
+  handleChange,
+}) => {
   const areaArr = ["전체", "중구", "동대문구", "용산구", "광진구", "마포구", "종로구", "강북구", "서초구", "양천구", "동작구", "구로구", "노원구", "중랑구", "영등포구",];
-  const [isOpen, setIsOpen] = useState(true);
-
-
+  const navigator = useNavigate();
 
   const Classification = () => {
     return (
@@ -310,7 +242,7 @@ const OfficeList = () => {
         {areaArr.map((item) =>
           <AreaButton
             key={item}
-          // onClick={() => handleOnClick(item)}
+            onClick={() => handleAreaButton(item)}
           >
             {item}
           </AreaButton>
@@ -323,16 +255,16 @@ const OfficeList = () => {
     return (
       <OfficeListBox>
         {officeList.map((office) => (
-          <OfficeItem key={office.id}>
+          <OfficeItem key={office?.id}>
             <OfficeImgBox>
-              <OfficeImg src={office.image} alt="이미지 없음" />
+              <OfficeImg src={office?.image} alt="이미지 없음" />
             </OfficeImgBox>
             <OfficeInfoWrap>
               <OfficeInfoBox>
-                <PlaceName>{office.placeName}</PlaceName>
-                <AreaName>{office.address}</AreaName>
-                <PayText>{office.pay}원</PayText>
-                {office.status ? (
+                <PlaceName>{office?.placeName}</PlaceName>
+                <AreaName>{office?.address}</AreaName>
+                <PayText>{office?.pay}원</PayText>
+                {office?.status ? (
                   <OfficeStatus style={{ color: 'green' }}>
                     🟢 대여가능
                   </OfficeStatus>
@@ -348,7 +280,7 @@ const OfficeList = () => {
                   state={{ officeId: office.id }}
                   style={{ textDecoration: "none" }}
                 >
-                  <ReservationTooltipButton>예약하기</ReservationTooltipButton>
+                  <TooltipButton>예약하기</TooltipButton>
                 </Link>
                 <TelNumTooltipButton
                   onClick={() => {
@@ -371,36 +303,25 @@ const OfficeList = () => {
         <SearchWrap>
           <RiMapPinLine className="true" style={{ padding: "0" }} />
           <PageTitle>Reservation</PageTitle>
-          {isOpen && (
-            <SearchBox>
-              <SearchInput />
-              <SearchButton>
-                <BiSearch size='20px' />
-              </SearchButton>
-            </SearchBox>
-          )}
+          <SearchBox>
+            <SearchInput onChange={handleChange} />
+            <SearchButton
+              name='search'
+              onClick={handleSearchOffice}>
+              <BiSearch size='20px' />
+            </SearchButton>
+          </SearchBox>
         </SearchWrap>
         <AddButton
           onClick={() => {
-            setIsOpen(!isOpen);
+            navigator('/reservation/add-office');
           }}
         >
-          {isOpen ?
-            <AiOutlinePlusCircle size='20px' />
-            :
-            <AiOutlineUnorderedList size='20px' />}
+          <AiOutlinePlusCircle size='20px' />
         </AddButton>
       </MenuBox>
-      {isOpen ? (
-        <>
-          <Classification />
-          <Card />
-        </>
-      ) : (
-        <OfficeListBox>
-          <ReservationAdd />
-        </OfficeListBox>
-      )}
+      <Classification />
+      <Card />
     </>
   );
 };

@@ -138,25 +138,13 @@ const Info = styled.p`
 `;
 
 const ReservationDetail = ({
+  office,
   handleSubmit,
   date,
   setDate,
   handleChange,
   ExampleCustomInput
 }) => {
-
-  const office = {
-    id: 1,
-    image: "https://via.placeholder.com/150",
-    address: "서울특별시 강남구",
-    addressDetail: "테헤란로 1",
-    placeName: "서울 최고 사무실",
-    telNum: "02-1234-5678",
-    status: false,
-    pay: 5000,
-    description: "이 사무실은 테헤란로의 중심에 위치하며, 모든 편의 시설이 갖추어져 있습니다. 최대 10명까지 수용 가능하며, 예약이 많으니 빠른 예약을 권장합니다."
-  };
-
   return (
     <DetailWrap>
       <ReservationForm onSubmit={handleSubmit}>
