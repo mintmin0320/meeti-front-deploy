@@ -28,7 +28,7 @@ export const fetchAddOffice = (userId, formData) => {
 
 // 오피스 검색
 export const fetchSearchOffice = (placeName) => {
-  return axios.get(`${SEARCH_OFFICE}/${placeName}`);
+  return axios.get(`${SEARCH_OFFICE}/${placeName.search}`);
 };
 
 // 오피스 지역별 분류
