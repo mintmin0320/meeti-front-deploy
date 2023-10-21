@@ -150,7 +150,7 @@ const MainContacts = () => {
   const [refreshKey, setRefreshKey] = useState(false);
 
   useEffect(() => {
-    getFriendList();
+    // getFriendList();
   }, [refreshKey]);
 
   const getFriendList = async () => {

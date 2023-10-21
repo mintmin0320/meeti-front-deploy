@@ -52,7 +52,7 @@ const ContactsPage = () => {
     }
   };
 
-  // 즐겨찾기 등록/해제
+  // 연락처 삭제
   const handleDeleteContacts = async (friendId) => {
     try {
       await fetchDeleteContacts(userId, friendId);

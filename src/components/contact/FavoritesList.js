@@ -9,7 +9,7 @@ import { TiUserDelete } from "react-icons/ti";
 // apis
 import {
   fetchFavoriteList,
-  fetchDeleteFriend,
+  fetchDeleteContacts,
   fetchOnFavorite
 } from '../../api/contact';
 
@@ -99,7 +99,7 @@ const FavoritesList = () => {
   const [refreshKey, setRefreshKey] = useState(false);
 
   useEffect(() => {
-    getFriendList();
+    // getFriendList();
   }, [refreshKey]);
 
   const getFriendList = async () => {
@@ -114,7 +114,7 @@ const FavoritesList = () => {
 
   const handleDeleteFriend = async (friendId) => {
     try {
-      await fetchDeleteFriend(userId, friendId);
+      await fetchDeleteContacts(userId, friendId);
 
       setRefreshKey(!refreshKey);
     } catch (error) {
