@@ -1,4 +1,12 @@
 import React, { useState, useEffect } from "react";
+import styled from 'styled-components';
+
+// styles
+const MapBox = styled.div`
+  width: 49.5%;
+  height: 100%;
+  object-fit: cover;
+`;
 
 const Map = ({ placeName }) => {
   const [map, setMap] = useState(null);
@@ -62,7 +70,7 @@ const Map = ({ placeName }) => {
   }, [placeName]);
 
   return (
-    <div id="map" style={{ width: "100%", height: "100%" }}></div>
+    <MapBox id="map" style={{ width: "100%", height: "100%" }}></MapBox>
   );
 };
 
