@@ -57,13 +57,17 @@ const AddOfficePage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    formData.append("placeName", officeForm.placeName);
-    formData.append("pay", officeForm.pay);
-    formData.append("description", officeForm.description);
-    formData.append("address", officeForm.address);
-    formData.append("detailAddress", officeForm.detailAddress);
+    const data = {
+      placeName: officeForm.placeName,
+      pay: officeForm.pay,
+      detailAddress: officeForm.detailAddress,
+      address: officeForm.address,
+      description: officeForm.description,
+      telNum: officeForm.telNum,
+    };
+
     formData.append("image", officeForm.file);
-    formData.append("telNum", officeForm.telNum);
+    formData.append("officeRegDto", data);
 
     try {
       await fetchAddOffice(userId, formData);
