@@ -13,7 +13,7 @@ import {
   BackColor,
   MainSection,
 } from '../../styles/CommonStyles';
-import { fetchDetailOfficeData, fetchReservationOffice } from '../../api/reservation';
+import { fetchDetailOfficeData, fetchReservationOffice, fetchReservationPayment } from '../../api/reservation';
 
 const DetailSection = styled.section`
   width: 90%;
@@ -81,6 +81,23 @@ const OfficeDetailPage = () => {
     </div>
   ));
 
+  // 카카오페이 결제
+  const handlePayment = async () => {
+    const data = {
+      item_name: office.placeName,
+      item_code: officeId,
+      total_amount: office.pay
+    };
+
+    try {
+      const res = await fetchReservationPayment(data);
+      console.log(res);
+    } catch (error) {
+      alert('결제 실패')
+      console.log(error);
+    }
+  }
+
   // 예약
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -120,6 +137,7 @@ const OfficeDetailPage = () => {
             date={date}
             setDate={setDate}
             ExampleCustomInput={ExampleCustomInput}
+            handlePayment={handlePayment}
           />
         </DetailSection>
       </MainSection>

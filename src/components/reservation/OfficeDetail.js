@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import DatePicker from "react-datepicker";
 import { ko } from "date-fns/esm/locale";
@@ -139,8 +139,11 @@ const ReservationDetail = ({
   date,
   setDate,
   handleChange,
-  ExampleCustomInput
+  ExampleCustomInput,
+  handlePayment
 }) => {
+  const [isPayment, setIsPayment] = useState(false);
+
   return (
     <DetailWrap>
       <ReservationForm onSubmit={handleSubmit}>
@@ -185,6 +188,17 @@ const ReservationDetail = ({
               있습니다.
             </CautionText>
           </CautionBox>
+          <SubmitButton
+            type='button'
+            disabled={isPayment}
+            style={{ background: "#F7E600", color: "#000" }}
+            onClick={() => {
+              handlePayment();
+              setIsPayment(true);
+            }}
+          >
+            {!isPayment ? '카카오페이 결제' : '결제완료'}
+          </SubmitButton>
           <SubmitButton disabled={!office.status}>
             {office.status ? '예약하기' : '예약불가'}
           </SubmitButton>

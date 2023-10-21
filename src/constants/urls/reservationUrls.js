@@ -18,3 +18,6 @@ export const DETAIL_OFFICE_INFO = `/meeti/office/search`;
 
 // 대여 - 공유 오피스 예약
 export const RESERVATION_OFFICE = `/meeti/reservation/reg`;
+
+// 카카오페이 결제
+export const RESERVATION_PAYMENT = `/kakao/payment/ready`;

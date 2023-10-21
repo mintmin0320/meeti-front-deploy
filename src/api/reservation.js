@@ -8,7 +8,8 @@ import {
   CLASSIFICATION_AREA,
   DETAIL_OFFICE_INFO,
   RESERVATION_OFFICE,
-  SEARCH_OFFICE
+  SEARCH_OFFICE,
+  RESERVATION_PAYMENT
 } from '../constants/urls';
 
 // 공유 가능한 오피스 조회
@@ -44,4 +45,9 @@ export const fetchDetailOfficeData = (officeId) => {
 // 오피스 예약
 export const fetchReservationOffice = (userId, data) => {
   return axios.post(`${RESERVATION_OFFICE}/${userId}`, data);
+};
+
+// 예약 결제 (카카오페이)
+export const fetchReservationPayment = (data) => {
+  return axios.post(RESERVATION_PAYMENT, data);
 };

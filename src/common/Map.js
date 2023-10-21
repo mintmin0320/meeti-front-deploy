@@ -24,48 +24,41 @@ const Map = ({ placeName }) => {
     const places = new kakao.maps.services.Places();
     const geocoder = new kakao.maps.services.Geocoder();
 
-    places.keywordSearch(keyword, function (result, status) {
-      if (status === kakao.maps.services.Status.OK) {
-        const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+    places.keywordSearch(keyword, function (result) {
+      const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-        // 이 부분을 추가하여 지도의 중심을 마커의 좌표로 설정
-        map.setCenter(coords);
+      // 이 부분을 추가하여 지도의 중심을 마커의 좌표로 설정
+      map.setCenter(coords);
 
-        if (marker) {
-          marker.setMap(null);
-        }
-        if (infoWindow) {
-          infoWindow.close();
-        }
-
-        const newMarker = new kakao.maps.Marker({
-          map: map,
-          position: coords,
-        });
-        setMarker(newMarker);
-
-        // 도로명 주소 추출
-        geocoder.coord2Address(
-          coords.getLng(),
-          coords.getLat(),
-          function (addrResult, addrStatus) {
-            if (addrStatus === kakao.maps.services.Status.OK) {
-              var roadAddress = addrResult[0].road_address.address_name;
-
-              var newInfoWindow = new kakao.maps.InfoWindow({
-                content: `<div style="width:150px;text-align:center;padding:6px 0;">${roadAddress}</div>`,
-              });
-              newInfoWindow.open(map, newMarker);
-              setInfoWindow(newInfoWindow);
-            }
-          }
-        );
-      } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
-        console.log("검색 결과가 존재하지 않습니다. 주소를 다시 확인해주세요.");
-      } else {
-        console.error("Error status:", status);
-        console.log("키워드 검색 중 오류가 발생했습니다.");
+      if (marker) {
+        marker.setMap(null);
       }
+      if (infoWindow) {
+        infoWindow.close();
+      }
+
+      const newMarker = new kakao.maps.Marker({
+        map: map,
+        position: coords,
+      });
+      setMarker(newMarker);
+
+      // 도로명 주소 추출
+      geocoder.coord2Address(
+        coords.getLng(),
+        coords.getLat(),
+        function (addrResult, addrStatus) {
+          if (addrStatus === kakao.maps.services.Status.OK) {
+            var roadAddress = addrResult[0].road_address.address_name;
+
+            var newInfoWindow = new kakao.maps.InfoWindow({
+              content: `<div style="width:150px;text-align:center;padding:6px 0;">${roadAddress}</div>`,
+            });
+            newInfoWindow.open(map, newMarker);
+            setInfoWindow(newInfoWindow);
+          }
+        }
+      );
     });
   };
 
