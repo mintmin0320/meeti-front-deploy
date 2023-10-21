@@ -91,12 +91,18 @@ const OfficeDetailPage = () => {
 
     try {
       const res = await fetchReservationPayment(data);
-      console.log(res);
+
+      if (res && res.data && res.data.next_redirect_pc_url) {
+        window.location.href = res.data.next_redirect_pc_url;
+      } else {
+        alert('결제 정보를 받아오지 못했습니다.');
+      }
+
     } catch (error) {
-      alert('결제 실패')
+      alert('결제 과정 중 문제가 발생했습니다.');
       console.log(error);
     }
-  }
+  };
 
   // 예약
   const handleSubmit = async (e) => {
