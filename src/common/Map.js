@@ -30,19 +30,18 @@ const Map = ({ placeName }) => {
         });
         setMarker(newMarker);
 
-        var infowindow = new kakao.maps.InfoWindow({
-          content: `<div style="width:150px;text-align:center;padding:6px 0;">${result[0].place_name}</div>`,
-        });
-        infowindow.open(map, newMarker);
-        map.setCenter(coords);
-
-        // 도로명 주소 추출하기
+        // 도로명 주소 추출
         geocoder.coord2Address(
           coords.getLng(),
           coords.getLat(),
           function (addrResult, addrStatus) {
             if (addrStatus === kakao.maps.services.Status.OK) {
-              console.log("도로명 주소:", addrResult[0].road_address.address_name);
+              var roadAddress = addrResult[0].road_address.address_name;
+
+              var infowindow = new kakao.maps.InfoWindow({
+                content: `<div style="width:150px;text-align:center;padding:6px 0;">${roadAddress}</div>`,
+              });
+              infowindow.open(map, newMarker);
             }
           }
         );
@@ -65,7 +64,6 @@ const Map = ({ placeName }) => {
     const kakaoMap = new kakao.maps.Map(container, options);
     setMap(kakaoMap);
 
-    // placeName prop이 변경될 때마다 검색을 수행합니다.
     searchPlace(placeName);
   }, [placeName]);
 
