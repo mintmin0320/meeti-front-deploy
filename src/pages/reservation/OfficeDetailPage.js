@@ -95,7 +95,7 @@ const OfficeDetailPage = () => {
 
       if (res && res.data && res.data.next_redirect_pc_url) {
         setIsPayment(true);
-        window.location.href = res.data.next_redirect_pc_url;
+        window.open(res.data.next_redirect_pc_url, '_blank');
       } else {
         alert('결제 정보를 받아오지 못했습니다.');
       }
@@ -111,12 +111,6 @@ const OfficeDetailPage = () => {
     e.preventDefault();
 
     if (!isPayment) {
-      return;
-    }
-
-    if (!office.status) {
-      alert("아쉽지만 다음에 예약해 주세요!");
-
       return;
     }
 
