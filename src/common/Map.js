@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 // styles
 const MapBox = styled.div`
-  width: 49.5%;
+  width: 100%;
   height: 100%;
   object-fit: cover;
 `;
@@ -11,6 +11,7 @@ const MapBox = styled.div`
 const Map = ({ placeName }) => {
   const [map, setMap] = useState(null);
   const [marker, setMarker] = useState(null);
+  const [infoWindow, setInfoWindow] = useState(null);
 
   const { kakao } = window;
 
@@ -24,6 +25,11 @@ const Map = ({ placeName }) => {
         if (marker) {
           marker.setMap(null);
         }
+
+        if (infoWindow) {
+          infoWindow.close();
+        }
+
         const newMarker = new kakao.maps.Marker({
           map: map,
           position: coords,
@@ -38,10 +44,11 @@ const Map = ({ placeName }) => {
             if (addrStatus === kakao.maps.services.Status.OK) {
               var roadAddress = addrResult[0].road_address.address_name;
 
-              var infowindow = new kakao.maps.InfoWindow({
+              var newInfoWindow = new kakao.maps.InfoWindow({
                 content: `<div style="width:150px;text-align:center;padding:6px 0;">${roadAddress}</div>`,
               });
-              infowindow.open(map, newMarker);
+              newInfoWindow.open(map, newMarker);
+              setInfoWindow(newInfoWindow);
             }
           }
         );
@@ -54,7 +61,7 @@ const Map = ({ placeName }) => {
   };
 
   useEffect(() => {
-    if (!window.kakao) return;
+    if (!window.kakao || map) return;
 
     const container = document.getElementById("map");
     const options = {
@@ -63,13 +70,14 @@ const Map = ({ placeName }) => {
     };
     const kakaoMap = new kakao.maps.Map(container, options);
     setMap(kakaoMap);
+  }, []);
 
+  useEffect(() => {
+    if (!map) return;
     searchPlace(placeName);
-  }, [placeName]);
+  }, [map, placeName]);
 
-  return (
-    <MapBox id="map" style={{ width: "100%", height: "100%" }}></MapBox>
-  );
+  return <MapBox id="map"></MapBox>;
 };
 
 export default Map;
