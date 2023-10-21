@@ -41,6 +41,7 @@ const OfficeDetailPage = () => {
     endTime: '',
   });
   const [date, setDate] = useState(new Date());
+  const [isPayment, setIsPayment] = useState(false);
 
   useEffect(() => {
     getDetailOfficeData();
@@ -93,6 +94,7 @@ const OfficeDetailPage = () => {
       const res = await fetchReservationPayment(data);
 
       if (res && res.data && res.data.next_redirect_pc_url) {
+        setIsPayment(true);
         window.location.href = res.data.next_redirect_pc_url;
       } else {
         alert('결제 정보를 받아오지 못했습니다.');
@@ -107,6 +109,10 @@ const OfficeDetailPage = () => {
   // 예약
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!isPayment) {
+      return;
+    }
 
     if (!office.status) {
       alert("아쉽지만 다음에 예약해 주세요!");
@@ -123,6 +129,7 @@ const OfficeDetailPage = () => {
 
     try {
       await fetchReservationOffice(userId, data);
+
       alert("예약 완료!");
       navigate("/reservation");
     } catch (error) {
