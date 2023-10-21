@@ -1,5 +1,5 @@
 // 대여 - 공유 오피스 리스트 조회
-export const READ_OFFICE_LIST = `/meeti/office/search`;
+export const OFFICE_LIST = `/meeti/office/search`;
 
 // 대여 - 예약한 공유 오피스 리스트 조회
 export const RESERVATION_LIST = `/meeti/reservation/search/user`;

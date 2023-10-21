@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // constants
 import {
-  READ_OFFICE_LIST,
+  OFFICE_LIST,
   RESERVATION_LIST,
   ADD_OFFICE_LIST,
   CLASSIFICATION_AREA,
@@ -13,7 +13,7 @@ import {
 
 // 공유 가능한 오피스 조회
 export const fetchOfficeList = () => {
-  return axios.get(READ_OFFICE_LIST);
+  return axios.get(OFFICE_LIST);
 };
 
 // 예약한 공유 오피스 조회
@@ -31,6 +31,7 @@ export const fetchSearchOffice = (placeName) => {
   return axios.get(`${SEARCH_OFFICE}/${placeName}`);
 };
 
+// 오피스 지역별 분류
 export const fetchClassificationArea = (address) => {
   return axios.get(`${CLASSIFICATION_AREA}/${address}`);
 };
@@ -40,6 +41,7 @@ export const fetchDetailOfficeData = (officeId) => {
   return axios.get(`${DETAIL_OFFICE_INFO}/${officeId}`);
 };
 
+// 오피스 예약
 export const fetchReservationOffice = (userId, data) => {
   return axios.post(`${RESERVATION_OFFICE}/${userId}`, data);
 };
