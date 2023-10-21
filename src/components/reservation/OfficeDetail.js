@@ -3,6 +3,8 @@ import styled, { css } from "styled-components";
 import DatePicker from "react-datepicker";
 import { ko } from "date-fns/esm/locale";
 
+import Map from '../../common/Map';
+
 // CSS
 import "react-datepicker/dist/react-datepicker.css"
 
@@ -112,12 +114,6 @@ const OfficeImg = styled.img`
   background-color: red;
 `;
 
-const MapBox = styled.div`
-  width: 49.5%;
-  height: 100%;
-  object-fit: cover;
-`;
-
 const PlaceName = styled.p`
   font-size: 22px;
   font-weight: 700;
@@ -197,7 +193,7 @@ const ReservationDetail = ({
       <InfoSection>
         <TopInfoBox>
           <OfficeImg src={office.image}></OfficeImg>
-          <MapBox placeName={office.placeName} />
+          <Map placeName={office.placeName} />
         </TopInfoBox>
         <PlaceName>{office.placeName}</PlaceName>
         <Info>{office.addressDetail}</Info>
