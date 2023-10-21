@@ -1,60 +1,8 @@
 import React from "react";
-import styled from "styled-components";
 
 // styles
-const AddForm = styled.form`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`;
+import * as S from './styles/AddOffice.style';
 
-const InputFieldBox = styled.div`
-  width: 100%;
-  height: 10%;
-  display: flex;
-  justify-content: center;
-`;
-
-const InputText = styled.p`
-  width: 30%;
-  height: 100%;
-  color: #8165df;
-`;
-
-const Input = styled.input`
-  width: 50%;
-  height: 30px;
-  font-size: 14px;
-  border: none;
-`;
-
-const Select = styled.select`
-  width: 50%;
-  height: 30px;
-  font-size: 14px;
-  border: none;
-`;
-
-const TextArea = styled.textarea`
-  width: 50%;
-  height: 60px;
-  font-size: 14px;
-  border: none;
-  outline: none;
-`;
-
-const SubmitButton = styled.button`
-  width: 160px;
-  height: 40px;
-  border: none;
-  border-radius: 5px;
-  color: #ffffff;
-  background-color: #8165df;
-  margin-top: 30px;
-  cursor: pointer;
-`;
 
 const AddOffice = ({
   handleSubmit,
@@ -62,14 +10,14 @@ const AddOffice = ({
   handleImgUpload
 }) => {
   return (
-    <AddForm onSubmit={handleSubmit}>
-      <InputFieldBox>
-        <InputText>회의실 이름 : </InputText>
-        <Input onChange={handleChange} name="placeName" required />
-      </InputFieldBox>
-      <InputFieldBox>
-        <InputText>자치구 : </InputText>
-        <Select name="address" id="address" onChange={handleChange} required>
+    <S.AddForm onSubmit={handleSubmit}>
+      <S.InputFieldBox>
+        <S.InputText>회의실 이름 : </S.InputText>
+        <S.Input onChange={handleChange} name="placeName" required />
+      </S.InputFieldBox>
+      <S.InputFieldBox>
+        <S.InputText>자치구 : </S.InputText>
+        <S.Select name="address" id="address" onChange={handleChange} required>
           <option value="용산구">용산구</option>
           <option value="서초구">서초구</option>
           <option value="광진구">광진구</option>
@@ -84,32 +32,32 @@ const AddOffice = ({
           <option value="노원구">노원구</option>
           <option value="중랑구">중랑구</option>
           <option value="영등포구">영등포구</option>
-        </Select>
-      </InputFieldBox>
-      <InputFieldBox>
-        <InputText>회의실 상세주소 : </InputText>
-        <Input onChange={handleChange} name="detailAddress" required />
-      </InputFieldBox>
-      <InputFieldBox>
-        <InputText>회의실 전화번호 : </InputText>
-        <Input type="tel" onChange={handleChange} name="telNum" required />
-      </InputFieldBox>
-      <InputFieldBox>
-        <InputText>회의실 이미지 : </InputText>
-        <Input type="file" onChange={handleImgUpload} required />
-      </InputFieldBox>
-      <InputFieldBox>
-        <InputText>회의실 예약 비용 : </InputText>
-        <Input onChange={handleChange} name="pay" required />
-      </InputFieldBox>
-      <InputFieldBox>
-        <InputText>회의실 부가설명 : </InputText>
-        <TextArea onChange={handleChange} name="description" required />
-      </InputFieldBox>
-      <InputFieldBox>
-        <SubmitButton>회의실 등록하기</SubmitButton>
-      </InputFieldBox>
-    </AddForm>
+        </S.Select>
+      </S.InputFieldBox>
+      <S.InputFieldBox>
+        <S.InputText>회의실 상세주소 : </S.InputText>
+        <S.Input onChange={handleChange} name="detailAddress" required />
+      </S.InputFieldBox>
+      <S.InputFieldBox>
+        <S.InputText>회의실 전화번호 : </S.InputText>
+        <S.Input type="tel" onChange={handleChange} name="telNum" required />
+      </S.InputFieldBox>
+      <S.InputFieldBox>
+        <S.InputText>회의실 이미지 : </S.InputText>
+        <S.Input type="file" onChange={handleImgUpload} required />
+      </S.InputFieldBox>
+      <S.InputFieldBox>
+        <S.InputText>회의실 예약 비용 : </S.InputText>
+        <S.Input onChange={handleChange} name="pay" required />
+      </S.InputFieldBox>
+      <S.InputFieldBox>
+        <S.InputText>회의실 부가설명 : </S.InputText>
+        <S.TextArea onChange={handleChange} name="description" required />
+      </S.InputFieldBox>
+      <S.InputFieldBox>
+        <S.SubmitButton>회의실 등록하기</S.SubmitButton>
+      </S.InputFieldBox>
+    </S.AddForm>
   );
 };
 
