@@ -17,7 +17,7 @@ import {
 } from '../../styles/CommonStyles';
 
 // styles
-import * as S from './style/ContactsPage.style';
+import * as S from './styles/ContactsPage.style';
 import { fetchContactsList, fetchDeleteContacts, fetchOnFavorite } from '../../api/contact';
 
 const ContactsPage = () => {
