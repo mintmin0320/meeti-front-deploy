@@ -13,7 +13,8 @@ import {
   fetchApprovalList,
   fetchAdminList,
   fetchAddApproval,
-  fetchDecisionApproval
+  fetchDecisionApproval,
+  fetchWaitReservationList
 } from '../../api/approval';
 
 // styles
@@ -43,6 +44,8 @@ const ApprovalPage = () => {
   const [refreshKey, setRefreshKey] = useState(false);
   const [approvalList, setApprovalList] = useState([]);
   const [adminList, setAdminList] = useState([]);
+  const [reservationList, setReservationList] = useState([]);
+  const [reservation, setReservation] = useState('');
 
   /*
     결재 요청 처리 로직
@@ -58,11 +61,24 @@ const ApprovalPage = () => {
     getAdminList();
   }, []);
 
+  useEffect(() => {
+    getWaitReservationList();
+  }, []);
 
   const getApprovalList = async () => {
     try {
       const res = await fetchApprovalList(userId);
       setApprovalList(res?.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // 대기상태 예약 조회
+  const getWaitReservationList = async () => {
+    try {
+      const res = await fetchWaitReservationList(userId);
+      setReservationList(res?.data);
     } catch (error) {
       console.log(error);
     }
@@ -114,11 +130,15 @@ const ApprovalPage = () => {
     }
   };
 
-  const handleAdminName = (adminUsername) => {
-    setApprovalForm((prevState) => ({
-      ...prevState,
-      adminUsername,
-    }));
+  const handleClick = (param, check) => {
+    if (check === "admin") {
+      setApprovalForm((prevState) => ({
+        ...prevState,
+        adminUsername: param,
+      }));
+    } else {
+      setReservation(param);
+    }
   };
 
   // 파일 업로드
@@ -149,6 +169,7 @@ const ApprovalPage = () => {
     formData.append("request", approvalForm.request);
     formData.append("adminUsername", approvalForm.adminUsername);
     formData.append("file", approvalForm.file);
+    formData.append("placeName", reservation);
 
     try {
       alert('승인 요청 전송!');
@@ -177,8 +198,9 @@ const ApprovalPage = () => {
         <RightSection>
           <AddApproval
             adminList={adminList}
+            reservationList={reservationList}
             handleChange={handleChange}
-            handleAdminName={handleAdminName}
+            handleClick={handleClick}
             handleImgUpload={handleImgUpload}
             handleSubmit={handleSubmit}
           />

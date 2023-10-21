@@ -5,7 +5,8 @@ import {
   APPROVAL_LIST,
   DECISION_APPROVAL,
   ADD_APPROVAL_REQUEST,
-  ADMIN_LIST
+  ADMIN_LIST,
+  WAIT_RESERVATION
 } from '../constants/urls/approval';
 
 // 결재 대기 리스트
@@ -16,6 +17,11 @@ export const fetchApprovalList = (userId) => {
 // 결재 담당자 리스트
 export const fetchAdminList = (userId) => {
   return axios.get(`${ADMIN_LIST}/${userId}`);
+};
+
+// 예약 대기 리스트
+export const fetchWaitReservationList = (userId) => {
+  return axios.get(`${WAIT_RESERVATION}/${userId}`);
 };
 
 // 결재 요청 등록

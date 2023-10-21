@@ -6,7 +6,7 @@ export const TitleBox = styled.div`
   display: flex;
 `;
 
-export const PageTitle = styled.p`
+export const PageTitle = styled.h1`
   color: #6f5cea;
   font-size: 14px;
   margin-top: 30px;
@@ -35,7 +35,7 @@ export const AdminInfoBox = styled.div`
 `;
 
 export const AdminInfo = styled.button`
-  width: 75px;
+  /* width: 75px; */
   height: 30px;
   display: flex;
   justify-content: center;
@@ -51,6 +51,11 @@ export const AdminInfo = styled.button`
     background-color: #fff;
   }
 `;
+
+export const OptionText = styled.p`
+  color: #A4A4A4;
+`;
+
 
 export const FileInputBox = styled.div`
   width: 85%;
