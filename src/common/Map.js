@@ -53,9 +53,9 @@ const Map = ({ placeName }) => {
           }
         );
       } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
-        alert("검색 결과가 존재하지 않습니다. 주소를 다시 확인해주세요.");
+        console.log("검색 결과가 존재하지 않습니다. 주소를 다시 확인해주세요.");
       } else {
-        alert("키워드 검색 중 오류가 발생했습니다.");
+        console.log("키워드 검색 중 오류가 발생했습니다.");
       }
     });
   };
@@ -66,7 +66,7 @@ const Map = ({ placeName }) => {
     const container = document.getElementById("map");
     const options = {
       center: new kakao.maps.LatLng(37.50057852126737, 126.86813651454828),
-      level: 3,
+      level: 4,
     };
     const kakaoMap = new kakao.maps.Map(container, options);
     setMap(kakaoMap);
