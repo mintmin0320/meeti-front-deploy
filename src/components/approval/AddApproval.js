@@ -63,7 +63,7 @@ const AddApproval = ({
               setIsSelectedAdminReservation(index);
             }}
           >
-            {item?.username}
+            {item?.officeName}
           </S.AdminInfo>
         ))}
       </S.AdminInfoBox>
