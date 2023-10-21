@@ -40,10 +40,11 @@ export const LeftSection = styled.section`
 export const RightSection = styled.section`
   width: 60vw;
   height: 100%;
+  z-index: 3;
 `;
 
 // 페이지 타이틀
-export const TitleText = styled.p`
+export const TitleText = styled.h1`
   height: 30px;
   font-size: 20px;
   margin-top: 30px;
