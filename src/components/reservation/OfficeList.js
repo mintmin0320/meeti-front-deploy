@@ -304,9 +304,8 @@ const OfficeList = ({
           <RiMapPinLine className="true" style={{ padding: "0" }} />
           <PageTitle>Reservation</PageTitle>
           <SearchBox>
-            <SearchInput onChange={handleChange} />
+            <SearchInput name="search" onChange={handleChange} />
             <SearchButton
-              name='search'
               onClick={handleSearchOffice}>
               <BiSearch size='20px' />
             </SearchButton>
