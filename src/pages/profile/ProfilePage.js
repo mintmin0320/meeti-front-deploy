@@ -1,15 +1,11 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
 
 import Header from "../../common/Header";
-import UserInfo from "../../components/profile/UserInfo";
+import ProfileContent from '../../components/profile/ProfileContent';
 
 // bg-color
 import color from "./../../assets/color.png";
-
-// icons
-import { FcAddImage } from "react-icons/fc";
 
 // apis
 import { fetchEditInfo, fetchGetUserInfo } from "../../api/profile";
@@ -18,102 +14,19 @@ import { fetchAccountDeletion, fetchSignOut } from "../../api/auth";
 // styles
 import { Container, BackColor, MainSection } from '../../styles/CommonStyles';
 
-const Mid = styled.div`
-  background: #f8f8f8;
-  width: 100%;
-  margin-left: 35px;
-  border-radius: 20px;
-`;
-
-const Title = styled.div`
-  font-size: 20px;
-  margin-top: 20px;
-  margin-bottom: 5px;
-`;
-
-const NameInput = styled.input`
-  width: 100%;
-  height: 20px;
-  font-size: 14px;
-  padding: 5px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-`;
-
-const Buttons = styled.div`
-  margin-top: 20vh;
-  margin-left: 55vw;
-  width: 250px;
-  /* background-color: red; */
-  display: flex;
-  justify-content: space-around;
-`;
-
-const Profile = styled.div`
-  margin-top: 80px;
-  margin-left: 120px;
-`;
-
-const ProfileImg = styled.img`
-  width: 128px;
-  height: 128px;
-  margin-right: 50px;
-  border-radius: 50%;
-  border: solid 1px #d8d8d8;
-  float: left;
-`;
-
-const AddProfileBox = styled.button`
-  width: 128px;
-  height: 128px;
-  margin-right: 50px;
-  border-radius: 50%;
-  border: solid 1px #d8d8d8;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  float: left;
-`;
-
-const Input = styled.input`
-  width: 150px;
-  height: 80px;
-  border: 0;
-`;
-
-const Btn = styled.button`
-  padding: 5px 9px;
-  font-size: 12px;
-  border: solid 1px #8165df;
-  border-radius: 5px;
-  background: none;
-  color: #8165df;
-  cursor: pointer;
-`;
-
-const Last = styled.div`
-  background: #f8f8f8;
-  width: 60vw;
-  height: 340px;
-  border-radius: 20px;
-`;
-
 const ProfilePage = () => {
   const navigate = useNavigate();
-  const InputRef = useRef(null);
   const formData = new FormData();
   const userId = localStorage.getItem("userId");
+  const [isEdit, setIsEdit] = useState(false);
   const [info, setInfo] = useState({
     username: "",
     profile: "./profile.png",
     role: "",
   });
-  const [isEdit, setIsEdit] = useState(false);
-  const [editName, setEditName] = useState(info.username);
 
   useEffect(() => {
-    getUserInfo();
+    // getUserInfo();
   }, []);
 
   // 유저정보 조회
@@ -131,6 +44,8 @@ const ProfilePage = () => {
       alert(error);
     }
   };
+
+  const [editName, setEditName] = useState(info.username);
 
   // 회원탈퇴 버튼 클릭
   const handleAccountDeletionClick = async () => {
@@ -154,12 +69,13 @@ const ProfilePage = () => {
         );
       }
     } catch (error) {
-      alert(error);
+      alert('회원탈퇴 실패');
+      console.log(error);
     }
   };
 
   // 로그아웃 버튼 클릭
-  const handleSignOutClick = async () => {
+  const handleSignOut = async () => {
     try {
       const res = await fetchSignOut();
 
@@ -177,10 +93,10 @@ const ProfilePage = () => {
     }
   };
 
-  // 프로필, 이름 수정 버튼 클릭
-  const handleOnEditInfoBtn = async () => {
+  // 프로필, 이름 수정 저장
+  const handleEditInfo = async () => {
     formData.append("image", info.profile);
-    formData.append("username", info.username);
+    formData.append("username", editName);
 
     try {
       const res = await fetchEditInfo(userId, formData);
@@ -197,7 +113,7 @@ const ProfilePage = () => {
     }
   };
 
-  const handleOnImgUpload = async e => {
+  const handleImgUpload = (e) => {
     if (!e.target.files) {
       return;
     }
@@ -208,60 +124,34 @@ const ProfilePage = () => {
     });
   };
 
+  const handleEditButton = () => {
+    setIsEdit(true);
+  };
+
+  const handleChange = useCallback((e) => {
+    const { name, value } = e.target;
+
+    setEditName((prevState) => ({
+      ...prevState,
+      [name]: value
+    }));
+  }, []);
+
   return (
     <Container>
-      <MainSection className="MainDiv">
+      <MainSection>
         <BackColor src={color} style={{ opacity: 0.2 }} />
         <Header />
-        <Mid>
-          <Title>마이페이지</Title>
-          <Profile>
-            {!isEdit ? (
-              <>
-                <ProfileImg src={info.profile} />
-                <UserInfo username={info.username} role={info.role} />
-              </>
-            ) : (
-              <>
-                <AddProfileBox
-                  onClick={() => {
-                    InputRef.current?.click();
-                  }}
-                >
-                  <FcAddImage size="45px" />
-                </AddProfileBox>
-                <Input
-                  onChange={handleOnImgUpload}
-                  type="file"
-                  hidden={true}
-                  ref={InputRef}
-                  multiple="multiple"
-                  accept="image/jpg, image/png, image/jpeg"
-                />
-                <UserInfo
-                  username={
-                    <NameInput
-                      name="editName"
-                      value={editName}
-                      onChange={e => setEditName(e.target.value)}
-                    />
-                  }
-                  role={info.role}
-                />
-              </>
-            )}
-          </Profile>
-          <Buttons>
-            {!isEdit ? (
-              <Btn onClick={() => setIsEdit(true)}>회원 정보 수정</Btn>
-            ) : (
-              <Btn onClick={() => handleOnEditInfoBtn()}>변경된 정보 저장</Btn>
-            )}
-            <Btn onClick={() => handleSignOutClick()}>로그아웃</Btn>
-            <Btn onClick={() => handleAccountDeletionClick()}>회원탈퇴</Btn>
-          </Buttons>
-        </Mid>
-        <Last />
+        <ProfileContent
+          info={info}
+          isEdit={isEdit}
+          handleAccountDeletionClick={handleAccountDeletionClick}
+          handleEditInfo={handleEditInfo}
+          handleImgUpload={handleImgUpload}
+          handleSignOut={handleSignOut}
+          handleEditButton={handleEditButton}
+          handleChange={handleChange}
+        />
       </MainSection>
     </Container>
   );

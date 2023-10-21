@@ -7,8 +7,8 @@ import {
 } from '../constants/urls/profileUrls';
 
 // 유저 정보 조회
-export const fetchGetUserInfo = () => {
-  return axios.get(USER_INFO);
+export const fetchGetUserInfo = (userId) => {
+  return axios.get(`${USER_INFO}/${userId}`);
 };
 
 // 유저 정보 수정사항 저장
