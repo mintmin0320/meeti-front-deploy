@@ -8,42 +8,22 @@ import {
   READ_MINUTES
 } from '../constants/urls/minutesUrls';
 
+// 회의록 리스트 조회
 export const fetchGetMinutes = (userId) => {
-  try {
-    const res = axios.get(`${READ_MINUTES}/${userId}`);
-
-    return res;
-  } catch (error) {
-    throw error;
-  }
+  return axios.get(`${READ_MINUTES}/${userId}`);
 };
 
+// 회의록 추가
 export const fetchAddMinutes = (data, userId) => {
-  try {
-    const res = axios.post(`${ADD_MINUTES}/${userId}`, data);
-
-    return res;
-  } catch (error) {
-    throw error;
-  }
+  return axios.post(`${ADD_MINUTES}/${userId}`, data);
 };
 
+// 회의록 삭제
 export const fetchDeleteMinutes = (meetingId) => {
-  try {
-    const res = axios.delete(`${DELETE_MINUTES}/${meetingId}`);
-
-    return res;
-  } catch (error) {
-    throw error;
-  }
+  return axios.delete(`${DELETE_MINUTES}/${meetingId}`);
 };
 
+// 회의록 수정
 export const fetchEditMinutes = (data, meetingId, userId) => {
-  try {
-    const res = axios.post(`${EDIT_MINUTES}/${meetingId}/${userId}`, data);
-
-    return res;
-  } catch (error) {
-    throw error;
-  }
+  return axios.post(`${EDIT_MINUTES}/${meetingId}/${userId}`, data);
 };

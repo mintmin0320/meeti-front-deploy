@@ -10,36 +10,20 @@ import {
 
 // 결재 대기 리스트
 export const fetchApprovalList = (userId) => {
-  try {
-    return axios.get(`${APPROVAL_LIST}/${userId}`);
-  } catch (error) {
-    throw error;
-  }
+  return axios.get(`${APPROVAL_LIST}/${userId}`);
 };
 
 // 결재 담당자 리스트
 export const fetchAdminList = (userId) => {
-  try {
-    return axios.get(`${ADMIN_LIST}/${userId}`);
-  } catch (error) {
-    throw error;
-  }
+  return axios.get(`${ADMIN_LIST}/${userId}`);
 };
 
 // 결재 요청 등록
 export const fetchAddApproval = (userId, formData) => {
-  try {
-    return axios.post(`${ADD_APPROVAL_REQUEST}/${userId}`, formData);
-  } catch (error) {
-    throw error;
-  }
+  return axios.post(`${ADD_APPROVAL_REQUEST}/${userId}`, formData);
 };
 
 // 결재 결정
 export const fetchDecisionApproval = (approvalId, data) => {
-  try {
-    return axios.post(`${DECISION_APPROVAL}/${approvalId}`, data);
-  } catch (error) {
-    throw error;
-  }
+  return axios.post(`${DECISION_APPROVAL}/${approvalId}`, data);
 };
