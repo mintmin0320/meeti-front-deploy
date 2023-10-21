@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 
 import Header from '../../common/Header';
 import ContactList from "../../components/contact/ContactList";
@@ -14,41 +13,55 @@ import {
   BackColor,
   MainSection,
   LeftSection,
+  RightSection,
 } from '../../styles/CommonStyles';
 
 // styles
-const TextBox = styled.div`
-  display: flex;
-`;
-
-const Tittle = styled.button`
-  height: 30px;
-  font-size: 20px;
-  font-weight: 700;
-  margin-top: 20px;
-  margin-bottom: 10px;
-  color: ${props => props.isActive ? '#000' : '#d8d8d8'};
-  border: none;
-  background-color:transparent;
-  cursor: pointer;
-`;
-
-const TittleText = styled.p`
-  height: 30px;
-  font-size: 20px;
-  font-weight: 700;
-  margin-top: 20px;
-  margin-bottom: 10px;
-`;
-
-const RightSection = styled.section`
-  width: 60%;
-  height: 100%;
-  z-index: 3;
-`;
+import * as S from './style/ContactsPage.style';
+import { fetchContactsList, fetchDeleteContacts, fetchOnFavorite } from '../../api/contact';
 
 const ContactsPage = () => {
+  const userId = localStorage.getItem("userId");
   const [isStatus, setIsStatus] = useState(false);
+  const [contactsList, setUserList] = useState([]);
+  const [refreshKey, setRefreshKey] = useState(false);
+
+  // useEffect(() => {
+  //   // getContactsList();
+  // }, [refreshKey]);
+
+  // 친구 리스트 조회
+  const getContactsList = async () => {
+    try {
+      const res = await fetchContactsList(userId);
+
+      setUserList(res?.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // 즐겨찾기 등록/해제
+  const handleOnFavorite = async (friendId) => {
+    try {
+      await fetchOnFavorite(userId, friendId);
+
+      setRefreshKey(!refreshKey);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // 즐겨찾기 등록/해제
+  const handleDeleteContacts = async (friendId) => {
+    try {
+      await fetchDeleteContacts(userId, friendId);
+
+      setRefreshKey(!refreshKey);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <Container>
@@ -56,27 +69,31 @@ const ContactsPage = () => {
         <BackColor src={color} style={{ opacity: 0.2 }} />
         <Header />
         <LeftSection>
-          <TextBox>
-            <Tittle
+          <S.TextBox>
+            <S.Tittle
               onClick={() => setIsStatus(false)}
               isActive={!isStatus}
             >
               연락처 |
-            </Tittle>
+            </S.Tittle>
             &nbsp;
-            <Tittle
+            <S.Tittle
               onClick={() => setIsStatus(true)}
               isActive={isStatus}
             >
               즐겨찾기
-            </Tittle>
-          </TextBox>
+            </S.Tittle>
+          </S.TextBox>
           {!isStatus ?
-            <ContactList />
+            <ContactList
+              contactsList={contactsList}
+              handleOnFavorite={handleOnFavorite}
+              handleDeleteContacts={handleDeleteContacts}
+            />
             :
             <FavoritesList />
           }
-          <TittleText>요청</TittleText>
+          <S.TittleText>요청</S.TittleText>
           <FriendRequest />
         </LeftSection>
         <RightSection>

@@ -24,7 +24,7 @@ export const fetchRequestAccept = (userId, friendId) => {
 };
 
 // 내 친구 리스트
-export const fetchMyFriend = (userId) => {
+export const fetchContactsList = (userId) => {
   return axios.get(`${GET_MY_FRIEND}/${userId}`);
 };
 
@@ -39,7 +39,7 @@ export const fetchOnFavorite = (userId, friendId) => {
 };
 
 // 친구 삭제
-export const fetchDeleteFriend = (userId, friendId) => {
+export const fetchDeleteContacts = (userId, friendId) => {
   return axios.delete(`${DELETE_FRIEND}/${userId}/${friendId}`);
 };
 

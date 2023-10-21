@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 // icons, dummy-data
 import { AiOutlineCalendar } from "react-icons/ai";
 import { HiHeart, HiOutlineHeart } from "react-icons/hi";
 import { TiUserDelete } from "react-icons/ti";
-
-// apis
-import { fetchDeleteFriend, fetchMyFriend, fetchOnFavorite } from '../../api/contact';
 
 // styles
 const ContactListWrap = styled.div`
@@ -89,57 +86,42 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
+const contactsList = [
+  {
+    id: 1,
+    profile: "https://via.placeholder.com/150", // 이 URL은 임시 이미지를 제공합니다. 필요한 경우 다른 이미지 URL로 교체하세요.
+    username: "John Doe",
+    favorite: true
+  },
+  {
+    id: 2,
+    profile: "https://via.placeholder.com/150",
+    username: "Jane Smith",
+    favorite: false
+  },
+  {
+    id: 3,
+    profile: "https://via.placeholder.com/150",
+    username: "Robert Brown",
+    favorite: true
+  }
+];
 
-
-const RecentContacts = () => {
-  const userId = localStorage.getItem("userId");
-  const [userList, setUserList] = useState([]);
-  const [refreshKey, setRefreshKey] = useState(false);
-
-  useEffect(() => {
-    getFriendList();
-  }, [refreshKey]);
-
-  const getFriendList = async () => {
-    try {
-      const res = await fetchMyFriend(userId);
-
-      setUserList(res?.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleDeleteFriend = async (friendId) => {
-    try {
-      await fetchDeleteFriend(userId, friendId);
-
-      setRefreshKey(!refreshKey);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleOnFavorite = async (friendId) => {
-    try {
-      await fetchOnFavorite(userId, friendId);
-
-      setRefreshKey(!refreshKey);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
+const RecentContacts = ({
+  // contactsList,
+  handleOnFavorite,
+  handleDeleteContacts,
+}) => {
   return (
     <ContactListWrap>
-      {userList.map((user) => {
+      {contactsList.map((item) => {
         return (
-          <ContactListBox key={user.id}>
+          <ContactListBox key={item.id}>
             <ContactProfileBox>
-              <ProfileImg src={user.profile} />
+              <ProfileImg src={item.profile} />
             </ContactProfileBox>
             <ContactUserInfoBox>
-              <ContactUserInfo>{user.username}</ContactUserInfo>
+              <ContactUserInfo>{item.username}</ContactUserInfo>
             </ContactUserInfoBox>
             <ButtonBox>
               <Button
@@ -147,13 +129,13 @@ const RecentContacts = () => {
               >
                 <AiOutlineCalendar style={{ color: "#fff" }} />
               </Button>
-              <Button onClick={() => handleDeleteFriend(user.id)}>
+              <Button onClick={() => handleDeleteContacts(item.id)}>
                 <TiUserDelete style={{ color: "#fff" }} />
               </Button>
               <Button
-                onClick={() => handleOnFavorite(user.id)}
+                onClick={() => handleOnFavorite(item.id)}
               >
-                {user.favorite ? (
+                {item.favorite ? (
                   <HiHeart style={{ width: "14px" }} />
                 ) : (
                   <HiOutlineHeart style={{ width: "14px" }} />
