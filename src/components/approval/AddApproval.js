@@ -59,7 +59,7 @@ const AddApproval = ({
               } : {}
             }
             onClick={() => {
-              handleClick(item?.username, "reservation");
+              handleClick(item?.officeName, "reservation");
               setIsSelectedAdminReservation(index);
             }}
           >
