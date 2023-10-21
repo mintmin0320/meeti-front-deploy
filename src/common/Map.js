@@ -16,16 +16,24 @@ const Map = ({ placeName }) => {
   const { kakao } = window;
 
   const searchPlace = (keyword) => {
+    if (!map) {
+      console.error("Map is not initialized yet.");
+      return; // Map 객체가 초기화되지 않았다면 여기서 함수를 종료
+    }
+
     const places = new kakao.maps.services.Places();
     const geocoder = new kakao.maps.services.Geocoder();
 
     places.keywordSearch(keyword, function (result, status) {
       if (status === kakao.maps.services.Status.OK) {
         const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+        // 이 부분을 추가하여 지도의 중심을 마커의 좌표로 설정
+        map.setCenter(coords);
+
         if (marker) {
           marker.setMap(null);
         }
-
         if (infoWindow) {
           infoWindow.close();
         }
@@ -53,9 +61,10 @@ const Map = ({ placeName }) => {
           }
         );
       } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
-        console.log("검색 결과가 존재하지 않습니다. 주소를 다시 확인해주세요.");
+        alert("검색 결과가 존재하지 않습니다. 주소를 다시 확인해주세요.");
       } else {
-        console.log("키워드 검색 중 오류가 발생했습니다.");
+        console.error("Error status:", status);
+        alert("키워드 검색 중 오류가 발생했습니다.");
       }
     });
   };
@@ -66,7 +75,7 @@ const Map = ({ placeName }) => {
     const container = document.getElementById("map");
     const options = {
       center: new kakao.maps.LatLng(37.50057852126737, 126.86813651454828),
-      level: 4,
+      level: 3,
     };
     const kakaoMap = new kakao.maps.Map(container, options);
     setMap(kakaoMap);
