@@ -47,9 +47,9 @@ const OfficeDetailPage = () => {
   }, []);
 
   // 오피스 상세 데이터
-  const getDetailOfficeData = () => {
+  const getDetailOfficeData = async () => {
     try {
-      const res = fetchDetailOfficeData(officeId);
+      const res = await fetchDetailOfficeData(officeId);
       setOffice({
         ...office,
         placeName: res.data.placeName,

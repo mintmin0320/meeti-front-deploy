@@ -69,7 +69,7 @@ const AddOfficePage = () => {
       await fetchAddOffice(userId, formData);
 
       alert('등록 성공!');
-      navigator('./reservation');
+      navigator('/reservation');
     } catch (error) {
       alert('등록 실패!');
       console.log(error);
