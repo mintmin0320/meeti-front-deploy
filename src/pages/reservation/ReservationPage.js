@@ -24,7 +24,6 @@ const ReservationPage = () => {
   const [reservationList, setReservationList] = useState([]);
   const [officeList, setOfficeList] = useState([]);
   const [search, setSearch] = useState("");
-  const [refreshKey, setRefreshKey] = useState(false);
 
   useEffect(() => {
     getReservationData();
@@ -32,7 +31,7 @@ const ReservationPage = () => {
 
   useEffect(() => {
     getOfficeData();
-  }, [refreshKey]);
+  }, []);
 
   // 예약한 오피스 조회
   const getReservationData = async () => {
@@ -63,7 +62,6 @@ const ReservationPage = () => {
         const res = await fetchSearchOffice(search);
         setOfficeList(res?.data);
         setSearch('');
-        setRefreshKey(!refreshKey);
       } catch (error) {
         console.log(error);
       }
@@ -73,12 +71,11 @@ const ReservationPage = () => {
   // 지역별 분류
   const handleAreaButton = async (address) => {
     if (address === "전체") {
-      setRefreshKey(!refreshKey);
+      getOfficeData();
     } else {
       try {
         const res = await fetchClassificationArea(address);
         setOfficeList(res?.data);
-        setRefreshKey(!refreshKey);
       } catch (error) {
         alert(error);
       }
