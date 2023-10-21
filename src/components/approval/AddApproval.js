@@ -18,7 +18,7 @@ const AddApproval = ({
   const InputRef = useRef(null);
   const [isSelectedAdmin, setIsSelectedAdmin] = useState(null);
   const [isSelectedReservation, setIsSelectedAdminReservation] = useState(null);
-
+  console.log(reservationList);
   return (
     <form onSubmit={handleSubmit}>
       <S.TitleBox>
