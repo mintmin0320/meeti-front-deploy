@@ -32,7 +32,7 @@ const ProfilePage = () => {
   // 유저정보 조회
   const getUserInfo = async () => {
     try {
-      const res = await fetchGetUserInfo();
+      const res = await fetchGetUserInfo(userId);
 
       setInfo({
         ...info,
