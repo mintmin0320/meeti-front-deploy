@@ -202,7 +202,7 @@ const MainContacts = ({
             <ContactDiv key={item.id}>
               <ProfileImg src={item.profile || "./new.png"} />
               <NameText>{item.username}</NameText>
-              <ButtonBox onClick={(e) => handleAddContacts(item.id)}>
+              <ButtonBox onClick={() => handleAddContacts(item.id)}>
                 <Button>
                   <BsFillPersonPlusFill />
                 </Button>
