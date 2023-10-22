@@ -97,7 +97,7 @@ const ProfilePage = () => {
   // 프로필, 이름 수정 저장
   const handleEditInfo = async () => {
     formData.append("image", info.profile);
-    formData.append("username", editName);
+    formData.append("username", editName.editName);
 
     try {
       await fetchEditInfo(userId, formData);
