@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 import Header from '../../common/Header';
 import ContactList from "../../components/contact/ContactList";
@@ -18,22 +18,84 @@ import {
 
 // styles
 import * as S from './styles/ContactsPage.style';
-import { fetchContactsList, fetchDeleteContacts, fetchOnFavorite } from '../../api/contact';
+
+// apis
+import {
+  fetchAddFriend,
+  fetchAllUser,
+  fetchContactsList,
+  fetchDeleteContacts,
+  fetchFavoriteList,
+  fetchOnFavorite,
+  fetchRequestAccept,
+  fetchRequestUserList,
+  fetchSearchList
+} from '../../api/contact';
 
 const ContactsPage = () => {
   const userId = localStorage.getItem("userId");
+  const [contactsList, setContactsList] = useState([]);
+  const [favoritesList, setFavoritesList] = useState([]);
+  const [requestList, setRequestList] = useState([]);
+  const [userList, setUserList] = useState([]);
+  const [search, setSearch] = useState("");
   const [isStatus, setIsStatus] = useState(false);
-  const [contactsList, setUserList] = useState([]);
   const [refreshKey, setRefreshKey] = useState(false);
 
-  // useEffect(() => {
-  //   // getContactsList();
-  // }, [refreshKey]);
+  useEffect(() => {
+    getContactsList();
+  }, [refreshKey]);
 
+  useEffect(() => {
+    getFriendList();
+  }, [refreshKey]);
+
+  useEffect(() => {
+    getRequestList();
+  }, [refreshKey]);
+
+  useEffect(() => {
+    getAllContacts();
+  }, [refreshKey]);
+
+  /* 연락처/즐겨찾기 리스트 */
   // 친구 리스트 조회
   const getContactsList = async () => {
     try {
       const res = await fetchContactsList(userId);
+
+      setContactsList(res?.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // 즐겨찾기 리스트 조회
+  const getFriendList = async () => {
+    try {
+      const res = await fetchFavoriteList(userId);
+
+      setFavoritesList(res?.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // 연락처 수락 요청 리스트
+  const getRequestList = async () => {
+    try {
+      const res = await fetchRequestUserList(userId);
+
+      setRequestList(res?.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // 모든 연락처 조회
+  const getAllContacts = async () => {
+    try {
+      const res = await fetchAllUser();
 
       setUserList(res?.data);
     } catch (error) {
@@ -63,9 +125,57 @@ const ContactsPage = () => {
     }
   };
 
+  /* 연락처 수락  */
+  const handleOnAccept = async (userId, friendId) => {
+    try {
+      await fetchRequestAccept(userId, friendId);
+
+      setRefreshKey(!refreshKey);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // 연락처 추가
+  const handleAddContacts = async (friendId) => {
+    try {
+      await fetchAddFriend(userId, friendId);
+
+      setRefreshKey(!refreshKey);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // 유저 검색
+  const handleSearchUser = async () => {
+    if (search === "") {
+      alert("검색어를 입력해 주세요!");
+
+      return;
+    }
+
+    try {
+      const res = await fetchSearchList(search);
+      setUserList(res?.data);
+      setRefreshKey(!refreshKey);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleChange = useCallback((e) => {
+    const { name, value } = e.target;
+
+    setSearch((prevState) => ({
+      ...prevState,
+      [name]: value
+    }));
+  }, []);
+
   return (
     <Container>
-      <MainSection className="MainDiv">
+      <MainSection>
         <BackColor src={color} style={{ opacity: 0.2 }} />
         <Header />
         <LeftSection>
@@ -91,13 +201,25 @@ const ContactsPage = () => {
               handleDeleteContacts={handleDeleteContacts}
             />
             :
-            <FavoritesList />
+            <FavoritesList
+              favoritesList={favoritesList}
+              handleOnFavorite={handleOnFavorite}
+              handleDeleteContacts={handleDeleteContacts}
+            />
           }
           <S.TittleText>요청</S.TittleText>
-          <FriendRequest />
+          <FriendRequest
+            requestList={requestList}
+            handleOnAccept={handleOnAccept}
+          />
         </LeftSection>
         <RightSection>
-          <MainContacts />
+          <MainContacts
+            userList={userList}
+            handleAddContacts={handleAddContacts}
+            handleChange={handleChange}
+            handleSearchUser={handleSearchUser}
+          />
         </RightSection>
       </MainSection>
     </Container>

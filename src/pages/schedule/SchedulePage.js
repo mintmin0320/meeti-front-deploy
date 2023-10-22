@@ -1,5 +1,4 @@
-import React from "react";
-import styled from "styled-components";
+import React, { useState, useEffect } from "react";
 
 import Calendar from "../../components/schedule/Calendar";
 import ScheduleList from "../../components/schedule/ScheduleList";
@@ -13,50 +12,63 @@ import {
   Container,
   BackColor,
   MainSection,
-  LeftSection
+  LeftSection,
+  RightSection,
+  TitleText
 } from '../../styles/CommonStyles';
-
-const ScheduleBox = styled.div`
-  width: 90%;
-  height: 503px;
-  border-radius: 20px;
-  position: relative;
-  z-index: 3;
-`;
-
-const Title = styled.div`
-  margin-top: 50px;
-  font-size: 20px;
-  margin-top: 20px;
-  margin-bottom: 5px;
-`;
-
-const SubTitle = styled.div`
-  margin-bottom: 38px;
-`;
-
-const Last = styled.div`
-  width: 60%;
-  height: 340px;
-  border-radius: 20px;
-`;
+import { fetchDeleteSchedule, fetchScheduleList } from '../../api/schedule';
 
 const CalendarPage = () => {
+  const userId = localStorage.getItem('userId');
+  const [scheduleList, setScheduleList] = useState([]);
+
+  const [refreshKey, setRefreshKey] = useState(false);
+
+
+  useEffect(() => {
+    getScheduleList();
+  }, [refreshKey]);
+
+  // 일정 조회
+  const getScheduleList = async () => {
+    try {
+      const res = await fetchScheduleList(userId);
+      setScheduleList(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // 일정 삭제
+  const handleDeleteSchedule = async (scheduleId) => {
+    try {
+      await fetchDeleteSchedule(scheduleId);
+
+      alert('일정 삭제 성공!');
+
+      setRefreshKey(!refreshKey);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Container>
-      <MainSection className="MainDiv">
+      <MainSection>
         <BackColor src={color} style={{ opacity: 0.2 }} />
         <Header />
         <LeftSection>
-          <Title>일정</Title>
-          <SubTitle>My Schedule</SubTitle>
-          <ScheduleBox>
-            <ScheduleList />
-          </ScheduleBox>
+          <TitleText>일정</TitleText>
+          <ScheduleList
+            scheduleList={scheduleList}
+            handleDeleteSchedule={handleDeleteSchedule}
+          />
         </LeftSection>
-        <Last>
-          <Calendar />
-        </Last>
+        <RightSection>
+          <Calendar
+            scheduleList={scheduleList}
+          />
+        </RightSection>
       </MainSection>
     </Container>
   );

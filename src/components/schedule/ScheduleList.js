@@ -2,160 +2,139 @@
   달력 좌측 일정 확인 컴포넌트
   - 장소, 일정 이름이 표시됨
   - default 모든 일정
-  - 특정 날짜 클릭 시 해당 날짜 일정만 출력되도록 react query 사용 예정
 */
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 
 // icons
 import { HiLocationMarker } from "react-icons/hi";
 import { AiFillDelete } from "react-icons/ai";
 
-// apis
-import { fetchGetScheduleList, fetchDeleteSchedule } from '../../api/schedule';
+import { ListWrap } from '../../styles/CommonStyles';
 
 // styles
-const Wrapper = styled.div`
-  width: 100%;
-  height: 500px;
-  margin-top: 20px;
-  overflow-y: scroll;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
-  @media screen and (min-width: 1500px) {
-    height: 650px;
-  }
-`;
-
-const ScheduleBox = styled.div`
-  background-color: #fff;
+const ScheduleItem = styled.div`
   width: 90%;
-  height: 90px;
-  border-radius: 10px;
-  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.1);
+  height: 95px;
   display: flex;
   flex-direction: column;
-  margin: 6px 6px 15px 6px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.1);
+  margin-top: 7px;
+  margin-bottom: 10px;
+  background-color: #fff;
 `;
 
-const ScheduleContacts = styled.div`
-  margin-top: 6px;
-  margin-left: 6px;
-`;
-
-const ScheduleTimeBox = styled.div`
+const TimeBox = styled.div`
+  width: 70%;
+  height: 30px;
   display: flex;
   align-items: center;
-
-`;
-
-const ScheduleTime = styled.div`
-  font-size: 11px;
-  height: 20px;
-  display: flex;
-  align-items: center;
+  margin-top: 3px;
   margin-left: 8px;
 `;
 
-const ScheduleColor = styled.div`
+const IconColor = styled.div`
   width: 10px;
   height: 10px;
   border-radius: 50%;
   background-color: #6f5cea;
 `;
 
-const ScheduleTitle = styled.div`
-  color: #374957;
-  font-size: 14px;
-  margin-bottom: 11px;
-`;
-
-const SchedulePlace = styled.div`
-  color: #535571;
-  font-size: 10px;
-`;
-
-const ScheduleDeleteBox = styled.div`
-  width: 95%;
+const Time = styled.p`
+  font-size: 11px;
+  height: 100%;
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
+  margin-left: 8px;
+`;
+
+const Title = styled.p`
+  height: 35px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  margin-left: 8px;
+  color: #374957;
+`;
+
+const BottomBox = styled.div`
+  width: calc(100% - 8px);
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 3px;
+`;
+
+const PlaceBox = styled.div`
+  width: 30%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  color: #535571;
+  margin-left: 8px;
+  font-size: 12px;
+`;
+
+const DeleteButtonBox = styled.div`
+  width: 20%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
   align-items: center;
 `;
 
-const ScheduleDeleteBtn = styled.div`
-  width: 21px;
-  height: 21px;
+const DeleteBtn = styled.button`
+  width: 28px;
+  height: 28px;
   display: flex;
   justify-content: center;
   align-items: center;
   font-weight: bolder;
-  font-size: 18px;
   background-color: #d8d8d8;
+  border: none;
   border-radius: 8px;
   cursor: pointer;
+
+  &:hover {
+    background-color: #6f5cea;
+    color: #fff;
+  }
 `;
 
-const ScheduleList = () => {
-  const userId = localStorage.getItem('userId');
-  const [scheduleList, setScheduleList] = useState([]);
-
-  useEffect(() => {
-    getScheduleList();
-  }, []);
-
-  const getScheduleList = async () => {
-    try {
-      const res = await fetchGetScheduleList(userId);
-      setScheduleList(res.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleOnDeleteBtn = async (scheduleId) => {
-    try {
-      const res = await fetchDeleteSchedule(scheduleId);
-
-      if (res.data) {
-        alert('일정 삭제 성공!');
-        window.location.reload();
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
+const ScheduleList = ({
+  scheduleList,
+  handleDeleteSchedule,
+}) => {
   return (
-    <Wrapper>
-      {scheduleList.map((schedule) => (
-        <ScheduleBox key={schedule.id}>
-          <ScheduleContacts>
-            <ScheduleTimeBox>
-              <ScheduleColor />
-              <ScheduleTime>
-                {schedule.initTime} ~ {schedule.finishTime}
-              </ScheduleTime>
-            </ScheduleTimeBox>
-            <ScheduleTitle>{schedule.title}</ScheduleTitle>
-            <SchedulePlace>
+    <ListWrap>
+      {scheduleList.map((item) => (
+        <ScheduleItem key={item.id}>
+          <TimeBox>
+            <IconColor />
+            <Time>
+              {item.initTime} ~ {item.finishTime}
+            </Time>
+          </TimeBox>
+          <Title>{item.title}</Title>
+          <BottomBox>
+            <PlaceBox>
               <HiLocationMarker />
-              {schedule.place}
-            </SchedulePlace>
-            <ScheduleDeleteBox>
-              <ScheduleDeleteBtn
-                onClick={() => handleOnDeleteBtn(schedule.id)}
+              {item.place}
+            </PlaceBox>
+            <DeleteButtonBox>
+              <DeleteBtn
+                onClick={() => handleDeleteSchedule(item.id)}
               >
-                <AiFillDelete />
-              </ScheduleDeleteBtn>
-            </ScheduleDeleteBox>
-          </ScheduleContacts>
-        </ScheduleBox>
+                <AiFillDelete size='25px' />
+              </DeleteBtn>
+            </DeleteButtonBox>
+          </BottomBox>
+        </ScheduleItem>
       ))}
-    </Wrapper>
+    </ListWrap>
   );
 };
 

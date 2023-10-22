@@ -3,7 +3,6 @@ import { useReactToPrint } from "react-to-print";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
-import styled from "styled-components";
 
 // icons
 import { BsFillMicFill, BsFillPencilFill } from "react-icons/bs";
@@ -17,232 +16,28 @@ import {
   AiFillPrinter,
 } from "react-icons/ai";
 
-// apis
-import {
-  fetchAddMinutes,
-  fetchDeleteMinutes,
-  fetchEditMinutes,
-} from "../../api/minutes";
-
 // styles
-const TopTableDiv = styled.div`
-  margin: 20px;
-  display: flex;
-  height: 8%;
-  font-size: 0.7rem;
-  width: 90%;
-`;
+import * as S from './styles/Minutes.style';
 
-const TopTableSub = styled.div`
-  width: 100%;
-  display: flex;
-  height: 100%;
-  border: 0.05rem solid gray;
-  margin: 0.3rem;
-`;
 
-const TitleBox = styled.div`
-  width: 90%;
-  font-size: 1rem;
-  display: flex;
-  height: 8%;
-  border: 0.05rem solid gray;
-  margin: 0.3rem;
-`;
-
-const TitleDiv = styled.div`
-  width: 75%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #fff;
-`;
-
-const TopTableTitle = styled.div`
-  width: 33%;
-  border-right: 1px solid #6d6272;
-  text-align: center;
-  background-color: #f0ebfa;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1rem;
-`;
-
-const TopTableInput = styled.input`
-  width: 70%;
-  border: none;
-`;
-
-const TopTableContacts = styled.div`
-  width: 70%;
-  border: none;
-  background-color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const MinutesDataWrap = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const MainDiv = styled.div`
-  width: 80%;
-  height: 70%;
-  border-radius: 10px;
-  background-color: #f8f8f8;
-`;
-
-const MainForm = styled.form`
-  width: 80%;
-  height: 70%;
-  background-color: #f8f8f8;
-`;
-
-const AddButton = styled.div`
-  width: 32px;
-  height: 32px;
-  background: #f0ebfa;
-  border-radius: 5px;
-  cursor: pointer;
-  color: #6f5cea;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 5px;
-`;
-
-const Header = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-`;
-
-const HeadTitle = styled.div`
-  color: #6f5cea;
-  font-size: 14px;
-  margin-top: 30px;
-  margin-left: -10px;
-`;
-
-const HeaderRight = styled.div`
-  display: flex;
-  margin-top: 20px;
-  margin-right: 100px;
-`;
-
-const ButtonWrap = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`;
-
-const ListenButton = styled.div`
-  color: #8165df;
-  background-color: #f0ebfa;
-  padding: 10px;
-  margin: 20px;
-  border-radius: 20px;
-  cursor: pointer;
-  width: 20%;
-  align-items: center;
-  display: flex;
-  justify-content: center;
-
-  &:hover {
-    color: #f0ebfa;
-    background-color: #8165df;
-  }
-`;
-
-const ListenDelButton = styled.div`
-  color: #ea5c5c;
-  background-color: #faebeb;
-  padding: 10px;
-  margin: 20px;
-  border-radius: 20px;
-  cursor: pointer;
-  width: 20%;
-  align-items: center;
-  display: flex;
-  justify-content: center;
-
-  &:hover {
-    color: #faebeb;
-    background-color: #ea5c5c;
-  }
-`;
-
-const TextDiv = styled.div`
-  font-size: 12px;
-`;
-
-const TitleText = styled.span`
-  width: 13%;
-  padding: 5px;
-  font-size: 1rem;
-  border-right: 1px solid #6d6272;
-  background-color: #f0ebfa;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const ScriptDiv = styled.div`
-  width: 90%;
-  height: 70%;
-  display: flex;
-  flex-direction: row;
-  background: #fff;
-  font-size: 14px;
-  border: 0.05rem solid gray;
-  margin: 0.3rem;
-`;
-
-const Script = styled.div`
-  width: 100%;
-  font-size: 18px;
-  overflow-y: scroll;
-  padding: 4px;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-`;
-
-const ScriptTextarea = styled.textarea`
-  width: 100%;
-  font-size: 18px;
-  padding: 4px;
-`;
-
-const SpeechPage = ({ detail = {} }) => {
+const SpeechPage = ({
+  minutes,
+  handleOnDeleteMinutes,
+  handleChange,
+  handleCopyClipBoard,
+  handleSave,
+  handleEdit,
+}) => {
   const componentRef = useRef();
-  const userId = localStorage.getItem("userId");
   const [isOpen, setIsOpen] = useState(true);
   const [isEdit, setIsEdit] = useState(false);
-  const defaultDetail = {
-    id: "",
-    date: "",
-    username: "",
-    title: "",
-    detail: "",
-  };
-
-  const detailProps = { ...defaultDetail, ...detail };
-  const [writeTitle, setWriteTitle] = useState(" ");
-  const [minutesBody, setMinutesBody] = useState(detail?.detail || " ");
+  const [editText, setEditText] = useState(minutes.detail || "");
 
   useEffect(() => {
-    // setMinutesBody(detail?.detail || " ");
-  }, [detail]);
+    if (minutes.detail) {
+      setEditText(minutes.detail);
+    }
+  }, [minutes.detail]);
 
   // 회의록 프린트
   const handlePrint = useReactToPrint({
@@ -275,175 +70,146 @@ const SpeechPage = ({ detail = {} }) => {
   };
 
   // 음성 녹음 저장
-  const handleOnSaveBtn = async () => {
+  const handleSaveButton = () => {
+    const detail = transcript;
+
     SpeechRecognition.stopListening();
-    try {
-      const data = {
-        title: writeTitle,
-        detail: transcript,
-      };
-
-      await fetchAddMinutes(data, userId);
-
-      window.location.reload();
-    } catch (error) {
-      console.log(error);
-    }
+    handleSave(detail);
     resetTranscript();
   };
 
   // 회의록 수정
-  const handleOnEditBtn = async (meetingId) => {
+  const handleEditButton = (meetingId) => {
     setIsEdit(false);
-
-    try {
-      const data = {
-        detail: minutesBody,
-      };
-
-      await fetchEditMinutes(data, meetingId, userId);
-
-      alert("회의록 수정 성공!");
-
-      window.location.reload();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  // 회의내용 클립보드 복사
-  const handleCopyClipBoard = (text) => {
-    navigator.clipboard
-      .writeText(text)
-      .then(() => {
-        alert("회의내용이 복사되었습니다.");
-      })
-      .catch((error) => {
-        console.error("복사 실패:", error);
-      });
-  };
-
-  // 회의록 삭제
-  const handleOnDeleteBtn = async (meetingId) => {
-    try {
-      await fetchDeleteMinutes(meetingId);
-
-      window.location.reload();
-    } catch (error) {
-      console.log(error);
-    }
-    alert("회의록 삭제완료");
+    setEditText(minutes.detail);
+    handleEdit(meetingId, editText);
   };
 
   return (
     <>
-      <Header>
-        <Header>
+      <S.Header>
+        <S.Header>
           <RiPlayList2Fill className="true" style={{ padding: "0" }} />
-          <HeadTitle>Minutes</HeadTitle>
-        </Header>
-        <HeaderRight>
-          <AddButton
+          <S.HeadTitle>Minutes</S.HeadTitle>
+        </S.Header>
+        <S.HeaderRight>
+          <S.AddButton
             onClick={() => {
               setIsOpen(!isOpen);
             }}
           >
             {isOpen ? <AiOutlinePlusCircle /> : <RiPlayList2Fill />}
-          </AddButton>
-        </HeaderRight>
-      </Header>
+          </S.AddButton>
+        </S.HeaderRight>
+      </S.Header>
       {isOpen ? (
-        <MainDiv>
-          <ButtonWrap>
+        <S.MainDiv>
+          <S.ButtonBox>
             {!isEdit ? (
-              <ListenButton onClick={() => setIsEdit(true)}>
+              <S.Button onClick={() => setIsEdit(true)}>
                 <BsFillPencilFill />
-              </ListenButton>
+              </S.Button>
             ) : (
-              <ListenButton onClick={() => handleOnEditBtn(detailProps.id)}>
+              <S.Button onClick={() => handleEditButton(minutes.id)}>
                 <BiSave />
-              </ListenButton>
+              </S.Button>
             )}
-            <ListenButton onClick={() => handleCopyClipBoard(minutesBody)}>
+            <S.Button onClick={() => handleCopyClipBoard(minutes.detail)}>
               <AiOutlineShareAlt />
-            </ListenButton>
-            <ListenButton onClick={handlePrint}>
+            </S.Button>
+            <S.Button onClick={handlePrint}>
               <AiFillPrinter />
-            </ListenButton>
-            <ListenDelButton onClick={() => handleOnDeleteBtn(detailProps.id)}>
+            </S.Button>
+            <S.Button
+              onClick={() => handleOnDeleteMinutes(minutes.id)}
+            >
               <AiFillDelete />
-            </ListenDelButton>
-          </ButtonWrap>
-          <MinutesDataWrap ref={componentRef}>
-            <TopTableDiv>
-              <TopTableSub>
-                <TopTableTitle>문서번호</TopTableTitle>
-                <TopTableContacts>{detailProps.id}</TopTableContacts>
-              </TopTableSub>
-              <TopTableSub>
-                <TopTableTitle>회의일자</TopTableTitle>
-                <TopTableContacts>{detailProps.date}</TopTableContacts>
-              </TopTableSub>
-              <TopTableSub>
-                <TopTableTitle>작성자</TopTableTitle>
-                <TopTableContacts>{detailProps.username}</TopTableContacts>
-              </TopTableSub>
-            </TopTableDiv>
-            <TitleBox>
-              <TopTableTitle>회의명</TopTableTitle>
-              <TitleDiv>{detailProps.title}</TitleDiv>
-            </TitleBox>
-            <ScriptDiv>
-              <TitleText>회의내용</TitleText>
+            </S.Button>
+          </S.ButtonBox>
+          <S.AddMinutesWrap ref={componentRef}>
+            <S.MinutesInfoWrap>
+              <S.MinutesInfoBox>
+                <S.InfoTitleBox>문서번호</S.InfoTitleBox>
+                <S.InfoDataBox>{minutes.id}</S.InfoDataBox>
+              </S.MinutesInfoBox>
+              <S.MinutesInfoBox>
+                <S.InfoTitleBox>회의일자</S.InfoTitleBox>
+                <S.InfoDataBox>{minutes.date}</S.InfoDataBox>
+              </S.MinutesInfoBox>
+              <S.MinutesInfoBox>
+                <S.InfoTitleBox>작성자</S.InfoTitleBox>
+                <S.InfoDataBox>{minutes.username}</S.InfoDataBox>
+              </S.MinutesInfoBox>
+            </S.MinutesInfoWrap>
+            <S.MinutesTitleBox>
+              <S.InfoTextBox>회의명</S.InfoTextBox>
+              <S.TitleBox>{minutes.title}</S.TitleBox>
+            </S.MinutesTitleBox>
+            <S.TranscriptBox>
+              <S.TextBox
+                style={{ borderRadius: "8px 8px 0 0" }}
+              >
+                회의내용
+              </S.TextBox>
               {!isEdit ? (
-                <Script>{detailProps.detail}</Script>
+                <S.Transcript>{minutes.detail}</S.Transcript>
               ) : (
-                <ScriptTextarea
-                  type="text"
-                  value={minutesBody}
-                  onChange={(e) => setMinutesBody(e.target.value)}
+                <S.Textarea
+                  name='editText'
+                  value={editText}
+                  onChange={(e) => setEditText(e.target.value)}
                 />
               )}
-            </ScriptDiv>
-          </MinutesDataWrap>
-        </MainDiv>
+            </S.TranscriptBox>
+          </S.AddMinutesWrap>
+        </S.MainDiv>
       ) : (
-        <MainForm>
-          <ButtonWrap>
-            <ListenButton onClick={() => handleOnStartBtn()}>
+        <S.Form>
+          <S.ButtonBox>
+            <S.Button
+              type='button'
+              onClick={handleOnStartBtn}
+            >
               <BsFillMicFill />
-            </ListenButton>
-            <ListenButton onClick={() => handleOnStopBtn()}>
+            </S.Button>
+            <S.Button
+              type='button'
+              onClick={handleOnStopBtn}
+            >
               <BiStop />
-            </ListenButton>
-            <ListenButton onClick={resetTranscript}>
+            </S.Button>
+            <S.Button
+              type='button'
+              onClick={resetTranscript}
+            >
               <VscDebugRestart />
-            </ListenButton>
-            <ListenButton onClick={() => handleOnSaveBtn()}>
+            </S.Button>
+            <S.Button onClick={handleSaveButton}>
               <BiSave />
-            </ListenButton>
-          </ButtonWrap>
-          <MinutesDataWrap>
-            <TextDiv>Microphone: {listening ? "🟢" : "🔴"}</TextDiv>
-            <TopTableDiv>
-              <TopTableSub>
-                <TopTableTitle>회의명</TopTableTitle>
-                <TopTableInput
-                  onChange={(e) => setWriteTitle(e.target.value)}
-                  value={writeTitle}
-                />
-              </TopTableSub>
-              <TopTableSub>
-                <TopTableTitle>작성자</TopTableTitle>
-                <TopTableInput />
-              </TopTableSub>
-            </TopTableDiv>
-            <ScriptDiv>
-              <TitleText>회의내용</TitleText>
-              <Script>{transcript}</Script>
-            </ScriptDiv>
-          </MinutesDataWrap>
-        </MainForm>
+            </S.Button>
+          </S.ButtonBox>
+          <S.AddMinutesWrap>
+            <S.MicrophoneStatus>
+              Microphone: {listening ? "🟢" : "🔴"}
+            </S.MicrophoneStatus>
+            <S.MinutesTitleBox>
+              <S.InfoTextBox>회의명</S.InfoTextBox>
+              <S.Input
+                name='writeTitle'
+                onChange={handleChange}
+                required
+              />
+            </S.MinutesTitleBox>
+            <S.TranscriptBox>
+              <S.TextBox
+                style={{ borderRadius: "8px 8px 0 0" }}
+              >
+                회의내용
+              </S.TextBox>
+              <S.Transcript>{transcript}</S.Transcript>
+            </S.TranscriptBox>
+          </S.AddMinutesWrap>
+        </S.Form>
       )}
     </>
   );

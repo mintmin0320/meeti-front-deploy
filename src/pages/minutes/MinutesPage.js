@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import styled from "styled-components";
+import React, { useEffect, useState, useCallback } from "react";
 
 import Header from '../../common/Header';
 import Minutes from "./../../components/minutes/Minutes";
@@ -13,38 +12,128 @@ import {
   Container,
   BackColor,
   MainSection,
-  LeftSection
+  LeftSection,
+  RightSection,
+  TitleText
 } from '../../styles/CommonStyles';
-
-const Title = styled.p`
-  margin-top: 20px;
-  font-size: 20px;
-  margin-bottom: 5px;
-`;
-
-const Last = styled.div`
-  background: #f8f8f8;
-  width: 60%;
-  height: 100%;
-  border-radius: 20px;
-`;
+import { fetchAddMinutes, fetchDeleteMinutes, fetchEditMinutes, fetchMinutesList } from '../../api/minutes';
 
 const MinutesPage = () => {
-  const [selectedMinute, setSelectedMinute] = useState(null);
+  const userId = localStorage.getItem('userId');
+  const [minutesList, setMinutesList] = useState([]);
+  const [minutes, setMinutes] = useState([]);
+  const [writeTitle, setWriteTitle] = useState("");
+  const [refreshKey, setRefreshKey] = useState(false);
+
+  useEffect(() => {
+    getMinutesList()
+  }, [refreshKey]);
+
+  const getMinutesList = async () => {
+    try {
+      const res = await fetchMinutesList(userId);
+
+      setMinutesList(res?.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleDetailMinutes = (minutesData) => {
+    setMinutes(minutesData);
+  };
+
+  const handleChange = useCallback((e) => {
+    const { name, value } = e.target;
+    setWriteTitle((prevState) => ({
+      ...prevState,
+      [name]: value
+    }));
+  }, []);
+
+  /* 회의록 관리 */
+  // 음성 녹음 저장
+  const handleSave = async (detail) => {
+    const data = {
+      detail,
+      title: writeTitle
+    };
+
+    try {
+      await fetchAddMinutes(data, userId);
+
+      alert("회의록이 저장되었습니다.");
+
+      setRefreshKey(!refreshKey);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // 회의록 수정
+  const handleEdit = async (meetingI, editText) => {
+    const data = {
+      detail: editText,
+    };
+
+    try {
+      await fetchEditMinutes(data, meetingI, userId);
+
+      alert("회의록 수정 성공!");
+
+      setRefreshKey(!refreshKey);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // 회의록 삭제
+  const handleOnDeleteMinutes = async (meetingId) => {
+    try {
+      await fetchDeleteMinutes(meetingId);
+
+      alert("회의록 삭제완료");
+
+      setRefreshKey(!refreshKey);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // 회의내용 클립보드 복사
+  const handleCopyClipBoard = (text) => {
+    navigator.clipboard
+      .writeText(text)
+      .then(() => {
+        alert("회의내용이 복사되었습니다.");
+      })
+      .catch((error) => {
+        console.error("복사 실패:", error);
+      });
+  };
 
   return (
     <Container>
-      <MainSection className="MainDiv">
+      <MainSection>
         <BackColor src={color} style={{ opacity: 0.2 }} />
         <Header />
         <LeftSection>
-          <Title>회의록</Title>
-          <p>It's Minutes</p>
-          <MinutesList setSelectedMinute={setSelectedMinute} />
+          <TitleText>회의록</TitleText>
+          <MinutesList
+            minutesList={minutesList}
+            handleDetailMinutes={handleDetailMinutes}
+          />
         </LeftSection>
-        <Last>
-          <Minutes detail={selectedMinute} />
-        </Last>
+        <RightSection>
+          <Minutes
+            minutes={minutes}
+            handleOnDeleteMinutes={handleOnDeleteMinutes}
+            handleCopyClipBoard={handleCopyClipBoard}
+            handleSave={handleSave}
+            handleChange={handleChange}
+            handleEdit={handleEdit}
+          />
+        </RightSection>
       </MainSection>
     </Container>
   );
