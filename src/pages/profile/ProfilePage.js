@@ -96,6 +96,11 @@ const ProfilePage = () => {
 
   // 프로필, 이름 수정 저장
   const handleEditInfo = async () => {
+    if (!editName.editNam) {
+      alert('변경할 이름을 입력하고, 프로필 사진을 선택해 주세요')
+
+      return;
+    }
     formData.append("image", info.profile);
     formData.append("username", editName.editName);
 

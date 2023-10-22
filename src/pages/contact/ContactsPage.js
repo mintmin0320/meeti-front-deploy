@@ -133,7 +133,7 @@ const ContactsPage = () => {
   // 모든 연락처 조회
   const getAllContacts = async () => {
     try {
-      const res = await fetchAllUser();
+      const res = await fetchAllUser(userId);
 
       setUserList(res?.data);
     } catch (error) {

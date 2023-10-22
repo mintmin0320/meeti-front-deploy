@@ -49,11 +49,11 @@ export const fetchRequestUserList = (userId) => {
 };
 
 // 모든 유저 조회
-export const fetchAllUser = () => {
-  return axios.get(GET_ALL_USER);
+export const fetchAllUser = (userId) => {
+  return axios.get(`${GET_ALL_USER}` / userId);
 };
 
 // 유저 검색
 export const fetchSearchList = (username) => {
-  return axios.get(`${GET_SEARCH_USERNAME}?username=${username}`);
+  return axios.get(`${GET_SEARCH_USERNAME}?username=${username.search}`);
 };
