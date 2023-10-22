@@ -22,5 +22,5 @@ export const DELETE_FRIEND = `/meeti/user/friend/delete`;
 // 연락처 - 모든 유저 조회
 export const GET_ALL_USER = `/meeti/user/info/all`;
 
-// 연락처 - 모든 유저 조회
+// 연락처 - 유저 검색
 export const GET_SEARCH_USERNAME = `/meeti/user/info`;

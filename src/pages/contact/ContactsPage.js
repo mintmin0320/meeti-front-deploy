@@ -33,28 +33,6 @@ import {
   fetchRequestUserList,
   fetchSearchList
 } from '../../api/contact';
-import Modal from '../../common/Modal';
-
-const ModalOverlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const ModalBox = styled.div`
-  width: 70%;
-  height: 80%;
-  padding: 20px;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
-`;
 
 const ContactsPage = () => {
   const userId = localStorage.getItem("userId");
@@ -259,9 +237,8 @@ const ContactsPage = () => {
             handleChange={handleChange}
             handleSearchUser={handleSearchUser}
             isModalOpen={isModalOpen}
-
+            closeModal={closeModal}
             modalInfo={modalInfo}
-            setModalInfo={setModalInfo}
           />
         </RightSection>
       </MainSection>

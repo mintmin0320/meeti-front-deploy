@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 // icons
@@ -61,6 +61,7 @@ const BottomBox = styled.div`
   height: calc(100% - 80px);
   display: grid;
   justify-items: center;
+  align-content: flex-start;
   grid-template-columns: repeat(4, 1fr);
   overflow-y: scroll;
 
@@ -174,7 +175,6 @@ const ModalBox = styled.div`
 //   },
 // ];
 
-
 const MainContacts = ({
   userList,
   handleAddContacts,
@@ -182,17 +182,8 @@ const MainContacts = ({
   handleSearchUser,
   isModalOpen,
   modalInfo,
-  setModalInfo,
+  closeModal,
 }) => {
-  const closeModal = () => {
-    setModalInfo(null);
-  };
-
-  const showContactDetail = (user) => {
-    setModalInfo({ isOpen: true, user });
-  };
-
-
   return (
     <ContactWrap>
       <TopBox>
@@ -208,7 +199,7 @@ const MainContacts = ({
       <BottomBox>
         {userList.map((item) => {
           return (
-            <ContactDiv key={item.id} onClick={() => showContactDetail(item)}>
+            <ContactDiv key={item.id}>
               <ProfileImg src={item.profile || "./new.png"} />
               <NameText>{item.username}</NameText>
               <ButtonBox onClick={(e) => handleAddContacts(item.id)}>
@@ -220,13 +211,13 @@ const MainContacts = ({
           );
         })}
       </BottomBox>
-      {/* {modalInfo && modalInfo.isOpen && (
+      {isModalOpen && (
         <ModalOverlay onClick={closeModal}>
           <ModalBox onClick={(e) => e.stopPropagation()}>
-            <Modal user={modalInfo.user} onClose={closeModal} />
+            <Modal friendId={modalInfo} onClose={closeModal} />
           </ModalBox>
         </ModalOverlay>
-      )} */}
+      )}
     </ContactWrap>
   );
 };

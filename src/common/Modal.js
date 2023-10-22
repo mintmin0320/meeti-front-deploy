@@ -17,6 +17,7 @@ const ModalWrap = styled.div`
 const Modal = ({ friendId }) => {
   const userId = localStorage.getItem("userId");
   const [scheduleList, setScheduleList] = useState([]);
+  alert(friendId)
 
   useEffect(() => {
     getScheduleList();
