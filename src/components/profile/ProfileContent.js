@@ -106,7 +106,7 @@ const ProfileContent = ({
       <ProfileBox>
         {!isEdit ? (
           <>
-            <ProfileImg src={info.profile} />
+            <ProfileImg src={info.profile || "./new.png"} />
             <UserInfo username={info.username} role={info.role} />
           </>
         ) : (

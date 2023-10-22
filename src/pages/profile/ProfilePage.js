@@ -22,7 +22,7 @@ const ProfilePage = () => {
   const [refreshKey, setRefreshKey] = useState(false);
   const [info, setInfo] = useState({
     username: "",
-    profile: "./new.png",
+    profile: "",
     role: "",
   });
 

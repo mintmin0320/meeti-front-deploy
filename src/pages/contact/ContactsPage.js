@@ -146,8 +146,11 @@ const ContactsPage = () => {
     try {
       await fetchRequestAccept(userId, friendId);
 
+      alert('수락되었습니다!');
+
       setRefreshKey(!refreshKey);
     } catch (error) {
+      alert('실패했습니다!');
       console.log(error);
     }
   };
@@ -157,8 +160,11 @@ const ContactsPage = () => {
     try {
       await fetchAddFriend(userId, friendId);
 
+      alert('친구 신청 완료!');
+
       setRefreshKey(!refreshKey);
     } catch (error) {
+      alert('실패했습니다!');
       console.log(error);
     }
   };
