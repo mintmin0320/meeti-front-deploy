@@ -209,7 +209,7 @@ const MainContacts = ({
         {userList.map((item) => {
           return (
             <ContactDiv key={item.id} onClick={() => showContactDetail(item)}>
-              <ProfileImg src={item.profile} />
+              <ProfileImg src={item.profile || "./new.png"} />
               <NameText>{item.username}</NameText>
               <ButtonBox onClick={(e) => handleAddContacts(item.id)}>
                 <Button>

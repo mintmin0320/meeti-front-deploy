@@ -49,7 +49,7 @@ const RecentContacts = ({
         return (
           <S.ContactListBox key={item.id}>
             <S.ContactProfileBox>
-              <S.ProfileImg src={item.profile} />
+              <S.ProfileImg src={item.profile || "./new.png"} />
             </S.ContactProfileBox>
             <S.ContactUserInfoBox>
               <S.ContactUserInfo>{item.username}</S.ContactUserInfo>
