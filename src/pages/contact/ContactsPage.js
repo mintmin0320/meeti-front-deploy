@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
+import ReactDOM from 'react-dom';
+import styled from "styled-components";
 
 import Header from '../../common/Header';
 import ContactList from "../../components/contact/ContactList";
@@ -31,6 +33,28 @@ import {
   fetchRequestUserList,
   fetchSearchList
 } from '../../api/contact';
+import Modal from '../../common/Modal';
+
+const ModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ModalBox = styled.div`
+  width: 70%;
+  height: 80%;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+`;
 
 const ContactsPage = () => {
   const userId = localStorage.getItem("userId");
@@ -41,6 +65,20 @@ const ContactsPage = () => {
   const [search, setSearch] = useState("");
   const [isStatus, setIsStatus] = useState(false);
   const [refreshKey, setRefreshKey] = useState(false);
+
+  /* 모달 */
+  const [modalInfo, setModalInfo] = useState(null);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = (id) => {
+    setIsModalOpen(true);
+    setModalInfo(id);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   useEffect(() => {
     getContactsList();
@@ -199,12 +237,14 @@ const ContactsPage = () => {
               contactsList={contactsList}
               handleOnFavorite={handleOnFavorite}
               handleDeleteContacts={handleDeleteContacts}
+              openModal={openModal}
             />
             :
             <FavoritesList
               favoritesList={favoritesList}
               handleOnFavorite={handleOnFavorite}
               handleDeleteContacts={handleDeleteContacts}
+              openModal={openModal}
             />
           }
           <S.TittleText>요청</S.TittleText>
@@ -219,6 +259,10 @@ const ContactsPage = () => {
             handleAddContacts={handleAddContacts}
             handleChange={handleChange}
             handleSearchUser={handleSearchUser}
+            isModalOpen={isModalOpen}
+
+            modalInfo={modalInfo}
+            setModalInfo={setModalInfo}
           />
         </RightSection>
       </MainSection>

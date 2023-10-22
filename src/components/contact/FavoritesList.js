@@ -90,6 +90,7 @@ const FavoritesList = ({
   favoritesList,
   handleDeleteContacts,
   handleOnFavorite,
+  openModal,
 }) => {
   return (
     <ContactListWrap>
@@ -104,6 +105,7 @@ const FavoritesList = ({
             </ContactUserInfoBox>
             <ButtonBox>
               <Button
+                onClick={() => openModal(item.id)}
                 style={{ backgroundColor: "#9c9c9c" }}
               >
                 <AiOutlineCalendar style={{ color: "#fff" }} />

@@ -3,6 +3,7 @@ import axios from 'axios';
 // constants
 import {
   ADD_SCHEDULE,
+  CONTACTS_SCHEDULE,
   DELETE_SCHEDULE,
   READ_SCHEDULE
 } from '../constants/urls/scheduleUrls';
@@ -15,6 +16,11 @@ export const fetchAddSchedule = (userId, data) => {
 // 일정 조회
 export const fetchScheduleList = (userId) => {
   return axios.get(`${READ_SCHEDULE}/${userId}`);
+};
+
+// 친구 일정 조회
+export const fetchContactList = (userId, friendId) => {
+  return axios.get(`${CONTACTS_SCHEDULE}/${userId}/${friendId}`);
 };
 
 // 일정 삭제

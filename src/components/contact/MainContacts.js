@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 // icons
 import { FaRegAddressBook } from "react-icons/fa";
 import { BiSearch } from "react-icons/bi";
 import { BsFillPersonPlusFill } from "react-icons/bs";
+import Modal from '../../common/Modal';
 
 // style
 const ContactWrap = styled.div`
@@ -75,7 +76,7 @@ const BottomBox = styled.div`
 // 회원 카드 디자인 box
 const ContactDiv = styled.div`
   width: 150px;
-  height: 220px;
+  height: 170px;
   border-radius: 10px;
   background: #fff;
   box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.25);
@@ -96,29 +97,7 @@ const NameText = styled.p`
   margin-top: 10px;
   font-size: 14px;
   font-weight: 700;
-`;
-
-// 스케줄 확인 버튼
-const ScheduleCheckButton = styled.button`
-  width: 114px;
-  border-radius: 4px;
-  background: #9c9c9c;
-  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
-  color: #fff;
-  text-align: center;
-  font-size: 13px;
-  font-weight: bolder;
-  margin-top: 20px;
-  margin-bottom: 10px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  border: none;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #f2f2f2;
-    color: #000;
-  }
+  margin-bottom: 8px;
 `;
 
 const ButtonBox = styled.div`
@@ -139,14 +118,81 @@ const Button = styled.button`
   color: #fff;
   background: #8165df;
   cursor: pointer;
+
+  &:hover {
+    background-color: #f2f2f2;
+    color: #000;
+  }
 `;
+
+const ModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ModalBox = styled.div`
+  width: 60%;
+  height: 80%;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+`;
+
+// const userList = [
+//   {
+//     id: 1,
+//     profile: "https://placekitten.com/50/50",
+//     username: "John Doe"
+//   },
+//   {
+//     id: 2,
+//     profile: "https://placekitten.com/g/50/50",
+//     username: "Jane Smith"
+//   },
+//   {
+//     id: 3,
+//     profile: "https://placekitten.com/51/51",
+//     username: "Bob Johnson"
+//   },
+//   {
+//     id: 4,
+//     profile: "https://placekitten.com/g/51/51",
+//     username: "Alice Kim"
+//   },
+//   {
+//     id: 5,
+//     profile: "https://placekitten.com/52/52",
+//     username: "Charlie Lee"
+//   },
+// ];
+
 
 const MainContacts = ({
   userList,
   handleAddContacts,
   handleChange,
-  handleSearchUser
+  handleSearchUser,
+  isModalOpen,
+  modalInfo,
+  setModalInfo,
 }) => {
+  const closeModal = () => {
+    setModalInfo(null);
+  };
+
+  const showContactDetail = (user) => {
+    setModalInfo({ isOpen: true, user });
+  };
+
+
   return (
     <ContactWrap>
       <TopBox>
@@ -162,13 +208,10 @@ const MainContacts = ({
       <BottomBox>
         {userList.map((item) => {
           return (
-            <ContactDiv key={item.id}>
+            <ContactDiv key={item.id} onClick={() => showContactDetail(item)}>
               <ProfileImg src={item.profile} />
               <NameText>{item.username}</NameText>
-              <ScheduleCheckButton>Schedule</ScheduleCheckButton>
-              <ButtonBox
-                onClick={() => handleAddContacts(item.id)}
-              >
+              <ButtonBox onClick={(e) => handleAddContacts(item.id)}>
                 <Button>
                   <BsFillPersonPlusFill />
                 </Button>
@@ -177,6 +220,13 @@ const MainContacts = ({
           );
         })}
       </BottomBox>
+      {/* {modalInfo && modalInfo.isOpen && (
+        <ModalOverlay onClick={closeModal}>
+          <ModalBox onClick={(e) => e.stopPropagation()}>
+            <Modal user={modalInfo.user} onClose={closeModal} />
+          </ModalBox>
+        </ModalOverlay>
+      )} */}
     </ContactWrap>
   );
 };
