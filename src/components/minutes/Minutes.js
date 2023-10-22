@@ -70,7 +70,9 @@ const SpeechPage = ({
   };
 
   // 음성 녹음 저장
-  const handleSaveButton = () => {
+  const handleSaveButton = (e) => {
+    e.preventDefault();
+
     const detail = transcript;
 
     SpeechRecognition.stopListening();
