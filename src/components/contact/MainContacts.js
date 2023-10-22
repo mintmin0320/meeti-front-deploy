@@ -199,7 +199,7 @@ const MainContacts = ({
         <FaRegAddressBook className="true" style={{ padding: "0" }} />
         <PageTitle>Contacts</PageTitle>
         <SearchDiv>
-          <SearchInput onChange={handleChange} />
+          <SearchInput name='search' onChange={handleChange} />
           <SearchButton onClick={handleSearchUser}>
             <BiSearch />
           </SearchButton>
