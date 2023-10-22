@@ -9,7 +9,7 @@ import {
 } from '../constants/urls/minutesUrls';
 
 // 회의록 리스트 조회
-export const fetchGetMinutes = (userId) => {
+export const fetchMinutesList = (userId) => {
   return axios.get(`${READ_MINUTES}/${userId}`);
 };
 

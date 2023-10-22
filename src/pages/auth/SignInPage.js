@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import styled from "styled-components";
 import { useNavigate, Link } from "react-router-dom";
 
@@ -7,40 +7,10 @@ import { fetchSignIn } from "../../api/auth";
 
 import color from "./../../assets/color.png";
 
+import { Container, MainSection, BackColor } from '../../styles/CommonStyles';
+
 // styles
-const Test = styled.div`
-  width: 100vw;
-  height: 100vh;
-  background: #f5f3fe;
-`;
-
-const MainDiv = styled.div`
-  position: absolute;
-  width: 90vw;
-  height: 80vh;
-  margin-top: 78px;
-  margin-left: 69px;
-  margin-right: 69px;
-  background: #f8f8f8;
-  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.2);
-  border-radius: 20px;
-  display: flex;
-  flex-direction: row;
-  z-index: 2;
-  text-align: center;
-`;
-
-const BackColor = styled.img`
-  position: absolute;
-  width: 548px;
-  height: 503px;
-  margin-left: 100px;
-  margin-top: 100px;
-  background: #f8f8f8;
-  z-index: 1;
-`;
-
-const LoginDiv = styled.div`
+const LoginWrap = styled.div`
   border-radius: 20px;
   margin: auto;
   z-index: 3;
@@ -82,10 +52,8 @@ const Input = styled.input`
   width: 280px;
 `;
 
-const Btn = styled.button`
-  /* width: 290px;
-  height: 30px; */
-  padding: 2vh 4vh;
+const Button = styled.button`
+  padding: 1vh 4vh;
   font-size: 1.1rem;
   margin: 4rem auto;
   color: white;
@@ -99,16 +67,18 @@ const Btn = styled.button`
 const SignInPage = () => {
   const navigate = useNavigate();
   const [signIn, setSignIn] = useState({
-    email: null,
-    password: null,
+    email: '',
+    password: '',
   });
 
-  const handleInputChange = (e) => {
-    setSignIn({
-      ...signIn,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const handleChange = useCallback((e) => {
+    const { name, value } = e.target;
+
+    setSignIn((prevState) => ({
+      ...prevState,
+      [name]: value
+    }));
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -132,34 +102,34 @@ const SignInPage = () => {
   };
 
   return (
-    <Test>
-      <MainDiv className="MainDiv">
+    <Container>
+      <MainSection className="MainDiv">
         <BackColor src={color} style={{ opacity: 0.2 }} />
-        <LoginDiv>
+        <LoginWrap>
           <Title>Login</Title>
           <SubTitle>반갑습니다 미티에 오신 것을 환영해요!👋</SubTitle>
           <form
             style={{ display: "flex", flexDirection: "column" }}
-            onSubmit={(e) => handleSubmit(e)}
+            onSubmit={handleSubmit}
           >
             <Label>ID</Label>
             <Input
               type="text"
               name="email"
-              onChange={(e) => setSignIn({ ...signIn, email: e.target.value })}
+              onChange={handleChange}
             />
             <Label>PW</Label>
             <Input
               type="password"
               name="password"
-              onChange={(e) => setSignIn({ ...signIn, password: e.target.value })}
+              onChange={handleChange}
             />
             <SignupLink to="/auth">아직 미티의 회원이 아니신가요?</SignupLink>
-            <Btn>로그인</Btn>
+            <Button>로그인</Button>
           </form>
-        </LoginDiv>
-      </MainDiv>
-    </Test>
+        </LoginWrap>
+      </MainSection>
+    </Container>
   );
 };
 

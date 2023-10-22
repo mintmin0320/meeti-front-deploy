@@ -52,7 +52,7 @@ export const TitleText = styled.h1`
 `;
 
 // 좌측 단일 메뉴 wrap
-export const OfficeListWrap = styled.div`
+export const ListWrap = styled.div`
   width: 90%;
   height: calc(100% - 70px);
   display: flex;

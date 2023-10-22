@@ -1,11 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 
-// icons, dummy-data
+// icons
 import { TiUserAdd } from "react-icons/ti";
-
-// apis
-import { fetchRequestUserList } from '../../api/contact';
 
 // styles
 const ContactListWrap = styled.div`
@@ -87,48 +84,23 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const FriendRequest = () => {
-  const userId = localStorage.getItem("userId");
-  const [userList, setUserList] = useState([]);
-  const [refreshKey, setRefreshKey] = useState(false);
-
-  useEffect(() => {
-    getFriendList();
-  }, [refreshKey]);
-
-  const getFriendList = async () => {
-    try {
-      const res = await fetchRequestUserList(userId);
-
-      setUserList(res.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleOnAccept = async (userId, friendId) => {
-    try {
-      await fetchRequestUserList(userId, friendId);
-
-      setRefreshKey(!refreshKey);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
+const FriendRequest = ({
+  requestList,
+  handleOnAccept
+}) => {
   return (
     <ContactListWrap>
-      {userList.map((user) => {
+      {requestList.map((item) => {
         return (
-          <ContactListBox key={user?.id}>
+          <ContactListBox key={item?.id}>
             <ContactProfileBox>
-              <ProfileImg src={user?.profile} />
+              <ProfileImg src={item?.profile} />
             </ContactProfileBox>
             <ContactUserInfoBox>
-              <ContactUserInfo>{user?.username}</ContactUserInfo>
+              <ContactUserInfo>{item?.username}</ContactUserInfo>
             </ContactUserInfoBox>
             <ButtonBox>
-              <Button onClick={() => handleOnAccept(user?.id)}>
+              <Button onClick={() => handleOnAccept(item?.id)}>
                 <TiUserAdd color='#fff' size='20px' />
               </Button>
             </ButtonBox>

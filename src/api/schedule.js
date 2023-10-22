@@ -13,7 +13,7 @@ export const fetchAddSchedule = (userId, data) => {
 };
 
 // 일정 조회
-export const fetchGetScheduleList = (userId) => {
+export const fetchScheduleList = (userId) => {
   return axios.get(`${READ_SCHEDULE}/${userId}`);
 };
 

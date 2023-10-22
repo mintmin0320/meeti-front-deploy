@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -11,42 +11,11 @@ import {
 
 // icons
 import { MdWork } from "react-icons/md";
-import { IoIosArrowForward } from "react-icons/io";
-import { BsFillCheckCircleFill } from "react-icons/bs";
 
 import color from "./../../assets/color.png";
 
 // styles
-const Test = styled.div`
-  width: 100vw;
-  height: 100vh;
-  background: #f5f3fe;
-`;
-
-const MainDiv = styled.div`
-  position: absolute;
-  width: 90vw;
-  height: 80vh;
-  margin-top: 78px;
-  margin-left: 69px;
-  margin-right: 69px;
-  background: #f8f8f8;
-  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.2);
-  border-radius: 20px;
-  display: flex;
-  flex-direction: row;
-  z-index: 2;
-`;
-
-const BackColor = styled.img`
-  position: absolute;
-  width: 548px;
-  height: 503px;
-  margin-left: 100px;
-  margin-top: 100px;
-  background: #f8f8f8;
-  z-index: 1;
-`;
+import { Container, MainSection, BackColor } from '../../styles/CommonStyles';
 
 const UserType = styled.div`
   position: absolute;
@@ -84,27 +53,6 @@ const Label = styled.div`
   font-weight: 400;
   font-size: 1.1rem;
   line-height: 1.3rem;
-`;
-
-const Purple = styled.span`
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 8px;
-  line-height: 10px;
-  color: #8165df;
-  margin-left: 5px;
-`;
-
-const Green = styled.div`
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 8px;
-  line-height: 10px;
-  color: #197d2f;
-  text-align: left;
-  margin: 5px 10px;
 `;
 
 const Input = styled.input`
@@ -147,7 +95,7 @@ const BtnDiv = styled.div`
 const NextBtn = styled.button`
   /* width: 4vw;
   height: 3vh; */
-  padding: 1vw 2vh;
+  padding: 0.8vw 3vh;
   border-radius: 10%;
   border: none;
   color: white;
@@ -169,37 +117,36 @@ const SignUpCorpPage = () => {
     username: "",
   });
 
-  const handleInputChange = (e) => {
-    if (e.target.name === "code") {
+  const handleChange = useCallback((e) => {
+    const { name, value } = e.target;
+
+    if (name === 'code') {
       setCode(e.target.value);
     } else {
-      setForm({
-        ...form,
-        [e.target.name]: e.target.value,
-      });
+      setForm((prevState) => ({
+        ...prevState,
+        [name]: value
+      }));
     }
-  };
+  }, []);
 
   // 인증코드 요청
   /* 입력 데이터 검증 및 공백 시 처리 필요 */
   const getAuthCode = async (e) => {
     e.preventDefault();
 
+    const data = {
+      email: form.email,
+    };
+
     try {
       setIsEmailVerificationRequested(true);
 
-      const data = {
-        email: form.email,
-      };
+      await fetchGetAuthCode(data);
 
-      const res = await fetchGetAuthCode(data);
-
-      if (res.status === 200) {
-        alert("인증번호 요청!");
-      } else {
-        alert("요청 실패!");
-      }
+      alert("인증번호 요청!");
     } catch (error) {
+      alert("요청 실패!");
       console.log(error);
     }
   };
@@ -208,21 +155,18 @@ const SignUpCorpPage = () => {
   const codeCheck = async (e) => {
     e.preventDefault();
 
+    const data = {
+      code,
+    };
+
     try {
-      const data = {
-        code,
-      };
+      await fetchEmailVerificationCode(data);
 
-      const res = await fetchEmailVerificationCode(data);
+      alert("인증번호 일치!");
 
-      if (res.status === 200) {
-        alert("인증번호 일치!");
-
-        setIsAuthCode(true);
-      } else {
-        alert("인증번호 불일치!");
-      }
+      setIsAuthCode(true);
     } catch (error) {
+      alert("인증번호 불일치!");
       console.log(error);
     }
   };
@@ -238,27 +182,25 @@ const SignUpCorpPage = () => {
     };
 
     try {
-      const res = await fetchOfficeSignUp(data);
+      await fetchOfficeSignUp(data);
+      alert("회원가입 성공!");
 
-      if (res.status === 200) {
-        navigate("/auth/sign-in");
-      } else {
-        alert("회원가입 실패");
-      }
+      navigate("/auth/sign-in");
     } catch (error) {
+      alert("회원가입 실패");
       console.log(error);
     }
   };
 
   return (
-    <Test>
-      <MainDiv className="MainDiv">
+    <Container>
+      <MainSection>
         <BackColor src={color} style={{ opacity: 0.2 }} />
         <UserType>
           <MdWork size="1.3rem" /> 기업용
         </UserType>
         <SignupDiv>
-          <form onSubmit={(e) => handleSubmit(e)}>
+          <form onSubmit={handleSubmit}>
             <Ms style={{ display: `block` }}>필수항목 *</Ms>
             <Label>
               이메일을 입력해주세요.
@@ -267,7 +209,7 @@ const SignUpCorpPage = () => {
             <Input
               type="text"
               name="email"
-              onChange={handleInputChange}
+              onChange={handleChange}
               required
             />
             <Button onClick={getAuthCode} type="button">
@@ -280,7 +222,7 @@ const SignUpCorpPage = () => {
               disabled={!isEmailVerificationRequested}
               type="text"
               name="code"
-              onChange={handleInputChange}
+              onChange={handleChange}
               required
             />
             <Button onClick={codeCheck} type="button">
@@ -292,7 +234,7 @@ const SignUpCorpPage = () => {
             <Input
               type="password"
               name="password"
-              onChange={handleInputChange}
+              onChange={handleChange}
               required
             />
             <PwMsg>
@@ -306,7 +248,7 @@ const SignUpCorpPage = () => {
             <Input
               type="text"
               name="username"
-              onChange={handleInputChange}
+              onChange={handleChange}
               required
             />
             <BtnDiv>
@@ -317,8 +259,8 @@ const SignUpCorpPage = () => {
             </BtnDiv>
           </form>
         </SignupDiv>
-      </MainDiv>
-    </Test>
+      </MainSection>
+    </Container>
   );
 };
 

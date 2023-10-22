@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 
 // icons
 import { FaRegAddressBook } from "react-icons/fa";
 import { BiSearch } from "react-icons/bi";
 import { BsFillPersonPlusFill } from "react-icons/bs";
-
-import { fetchAddFriend, fetchAllUser, fetchSearchList } from '../../api/contact';
 
 // style
 const ContactWrap = styled.div`
@@ -143,72 +141,33 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const MainContacts = () => {
-  const userId = localStorage.getItem("userId");
-  const [userList, setUserList] = useState([]);
-  const [search, setSearch] = useState("");
-  const [refreshKey, setRefreshKey] = useState(false);
-
-  useEffect(() => {
-    // getFriendList();
-  }, [refreshKey]);
-
-  const getFriendList = async () => {
-    try {
-      const res = await fetchAllUser(userId);
-
-      setUserList(res?.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleRequestFriend = async (friendId) => {
-    try {
-      await fetchAddFriend(userId, friendId);
-
-      setRefreshKey(!refreshKey);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleOnSearchButton = async () => {
-    if (search === "") {
-      alert("검색어를 입력해 주세요!");
-
-      return;
-    }
-
-    try {
-      const res = await fetchSearchList(search);
-      setUserList(res?.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
+const MainContacts = ({
+  userList,
+  handleAddContacts,
+  handleChange,
+  handleSearchUser
+}) => {
   return (
     <ContactWrap>
       <TopBox>
         <FaRegAddressBook className="true" style={{ padding: "0" }} />
         <PageTitle>Contacts</PageTitle>
         <SearchDiv>
-          <SearchInput onChange={(e) => setSearch(e.target.value)} />
-          <SearchButton onClick={handleOnSearchButton}>
+          <SearchInput onChange={handleChange} />
+          <SearchButton onClick={handleSearchUser}>
             <BiSearch />
           </SearchButton>
         </SearchDiv>
       </TopBox>
       <BottomBox>
-        {userList.map((user) => {
+        {userList.map((item) => {
           return (
-            <ContactDiv key={user.id}>
-              <ProfileImg src={user.profile} />
-              <NameText>{user.username}</NameText>
+            <ContactDiv key={item.id}>
+              <ProfileImg src={item.profile} />
+              <NameText>{item.username}</NameText>
               <ScheduleCheckButton>Schedule</ScheduleCheckButton>
               <ButtonBox
-                onClick={() => handleRequestFriend(user.id)}
+                onClick={() => handleAddContacts(item.id)}
               >
                 <Button>
                   <BsFillPersonPlusFill />

@@ -21,12 +21,12 @@ const ProfilePage = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [info, setInfo] = useState({
     username: "",
-    profile: "./profile.png",
+    profile: "./new.png",
     role: "",
   });
 
   useEffect(() => {
-    // getUserInfo();
+    getUserInfo();
   }, []);
 
   // 유저정보 조회
@@ -41,7 +41,7 @@ const ProfilePage = () => {
         role: res.data.role,
       });
     } catch (error) {
-      alert(error);
+      console.log(error);
     }
   };
 
@@ -89,7 +89,7 @@ const ProfilePage = () => {
         alert("로그아웃 실패!");
       }
     } catch (error) {
-      alert(error);
+      console.log(error);
     }
   };
 
@@ -109,7 +109,7 @@ const ProfilePage = () => {
         alert("수정 실패!");
       }
     } catch (error) {
-      alert(error);
+      console.log(error);
     }
   };
 

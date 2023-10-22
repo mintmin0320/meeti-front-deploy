@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -7,41 +7,11 @@ import { fetchPersonalSignUp } from "../../api/auth";
 
 // icons
 import { MdPerson } from "react-icons/md";
-import { IoIosArrowForward } from "react-icons/io";
 
 import color from "./../../assets/color.png";
 
 // styles
-const Test = styled.div`
-  width: 100vw;
-  height: 100vh;
-  background: #f5f3fe;
-`;
-
-const MainDiv = styled.div`
-  position: absolute;
-  width: 90vw;
-  height: 80vh;
-  margin-top: 78px;
-  margin-left: 69px;
-  margin-right: 69px;
-  background: #f8f8f8;
-  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.2);
-  border-radius: 20px;
-  display: flex;
-  flex-direction: row;
-  z-index: 2;
-`;
-
-const BackColor = styled.img`
-  position: absolute;
-  width: 548px;
-  height: 503px;
-  margin-left: 100px;
-  margin-top: 100px;
-  background: #f8f8f8;
-  z-index: 1;
-`;
+import { Container, MainSection, BackColor } from '../../styles/CommonStyles';
 
 const UserType = styled.div`
   position: absolute;
@@ -136,12 +106,14 @@ const SignUpPage = () => {
     username: "",
   });
 
-  const handleInputChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const handleChange = useCallback((e) => {
+    const { name, value } = e.target;
+
+    setForm((prevState) => ({
+      ...prevState,
+      [name]: value
+    }));
+  }, []);
 
   // 회원가입
   const handleSubmit = async (e) => {
@@ -154,27 +126,26 @@ const SignUpPage = () => {
     };
 
     try {
-      const res = await fetchPersonalSignUp(data);
+      await fetchPersonalSignUp(data);
 
-      if (res.data) {
-        navigate("/auth/sign-in");
-      } else {
-        alert("회원가입 실패");
-      }
+      alert('회원가입 성공!');
+
+      navigate("/auth/sign-in");
     } catch (error) {
+      alert("회원가입 실패");
       console.log(error);
     }
   };
 
   return (
-    <Test>
-      <MainDiv className="MainDiv">
+    <Container>
+      <MainSection>
         <BackColor src={color} style={{ opacity: 0.2 }} />
         <UserType>
           <MdPerson size="1.3rem" /> 개인용
         </UserType>
         <SignupDiv>
-          <form onSubmit={(e) => handleSubmit(e)}>
+          <form onSubmit={handleSubmit}>
             <Ms style={{ display: `block` }}>필수항목 *</Ms>
             <Label>
               이메일을 입력해주세요.
@@ -183,7 +154,7 @@ const SignUpPage = () => {
             <Input
               type="text"
               name="email"
-              onChange={handleInputChange}
+              onChange={handleChange}
               required
             />
             <Green />
@@ -193,7 +164,7 @@ const SignUpPage = () => {
             <Input
               type="password"
               name="password"
-              onChange={handleInputChange}
+              onChange={handleChange}
               required
             />
             <PwMsg>
@@ -207,7 +178,7 @@ const SignUpPage = () => {
             <Input
               type="text"
               name="username"
-              onChange={handleInputChange}
+              onChange={handleChange}
               required
             />
             <BtnDiv>
@@ -220,8 +191,8 @@ const SignUpPage = () => {
             </BtnDiv>
           </form>
         </SignupDiv>
-      </MainDiv>
-    </Test>
+      </MainSection>
+    </Container>
   );
 };
 

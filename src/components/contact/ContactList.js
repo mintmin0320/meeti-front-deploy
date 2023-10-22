@@ -8,29 +8,8 @@ import { TiUserDelete } from "react-icons/ti";
 // styles
 import * as S from './styles/ContactList.style';
 
-const contactsList = [
-  {
-    id: 1,
-    profile: "https://via.placeholder.com/150", // 이 URL은 임시 이미지를 제공합니다. 필요한 경우 다른 이미지 URL로 교체하세요.
-    username: "John Doe",
-    favorite: true
-  },
-  {
-    id: 2,
-    profile: "https://via.placeholder.com/150",
-    username: "Jane Smith",
-    favorite: false
-  },
-  {
-    id: 3,
-    profile: "https://via.placeholder.com/150",
-    username: "Robert Brown",
-    favorite: true
-  }
-];
-
 const RecentContacts = ({
-  // contactsList,
+  contactsList,
   handleOnFavorite,
   handleDeleteContacts,
 }) => {

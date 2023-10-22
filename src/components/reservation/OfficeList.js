@@ -16,7 +16,7 @@ const OfficeList = ({
   handleSearchOffice,
   handleChange,
 }) => {
-  const areaArr = ["전체", "중구", "동대문구", "용산구", "광진구", "마포구", "종로구", "강북구", "서초구", "양천구", "동작구", "구로구", "노원구", "중랑구", "영등포구",];
+  const areaArr = ["전체", "중구", "동대문구", "용산구", "광진구", "마포구", "종로구", "강북구", "서초구", "양천구", "동작구", "구로구", "노원구", "중랑구", "영등포구", "관악구"];
   const navigator = useNavigate();
 
   const Classification = () => {

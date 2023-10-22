@@ -5,13 +5,13 @@ import { BiPhoneCall } from "react-icons/bi";
 
 // styles
 import * as S from './styles/ReservationList.style';
-import { OfficeListWrap } from '../../styles/CommonStyles';
+import { ListWrap } from '../../styles/CommonStyles';
 
 const ReservationList = ({
   reservationList
 }) => {
   return (
-    <OfficeListWrap>
+    <ListWrap>
       {reservationList.map((item) => {
         return (
           <S.OfficeItem key={item?.id}>
@@ -32,7 +32,7 @@ const ReservationList = ({
           </S.OfficeItem>
         )
       })}
-    </OfficeListWrap>
+    </ListWrap>
   )
 };
 
