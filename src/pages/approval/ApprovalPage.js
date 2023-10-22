@@ -176,6 +176,7 @@ const ApprovalPage = () => {
 
       await fetchAddApproval(userId, formData);
       setDecisionForm(prevState => ({ ...prevState, request: '' }));
+      setRefreshKey(!refreshKey);
       getAdminList();
     } catch (error) {
       console.log(error);
