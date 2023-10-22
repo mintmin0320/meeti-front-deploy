@@ -56,7 +56,7 @@ const MinutesPage = () => {
   const handleSave = async (detail) => {
     const data = {
       detail,
-      title: writeTitle
+      title: writeTitle.writeTitle
     };
 
     try {
