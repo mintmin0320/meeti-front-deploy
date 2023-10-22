@@ -50,7 +50,7 @@ export const fetchRequestUserList = (userId) => {
 
 // 모든 유저 조회
 export const fetchAllUser = (userId) => {
-  return axios.get(`${GET_ALL_USER}` / userId);
+  return axios.get(`${GET_ALL_USER}/${userId}`);
 };
 
 // 유저 검색
