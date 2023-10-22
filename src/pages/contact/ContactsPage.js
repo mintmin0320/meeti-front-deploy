@@ -164,7 +164,7 @@ const ContactsPage = () => {
   };
 
   /* 연락처 수락  */
-  const handleOnAccept = async (userId, friendId) => {
+  const handleOnAccept = async (friendId) => {
     try {
       await fetchRequestAccept(userId, friendId);
 
