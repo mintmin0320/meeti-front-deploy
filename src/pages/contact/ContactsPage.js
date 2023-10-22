@@ -196,7 +196,6 @@ const ContactsPage = () => {
     try {
       const res = await fetchSearchList(search);
       setUserList(res?.data);
-      setRefreshKey(!refreshKey);
     } catch (error) {
       console.log(error);
     }

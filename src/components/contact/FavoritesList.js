@@ -98,7 +98,7 @@ const FavoritesList = ({
         return (
           <ContactListBox key={item.id}>
             <ContactProfileBox>
-              <ProfileImg src={item.profile} />
+              <ProfileImg src={item.profile || "./new.png"} />
             </ContactProfileBox>
             <ContactUserInfoBox>
               <ContactUserInfo>{item.username}</ContactUserInfo>
