@@ -3,11 +3,18 @@ import axios from 'axios';
 // constants
 import {
   ACCOUNT_DELETION,
-  SIGN_OUT
+  SIGN_OUT,
+  REFRESH_TOKEN,
+  SINGIN,
+  PERSONAL_SIGNUP,
+  OFFICE_SIGNUP,
+  REQUEST_EMAIL,
+  VALID_CODE
 } from '../constants/urls/authUrls';
 
+// 로그인
 export const fetchSignIn = async (data) => {
-  const res = await axios.post(`/meeti/user/login`, data);
+  const res = await axios.post(SINGIN, data);
   const { accessToken, refreshToken } = res.data;
 
   localStorage.setItem('accessToken', accessToken);
@@ -17,24 +24,29 @@ export const fetchSignIn = async (data) => {
   return res;
 };
 
+// 토큰 재요청
 export const fetchGetRefreshToken = (refreshToken) => {
-  return axios.post(`/meeti/access-token/issue`, { refreshToken });
+  return axios.post(REFRESH_TOKEN, { refreshToken });
 };
 
+// 개인 회원가입
 export const fetchPersonalSignUp = (data) => {
-  return axios.post(`/meeti/user/join`, data);
+  return axios.post(PERSONAL_SIGNUP, data);
 };
 
+// 기업 회원가입
 export const fetchOfficeSignUp = (data) => {
-  return axios.post(`/meeti/user/join/office`, data);
+  return axios.post(OFFICE_SIGNUP, data);
 };
 
+// 이메일 인증 요청
 export const fetchGetAuthCode = (data) => {
-  return axios.post(`/email/valid`, data);
+  return axios.post(REQUEST_EMAIL, data);
 };
 
+// 이메일 인증 코드 확인
 export const fetchEmailVerificationCode = (data) => {
-  return axios.post(`/email/valid / code`, data);
+  return axios.post(VALID_CODE, data);
 };
 
 // 회원탈퇴
