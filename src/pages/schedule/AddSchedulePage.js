@@ -86,8 +86,8 @@ const AddSchedulePage = () => {
       finishTime: scheduleForm.finishTime,
       place: scheduleForm.place,
       color,
-      start: date.startDate,
-      end: date.endDate,
+      start: date[0].startDate,
+      end: date[0].endDate,
     };
 
     try {
