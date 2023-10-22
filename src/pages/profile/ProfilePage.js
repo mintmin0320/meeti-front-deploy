@@ -19,6 +19,7 @@ const ProfilePage = () => {
   const formData = new FormData();
   const userId = localStorage.getItem("userId");
   const [isEdit, setIsEdit] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(false);
   const [info, setInfo] = useState({
     username: "",
     profile: "./new.png",
@@ -27,7 +28,7 @@ const ProfilePage = () => {
 
   useEffect(() => {
     getUserInfo();
-  }, []);
+  }, [refreshKey]);
 
   // 유저정보 조회
   const getUserInfo = async () => {
@@ -99,16 +100,14 @@ const ProfilePage = () => {
     formData.append("username", editName);
 
     try {
-      const res = await fetchEditInfo(userId, formData);
+      await fetchEditInfo(userId, formData);
 
-      if (res.data) {
-        alert("수정 성공!");
+      alert("수정 성공!");
 
-        setIsEdit(false);
-      } else {
-        alert("수정 실패!");
-      }
+      setIsEdit(false);
+      setRefreshKey(!refreshKey);
     } catch (error) {
+      alert("수정 실패!");
       console.log(error);
     }
   };

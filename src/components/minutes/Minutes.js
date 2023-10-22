@@ -78,6 +78,7 @@ const SpeechPage = ({
     SpeechRecognition.stopListening();
     handleSave(detail);
     resetTranscript();
+    isOpen(false);
   };
 
   // 회의록 수정
