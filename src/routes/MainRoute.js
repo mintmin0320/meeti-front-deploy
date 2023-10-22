@@ -9,19 +9,41 @@ import {
   ApprovalRoute,    // 승인
   ProfileRoute,     // 프로필
   MinutesRoute,      // 회의록
-  PrivateRoute
+  PrivateRoute,
+  PublicOnlyRoute
 } from './index'
 
 export default function MainRoute() {
   return (
     <Routes>
-      <Route path="/auth/*" element={<AuthRoute />} />
-      <Route path="/*" element={<ScheduleRoute />} />
-      <Route path="/contact/*" element={<ContactRoute />} />
-      <Route path="/reservation/*" element={<ReservationRoute />} />
-      <Route path="/approval/*" element={<ApprovalRoute />} />
-      <Route path="/profile/*" element={<ProfileRoute />} />
-      <Route path="/minutes/*" element={<MinutesRoute />} />
+      <Route
+        path="/auth/*"
+        element={<PublicOnlyRoute><AuthRoute /></PublicOnlyRoute>}
+      />
+      <Route
+        path="/*"
+        element={<PrivateRoute><ScheduleRoute /></PrivateRoute>}
+      />
+      <Route
+        path="/contact/*"
+        element={<PrivateRoute><ContactRoute /></PrivateRoute>}
+      />
+      <Route
+        path="/reservation/*"
+        element={<PrivateRoute><ReservationRoute /></PrivateRoute>}
+      />
+      <Route
+        path="/approval/*"
+        element={<PrivateRoute><ApprovalRoute /></PrivateRoute>}
+      />
+      <Route
+        path="/profile/*"
+        element={<PrivateRoute><ProfileRoute /></PrivateRoute>}
+      />
+      <Route
+        path="/minutes/*"
+        element={<PrivateRoute><MinutesRoute /></PrivateRoute>}
+      />
     </Routes>
   );
 };
