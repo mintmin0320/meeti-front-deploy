@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
-// styles
 import * as S from './styles/ApprovalReqList.style';
 
 const ApprovalRequestList = ({

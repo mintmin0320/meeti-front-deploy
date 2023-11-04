@@ -1,10 +1,8 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 
-// icons
 import { FaRegPaperPlane } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
 
-// styles
 import * as S from './styles/AddApproval.style';
 
 const AddApproval = ({

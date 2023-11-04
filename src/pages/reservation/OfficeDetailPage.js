@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, forwardRef } from "react";
+import { useEffect, useState, useCallback, forwardRef } from "react";
 import styled from "styled-components";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -7,13 +7,17 @@ import Header from '../../common/Header';
 
 import color from "./../../assets/color.png";
 
-// styles
 import {
   Container,
   BackColor,
   MainSection,
 } from '../../styles/CommonStyles';
-import { fetchDetailOfficeData, fetchReservationOffice, fetchReservationPayment } from '../../api/reservation';
+
+import {
+  fetchDetailOfficeData,
+  fetchReservationOffice,
+  fetchReservationPayment
+} from '../../api/reservation';
 
 const DetailSection = styled.section`
   width: 90%;

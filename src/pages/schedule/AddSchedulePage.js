@@ -1,19 +1,13 @@
-import React, { useState, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 
-// apis
 import { fetchAddSchedule } from '../../api/schedule';
 
-// hooks
 import { useColor } from "../../hooks/context/BackContext";
 
-// icons
 import Header from '../../common/Header';
-
 import AddSchedule from '../../components/schedule/AddSchedule';
-
-// bg-color
 import backColor from '../../assets/color.png'
 
 // CSS
@@ -27,7 +21,6 @@ import {
   TitleText,
 } from '../../styles/CommonStyles';
 
-// styles
 const Section = styled.section`
   width: 100%;
   height: 100%;

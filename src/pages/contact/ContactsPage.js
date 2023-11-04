@@ -1,6 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
-import ReactDOM from 'react-dom';
-import styled from "styled-components";
+import { useState, useEffect, useCallback } from "react";
 
 import Header from '../../common/Header';
 import ContactList from "../../components/contact/ContactList";
@@ -8,7 +6,6 @@ import FavoritesList from '../../components/contact/FavoritesList';
 import MainContacts from "../../components/contact/MainContacts";
 import FriendRequest from '../../components/contact/FriendRequest';
 
-// bg-color, global-styles
 import color from "./../../assets/color.png";
 import {
   Container,
@@ -17,8 +14,6 @@ import {
   LeftSection,
   RightSection,
 } from '../../styles/CommonStyles';
-
-// styles
 import * as S from './styles/ContactsPage.style';
 
 // apis

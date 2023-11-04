@@ -1,13 +1,11 @@
-import React, { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 import Header from '../../common/Header';
 import Minutes from "./../../components/minutes/Minutes";
 import MinutesList from "./../../components/minutes/MinutesList";
 
-// bg-color
 import color from "./../../assets/color.png";
 
-// styles
 import {
   Container,
   BackColor,
@@ -16,7 +14,13 @@ import {
   RightSection,
   TitleText
 } from '../../styles/CommonStyles';
-import { fetchAddMinutes, fetchDeleteMinutes, fetchEditMinutes, fetchMinutesList } from '../../api/minutes';
+
+import {
+  fetchAddMinutes,
+  fetchDeleteMinutes,
+  fetchEditMinutes,
+  fetchMinutesList
+} from '../../api/minutes';
 
 const MinutesPage = () => {
   const userId = localStorage.getItem('userId');

@@ -1,14 +1,18 @@
-import React, { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 import Header from '../../common/Header';
 import OfficeList from "../../components/reservation/OfficeList";
+import ReservationList from '../../components/reservation/ReservationList';
 
 import color from "./../../assets/color.png";
 
-// icons
-import { fetchClassificationArea, fetchOfficeList, fetchReservationList, fetchSearchOffice } from '../../api/reservation';
+import {
+  fetchClassificationArea,
+  fetchOfficeList,
+  fetchReservationList,
+  fetchSearchOffice
+} from '../../api/reservation';
 
-// styles
 import {
   Container,
   BackColor,
@@ -17,7 +21,6 @@ import {
   RightSection,
   TitleText,
 } from '../../styles/CommonStyles';
-import ReservationList from '../../components/reservation/ReservationList';
 
 const ReservationPage = () => {
   const userId = localStorage.getItem('userId');

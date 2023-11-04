@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Header from '../../common/Header';
@@ -6,7 +6,6 @@ import AddOffice from '../../components/reservation/AddOffice';
 
 import color from "./../../assets/color.png";
 
-// styles
 import {
   Container,
   BackColor,

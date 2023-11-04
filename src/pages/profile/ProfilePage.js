@@ -1,18 +1,20 @@
-import React, { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Header from "../../common/Header";
 import ProfileContent from '../../components/profile/ProfileContent';
 
-// bg-color
 import color from "./../../assets/color.png";
 
 // apis
 import { fetchEditInfo, fetchGetUserInfo } from "../../api/profile";
 import { fetchAccountDeletion, fetchSignOut } from "../../api/auth";
 
-// styles
-import { Container, BackColor, MainSection } from '../../styles/CommonStyles';
+import {
+  Container,
+  BackColor,
+  MainSection
+} from '../../styles/CommonStyles';
 
 const ProfilePage = () => {
   const navigate = useNavigate();
