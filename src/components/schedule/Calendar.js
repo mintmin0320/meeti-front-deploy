@@ -1,6 +1,4 @@
-import React from "react";
 import { useNavigate } from 'react-router-dom';
-import styled from "styled-components";
 
 // fullcalendar-library
 import FullCalendar from "@fullcalendar/react";
@@ -8,59 +6,9 @@ import interactionPlugin from "@fullcalendar/interaction";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import { Tooltip } from "react-tooltip";
 
-// icons
+import * as S from './styles/Calendar.style';
+
 import { AiOutlineCalendar, AiOutlinePlusCircle } from "react-icons/ai";
-
-const TopBox = styled.div`
-  width: 100%;
-  height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const TitleBox = styled.div`
-  height: 100%;
-  display: flex;
-  align-items: center;
-  color: #6f5cea;
-`;
-
-const Title = styled.p`
-  height: 100%;
-  display: flex;
-  align-items: center;
-  color: #6f5cea;
-  font-size: 16px;
-`;
-
-const AddButtonBox = styled.div`
-  width: 20%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  color: #6f5cea;
-  font-size: 14px;
-`;
-
-const NavigatorButton = styled.button`
-  width: 45px;
-  height: 45px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: none;
-  border-radius: 5px;
-  color: #6f5cea;
-  background: #f0ebfa;
-  cursor: pointer;
-`;
-
-const CalendarWrap = styled.div`
-  width: 90%;
-  height: 80%;
-  border-radius: 10px;
-`;
 
 const Calendar = ({
   scheduleList,
@@ -69,22 +17,22 @@ const Calendar = ({
 
   return (
     <>
-      <TopBox>
-        <TitleBox>
+      <S.TopBox>
+        <S.TitleBox>
           <AiOutlineCalendar className="true" style={{ padding: "0" }} />
-          <Title>Calendar</Title>
-        </TitleBox>
-        <AddButtonBox>
-          <NavigatorButton
+          <S.Title>Calendar</S.Title>
+        </S.TitleBox>
+        <S.AddButtonBox>
+          <S.NavigatorButton
             onClick={() => {
               navigator('/add-schedule');
             }}
           >
             <AiOutlinePlusCircle size='20px' />
-          </NavigatorButton>
-        </AddButtonBox>
-      </TopBox>
-      <CalendarWrap>
+          </S.NavigatorButton>
+        </S.AddButtonBox>
+      </S.TopBox>
+      <S.CalendarWrap>
         <FullCalendar
           height='100%'
           eventClick={(e) => {
@@ -127,12 +75,8 @@ const Calendar = ({
             const month = date.date.month + 1;
             return year + "년 " + month + "월";
           }}
-          dateClick={(it) => {
-            // alert(it.date.getDate());
-            // console.log(it.date.getDate());
-          }}
         />
-      </CalendarWrap>
+      </S.CalendarWrap>
     </>
   );
 };
