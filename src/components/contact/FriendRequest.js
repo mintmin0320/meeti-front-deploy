@@ -1,14 +1,20 @@
+import { useQuery } from '@tanstack/react-query';
+
 import { TiUserAdd } from "react-icons/ti";
 
 import * as S from './styles/FriendRequest.style';
 
+import { fetchRequestUser } from '../../query-hooks';
+
 const FriendRequest = ({
-  requestList,
+  userId,
   handleOnAccept
 }) => {
+  const { data: requestList } = useQuery(fetchRequestUser(userId));
+
   return (
     <S.ContactListWrap>
-      {requestList.map((item) => {
+      {requestList?.map((item) => {
         return (
           <S.ContactListBox key={item?.id}>
             <S.ContactProfileBox>

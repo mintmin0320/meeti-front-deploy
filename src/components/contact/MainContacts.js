@@ -1,3 +1,5 @@
+import { useQuery } from '@tanstack/react-query';
+
 import { FaRegAddressBook } from "react-icons/fa";
 import { BiSearch } from "react-icons/bi";
 import { BsFillPersonPlusFill } from "react-icons/bs";
@@ -5,8 +7,10 @@ import { BsFillPersonPlusFill } from "react-icons/bs";
 import Modal from '../../common/Modal';
 import * as S from './styles/MainContacts.style';
 
+import { fetchAllUser } from '../../query-hooks';
+
 const MainContacts = ({
-  userList,
+  userId,
   handleAddContacts,
   handleChange,
   handleSearchUser,
@@ -14,6 +18,8 @@ const MainContacts = ({
   modalInfo,
   closeModal,
 }) => {
+  const { data: userList } = useQuery(fetchAllUser(userId));
+
   return (
     <S.ContactWrap>
       <S.TopBox>

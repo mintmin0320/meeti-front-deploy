@@ -1,4 +1,5 @@
-import { useState, useEffect, useCallback } from "react";
+
+import React, { useState, useCallback } from "react";
 
 import Header from '../../common/Header';
 import ContactList from "../../components/contact/ContactList";
@@ -16,32 +17,24 @@ import {
 } from '../../styles/CommonStyles';
 import * as S from './styles/ContactsPage.style';
 
-// apis
 import {
-  fetchAddFriend,
-  fetchAllUser,
-  fetchContactsList,
   fetchDeleteContacts,
-  fetchFavoriteList,
-  fetchOnFavorite,
   fetchRequestAccept,
-  fetchRequestUserList,
   fetchSearchList
-} from '../../api/contact';
+} from '../../query-hooks/api';
+
+import { useAddContacts, useOnFavorites } from '../../query-hooks';
 
 const ContactsPage = () => {
   const userId = localStorage.getItem("userId");
-  const [contactsList, setContactsList] = useState([]);
-  const [favoritesList, setFavoritesList] = useState([]);
-  const [requestList, setRequestList] = useState([]);
-  const [userList, setUserList] = useState([]);
   const [search, setSearch] = useState("");
   const [isStatus, setIsStatus] = useState(false);
-  const [refreshKey, setRefreshKey] = useState(false);
+
+  const addContacts = useAddContacts();
+  const onFavorites = useOnFavorites();
 
   /* 모달 */
   const [modalInfo, setModalInfo] = useState(null);
-
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = (id) => {
@@ -53,85 +46,19 @@ const ContactsPage = () => {
     setIsModalOpen(false);
   };
 
-  useEffect(() => {
-    getContactsList();
-  }, [refreshKey]);
+  // 연락처 추가
+  const handleAddContacts = async (friendId) => {
+    const params = {
+      userId,
+      friendId,
+    };
 
-  useEffect(() => {
-    getFriendList();
-  }, [refreshKey]);
-
-  useEffect(() => {
-    getRequestList();
-  }, [refreshKey]);
-
-  useEffect(() => {
-    getAllContacts();
-  }, [refreshKey]);
-
-  /* 연락처/즐겨찾기 리스트 */
-  // 친구 리스트 조회
-  const getContactsList = async () => {
     try {
-      const res = await fetchContactsList(userId);
+      await addContacts.mutateAsync(params);
 
-      setContactsList(res?.data);
+      alert('친구 신청 완료!');
     } catch (error) {
-      console.log(error);
-    }
-  };
-
-  // 즐겨찾기 리스트 조회
-  const getFriendList = async () => {
-    try {
-      const res = await fetchFavoriteList(userId);
-
-      setFavoritesList(res?.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  // 연락처 수락 요청 리스트
-  const getRequestList = async () => {
-    try {
-      const res = await fetchRequestUserList(userId);
-
-      setRequestList(res?.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  // 모든 연락처 조회
-  const getAllContacts = async () => {
-    try {
-      const res = await fetchAllUser(userId);
-
-      setUserList(res?.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  // 즐겨찾기 등록/해제
-  const handleOnFavorite = async (friendId) => {
-    try {
-      await fetchOnFavorite(userId, friendId);
-
-      setRefreshKey(!refreshKey);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  // 연락처 삭제
-  const handleDeleteContacts = async (friendId) => {
-    try {
-      await fetchDeleteContacts(userId, friendId);
-
-      setRefreshKey(!refreshKey);
-    } catch (error) {
+      alert('실패했습니다!');
       console.log(error);
     }
   };
@@ -142,24 +69,17 @@ const ContactsPage = () => {
       await fetchRequestAccept(userId, friendId);
 
       alert('수락되었습니다!');
-
-      setRefreshKey(!refreshKey);
     } catch (error) {
       alert('실패했습니다!');
       console.log(error);
     }
   };
 
-  // 연락처 추가
-  const handleAddContacts = async (friendId) => {
+  // 연락처 삭제
+  const handleDeleteContacts = async (friendId) => {
     try {
-      await fetchAddFriend(userId, friendId);
-
-      alert('친구 신청 완료!');
-
-      setRefreshKey(!refreshKey);
+      await fetchDeleteContacts(userId, friendId);
     } catch (error) {
-      alert('실패했습니다!');
       console.log(error);
     }
   };
@@ -174,8 +94,23 @@ const ContactsPage = () => {
 
     try {
       const res = await fetchSearchList(search);
-      setUserList(res?.data);
     } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // 즐겨찾기 ON/OFF
+  const handleOnFavorite = async (friendId) => {
+    const params = {
+      userId,
+      friendId,
+    };
+
+    try {
+      await onFavorites.mutateAsync(params);
+      alert('요청 성공!');
+    } catch (error) {
+      alert('즐겨찾기 실패!');
       console.log(error);
     }
   };
@@ -192,56 +127,58 @@ const ContactsPage = () => {
   return (
     <Container>
       <MainSection>
-        <BackColor src={color} style={{ opacity: 0.2 }} />
-        <Header />
-        <LeftSection>
-          <S.TextBox>
-            <S.Tittle
-              onClick={() => setIsStatus(false)}
-              isActive={!isStatus}
-            >
-              연락처 |
-            </S.Tittle>
-            &nbsp;
-            <S.Tittle
-              onClick={() => setIsStatus(true)}
-              isActive={isStatus}
-            >
-              즐겨찾기
-            </S.Tittle>
-          </S.TextBox>
-          {!isStatus ?
-            <ContactList
-              contactsList={contactsList}
-              handleOnFavorite={handleOnFavorite}
-              handleDeleteContacts={handleDeleteContacts}
-              openModal={openModal}
+        <React.Suspense fallback='로딩!!!'>
+          <BackColor src={color} style={{ opacity: 0.2 }} />
+          <Header />
+          <LeftSection>
+            <S.TextBox>
+              <S.Tittle
+                onClick={() => setIsStatus(false)}
+                isActive={!isStatus}
+              >
+                연락처 |
+              </S.Tittle>
+              &nbsp;
+              <S.Tittle
+                onClick={() => setIsStatus(true)}
+                isActive={isStatus}
+              >
+                즐겨찾기
+              </S.Tittle>
+            </S.TextBox>
+            {!isStatus ?
+              <ContactList
+                userId={userId}
+                handleOnFavorite={handleOnFavorite}
+                handleDeleteContacts={handleDeleteContacts}
+                openModal={openModal}
+              />
+              :
+              <FavoritesList
+                userId={userId}
+                handleOnFavorite={handleOnFavorite}
+                handleDeleteContacts={handleDeleteContacts}
+                openModal={openModal}
+              />
+            }
+            <S.TittleText>요청</S.TittleText>
+            <FriendRequest
+              userId={userId}
+              handleOnAccept={handleOnAccept}
             />
-            :
-            <FavoritesList
-              favoritesList={favoritesList}
-              handleOnFavorite={handleOnFavorite}
-              handleDeleteContacts={handleDeleteContacts}
-              openModal={openModal}
+          </LeftSection>
+          <RightSection>
+            <MainContacts
+              userId={userId}
+              handleAddContacts={handleAddContacts}
+              handleChange={handleChange}
+              handleSearchUser={handleSearchUser}
+              isModalOpen={isModalOpen}
+              closeModal={closeModal}
+              modalInfo={modalInfo}
             />
-          }
-          <S.TittleText>요청</S.TittleText>
-          <FriendRequest
-            requestList={requestList}
-            handleOnAccept={handleOnAccept}
-          />
-        </LeftSection>
-        <RightSection>
-          <MainContacts
-            userList={userList}
-            handleAddContacts={handleAddContacts}
-            handleChange={handleChange}
-            handleSearchUser={handleSearchUser}
-            isModalOpen={isModalOpen}
-            closeModal={closeModal}
-            modalInfo={modalInfo}
-          />
-        </RightSection>
+          </RightSection>
+        </React.Suspense>
       </MainSection>
     </Container>
   );

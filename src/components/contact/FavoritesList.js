@@ -1,15 +1,21 @@
+import { useQuery } from '@tanstack/react-query';
+
 import { AiOutlineCalendar } from "react-icons/ai";
 import { HiHeart } from "react-icons/hi";
 import { TiUserDelete } from "react-icons/ti";
 
 import * as S from './styles/FavoritesList.style';
 
+import { fetchFavorite } from '../../query-hooks';
+
 const FavoritesList = ({
-  favoritesList,
+  userId,
   handleDeleteContacts,
   handleOnFavorite,
   openModal,
 }) => {
+  const { data: favoritesList } = useQuery(fetchFavorite(userId));
+
   return (
     <S.ContactListWrap>
       {favoritesList?.map((item) => {

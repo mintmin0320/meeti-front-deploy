@@ -1,18 +1,24 @@
+import { useQuery } from '@tanstack/react-query';
+
 import { AiOutlineCalendar } from "react-icons/ai";
 import { HiHeart, HiOutlineHeart } from "react-icons/hi";
 import { TiUserDelete } from "react-icons/ti";
 
 import * as S from './styles/ContactList.style';
 
+import { fetchContacts } from '../../query-hooks';
+
 const RecentContacts = ({
-  contactsList,
+  userId,
   handleOnFavorite,
   handleDeleteContacts,
   openModal
 }) => {
+  const { data: contactsList } = useQuery(fetchContacts(userId));
+
   return (
     <S.ContactListWrap>
-      {contactsList.map((item) => {
+      {contactsList?.map((item) => {
         return (
           <S.ContactListBox key={item.id}>
             <S.ContactProfileBox>
