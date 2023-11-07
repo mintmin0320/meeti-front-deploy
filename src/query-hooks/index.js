@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+
 import {
   getUserData,
   getContactsData,
@@ -6,6 +7,9 @@ import {
   getRequestUserData,
   postAddContacts,
   postOnFavorite,
+  postRequestAccept,
+  deleteContacts,
+  getSearchContacts,
 } from './api';
 
 // 전체 유저 목록
@@ -34,9 +38,18 @@ const fetchFavorite = (userId) => ({
 
 // 요청 대기자 목록
 const fetchRequestUser = (userId) => ({
-  queryKey: ["requestUser", userId],
+  queryKey: ["request", userId],
   queryFn: () => getRequestUserData(userId),
   suspense: true,
+  staleTime: 50000,
+});
+
+// 연락처 검색
+const fetchSearchContacts = (username) => ({
+  queryKey: ["search", username],
+  queryFn: () => getSearchContacts(username),
+  suspense: true,
+  enabled: false,
   staleTime: 50000,
 });
 
@@ -47,6 +60,33 @@ const useAddContacts = () => {
   return useMutation({
     mutationFn: (params) => postAddContacts(params),
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["users"] });
+    }
+  })
+};
+
+// 요청 수락
+const useRequestAccept = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (params) => postRequestAccept(params),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["requestUser"] });
+      queryClient.invalidateQueries({ queryKey: ["users"] });
+      queryClient.invalidateQueries({ queryKey: ["contacts"] });
+    }
+  })
+};
+
+// 연락처 삭제
+const useDeleteContacts = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (params) => deleteContacts(params),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["contacts"] });
       queryClient.invalidateQueries({ queryKey: ["users"] });
     }
   })
@@ -70,6 +110,9 @@ export {
   fetchContacts,
   fetchFavorite,
   fetchRequestUser,
+  fetchSearchContacts,
   useAddContacts,
   useOnFavorites,
+  useRequestAccept,
+  useDeleteContacts,
 };

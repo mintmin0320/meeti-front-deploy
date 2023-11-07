@@ -7,18 +7,39 @@ import { BsFillPersonPlusFill } from "react-icons/bs";
 import Modal from '../../common/Modal';
 import * as S from './styles/MainContacts.style';
 
-import { fetchAllUser } from '../../query-hooks';
+import { fetchAllUser, fetchSearchContacts } from '../../query-hooks';
+import { useState } from 'react';
 
 const MainContacts = ({
   userId,
   handleAddContacts,
-  handleChange,
-  handleSearchUser,
   isModalOpen,
   modalInfo,
   closeModal,
 }) => {
-  const { data: userList } = useQuery(fetchAllUser(userId));
+  const [keyword, setKeyword] = useState('');
+
+  const { data: allUsers } = useQuery(fetchAllUser(userId));
+
+  const { data: searchResults, refetch: refetchSearchResults } = useQuery(
+    fetchSearchContacts(keyword),
+  );
+
+  const handleSearchClick = () => {
+    if (keyword.trim() === '') {
+      alert('검색어를 입력해주세요.');
+
+      return;
+    }
+
+    refetchSearchResults();
+  };
+
+  const handleChange = (e) => {
+    setKeyword(e.target.value);
+  };
+
+  const userList = keyword && searchResults ? searchResults : allUsers;
 
   return (
     <S.ContactWrap>
@@ -26,8 +47,12 @@ const MainContacts = ({
         <FaRegAddressBook className="true" style={{ padding: "0" }} />
         <S.PageTitle>Contacts</S.PageTitle>
         <S.SearchDiv>
-          <S.SearchInput name='search' onChange={handleChange} />
-          <S.SearchButton onClick={handleSearchUser}>
+          <S.SearchInput
+            name='search'
+            onChange={handleChange}
+            value={keyword}
+          />
+          <S.SearchButton onClick={handleSearchClick}>
             <BiSearch />
           </S.SearchButton>
         </S.SearchDiv>

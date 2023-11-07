@@ -43,6 +43,12 @@ export const getRequestUserData = async (userId) => {
   return data;
 };
 
+// 유저 검색
+export const getSearchContacts = async (username) => {
+  const { data } = await axios.get(`${GET_SEARCH_USERNAME}?username=${encodeURIComponent(username)}`);
+
+  return data;
+};
 
 /* POST 메서드 */
 // 친구 추가
@@ -51,22 +57,17 @@ export const postAddContacts = async ({ userId, friendId }) => {
 };
 
 // 친구 수락
-export const fetchRequestAccept = (userId, friendId) => {
-  return axios.post(`${REQUEST_ACCEPT}/${userId}/${friendId}`,);
+export const postRequestAccept = async ({ userId, friendId }) => {
+  await axios.post(`${REQUEST_ACCEPT}/${userId}/${friendId}`,);
 };
-
 
 // 즐겨찾기 (On/Off)
 export const postOnFavorite = async ({ userId, friendId }) => {
-  return axios.post(`${ON_FAVORITE}/${userId}/${friendId}`);
+  await axios.post(`${ON_FAVORITE}/${userId}/${friendId}`);
 };
 
+/* DELETE 메서드 */
 // 친구 삭제
-export const fetchDeleteContacts = (userId, friendId) => {
-  return axios.delete(`${DELETE_FRIEND}/${userId}/${friendId}`);
-};
-
-// 유저 검색
-export const fetchSearchList = (username) => {
-  return axios.get(`${GET_SEARCH_USERNAME}?username=${username.search}`);
+export const deleteContacts = async ({ userId, friendId }) => {
+  await axios.delete(`${DELETE_FRIEND}/${userId}/${friendId}`);
 };

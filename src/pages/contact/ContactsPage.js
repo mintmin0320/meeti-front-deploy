@@ -1,5 +1,5 @@
 
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 
 import Header from '../../common/Header';
 import ContactList from "../../components/contact/ContactList";
@@ -18,20 +18,20 @@ import {
 import * as S from './styles/ContactsPage.style';
 
 import {
-  fetchDeleteContacts,
-  fetchRequestAccept,
-  fetchSearchList
-} from '../../query-hooks/api';
-
-import { useAddContacts, useOnFavorites } from '../../query-hooks';
+  useAddContacts,
+  useDeleteContacts,
+  useOnFavorites,
+  useRequestAccept
+} from '../../query-hooks';
 
 const ContactsPage = () => {
   const userId = localStorage.getItem("userId");
-  const [search, setSearch] = useState("");
   const [isStatus, setIsStatus] = useState(false);
-
   const addContacts = useAddContacts();
   const onFavorites = useOnFavorites();
+  const requestAccept = useRequestAccept();
+  const deleteContacts = useDeleteContacts();
+
 
   /* 모달 */
   const [modalInfo, setModalInfo] = useState(null);
@@ -65,8 +65,13 @@ const ContactsPage = () => {
 
   /* 연락처 수락  */
   const handleOnAccept = async (friendId) => {
+    const params = {
+      userId,
+      friendId,
+    };
+
     try {
-      await fetchRequestAccept(userId, friendId);
+      await requestAccept.mutateAsync(params);
 
       alert('수락되었습니다!');
     } catch (error) {
@@ -77,24 +82,16 @@ const ContactsPage = () => {
 
   // 연락처 삭제
   const handleDeleteContacts = async (friendId) => {
-    try {
-      await fetchDeleteContacts(userId, friendId);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  // 유저 검색
-  const handleSearchUser = async () => {
-    if (search === "") {
-      alert("검색어를 입력해 주세요!");
-
-      return;
-    }
+    const params = {
+      userId,
+      friendId,
+    };
 
     try {
-      const res = await fetchSearchList(search);
+      await deleteContacts.mutateAsync(params);
+      alert("연락처 삭제!");
     } catch (error) {
+      alert("연락처 삭제 실패!");
       console.log(error);
     }
   };
@@ -108,21 +105,11 @@ const ContactsPage = () => {
 
     try {
       await onFavorites.mutateAsync(params);
-      alert('요청 성공!');
     } catch (error) {
       alert('즐겨찾기 실패!');
       console.log(error);
     }
   };
-
-  const handleChange = useCallback((e) => {
-    const { name, value } = e.target;
-
-    setSearch((prevState) => ({
-      ...prevState,
-      [name]: value
-    }));
-  }, []);
 
   return (
     <Container>
@@ -171,8 +158,6 @@ const ContactsPage = () => {
             <MainContacts
               userId={userId}
               handleAddContacts={handleAddContacts}
-              handleChange={handleChange}
-              handleSearchUser={handleSearchUser}
               isModalOpen={isModalOpen}
               closeModal={closeModal}
               modalInfo={modalInfo}
