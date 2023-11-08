@@ -1,8 +1,8 @@
 // 이메일 인증 요청
-export const VALID_CODE = `/email/valid`;
+export const REQUEST_EMAIL = `/email/valid`;
 
 // 이메일 인증 코드 확인
-export const REQUEST_EMAIL = `/email/valid/code`;
+export const VALID_CODE = `/email/valid/code`;
 
 // 기업 회원가입
 export const OFFICE_SIGNUP = `/meeti/user/join/office`;
