@@ -16,7 +16,7 @@ import {
 /* GET 메서드 */
 // 모든 유저 조회
 export const getUserData = async (userId) => {
-  await new Promise(resolve => setTimeout(resolve, 3000));
+  await new Promise(resolve => setTimeout(resolve, 2000));
   const { data } = await axios.get(`${GET_ALL_USER}/${userId}`);
 
   return data;
@@ -24,7 +24,6 @@ export const getUserData = async (userId) => {
 
 // 내 친구 리스트
 export const getContactsData = async (userId) => {
-  await new Promise(resolve => setTimeout(resolve, 3000));
   const { data } = await axios.get(`${GET_MY_FRIEND}/${userId}`);
 
   return data;
@@ -39,7 +38,6 @@ export const getFavoriteData = async (userId) => {
 
 // 요청 대기 리스트
 export const getRequestUserData = async (userId) => {
-  await new Promise(resolve => setTimeout(resolve, 3000));
   const { data } = await axios.get(`${GET_WAIT_REQUEST}/${userId}`);
 
   return data;
