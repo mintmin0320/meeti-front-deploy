@@ -8,4 +8,4 @@ export const CONTACTS_SCHEDULE = `/meeti/user/friend/search/`;
 export const ADD_SCHEDULE = `/meeti/calendar/reg`;
 
 // 일정 - 일정 삭제
-export const DELETE_SCHEDULE = `/meeti/calendar/delete/`;
+export const DELETE_SCHEDULE = `/meeti/calendar/delete`;
