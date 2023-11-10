@@ -16,7 +16,7 @@ import {
 /* GET 메서드 */
 // 모든 유저 조회
 export const getUserData = async (userId) => {
-  await new Promise(resolve => setTimeout(resolve, 2000));
+  await new Promise(resolve => setTimeout(resolve, 800));
   const { data } = await axios.get(`${GET_ALL_USER}/${userId}`);
 
   return data;
