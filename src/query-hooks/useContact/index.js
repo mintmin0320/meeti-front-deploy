@@ -72,7 +72,7 @@ const useRequestAccept = () => {
   return useMutation({
     mutationFn: (params) => postRequestAccept(params),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["requestUser"] });
+      queryClient.invalidateQueries({ queryKey: ["request"] });
       queryClient.invalidateQueries({ queryKey: ["users"] });
       queryClient.invalidateQueries({ queryKey: ["contacts"] });
     }
