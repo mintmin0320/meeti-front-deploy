@@ -4,7 +4,7 @@ import { TiUserAdd } from "react-icons/ti";
 
 import * as S from './styles/FriendRequest.style';
 
-import { fetchRequestUser } from '../../query-hooks';
+import { fetchRequestUser } from '../../query-hooks/useContact';
 
 const FriendRequest = ({
   userId,

@@ -6,7 +6,7 @@ import { TiUserDelete } from "react-icons/ti";
 
 import * as S from './styles/FavoritesList.style';
 
-import { fetchFavorite } from '../../query-hooks';
+import { fetchFavorite } from '../../query-hooks/useContact';
 
 const FavoritesList = ({
   userId,

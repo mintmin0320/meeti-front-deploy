@@ -7,7 +7,7 @@ import { BsFillPersonPlusFill } from "react-icons/bs";
 import Modal from '../../common/Modal';
 import * as S from './styles/MainContacts.style';
 
-import { fetchAllUser, fetchSearchContacts } from '../../query-hooks';
+import { fetchAllUser, fetchSearchContacts } from '../../query-hooks/useContact';
 import { useState } from 'react';
 
 const MainContacts = ({

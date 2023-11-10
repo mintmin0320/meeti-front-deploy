@@ -22,7 +22,8 @@ import {
   useDeleteContacts,
   useOnFavorites,
   useRequestAccept
-} from '../../query-hooks';
+} from '../../query-hooks/useContact';
+import SkeletonUI from '../../components/contact/skeletonUI';
 
 const ContactsPage = () => {
   const userId = localStorage.getItem("userId");
@@ -114,9 +115,9 @@ const ContactsPage = () => {
   return (
     <Container>
       <MainSection>
-        <React.Suspense fallback='로딩!!!'>
-          <BackColor src={color} style={{ opacity: 0.2 }} />
-          <Header />
+        <BackColor src={color} style={{ opacity: 0.2 }} />
+        <Header />
+        <React.Suspense fallback={<SkeletonUI count={3} />}>
           <LeftSection>
             <S.TextBox>
               <S.Tittle

@@ -6,7 +6,7 @@ import { TiUserDelete } from "react-icons/ti";
 
 import * as S from './styles/ContactList.style';
 
-import { fetchContacts } from '../../query-hooks';
+import { fetchContacts } from '../../query-hooks/useContact';
 
 const RecentContacts = ({
   userId,
