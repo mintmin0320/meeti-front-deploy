@@ -96,7 +96,6 @@ export const OfficeImg = styled.img`
   width: 50%;
   height: 100%;
   object-fit: cover;
-  background-color: red;
 `;
 
 export const PlaceName = styled.p`
