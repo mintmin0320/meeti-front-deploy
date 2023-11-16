@@ -32,7 +32,6 @@ const fetchContacts = (userId) => ({
 const fetchFavorite = (userId) => ({
   queryKey: ["favorite", userId],
   queryFn: () => getFavoriteData(userId),
-  // suspense: true,
   staleTime: 50000,
 });
 

@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 
 import Header from '../../common/Header';
@@ -6,8 +5,8 @@ import ContactList from "../../components/contact/ContactList";
 import FavoritesList from '../../components/contact/FavoritesList';
 import MainContacts from "../../components/contact/MainContacts";
 import FriendRequest from '../../components/contact/FriendRequest';
+import SkeletonUI from '../../components/contact/skeletonUI';
 
-import color from "./../../assets/color.png";
 import {
   Container,
   BackColor,
@@ -15,6 +14,7 @@ import {
   LeftSection,
   RightSection,
 } from '../../styles/CommonStyles';
+import color from "./../../assets/color.png";
 import * as S from './styles/ContactsPage.style';
 
 import {
@@ -23,7 +23,6 @@ import {
   useOnFavorites,
   useRequestAccept
 } from '../../query-hooks/useContact';
-import SkeletonUI from '../../components/contact/skeletonUI';
 
 const ContactsPage = () => {
   const userId = localStorage.getItem("userId");

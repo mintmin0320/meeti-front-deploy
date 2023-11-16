@@ -22,12 +22,22 @@ import {
   fetchMinutesList
 } from '../../api/minutes';
 
+import {
+  useAddMinutes,
+  useDeleteMinutes,
+  useEditMinutes
+} from '../../query-hooks/useMinutes';
+
 const MinutesPage = () => {
   const userId = localStorage.getItem('userId');
   const [minutesList, setMinutesList] = useState([]);
   const [minutes, setMinutes] = useState([]);
   const [writeTitle, setWriteTitle] = useState("");
   const [refreshKey, setRefreshKey] = useState(false);
+
+  const addMinutes = useAddMinutes();
+  const editMinutes = useEditMinutes();
+  const deleteMinutes = useDeleteMinutes();
 
   useEffect(() => {
     getMinutesList()
