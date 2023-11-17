@@ -27,15 +27,16 @@ import {
 const ContactsPage = () => {
   const userId = localStorage.getItem("userId");
   const [isStatus, setIsStatus] = useState(false);
-  const addContacts = useAddContacts();
-  const onFavorites = useOnFavorites();
-  const requestAccept = useRequestAccept();
-  const deleteContacts = useDeleteContacts();
-
 
   /* 모달 */
   const [modalInfo, setModalInfo] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const { handleAddContacts } = useAddContacts();
+  const { handleOnAccept } = useRequestAccept();
+  const { handleDeleteContacts } = useDeleteContacts();
+  const { handleOnFavorite } = useOnFavorites();
+
 
   const openModal = (id) => {
     setIsModalOpen(true);
@@ -44,71 +45,6 @@ const ContactsPage = () => {
 
   const closeModal = () => {
     setIsModalOpen(false);
-  };
-
-  // 연락처 추가
-  const handleAddContacts = async (friendId) => {
-    const params = {
-      userId,
-      friendId,
-    };
-
-    try {
-      await addContacts.mutateAsync(params);
-
-      alert('친구 신청 완료!');
-    } catch (error) {
-      alert('실패했습니다!');
-      console.log(error);
-    }
-  };
-
-  /* 연락처 수락  */
-  const handleOnAccept = async (friendId) => {
-    const params = {
-      userId,
-      friendId,
-    };
-
-    try {
-      await requestAccept.mutateAsync(params);
-
-      alert('수락되었습니다!');
-    } catch (error) {
-      alert('실패했습니다!');
-      console.log(error);
-    }
-  };
-
-  // 연락처 삭제
-  const handleDeleteContacts = async (friendId) => {
-    const params = {
-      userId,
-      friendId,
-    };
-
-    try {
-      await deleteContacts.mutateAsync(params);
-      alert("연락처 삭제!");
-    } catch (error) {
-      alert("연락처 삭제 실패!");
-      console.log(error);
-    }
-  };
-
-  // 즐겨찾기 ON/OFF
-  const handleOnFavorite = async (friendId) => {
-    const params = {
-      userId,
-      friendId,
-    };
-
-    try {
-      await onFavorites.mutateAsync(params);
-    } catch (error) {
-      alert('즐겨찾기 실패!');
-      console.log(error);
-    }
   };
 
   return (

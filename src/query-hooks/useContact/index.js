@@ -55,53 +55,96 @@ const fetchSearchContacts = (username) => ({
 // 연락처 추가
 const useAddContacts = () => {
   const queryClient = useQueryClient();
-
-  return useMutation({
+  const addMutation = useMutation({
     mutationFn: (params) => postAddContacts(params),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["users"] });
+      alert('친구 신청 완료!');
     }
-  })
+  });
+
+  const handleAddContacts = async (params) => {
+    try {
+      await addMutation.mutateAsync(params);
+    } catch (error) {
+      console.error('실패했습니다!', error);
+    }
+  };
+
+  return { ...addMutation, handleAddContacts };
 };
 
 // 요청 수락
 const useRequestAccept = () => {
   const queryClient = useQueryClient();
-
-  return useMutation({
+  const requestAcceptMutation = useMutation({
     mutationFn: (params) => postRequestAccept(params),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["request"] });
       queryClient.invalidateQueries({ queryKey: ["users"] });
       queryClient.invalidateQueries({ queryKey: ["contacts"] });
+
+      alert('요청이 수락되었습니다!');
     }
-  })
+  });
+
+  const handleOnAccept = async (params) => {
+    try {
+      await requestAcceptMutation.mutateAsync(params);
+    } catch (error) {
+      console.error('실패했습니다!', error);
+    }
+  };
+
+  return { ...requestAcceptMutation, handleOnAccept };
 };
 
 // 연락처 삭제
 const useDeleteContacts = () => {
   const queryClient = useQueryClient();
-
-  return useMutation({
+  const deleteContactsMutation = useMutation({
     mutationFn: (params) => deleteContacts(params),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["contacts"] });
       queryClient.invalidateQueries({ queryKey: ["users"] });
+
+      alert('연락처가 삭제되었습니다!');
     }
-  })
+  });
+
+  const handleDeleteContacts = async (params) => {
+    try {
+      await deleteContactsMutation.mutateAsync(params);
+    } catch (error) {
+      console.error('실패했습니다!', error);
+    }
+  };
+
+  return { ...deleteContactsMutation, handleDeleteContacts };
 };
 
 // 즐겨찾기 ON/OFF
 const useOnFavorites = () => {
   const queryClient = useQueryClient();
-
-  return useMutation({
+  const onFavoritesMutation = useMutation({
     mutationFn: (params) => postOnFavorite(params),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["contacts"] });
       queryClient.invalidateQueries({ queryKey: ["favorite"] });
+
+      alert('즐겨찾기 상태가 변경되었습니다!');
     }
-  })
+  });
+
+  const handleOnFavorite = async (params) => {
+    try {
+      await onFavoritesMutation.mutateAsync(params);
+    } catch (error) {
+      console.error('실패했습니다!', error);
+    }
+  };
+
+  return { ...onFavoritesMutation, handleOnFavorite };
 };
 
 export {
