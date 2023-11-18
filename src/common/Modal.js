@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useQuery } from '@tanstack/react-query';
 import styled from 'styled-components';
 
 // fullcalendar-library
@@ -6,7 +7,7 @@ import FullCalendar from "@fullcalendar/react";
 import interactionPlugin from "@fullcalendar/interaction";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import { Tooltip } from "react-tooltip";
-import { fetchContactList } from '../api/schedule';
+import { fetchContactsSchedule } from '../query-hooks/useContact';
 
 // styles
 const ModalWrap = styled.div`
@@ -16,27 +17,13 @@ const ModalWrap = styled.div`
 
 const Modal = ({ friendId }) => {
   const userId = localStorage.getItem("userId");
-  const [scheduleList, setScheduleList] = useState([]);
 
-  useEffect(() => {
-    getScheduleList();
-  }, []);
+  const { data: scheduleList } = useQuery(fetchContactsSchedule(userId, friendId));
 
-  const getScheduleList = async () => {
-    try {
-      const res = await fetchContactList(userId, friendId);
-      setScheduleList(res.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
   return (
     <ModalWrap>
       <FullCalendar
         height='100%'
-        eventClick={(e) => {
-          console.log("클릭");
-        }}
         droppable={true}
         headerToolbar={{
           start: "",
@@ -73,10 +60,6 @@ const Modal = ({ friendId }) => {
           const year = date.date.year;
           const month = date.date.month + 1;
           return year + "년 " + month + "월";
-        }}
-        dateClick={(it) => {
-          // alert(it.date.getDate());
-          // console.log(it.date.getDate());
         }}
       />
     </ModalWrap>

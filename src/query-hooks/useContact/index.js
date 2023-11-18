@@ -5,11 +5,12 @@ import {
   getContactsData,
   getFavoriteData,
   getRequestUserData,
+  getContactSchedule,
+  getSearchContacts,
   postAddContacts,
   postOnFavorite,
   postRequestAccept,
   deleteContacts,
-  getSearchContacts,
 } from './api';
 
 // 전체 유저 목록
@@ -49,6 +50,13 @@ const fetchSearchContacts = (username) => ({
   queryFn: () => getSearchContacts(username),
   suspense: true,
   enabled: false,
+  staleTime: 50000,
+});
+
+// 친구 일정 조회
+const fetchContactsSchedule = (userId, friendId) => ({
+  queryKey: ["friend-contacts", userId],
+  queryFn: () => getContactSchedule({ userId, friendId }),
   staleTime: 50000,
 });
 
@@ -153,6 +161,7 @@ export {
   fetchFavorite,
   fetchRequestUser,
   fetchSearchContacts,
+  fetchContactsSchedule,
   useAddContacts,
   useOnFavorites,
   useRequestAccept,

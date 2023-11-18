@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-// constants
 import {
   ADD_FRIEND_REQUEST,
   REQUEST_ACCEPT,
@@ -10,13 +9,14 @@ import {
   GET_ALL_USER,
   GET_FAVORITE_FRIEND,
   GET_WAIT_REQUEST,
-  GET_SEARCH_USERNAME
+  GET_SEARCH_USERNAME,
+  CONTACTS_SCHEDULE
 } from '../../constants/urls/contactUrls';
 
 /* GET 메서드 */
 // 모든 유저 조회
 export const getUserData = async (userId) => {
-  await new Promise(resolve => setTimeout(resolve, 1500));
+  await new Promise(resolve => setTimeout(resolve, 300));
   const { data } = await axios.get(`${GET_ALL_USER}/${userId}`);
 
   return data;
@@ -46,6 +46,13 @@ export const getRequestUserData = async (userId) => {
 // 유저 검색
 export const getSearchContacts = async (username) => {
   const { data } = await axios.get(`${GET_SEARCH_USERNAME}?username=${encodeURIComponent(username)}`);
+
+  return data;
+};
+
+// 친구 일정 조회
+export const getContactSchedule = async ({ userId, friendId }) => {
+  const { data } = await axios.get(`${CONTACTS_SCHEDULE}/${userId}/${friendId}`);
 
   return data;
 };
