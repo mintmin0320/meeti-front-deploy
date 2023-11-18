@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, Suspense } from "react";
 
 import Header from '../../common/Header';
 import ContactList from "../../components/contact/ContactList";
@@ -17,13 +17,6 @@ import {
 import color from "./../../assets/color.png";
 import * as S from './styles/ContactsPage.style';
 
-import {
-  useAddContacts,
-  useDeleteContacts,
-  useOnFavorites,
-  useRequestAccept
-} from '../../query-hooks/useContact';
-
 const ContactsPage = () => {
   const userId = localStorage.getItem("userId");
   const [isStatus, setIsStatus] = useState(false);
@@ -31,12 +24,6 @@ const ContactsPage = () => {
   /* 모달 */
   const [modalInfo, setModalInfo] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const { handleAddContacts } = useAddContacts();
-  const { handleOnAccept } = useRequestAccept();
-  const { handleDeleteContacts } = useDeleteContacts();
-  const { handleOnFavorite } = useOnFavorites();
-
 
   const openModal = (id) => {
     setIsModalOpen(true);
@@ -52,7 +39,7 @@ const ContactsPage = () => {
       <MainSection>
         <BackColor src={color} style={{ opacity: 0.2 }} />
         <Header />
-        <React.Suspense fallback={<SkeletonUI count={3} />}>
+        <Suspense fallback={<SkeletonUI count={3} />}>
           <LeftSection>
             <S.TextBox>
               <S.Tittle
@@ -72,34 +59,28 @@ const ContactsPage = () => {
             {!isStatus ?
               <ContactList
                 userId={userId}
-                handleOnFavorite={handleOnFavorite}
-                handleDeleteContacts={handleDeleteContacts}
                 openModal={openModal}
               />
               :
               <FavoritesList
                 userId={userId}
-                handleOnFavorite={handleOnFavorite}
-                handleDeleteContacts={handleDeleteContacts}
                 openModal={openModal}
               />
             }
             <S.TittleText>요청</S.TittleText>
             <FriendRequest
               userId={userId}
-              handleOnAccept={handleOnAccept}
             />
           </LeftSection>
           <RightSection>
             <MainContacts
               userId={userId}
-              handleAddContacts={handleAddContacts}
               isModalOpen={isModalOpen}
               closeModal={closeModal}
               modalInfo={modalInfo}
             />
           </RightSection>
-        </React.Suspense>
+        </Suspense>
       </MainSection>
     </Container>
   );

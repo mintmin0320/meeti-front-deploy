@@ -4,15 +4,20 @@ import { FaRegAddressBook } from "react-icons/fa";
 import { BiSearch } from "react-icons/bi";
 import { BsFillPersonPlusFill } from "react-icons/bs";
 
+import { useState } from 'react';
+
 import Modal from '../../common/Modal';
+
 import * as S from './styles/MainContacts.style';
 
-import { fetchAllUser, fetchSearchContacts } from '../../query-hooks/useContact';
-import { useState } from 'react';
+import {
+  fetchAllUser,
+  fetchSearchContacts,
+  useAddContacts,
+} from '../../query-hooks/useContact';
 
 const MainContacts = ({
   userId,
-  handleAddContacts,
   isModalOpen,
   modalInfo,
   closeModal,
@@ -20,10 +25,10 @@ const MainContacts = ({
   const [keyword, setKeyword] = useState('');
 
   const { data: allUsers } = useQuery(fetchAllUser(userId));
-
   const { data: searchResults, refetch: refetchSearchResults } = useQuery(
     fetchSearchContacts(keyword),
   );
+  const { handleAddContacts } = useAddContacts();
 
   const handleSearchClick = () => {
     if (keyword.trim() === '') {
@@ -33,10 +38,6 @@ const MainContacts = ({
     }
 
     refetchSearchResults();
-  };
-
-  const handleChange = (e) => {
-    setKeyword(e.target.value);
   };
 
   const userList = keyword && searchResults ? searchResults : allUsers;
@@ -49,7 +50,7 @@ const MainContacts = ({
         <S.SearchDiv>
           <S.SearchInput
             name='search'
-            onChange={handleChange}
+            onChange={(e) => setKeyword(e.target.value)}
             value={keyword}
           />
           <S.SearchButton onClick={handleSearchClick}>
@@ -61,7 +62,7 @@ const MainContacts = ({
         {userList?.map((item) => {
           return (
             <S.ContactDiv key={item.id}>
-              <S.ProfileImg src={item.profile || "./new.png"} />
+              <S.ProfileImg src={item.profile ?? "./new.png"} />
               <S.NameText>{item.username}</S.NameText>
               <S.ButtonBox onClick={() => handleAddContacts(item.id)}>
                 <S.Button>

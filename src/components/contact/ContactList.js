@@ -6,15 +6,19 @@ import { TiUserDelete } from "react-icons/ti";
 
 import * as S from './styles/ContactList.style';
 
-import { fetchContacts } from '../../query-hooks/useContact';
+import {
+  fetchContacts,
+  useDeleteContacts,
+  useOnFavorites,
+} from '../../query-hooks/useContact';
 
 const RecentContacts = ({
   userId,
-  handleOnFavorite,
-  handleDeleteContacts,
   openModal
 }) => {
   const { data: contactsList } = useQuery(fetchContacts(userId));
+  const { handleDeleteContacts } = useDeleteContacts();
+  const { handleOnFavorite } = useOnFavorites();
 
   return (
     <S.ContactListWrap>
@@ -22,7 +26,7 @@ const RecentContacts = ({
         return (
           <S.ContactListBox key={item.id}>
             <S.ContactProfileBox>
-              <S.ProfileImg src={item.profile || "./new.png"} />
+              <S.ProfileImg src={item.profile ?? "./new.png"} />
             </S.ContactProfileBox>
             <S.ContactUserInfoBox>
               <S.ContactUserInfo>{item.username}</S.ContactUserInfo>
