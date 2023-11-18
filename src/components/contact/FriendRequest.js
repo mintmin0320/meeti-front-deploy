@@ -25,7 +25,7 @@ const FriendRequest = ({ userId }) => {
               <S.ContactUserInfo>{item?.username}</S.ContactUserInfo>
             </S.ContactUserInfoBox>
             <S.ButtonBox>
-              <S.Button onClick={() => handleOnAccept(item?.id)}>
+              <S.Button onClick={() => handleOnAccept(userId, item.id)}>
                 <TiUserAdd color='#fff' size='20px' />
               </S.Button>
             </S.ButtonBox>

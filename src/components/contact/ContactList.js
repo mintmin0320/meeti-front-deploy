@@ -44,13 +44,15 @@ const ContactList = ({
               >
                 <AiOutlineCalendar style={{ color: "#fff" }} />
               </S.Button>
-              <S.Button onClick={() => handleDeleteContacts(item.id)}>
+              <S.Button
+                onClick={() => handleDeleteContacts(userId, item.id)}
+              >
                 <TiUserDelete style={{ color: "#fff" }} />
               </S.Button>
               <S.Button
-                onClick={() => handleOnFavorite(item.id)}
+                onClick={() => handleOnFavorite(userId, item.id)}
               >
-                {item.favorite ? (
+                {item.favorite || isFavorites ? (
                   <HiHeart style={{ width: "14px" }} />
                 ) : (
                   <HiOutlineHeart style={{ width: "14px" }} />

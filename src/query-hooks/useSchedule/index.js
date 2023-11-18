@@ -22,7 +22,8 @@ const useAddSchedule = () => {
   const queryClient = useQueryClient();
 
   const addMutation = useMutation({
-    mutationFn: ({ userId, params }) => postAddSchedule({ userId, params }),
+    mutationFn: ({ userId, params }) =>
+      postAddSchedule({ userId, params }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["schedule"] });
 

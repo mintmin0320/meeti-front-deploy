@@ -43,14 +43,14 @@ const ContactsPage = () => {
           <LeftSection>
             <S.TextBox>
               <S.Tittle
-                onClick={() => setIsFavorites(true)}
+                onClick={() => setIsFavorites(!isFavorites)}
                 isActive={!isFavorites}
               >
                 연락처 |
               </S.Tittle>
               &nbsp;
               <S.Tittle
-                onClick={() => setIsFavorites(false)}
+                onClick={() => setIsFavorites(!isFavorites)}
                 isActive={isFavorites}
               >
                 즐겨찾기

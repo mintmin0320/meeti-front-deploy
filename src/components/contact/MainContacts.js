@@ -1,10 +1,9 @@
+import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
 import { FaRegAddressBook } from "react-icons/fa";
 import { BiSearch } from "react-icons/bi";
 import { BsFillPersonPlusFill } from "react-icons/bs";
-
-import { useState } from 'react';
 
 import Modal from '../../common/Modal';
 
@@ -64,7 +63,9 @@ const MainContacts = ({
             <S.ContactDiv key={item.id}>
               <S.ProfileImg src={item.profile ?? "./new.png"} />
               <S.NameText>{item.username}</S.NameText>
-              <S.ButtonBox onClick={() => handleAddContacts(item.id)}>
+              <S.ButtonBox
+                onClick={() => handleAddContacts(userId, item.id)}
+              >
                 <S.Button>
                   <BsFillPersonPlusFill />
                 </S.Button>
