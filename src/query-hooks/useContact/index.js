@@ -1,5 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
+import Toast from '../../common/Toast';
+
 import {
   getUserData,
   getContactsData,
@@ -12,6 +14,8 @@ import {
   postRequestAccept,
   deleteContacts,
 } from './api';
+
+const toast = Toast();
 
 // 전체 유저 목록
 const fetchAllUser = (userId) => ({
@@ -64,18 +68,20 @@ const fetchContactsSchedule = (userId, friendId) => ({
 const useAddContacts = () => {
   const queryClient = useQueryClient();
   const addMutation = useMutation({
-    mutationFn: (params) => postAddContacts(params),
+    mutationFn: ({ userId, friendId }) =>
+      postAddContacts({ userId, friendId }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["users"] });
-      alert('친구 신청 완료!');
+
+      toast.success('신청을 전송했습니다.');
     }
   });
 
-  const handleAddContacts = async (params) => {
+  const handleAddContacts = async (userId, friendId) => {
     try {
-      await addMutation.mutateAsync(params);
+      await addMutation.mutateAsync({ userId, friendId });
     } catch (error) {
-      console.error('실패했습니다!', error);
+      toast.error('신청을 실패했습니다!');
     }
   };
 
@@ -86,21 +92,22 @@ const useAddContacts = () => {
 const useRequestAccept = () => {
   const queryClient = useQueryClient();
   const requestAcceptMutation = useMutation({
-    mutationFn: (params) => postRequestAccept(params),
+    mutationFn: ({ userId, friendId }) =>
+      postRequestAccept({ userId, friendId }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["request"] });
       queryClient.invalidateQueries({ queryKey: ["users"] });
       queryClient.invalidateQueries({ queryKey: ["contacts"] });
 
-      alert('요청이 수락되었습니다!');
+      toast.success('요청이 수락되었습니다!');
     }
   });
 
-  const handleOnAccept = async (params) => {
+  const handleOnAccept = async (userId, friendId) => {
     try {
-      await requestAcceptMutation.mutateAsync(params);
+      await requestAcceptMutation.mutateAsync({ userId, friendId });
     } catch (error) {
-      console.error('실패했습니다!', error);
+      toast.error('요청 수락을 실패했습니다!');
     }
   };
 
@@ -111,20 +118,21 @@ const useRequestAccept = () => {
 const useDeleteContacts = () => {
   const queryClient = useQueryClient();
   const deleteContactsMutation = useMutation({
-    mutationFn: (params) => deleteContacts(params),
+    mutationFn: ({ userId, friendId }) =>
+      deleteContacts({ userId, friendId }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["contacts"] });
       queryClient.invalidateQueries({ queryKey: ["users"] });
 
-      alert('연락처가 삭제되었습니다!');
+      toast.success('연락처가 삭제되었습니다!');
     }
   });
 
-  const handleDeleteContacts = async (params) => {
+  const handleDeleteContacts = async (userId, friendId) => {
     try {
-      await deleteContactsMutation.mutateAsync(params);
+      await deleteContactsMutation.mutateAsync({ userId, friendId });
     } catch (error) {
-      console.error('실패했습니다!', error);
+      toast.error('연락처 삭제를 실패했습니다!');
     }
   };
 
@@ -135,20 +143,18 @@ const useDeleteContacts = () => {
 const useOnFavorites = () => {
   const queryClient = useQueryClient();
   const onFavoritesMutation = useMutation({
-    mutationFn: (params) => postOnFavorite(params),
+    mutationFn: ({ userId, friendId }) => postOnFavorite({ userId, friendId }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["contacts"] });
       queryClient.invalidateQueries({ queryKey: ["favorite"] });
-
-      alert('즐겨찾기 상태가 변경되었습니다!');
     }
   });
 
-  const handleOnFavorite = async (params) => {
+  const handleOnFavorite = async (userId, friendId) => {
     try {
-      await onFavoritesMutation.mutateAsync(params);
+      await onFavoritesMutation.mutateAsync({ userId, friendId });
     } catch (error) {
-      console.error('실패했습니다!', error);
+      toast.error('즐겨찾기 변경 실패했습니다!');
     }
   };
 
