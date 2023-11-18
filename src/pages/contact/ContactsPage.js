@@ -2,7 +2,6 @@ import { useState, Suspense } from "react";
 
 import Header from '../../common/Header';
 import ContactList from "../../components/contact/ContactList";
-import FavoritesList from '../../components/contact/FavoritesList';
 import MainContacts from "../../components/contact/MainContacts";
 import FriendRequest from '../../components/contact/FriendRequest';
 import SkeletonUI from '../../components/contact/skeletonUI';
@@ -19,7 +18,8 @@ import * as S from './styles/ContactsPage.style';
 
 const ContactsPage = () => {
   const userId = localStorage.getItem("userId");
-  const [isStatus, setIsStatus] = useState(false);
+
+  const [isFavorites, setIsFavorites] = useState(false);
 
   /* 모달 */
   const [modalInfo, setModalInfo] = useState(null);
@@ -43,30 +43,24 @@ const ContactsPage = () => {
           <LeftSection>
             <S.TextBox>
               <S.Tittle
-                onClick={() => setIsStatus(false)}
-                isActive={!isStatus}
+                onClick={() => setIsFavorites(true)}
+                isActive={!isFavorites}
               >
                 연락처 |
               </S.Tittle>
               &nbsp;
               <S.Tittle
-                onClick={() => setIsStatus(true)}
-                isActive={isStatus}
+                onClick={() => setIsFavorites(false)}
+                isActive={isFavorites}
               >
                 즐겨찾기
               </S.Tittle>
             </S.TextBox>
-            {!isStatus ?
-              <ContactList
-                userId={userId}
-                openModal={openModal}
-              />
-              :
-              <FavoritesList
-                userId={userId}
-                openModal={openModal}
-              />
-            }
+            <ContactList
+              userId={userId}
+              openModal={openModal}
+              isFavorites={isFavorites}
+            />
             <S.TittleText>요청</S.TittleText>
             <FriendRequest
               userId={userId}

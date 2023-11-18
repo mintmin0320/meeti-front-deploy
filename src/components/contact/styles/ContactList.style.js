@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const ContactListWrap = styled.div`
+export const ContactWrap = styled.div`
   width: 78%;
   height: calc(47% - 60px);
   display: flex;
@@ -12,7 +12,7 @@ export const ContactListWrap = styled.div`
   }
 `;
 
-export const ContactListBox = styled.article`
+export const ContactBox = styled.article`
   width: 100%;
   height: 65px;
   display: flex;

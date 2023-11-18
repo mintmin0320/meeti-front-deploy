@@ -8,23 +8,29 @@ import * as S from './styles/ContactList.style';
 
 import {
   fetchContacts,
+  fetchFavorite,
   useDeleteContacts,
   useOnFavorites,
 } from '../../query-hooks/useContact';
 
-const RecentContacts = ({
+const ContactList = ({
   userId,
-  openModal
+  openModal,
+  isFavorites,
 }) => {
-  const { data: contactsList } = useQuery(fetchContacts(userId));
+
+  const { data: contacts } = useQuery(fetchContacts(userId));
+  const { data: favorites } = useQuery(fetchFavorite(userId));
   const { handleDeleteContacts } = useDeleteContacts();
   const { handleOnFavorite } = useOnFavorites();
 
+  const contactsList = isFavorites ? favorites : contacts;
+
   return (
-    <S.ContactListWrap>
+    <S.ContactWrap>
       {contactsList?.map((item) => {
         return (
-          <S.ContactListBox key={item.id}>
+          <S.ContactBox key={item.id}>
             <S.ContactProfileBox>
               <S.ProfileImg src={item.profile ?? "./new.png"} />
             </S.ContactProfileBox>
@@ -51,11 +57,11 @@ const RecentContacts = ({
                 )}
               </S.Button>
             </S.ButtonBox>
-          </S.ContactListBox>
+          </S.ContactBox>
         )
       })}
-    </S.ContactListWrap>
+    </S.ContactWrap>
   );
 };
 
-export default RecentContacts;
+export default ContactList;
