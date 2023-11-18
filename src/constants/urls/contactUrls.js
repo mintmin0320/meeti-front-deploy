@@ -13,6 +13,9 @@ export const GET_FAVORITE_FRIEND = `/meeti/user/friend/search/favorite`;
 // 연락처 - 요청 대기 리스트
 export const GET_WAIT_REQUEST = `/meeti/user/friend/request`;
 
+// 연락처 - 친구 일정 조회
+export const CONTACTS_SCHEDULE = `/meeti/user/friend/search`;
+
 // 연락처 - 즐겨찾기 (On/Off)
 export const ON_FAVORITE = `/meeti/user/friend/favorite`;
 

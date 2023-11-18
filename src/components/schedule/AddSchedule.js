@@ -8,7 +8,6 @@ import * as S from './styles/AddSchedule.style';
 import { BiMinus, BiPlus } from "react-icons/bi";
 import { AiOutlineCalendar } from "react-icons/ai";
 
-// CSS
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 

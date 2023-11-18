@@ -1,14 +1,14 @@
-
 import { HiLocationMarker } from "react-icons/hi";
 import { AiFillDelete } from "react-icons/ai";
 
 import { ListWrap } from '../../styles/CommonStyles';
 import * as S from './styles/ScheduleList.style';
 
-const ScheduleList = ({
-  scheduleList,
-  handleDeleteSchedule,
-}) => {
+import { useDeleteSchedule } from '../../query-hooks/useSchedule';
+
+const ScheduleList = ({ scheduleList }) => {
+  const { handleDeleteSchedule } = useDeleteSchedule();
+
   return (
     <ListWrap>
       {scheduleList?.map((item) => (

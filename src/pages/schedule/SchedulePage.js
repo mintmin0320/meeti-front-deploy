@@ -1,13 +1,10 @@
-import React, { useState, useEffect } from "react";
+import { useQuery } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
 
 import Calendar from "../../components/schedule/Calendar";
 import ScheduleList from "../../components/schedule/ScheduleList";
 import Header from '../../common/Header';
 
-// bg-color
-import color from "./../../assets/color.png";
-
-// styles
 import {
   Container,
   BackColor,
@@ -16,41 +13,18 @@ import {
   RightSection,
   TitleText
 } from '../../styles/CommonStyles';
-import { fetchDeleteSchedule, fetchScheduleList } from '../../api/schedule';
+import color from "./../../assets/color.png";
+import * as S from './styles/SchedulePage.style';
+
+import { AiOutlineCalendar, AiOutlinePlusCircle } from "react-icons/ai";
+
+import { fetchSchedule } from '../../query-hooks/useSchedule';
 
 const CalendarPage = () => {
   const userId = localStorage.getItem('userId');
-  const [scheduleList, setScheduleList] = useState([]);
 
-  const [refreshKey, setRefreshKey] = useState(false);
-
-
-  useEffect(() => {
-    getScheduleList();
-  }, [refreshKey]);
-
-  // 일정 조회
-  const getScheduleList = async () => {
-    try {
-      const res = await fetchScheduleList(userId);
-      setScheduleList(res.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  // 일정 삭제
-  const handleDeleteSchedule = async (scheduleId) => {
-    try {
-      await fetchDeleteSchedule(scheduleId);
-
-      alert('일정 삭제 성공!');
-
-      setRefreshKey(!refreshKey);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const navigator = useNavigate();
+  const { data: scheduleList } = useQuery(fetchSchedule(userId));
 
   return (
     <Container>
@@ -61,10 +35,22 @@ const CalendarPage = () => {
           <TitleText>일정</TitleText>
           <ScheduleList
             scheduleList={scheduleList}
-            handleDeleteSchedule={handleDeleteSchedule}
           />
         </LeftSection>
         <RightSection>
+          <S.TopBox>
+            <S.TitleBox>
+              <AiOutlineCalendar className="true" style={{ padding: "0" }} />
+              <S.Title>Calendar</S.Title>
+            </S.TitleBox>
+            <S.AddButtonBox>
+              <S.NavigatorButton
+                onClick={() => { navigator('/add-schedule'); }}
+              >
+                <AiOutlinePlusCircle size='20px' />
+              </S.NavigatorButton>
+            </S.AddButtonBox>
+          </S.TopBox>
           <Calendar
             scheduleList={scheduleList}
           />

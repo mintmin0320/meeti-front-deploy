@@ -1,16 +1,10 @@
 import { useState, useCallback } from "react";
 import { useNavigate } from 'react-router-dom';
-import styled from "styled-components";
-
-import { fetchAddSchedule } from '../../api/schedule';
-
-import { useColor } from "../../hooks/context/BackContext";
 
 import Header from '../../common/Header';
 import AddSchedule from '../../components/schedule/AddSchedule';
 import backColor from '../../assets/color.png'
 
-// CSS
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 
@@ -20,17 +14,18 @@ import {
   MainSection,
   TitleText,
 } from '../../styles/CommonStyles';
+import * as S from './styles/AddSchedulePage.style';
 
-const Section = styled.section`
-  width: 100%;
-  height: 100%;
-  z-index: 3;
-`;
+import { useColor } from "../../hooks/context/BackContext";
+import { useAddSchedule } from '../../query-hooks/useSchedule';
 
 const AddSchedulePage = () => {
-  const userId = localStorage.getItem('userId');
   const navigator = useNavigate();
+  const { handleSubmit } = useAddSchedule();
   const { color } = useColor();
+
+  const userId = localStorage.getItem('userId');
+
   const [date, setDate] = useState([
     {
       startDate: new Date(),
@@ -62,9 +57,8 @@ const AddSchedulePage = () => {
     }]);
   };
 
-
   // 일정 등록
-  const handleSubmit = async (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
 
     if (!date[0].endDate) {
@@ -84,9 +78,7 @@ const AddSchedulePage = () => {
     };
 
     try {
-      await fetchAddSchedule(userId, data);
-
-      alert('일정 등록 성공!');
+      await handleSubmit(userId, data);
 
       navigator('/');
     } catch (error) {
@@ -99,15 +91,15 @@ const AddSchedulePage = () => {
       <MainSection>
         <BackColor src={backColor} style={{ opacity: 0.2 }} />
         <Header />
-        <Section>
+        <S.Section>
           <TitleText>일정 등록</TitleText>
           <AddSchedule
             date={date}
             handleChange={handleChange}
-            handleSubmit={handleSubmit}
+            handleSubmit={handleFormSubmit}
             handleScheduleDate={handleScheduleDate}
           />
-        </Section>
+        </S.Section>
       </MainSection>
     </Container>
   );
