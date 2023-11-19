@@ -23,7 +23,7 @@ import {
 } from '../../api/minutes';
 
 import {
-  useAddMinutes,
+  useSaveMinutes,
   useDeleteMinutes,
   useEditMinutes
 } from '../../query-hooks/useMinutes';
@@ -35,7 +35,7 @@ const MinutesPage = () => {
   const [writeTitle, setWriteTitle] = useState("");
   const [refreshKey, setRefreshKey] = useState(false);
 
-  const addMinutes = useAddMinutes();
+  const saveMinutes = useSaveMinutes();
   const editMinutes = useEditMinutes();
   const deleteMinutes = useDeleteMinutes();
 
