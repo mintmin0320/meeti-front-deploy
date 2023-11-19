@@ -1,12 +1,14 @@
-import React from "react";
+import { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 
-import ProfilePage from "../pages/profile/ProfilePage";
+const ProfilePage = lazy(() => import('../pages/profile/ProfilePage'));
 
 export default function ProfileRoute() {
   return (
-    <Routes>
-      <Route path="/" element={<ProfilePage />} />
-    </Routes>
+    <Suspense fallback='Loading'>
+      <Routes>
+        <Route path="/" element={<ProfilePage />} />
+      </Routes>
+    </Suspense>
   );
 };

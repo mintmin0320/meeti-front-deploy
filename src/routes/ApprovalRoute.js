@@ -1,12 +1,14 @@
-import React from "react";
+import { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 
-import ApprovalPage from '../pages/approval/ApprovalPage';
+const ApprovalPage = lazy(() => import('../pages/approval/ApprovalPage'));
 
 export default function ApprovalRoute() {
   return (
-    <Routes>
-      <Route path="/" element={<ApprovalPage />} />
-    </Routes>
+    <Suspense fallback='Loading'>
+      <Routes>
+        <Route path="/" element={<ApprovalPage />} />
+      </Routes>
+    </Suspense>
   );
 };

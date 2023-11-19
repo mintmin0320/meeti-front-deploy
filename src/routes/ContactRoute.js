@@ -1,12 +1,14 @@
-import React from "react";
+import { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 
-import ContactsPage from "../pages/contact/ContactsPage";
+const ContactsPage = lazy(() => import('../pages/contact/ContactsPage'))
 
 export default function ContactRoute() {
   return (
-    <Routes>
-      <Route path="/" element={<ContactsPage />} />
-    </Routes>
+    <Suspense fallback='Loading'>
+      <Routes>
+        <Route path="/" element={<ContactsPage />} />
+      </Routes>
+    </Suspense>
   );
 };

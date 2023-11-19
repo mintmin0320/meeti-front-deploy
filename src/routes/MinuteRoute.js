@@ -1,12 +1,14 @@
-import React from "react";
+import { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 
-import MinutesPage from '../pages/minutes/MinutesPage';
+const MinutesPage = lazy(() => import('../pages/minutes/MinutesPage'));
 
 export default function MinutesRoute() {
   return (
-    <Routes>
-      <Route path="/" element={<MinutesPage />} />
-    </Routes>
+    <Suspense fallback='Loading'>
+      <Routes>
+        <Route path="/" element={<MinutesPage />} />
+      </Routes>
+    </Suspense>
   );
 };
