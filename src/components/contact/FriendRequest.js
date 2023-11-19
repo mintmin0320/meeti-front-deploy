@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { TiUserAdd } from "react-icons/ti";
+import { TiUserAdd } from "../../common/icons/index";
 
 import * as S from './styles/FriendRequest.style';
 

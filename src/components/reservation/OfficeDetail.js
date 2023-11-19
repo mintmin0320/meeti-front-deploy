@@ -4,15 +4,15 @@ import { ko } from "date-fns/esm/locale";
 
 import Map from '../../common/Map';
 
-// CSS
 import "react-datepicker/dist/react-datepicker.css"
 
-// icons
-import { BsTelephone, BsFillExclamationTriangleFill } from "react-icons/bs";
-import { BiTimeFive } from "react-icons/bi";
-import { TbMoneybag } from "react-icons/tb";
+import {
+  FaPhoneVolume,
+  BsFillExclamationTriangleFill,
+  BiTimeFive,
+  FaWonSign
+} from "../../common/icons/index";
 
-// styles
 import * as S from './styles/OfficeDetail.style';
 
 const ReservationDetail = ({
@@ -94,11 +94,11 @@ const ReservationDetail = ({
         <S.PlaceName>{office.placeName}</S.PlaceName>
         <S.Info>{office.addressDetail}</S.Info>
         <S.InfoWrap>
-          <BsTelephone className="SubDivIcons" />
+          <FaPhoneVolume className="SubDivIcons" />
           <S.Info>{office.telNum}</S.Info>
         </S.InfoWrap>
         <S.InfoWrap>
-          <TbMoneybag className="SubDivIcons" />
+          <FaWonSign className="SubDivIcons" />
           <S.Info>{office.pay}</S.Info>
         </S.InfoWrap>
         <S.InfoWrap>

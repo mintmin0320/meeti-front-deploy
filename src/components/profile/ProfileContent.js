@@ -3,7 +3,7 @@ import { useRef } from "react";
 import UserInfo from './UserInfo';
 import * as S from './styles/ProfileContent.style';
 
-import { FcAddImage } from "react-icons/fc";
+import { FcAddImage } from "../../common/icons/index";
 
 const ProfileContent = ({
   info,

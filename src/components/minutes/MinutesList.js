@@ -1,9 +1,5 @@
-import React from "react";
+import { FaArrowCircleRight } from "../../common/icons/index";
 
-// icons
-import { BsFillArrowRightCircleFill } from "react-icons/bs";
-
-// styles
 import * as S from './styles/MinutesList.style';
 
 const MinutesList = ({
@@ -22,7 +18,7 @@ const MinutesList = ({
             </S.MinutesInfoBox>
             <S.MinutesContactsRight>
               <S.MinutesButton onClick={() => handleDetailMinutes(minute)}>
-                <BsFillArrowRightCircleFill size='25px' />
+                <FaArrowCircleRight size='25px' />
               </S.MinutesButton>
             </S.MinutesContactsRight>
           </S.MinutesContacts>

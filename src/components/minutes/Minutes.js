@@ -4,21 +4,20 @@ import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 
-// icons
-import { BsFillMicFill, BsFillPencilFill } from "react-icons/bs";
-import { BiStop, BiSave } from "react-icons/bi";
-import { VscDebugRestart } from "react-icons/vsc";
-import { RiPlayList2Fill } from "react-icons/ri";
 import {
+  BsFillMicFill,
+  FaPencilAlt,
+  BiStop,
+  BiSave,
+  VscDebugRestart,
+  RiPlayList2Fill,
   AiOutlinePlusCircle,
   AiFillDelete,
   AiOutlineShareAlt,
-  AiFillPrinter,
-} from "react-icons/ai";
+  AiFillPrinter
+} from "../../common/icons/index";
 
-// styles
 import * as S from './styles/Minutes.style';
-
 
 const SpeechPage = ({
   minutes,
@@ -110,7 +109,7 @@ const SpeechPage = ({
           <S.ButtonBox>
             {!isEdit ? (
               <S.Button onClick={() => setIsEdit(true)}>
-                <BsFillPencilFill />
+                <FaPencilAlt />
               </S.Button>
             ) : (
               <S.Button onClick={() => handleEditButton(minutes.id)}>

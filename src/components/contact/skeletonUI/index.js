@@ -1,8 +1,8 @@
-import { FaRegAddressBook } from "react-icons/fa";
-import { BiSearch } from "react-icons/bi";
+import { FaRegAddressBook, BiSearch } from "../../../common/icons/index";
+import { } from "@react-icons/all-files/bi/BiSearch";
+
 import { LeftSection, RightSection } from '../../../styles/CommonStyles';
 
-// Styled 컴포넌트 스켈레톤 UI 정의
 import * as S from './Contact.style'
 
 const SkeletonAllContactCard = () => {

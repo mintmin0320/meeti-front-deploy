@@ -1,9 +1,5 @@
-import React from 'react';
+import { BiPhoneCall } from "../../common/icons/index";
 
-// icons
-import { BiPhoneCall } from "react-icons/bi";
-
-// styles
 import * as S from './styles/ReservationList.style';
 import { ListWrap } from '../../styles/CommonStyles';
 

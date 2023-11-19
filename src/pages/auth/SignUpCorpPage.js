@@ -2,19 +2,15 @@ import React, { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-// apis
 import {
   fetchGetAuthCode,
   fetchOfficeSignUp,
   fetchEmailVerificationCode,
 } from "../../api/auth";
 
-// icons
-import { MdWork } from "react-icons/md";
+import { MdWork } from '../../common/icons/index';
 
 import color from "./../../assets/color.png";
-
-// styles
 import { Container, MainSection, BackColor } from '../../styles/CommonStyles';
 
 const UserType = styled.div`

@@ -2,15 +2,11 @@ import { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-// apis
 import { fetchPersonalSignUp } from "../../api/auth";
 
-// icons
-import { MdPerson } from "react-icons/md";
+import { MdPerson } from '../../common/icons/index';
 
 import color from "./../../assets/color.png";
-
-// styles
 import { Container, MainSection, BackColor } from '../../styles/CommonStyles';
 
 const UserType = styled.div`
@@ -18,8 +14,6 @@ const UserType = styled.div`
   margin: 3.5rem 10rem;
   color: #8165df;
   width: 25vw;
-  /* height: 50px;
-  font-weight: 700; */
   font-size: 1.6rem;
   line-height: 2.4rem;
 `;

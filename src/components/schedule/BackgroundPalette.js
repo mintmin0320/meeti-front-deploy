@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { useColor } from "../../hooks/context/BackContext";
 
-import { FaSortDown } from "react-icons/fa";
+import { FaSortDown } from "../../common/icons/index";
 
 import * as S from './styles/BackgroundPalette.style';
 

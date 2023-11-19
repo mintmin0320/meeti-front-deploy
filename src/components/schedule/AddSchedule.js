@@ -5,8 +5,11 @@ import ko from "date-fns/locale/ko";
 import BackgroundPalette from './BackgroundPalette';
 import * as S from './styles/AddSchedule.style';
 
-import { BiMinus, BiPlus } from "react-icons/bi";
-import { AiOutlineCalendar } from "react-icons/ai";
+import {
+  BiMinus,
+  BiPlus,
+  AiOutlineCalendar
+} from "../../common/icons/index";
 
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";

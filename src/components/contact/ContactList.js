@@ -1,8 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { AiOutlineCalendar } from "react-icons/ai";
-import { HiHeart, HiOutlineHeart } from "react-icons/hi";
-import { TiUserDelete } from "react-icons/ti";
+import {
+  AiOutlineCalendar,
+  HiHeart,
+  HiOutlineHeart,
+  TiUserDelete
+} from "../../common/icons/index";
 
 import * as S from './styles/ContactList.style';
 

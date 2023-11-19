@@ -1,5 +1,4 @@
-import { HiLocationMarker } from "react-icons/hi";
-import { AiFillDelete } from "react-icons/ai";
+import { HiLocationMarker, AiFillDelete } from "../../common/icons/index";
 
 import { ListWrap } from '../../styles/CommonStyles';
 import * as S from './styles/ScheduleList.style';

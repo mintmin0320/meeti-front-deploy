@@ -1,7 +1,9 @@
 import { useRef, useState } from "react";
 
-import { FaRegPaperPlane } from "react-icons/fa";
-import { HiOutlineMail } from "react-icons/hi";
+import {
+  FaRegPaperPlane,
+  HiOutlineMail
+} from "../../common/icons/index";
 
 import * as S from './styles/AddApproval.style';
 

@@ -16,7 +16,10 @@ import {
 import color from "./../../assets/color.png";
 import * as S from './styles/SchedulePage.style';
 
-import { AiOutlineCalendar, AiOutlinePlusCircle } from "react-icons/ai";
+import {
+  AiOutlineCalendar,
+  AiOutlinePlusCircle
+} from "../../common/icons/index";
 
 import { fetchSchedule } from '../../query-hooks/useSchedule';
 

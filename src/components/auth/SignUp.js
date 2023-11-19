@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 import * as S from './styles/SignUp.style';
 
-import { MdWork, MdPerson } from "react-icons/md";
+import { MdWork, MdPerson } from "../../common/icons/index";
 
 const SignUp = () => {
   return (

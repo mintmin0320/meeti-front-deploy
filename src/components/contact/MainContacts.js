@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
-import { FaRegAddressBook } from "react-icons/fa";
-import { BiSearch } from "react-icons/bi";
-import { BsFillPersonPlusFill } from "react-icons/bs";
+import {
+  FaRegAddressBook,
+  BiSearch,
+  BsFillPersonPlusFill
+} from "../../common/icons/index";
 
 import Modal from '../../common/Modal';
 
