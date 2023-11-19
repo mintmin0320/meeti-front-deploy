@@ -6,11 +6,11 @@ import {
   DELETE_MINUTES,
   EDIT_MINUTES,
   READ_MINUTES
-} from '../constants/urls/minutesUrls';
+} from '../../constants/urls/minutesUrls';
+
 
 // 회의록 리스트 조회
 export const getMinutesData = ({ userId }) => {
-
   const { data } = axios.get(`${READ_MINUTES}/${userId}`);
 
   return data;

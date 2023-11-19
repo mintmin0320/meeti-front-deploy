@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import styled from 'styled-components';
 
-// styles
 const MapBox = styled.div`
   width: 100%;
   height: 100%;

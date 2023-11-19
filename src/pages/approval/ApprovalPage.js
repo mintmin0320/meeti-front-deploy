@@ -1,14 +1,9 @@
 import { useState, useCallback, useEffect } from "react";
 
-import AddApproval from "../../components/approval/AddApproval";
-
-// bg-color
-import color from "./../../assets/color.png";
-
 import Header from '../../common/Header';
+import AddApproval from "../../components/approval/AddApproval";
 import ApprovalRequestList from '../../components/approval/ApprovalRequestList';
 
-// apis
 import {
   fetchApprovalList,
   fetchAdminList,
@@ -17,7 +12,6 @@ import {
   fetchWaitReservationList
 } from '../../api/approval';
 
-// styles
 import {
   Container,
   BackColor,
@@ -26,6 +20,7 @@ import {
   RightSection,
   TitleText,
 } from '../../styles/CommonStyles';
+import color from "./../../assets/color.png";
 
 const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import styled from 'styled-components';
 
@@ -7,9 +6,9 @@ import FullCalendar from "@fullcalendar/react";
 import interactionPlugin from "@fullcalendar/interaction";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import { Tooltip } from "react-tooltip";
+
 import { fetchContactsSchedule } from '../query-hooks/useContact';
 
-// styles
 const ModalWrap = styled.div`
   width: 100%;
   height: 100%;

@@ -2,14 +2,15 @@ import React, { useState, useCallback } from "react";
 import styled from "styled-components";
 import { useNavigate, Link } from "react-router-dom";
 
-// apis
 import { fetchSignIn } from "../../api/auth";
 
+import {
+  Container,
+  MainSection,
+  BackColor
+} from '../../styles/CommonStyles';
 import color from "./../../assets/color.png";
 
-import { Container, MainSection, BackColor } from '../../styles/CommonStyles';
-
-// styles
 const LoginWrap = styled.div`
   border-radius: 20px;
   margin: auto;

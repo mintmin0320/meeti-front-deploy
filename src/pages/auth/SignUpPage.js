@@ -1,12 +1,11 @@
-import React from "react";
-
 import SignUp from "../../components/auth/SignUp";
 
-// bg-color
 import color from "./../../assets/color.png";
-
-// styles
-import { Container, MainSection, BackColor } from '../../styles/CommonStyles';
+import {
+  Container,
+  MainSection,
+  BackColor
+} from '../../styles/CommonStyles';
 
 const SignUpTypePage = () => {
   return (
