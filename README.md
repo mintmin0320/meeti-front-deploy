@@ -75,8 +75,51 @@
 
 https://github.com/mintmin0320/meeti-front-deploy/assets/114549939/6b285f9d-bbdb-441b-bb8a-15816ebd936b
 
+<br/><br/>
 
+<h1>주요 작업</h2>
 
+### React-Query + Suspense 적용
 
+![](https://velog.velcdn.com/images/mintmin0320/post/13311030-8bcb-47eb-a586-2e0f8c89b007/image.png)
 
+- 비동기 요청을 병렬 처리하고 모두 종료되었을 때 동시 렌더링
+- SkeletonUI를 fallback으로 렌더링하여 사용자 경험 향상
 
+![](https://velog.velcdn.com/images/mintmin0320/post/ff94e314-41ca-4825-a426-fdb456e3fa41/image.gif)
+
+<br/>
+
+#### 상세 게시글
+[Suspense + SkeletonUI 적용 기록](https://mintmin-dev-world.vercel.app/blog/20231111)
+
+<br/><hr/>
+
+### bundle 크기 최적화 진행
+#### 코드 분할(React.lazy)
+- JavaScript 번들을 lazy 함수를 사용해 더 작은 단위인 chunks로 분할하고 필요에 따라 별도로 로드 (페이지에 접근) <br/>
+👉 초기 bundle 크기 감소로 초기 로드 시간 개선
+
+<br/>
+
+#### react-icos 최적화
+#### 📌 react-icons -> @react-icons/all-files 라이브러리 변경
+- 모든 파일을 build 하는 react-icons 라이브러리에서 개별 파일로 icon을 관리하는 @react-icons/all-files 라이브러리로 변경
+- react-icons을 사용하는 chunks 크기 감소 (기존 1.2MB -> 4.5KB)
+
+<br/>
+
+#### 최적화 전 bundle 크기
+
+![](https://velog.velcdn.com/images/mintmin0320/post/8c78acec-248d-43c7-a836-b8f9ad89c6ee/image.png)
+
+#### 최적화 후 bundle 크기
+
+![](https://velog.velcdn.com/images/mintmin0320/post/d4cbb445-5e52-4c8b-9609-ae92c6e4c56a/image.png)
+
+<br/>
+
+#### 상세 게시글
+[성능 최적화](https://mintmin-dev-world.vercel.app/blog/20231119)
+
+<br/>
