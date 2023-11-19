@@ -95,7 +95,7 @@ https://github.com/mintmin0320/meeti-front-deploy/assets/114549939/6b285f9d-bbdb
 
 <br/><hr/>
 
-### bundle 크기 최적화 진행
+### bundle 크기 및 성능 최적화
 #### 코드 분할(React.lazy)
 - JavaScript 번들을 lazy 함수를 사용해 더 작은 단위인 chunks로 분할하고 필요에 따라 별도로 로드 (페이지에 접근) <br/>
 👉 초기 bundle 크기 감소로 초기 로드 시간 개선
