@@ -51,7 +51,7 @@ const AddOffice = ({
         <S.TextArea onChange={handleChange} name="description" required />
       </S.InputFieldBox>
       <S.InputFieldBox>
-        <S.SubmitButton>회의실 등록하기</S.SubmitButton>
+        <S.SubmitButton aria-label='add_office'>회의실 등록하기</S.SubmitButton>
       </S.InputFieldBox>
     </S.AddForm>
   );

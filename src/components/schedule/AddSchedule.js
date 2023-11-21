@@ -77,6 +77,7 @@ const AddSchedule = ({
         onClick={() => {
           navigator('/');
         }}
+        aria-label='go_to_calendar'
       >
         <AiOutlineCalendar size='20px' />
       </S.NavigatorButton>

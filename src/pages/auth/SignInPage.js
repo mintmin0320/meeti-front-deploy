@@ -126,7 +126,7 @@ const SignInPage = () => {
               onChange={handleChange}
             />
             <SignupLink to="/auth">아직 미티의 회원이 아니신가요?</SignupLink>
-            <Button>로그인</Button>
+            <Button aria-label='signin'>로그인</Button>
           </form>
         </LoginWrap>
       </MainSection>

@@ -32,12 +32,14 @@ const ApprovalRequestList = ({
               <S.SubmitButton
                 style={{ backgroundColor: '#01DF01' }}
                 onClick={() => setDecision("CONFIRM")}
+                aria-label='confirm_request'
               >
                 승인
               </S.SubmitButton>
               <S.SubmitButton
                 style={{ backgroundColor: '#FE2E2E' }}
                 onClick={() => setDecision("REJECT")}
+                aria-label='reject_request'
               >
                 반려
               </S.SubmitButton>

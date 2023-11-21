@@ -45,6 +45,7 @@ const ContactsPage = () => {
               <S.Tittle
                 onClick={() => setIsFavorites(!isFavorites)}
                 isActive={!isFavorites}
+                aria-label='set_favorites'
               >
                 연락처 |
               </S.Tittle>
@@ -52,6 +53,7 @@ const ContactsPage = () => {
               <S.Tittle
                 onClick={() => setIsFavorites(!isFavorites)}
                 isActive={isFavorites}
+                aria-label='set_favorites'
               >
                 즐겨찾기
               </S.Tittle>

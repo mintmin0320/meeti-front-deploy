@@ -78,10 +78,11 @@ const ReservationDetail = ({
               handlePayment();
               setIsPayment(true);
             }}
+            aria-label='kakaopay_payment'
           >
             {!isPayment ? '카카오페이 결제' : '결제완료'}
           </S.SubmitButton>
-          <S.SubmitButton disabled={!office.status}>
+          <S.SubmitButton disabled={!office.status} aria-label='reservation_office'>
             {office.status ? '예약하기' : '예약불가'}
           </S.SubmitButton>
         </S.ReservationBox>

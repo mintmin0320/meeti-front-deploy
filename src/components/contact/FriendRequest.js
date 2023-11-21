@@ -28,7 +28,7 @@ const FriendRequest = ({ userId }) => {
               <S.ContactUserInfo>{item?.username}</S.ContactUserInfo>
             </S.ContactUserInfoBox>
             <S.ButtonBox>
-              <S.Button onClick={() => handleOnAccept(userId, item.id)}>
+              <S.Button onClick={() => handleOnAccept(userId, item.id)} aria-label='accept_request'>
                 <TiUserAdd color='#fff' size='20px' />
               </S.Button>
             </S.ButtonBox>

@@ -40,13 +40,15 @@ const AddApproval = ({
               handleClick(item?.username, "admin");
               setIsSelectedAdmin(index);
             }}
+            aria-label='choose_admin'
           >
             {item?.username}
           </S.AdminInfo>
         ))}
       </S.AdminInfoBox>
       <S.InfoText>
-        예약 대기 &nbsp;<S.OptionText>(선택)</S.OptionText>
+        예약 대기 &nbsp;
+        <S.OptionText>(선택)</S.OptionText>
       </S.InfoText>
       <S.AdminInfoBox>
         {reservationList.map((item, index) => (
@@ -62,6 +64,7 @@ const AddApproval = ({
               handleClick(item?.officeName, "reservation");
               setIsSelectedAdminReservation(index);
             }}
+            aria-label='choose_reservation'
           >
             {item?.officeName}
           </S.AdminInfo>
@@ -85,7 +88,7 @@ const AddApproval = ({
       </S.FileInputBox>
       <S.InfoText>기타</S.InfoText>
       <S.RequestTextarea name='request' onChange={handleChange} required />
-      <S.SubmitButton>
+      <S.SubmitButton aria-label='approval_request'>
         <FaRegPaperPlane style={{ color: "#ffffff", marginRight: "10px" }} />
         전송하기
       </S.SubmitButton>

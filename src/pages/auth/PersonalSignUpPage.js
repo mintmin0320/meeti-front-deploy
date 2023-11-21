@@ -176,10 +176,7 @@ const SignUpPage = () => {
               required
             />
             <BtnDiv>
-              <NextBtn>
-                {/* <IoIosArrowForward
-                  style={{ width: 25, height: 25, cursor: "pointer" }}
-                /> */}
+              <NextBtn aria-label='personal_signup'>
                 다음
               </NextBtn>
             </BtnDiv>

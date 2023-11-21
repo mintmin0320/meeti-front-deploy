@@ -15,7 +15,7 @@ const SignUp = () => {
       </S.TitleDiv>
       <S.ButtonDiv>
         <Link to="/auth/personal" style={{ textDecoration: "none" }}>
-          <S.Button>
+          <S.Button aria-label='go_to_personal_signup'>
             <MdPerson style={{ color: "#8165DF" }} size="1.6rem" />
             <S.Text>개인용</S.Text>
             <S.Br />
@@ -23,7 +23,7 @@ const SignUp = () => {
           </S.Button>
         </Link>
         <Link to="/auth/corp" style={{ textDecoration: "none" }}>
-          <S.Button>
+          <S.Button aria-label='go_to_office_signup'>
             <MdWork style={{ color: "#8165DF" }} size="1.6rem" />
             <S.Text>기업용</S.Text>
             <S.Br />

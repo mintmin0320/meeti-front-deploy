@@ -248,8 +248,7 @@ const SignUpCorpPage = () => {
               required
             />
             <BtnDiv>
-              <NextBtn disabled={!isAuthCode}>
-                {/* <IoIosArrowForward style={{ width: 25, height: 25 }} /> */}
+              <NextBtn disabled={!isAuthCode} aria-label='office_signup'>
                 다음
               </NextBtn>
             </BtnDiv>

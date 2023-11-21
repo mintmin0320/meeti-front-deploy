@@ -99,6 +99,7 @@ const SpeechPage = ({
             onClick={() => {
               setIsOpen(!isOpen);
             }}
+            aria-label='go_to_add_minutes'
           >
             {isOpen ? <AiOutlinePlusCircle /> : <RiPlayList2Fill />}
           </S.AddButton>
@@ -108,22 +109,23 @@ const SpeechPage = ({
         <S.MainDiv>
           <S.ButtonBox>
             {!isEdit ? (
-              <S.Button onClick={() => setIsEdit(true)}>
+              <S.Button onClick={() => setIsEdit(true)} aria-label='go_to_edit_minutes'>
                 <FaPencilAlt />
               </S.Button>
             ) : (
-              <S.Button onClick={() => handleEditButton(minutes.id)}>
+              <S.Button onClick={() => handleEditButton(minutes.id)} aria-label='edit_minutes'>
                 <BiSave />
               </S.Button>
             )}
-            <S.Button onClick={() => handleCopyClipBoard(minutes.detail)}>
+            <S.Button onClick={() => handleCopyClipBoard(minutes.detail)} aria-label='copy_clip_board'>
               <AiOutlineShareAlt />
             </S.Button>
-            <S.Button onClick={handlePrint}>
+            <S.Button onClick={handlePrint} aria-label='print'>
               <AiFillPrinter />
             </S.Button>
             <S.Button
               onClick={() => handleOnDeleteMinutes(minutes.id)}
+              aria-label='delete_minutes'
             >
               <AiFillDelete />
             </S.Button>
@@ -171,22 +173,25 @@ const SpeechPage = ({
             <S.Button
               type='button'
               onClick={handleOnStartBtn}
+              aria-label='recoding'
             >
               <BsFillMicFill />
             </S.Button>
             <S.Button
               type='button'
               onClick={handleOnStopBtn}
+              aria-label='stop_recoding'
             >
               <BiStop />
             </S.Button>
             <S.Button
               type='button'
               onClick={resetTranscript}
+              aria-label='reset_recoding'
             >
               <VscDebugRestart />
             </S.Button>
-            <S.Button onClick={handleSaveButton}>
+            <S.Button onClick={handleSaveButton} aria-label='save_recoding'>
               <BiSave />
             </S.Button>
           </S.ButtonBox>

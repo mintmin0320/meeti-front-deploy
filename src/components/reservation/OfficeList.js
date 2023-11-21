@@ -62,12 +62,13 @@ const OfficeList = ({
                   state={{ officeId: office.id }}
                   style={{ textDecoration: "none" }}
                 >
-                  <S.TooltipButton>예약하기</S.TooltipButton>
+                  <S.TooltipButton aria-label='reservation_office'>예약하기</S.TooltipButton>
                 </Link>
                 <S.TelNumTooltipButton
                   onClick={() => {
                     alert(`${office.telNum}`);
                   }}
+                  aria-label='show_Num'
                 >
                   전화하기
                 </S.TelNumTooltipButton>
@@ -88,7 +89,9 @@ const OfficeList = ({
           <S.SearchBox>
             <S.SearchInput name="search" onChange={handleChange} />
             <S.SearchButton
-              onClick={handleSearchOffice}>
+              onClick={handleSearchOffice}
+              aria-label='search_office'
+            >
               <BiSearch size='20px' />
             </S.SearchButton>
           </S.SearchBox>
@@ -97,6 +100,7 @@ const OfficeList = ({
           onClick={() => {
             navigator('/reservation/add-office');
           }}
+          aria-label='go_to_add_office'
         >
           <AiOutlinePlusCircle size='20px' />
         </S.AddButton>

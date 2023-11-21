@@ -46,16 +46,19 @@ const ContactList = ({
               <S.Button
                 onClick={() => openModal(item.id)}
                 style={{ backgroundColor: "#9c9c9c" }}
+                aria-label='show_friend_schedule'
               >
                 <AiOutlineCalendar style={{ color: "#fff" }} />
               </S.Button>
               <S.Button
                 onClick={() => handleDeleteContacts(userId, item.id)}
+                aria-label='delete_contacts'
               >
                 <TiUserDelete style={{ color: "#fff" }} />
               </S.Button>
               <S.Button
                 onClick={() => handleOnFavorite(userId, item.id)}
+                aria-label='on_favorites'
               >
                 {item.favorite || isFavorites ? (
                   <HiHeart style={{ width: "14px" }} />

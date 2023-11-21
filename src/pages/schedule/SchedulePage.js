@@ -49,6 +49,7 @@ const CalendarPage = () => {
             <S.AddButtonBox>
               <S.NavigatorButton
                 onClick={() => { navigator('/add-schedule'); }}
+                aria-label='go_to_add_schedule'
               >
                 <AiOutlinePlusCircle size='20px' />
               </S.NavigatorButton>

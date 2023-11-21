@@ -60,9 +60,9 @@ const ProfileContent = ({
       </S.ProfileBox>
       <S.ButtonBox>
         {!isEdit ? (
-          <S.Button onClick={handleEditButton}>회원 정보 수정</S.Button>
+          <S.Button onClick={handleEditButton} aria-label='edit_user_info'>회원 정보 수정</S.Button>
         ) : (
-          <S.Button onClick={handleEditInfo}>변경된 정보 저장</S.Button>
+          <S.Button onClick={handleEditInfo} aria-label='edit_user_info_save'>변경된 정보 저장</S.Button>
         )}
         <S.Button onClick={() => handleSignOut()}>로그아웃</S.Button>
         <S.Button onClick={() => handleAccountDeletionClick()}>회원탈퇴</S.Button>

@@ -69,7 +69,7 @@ export const AreaButton = styled.div`
   border: 1px solid #8165df;
   font-size: 13px;
   font-weight: 700;
-  color: #8165df;
+  color: #9F81F7;
   text-align: center;
   cursor: pointer;
   ${css`

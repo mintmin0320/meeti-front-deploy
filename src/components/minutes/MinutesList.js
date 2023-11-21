@@ -17,7 +17,7 @@ const MinutesList = ({
               <S.MinutesTitle>{minute.title}</S.MinutesTitle>
             </S.MinutesInfoBox>
             <S.MinutesContactsRight>
-              <S.MinutesButton onClick={() => handleDetailMinutes(minute)}>
+              <S.MinutesButton onClick={() => handleDetailMinutes(minute)} aria-label='delete_minutes'>
                 <FaArrowCircleRight size='25px' />
               </S.MinutesButton>
             </S.MinutesContactsRight>
