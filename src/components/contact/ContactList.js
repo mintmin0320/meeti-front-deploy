@@ -35,7 +35,9 @@ const ContactList = ({
         return (
           <S.ContactBox key={item.id}>
             <S.ContactProfileBox>
-              <S.ProfileImg src={item.profile ?? "./new.png"} />
+              <S.ProfileImg
+                src={item.profile ?? "./new.png"}
+                alt='user profile' />
             </S.ContactProfileBox>
             <S.ContactUserInfoBox>
               <S.ContactUserInfo>{item.username}</S.ContactUserInfo>

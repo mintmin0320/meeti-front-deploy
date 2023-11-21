@@ -37,7 +37,7 @@ const ContactsPage = () => {
   return (
     <Container>
       <MainSection>
-        <BackColor src={color} style={{ opacity: 0.2 }} />
+        <BackColor src={color} alt='background image' style={{ opacity: 0.2 }} />
         <Header />
         <Suspense fallback={<SkeletonUI count={3} />}>
           <LeftSection>

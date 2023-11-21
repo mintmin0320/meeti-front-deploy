@@ -63,7 +63,10 @@ const MainContacts = ({
         {userList?.map((item) => {
           return (
             <S.ContactDiv key={item.id}>
-              <S.ProfileImg src={item.profile ?? "./new.png"} />
+              <S.ProfileImg
+                src={item.profile ?? "./new.png"}
+                alt='user profile'
+              />
               <S.NameText>{item.username}</S.NameText>
               <S.ButtonBox
                 onClick={() => handleAddContacts(userId, item.id)}

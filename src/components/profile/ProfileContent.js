@@ -23,7 +23,10 @@ const ProfileContent = ({
       <S.ProfileBox>
         {!isEdit ? (
           <>
-            <S.ProfileImg src={info.profile || "./new.png"} />
+            <S.ProfileImg
+              src={info.profile || "./new.png"}
+              alt='user profile'
+            />
             <UserInfo username={info.username} role={info.role} />
           </>
         ) : (

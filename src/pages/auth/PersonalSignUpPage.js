@@ -134,7 +134,7 @@ const SignUpPage = () => {
   return (
     <Container>
       <MainSection>
-        <BackColor src={color} style={{ opacity: 0.2 }} />
+        <BackColor src={color} alt='background image' style={{ opacity: 0.2 }} />
         <UserType>
           <MdPerson size="1.3rem" /> 개인용
         </UserType>

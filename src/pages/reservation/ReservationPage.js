@@ -97,7 +97,7 @@ const ReservationPage = () => {
   return (
     <Container>
       <MainSection>
-        <BackColor src={color} style={{ opacity: 0.2 }} />
+        <BackColor src={color} alt='background image' style={{ opacity: 0.2 }} />
         <Header />
         <LeftSection>
           <TitleText>공유 오피스 예약</TitleText>

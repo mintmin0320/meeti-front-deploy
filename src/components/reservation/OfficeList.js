@@ -39,7 +39,7 @@ const OfficeList = ({
         {officeList.map((office) => (
           <S.OfficeItem key={office?.id}>
             <S.OfficeImgBox>
-              <S.OfficeImg src={office?.image} alt="이미지 없음" />
+              <S.OfficeImg src={office?.image} alt='office image' />
             </S.OfficeImgBox>
             <S.OfficeInfoWrap>
               <S.OfficeInfoBox>

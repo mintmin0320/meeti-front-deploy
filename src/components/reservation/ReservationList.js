@@ -12,7 +12,7 @@ const ReservationList = ({
         return (
           <S.OfficeItem key={item?.id}>
             <S.OfficeImgBox>
-              <S.OfficeImg src={item?.image} alt="office" />
+              <S.OfficeImg src={item?.image} alt='office image' />
             </S.OfficeImgBox>
             <S.OfficeInfoBox>
               <S.ReservationDate>{item?.date}</S.ReservationDate>

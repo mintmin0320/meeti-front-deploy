@@ -105,7 +105,7 @@ const SignInPage = () => {
   return (
     <Container>
       <MainSection className="MainDiv">
-        <BackColor src={color} style={{ opacity: 0.2 }} />
+        <BackColor src={color} alt='background image' style={{ opacity: 0.2 }} />
         <LoginWrap>
           <Title>Login</Title>
           <SubTitle>반갑습니다 미티에 오신 것을 환영해요!👋</SubTitle>

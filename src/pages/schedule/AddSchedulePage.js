@@ -89,7 +89,7 @@ const AddSchedulePage = () => {
   return (
     <Container>
       <MainSection>
-        <BackColor src={backColor} style={{ opacity: 0.2 }} />
+        <BackColor src={backColor} alt='background image' style={{ opacity: 0.2 }} />
         <Header />
         <S.Section>
           <TitleText>일정 등록</TitleText>

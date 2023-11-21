@@ -88,7 +88,10 @@ const ReservationDetail = ({
       </S.ReservationForm>
       <S.InfoSection>
         <S.TopInfoBox>
-          <S.OfficeImg src={office.image}></S.OfficeImg>
+          <S.OfficeImg
+            src={office.image}
+            alt='office image'
+          />
           <Map placeName={office.placeName} />
         </S.TopInfoBox>
         <S.PlaceName>{office.placeName}</S.PlaceName>
