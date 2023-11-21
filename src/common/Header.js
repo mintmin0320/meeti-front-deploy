@@ -22,7 +22,7 @@ const Header = () => {
   return (
     <S.HeaderWrap>
       <S.LinkContainer>
-        <Link to="/">
+        <Link to="/" aria-label='schedule'>
           <AiOutlineCalendar
             className={getIconClass('/')}
             size='20px'
@@ -31,7 +31,7 @@ const Header = () => {
         </Link>
       </S.LinkContainer>
       <S.LinkContainer>
-        <Link to="/contact">
+        <Link to="/contact" aria-label='contact'>
           <FaRegAddressBook
             className={getIconClass('/contact')}
             size='20px'
@@ -40,7 +40,7 @@ const Header = () => {
         </Link>
       </S.LinkContainer>
       <S.LinkContainer>
-        <Link to="/reservation">
+        <Link to="/reservation" aria-label='reservation'>
           <RiMapPinLine
             className={getIconClass('/reservation')}
             size='20px'
@@ -49,7 +49,7 @@ const Header = () => {
         </Link>
       </S.LinkContainer>
       <S.LinkContainer>
-        <Link to="/approval">
+        <Link to="/approval" aria-label='approval'>
           <HiOutlineMail
             className={getIconClass('/approval')}
             size='20px'
@@ -58,7 +58,7 @@ const Header = () => {
         </Link>
       </S.LinkContainer>
       <S.LinkContainer>
-        <Link to="/minutes">
+        <Link to="/minutes" aria-label='minutes'>
           <RiPlayList2Fill
             className={getIconClass('/minutes')}
             size='20px'
@@ -67,7 +67,7 @@ const Header = () => {
         </Link>
       </S.LinkContainer>
       <S.LinkContainer>
-        <Link to="/profile">
+        <Link to="/profile" aria-label='profile'>
           <BiUserCircle
             className={getIconClass('/profile')}
             size='20px'
