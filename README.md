@@ -123,6 +123,12 @@ https://github.com/mintmin0320/meeti-front-deploy/assets/114549939/6b285f9d-bbdb
 
 <br/>
 
+#### 연락처 페이지 기준 Lighthouse
+
+![](https://velog.velcdn.com/images/mintmin0320/post/1d324b0b-b55c-4d0d-ac26-69cea780039d/image.png)
+
+<br/>
+
 #### 상세 게시글
 [성능 최적화](https://mintmin-dev-world.vercel.app/blog/20231119)
 
