@@ -20,7 +20,7 @@ export const PageTitle = styled.p`
   margin-left: -10px;
 `;
 
-export const SearchDiv = styled.div`
+export const SearchLabel = styled.label`
   display: flex;
   flex-direction: row;
   justify-content: space-around;

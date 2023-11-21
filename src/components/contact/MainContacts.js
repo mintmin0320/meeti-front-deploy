@@ -48,16 +48,19 @@ const MainContacts = ({
       <S.TopBox>
         <FaRegAddressBook className="true" style={{ padding: "0" }} />
         <S.PageTitle>Contacts</S.PageTitle>
-        <S.SearchDiv>
+        <S.SearchLabel>
           <S.SearchInput
             name='search'
             onChange={(e) => setKeyword(e.target.value)}
             value={keyword}
           />
-          <S.SearchButton onClick={handleSearchClick} aria-label='search_contacts'>
+          <S.SearchButton
+            onClick={handleSearchClick}
+            aria-label='search_contacts'
+          >
             <BiSearch />
           </S.SearchButton>
-        </S.SearchDiv>
+        </S.SearchLabel>
       </S.TopBox>
       <S.BottomBox>
         {userList?.map((item) => {
