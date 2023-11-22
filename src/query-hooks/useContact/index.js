@@ -74,15 +74,14 @@ const useAddContacts = () => {
       queryClient.invalidateQueries({ queryKey: ["users"] });
 
       toast.success('신청을 전송했습니다.');
+    },
+    onError: () => {
+      toast.error('연락처 추가 중 오류가 발생했습니다.');
     }
   });
 
   const handleAddContacts = async (userId, friendId) => {
-    try {
-      await addMutation.mutateAsync({ userId, friendId });
-    } catch (error) {
-      toast.error('신청을 실패했습니다!');
-    }
+    await addMutation.mutateAsync({ userId, friendId });
   };
 
   return { ...addMutation, handleAddContacts };
@@ -100,15 +99,14 @@ const useRequestAccept = () => {
       queryClient.invalidateQueries({ queryKey: ["contacts"] });
 
       toast.success('요청이 수락되었습니다!');
+    },
+    onError: () => {
+      toast.error('요청 수락 중 오류가 발생했습니다.');
     }
   });
 
   const handleOnAccept = async (userId, friendId) => {
-    try {
-      await requestAcceptMutation.mutateAsync({ userId, friendId });
-    } catch (error) {
-      toast.error('요청 수락을 실패했습니다!');
-    }
+    await requestAcceptMutation.mutateAsync({ userId, friendId });
   };
 
   return { ...requestAcceptMutation, handleOnAccept };
@@ -125,15 +123,14 @@ const useDeleteContacts = () => {
       queryClient.invalidateQueries({ queryKey: ["users"] });
 
       toast.success('연락처가 삭제되었습니다!');
+    },
+    onError: () => {
+      toast.error('연락처가 삭제 중 오류가 발생했습니다.');
     }
   });
 
   const handleDeleteContacts = async (userId, friendId) => {
-    try {
-      await deleteContactsMutation.mutateAsync({ userId, friendId });
-    } catch (error) {
-      toast.error('연락처 삭제를 실패했습니다!');
-    }
+    await deleteContactsMutation.mutateAsync({ userId, friendId });
   };
 
   return { ...deleteContactsMutation, handleDeleteContacts };
@@ -147,15 +144,14 @@ const useOnFavorites = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["contacts"] });
       queryClient.invalidateQueries({ queryKey: ["favorite"] });
+    },
+    onError: () => {
+      toast.error('즐겨찾기 변경 중 오류가 발생했습니다.');
     }
   });
 
   const handleOnFavorite = async (userId, friendId) => {
-    try {
-      await onFavoritesMutation.mutateAsync({ userId, friendId });
-    } catch (error) {
-      toast.error('즐겨찾기 변경 실패했습니다!');
-    }
+    await onFavoritesMutation.mutateAsync({ userId, friendId });
   };
 
   return { ...onFavoritesMutation, handleOnFavorite };
@@ -172,4 +168,4 @@ export {
   useOnFavorites,
   useRequestAccept,
   useDeleteContacts,
-};
+}

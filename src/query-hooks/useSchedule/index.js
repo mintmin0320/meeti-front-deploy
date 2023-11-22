@@ -28,15 +28,14 @@ const useAddSchedule = () => {
       queryClient.invalidateQueries({ queryKey: ["schedule"] });
 
       toast.success('일정 등록 성공!');
+    },
+    onError: () => {
+      toast.error('일정 등록 중 에러가 발생했습니다.');
     }
   });
 
   const handleSubmit = async (userId, data) => {
-    try {
-      await addMutation.mutateAsync({ userId, params: data });
-    } catch (error) {
-      toast.error(`일정 추가 중 오류 발생: ${error}`);
-    }
+    await addMutation.mutateAsync({ userId, params: data });
   };
 
   return { ...addMutation, handleSubmit };
@@ -52,15 +51,14 @@ const useDeleteSchedule = () => {
       queryClient.invalidateQueries({ queryKey: ["schedule"] });
 
       toast.success('일정 삭제 성공!');
+    },
+    onError: () => {
+      toast.error('일정 삭제 중 오류가 발생했습니다.');
     }
   });
 
   const handleDeleteSchedule = async (scheduleId) => {
-    try {
-      await deleteMutation.mutateAsync(scheduleId);
-    } catch (error) {
-      toast.error(`일정 삭제 중 오류 발생: ${error}`);
-    }
+    await deleteMutation.mutateAsync(scheduleId);
   };
 
   return { ...deleteMutation, handleDeleteSchedule };

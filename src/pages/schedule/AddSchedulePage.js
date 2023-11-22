@@ -77,13 +77,9 @@ const AddSchedulePage = () => {
       end: date[0].endDate,
     };
 
-    try {
-      await handleSubmit(userId, data);
+    await handleSubmit(userId, data);
 
-      navigator('/');
-    } catch (error) {
-      console.log(error);
-    }
+    navigator('/');
   };
 
   return (
