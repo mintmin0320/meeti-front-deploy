@@ -1,71 +1,89 @@
-import { useRef } from "react";
+import { useQuery } from '@tanstack/react-query';
+import { useState } from "react";
 
 import UserInfo from './UserInfo';
+
 import * as S from './styles/ProfileContent.style';
 
-import { FcAddImage } from "../../common/icons/index";
+import { fetchUserData, useEditInfo } from '../../query-hooks/useProfile';
 
 const ProfileContent = ({
-  info,
-  isEdit,
-  handleAccountDeletionClick,
-  handleEditInfo,
-  handleImgUpload,
+  handleAccountDeletion,
   handleSignOut,
-  handleEditButton,
-  handleChange
 }) => {
-  const InputRef = useRef(null);
+  const userId = localStorage.getItem("userId");
+  const [isEdit, setIsEdit] = useState(false);
+  const [editName, setEditName] = useState('');
+  const [profile, setProfile] = useState('');
+
+  const { data: info } = useQuery(fetchUserData(userId));
+  const { postEdit } = useEditInfo();
+
+  const handleImgUpload = (e) => {
+    if (!e.target.files) {
+      return;
+    }
+
+    setProfile(e.target.files[0]);
+  };
+
+  // 프로필, 이름 수정 저장
+  const handleClick = async () => {
+    if (editName === '' || profile === '') {
+      alert('변경할 이름을 입력하고, 프로필 사진을 선택해 주세요');
+
+      return;
+    }
+
+    const formData = new FormData();
+
+    formData.append("image", profile);
+    formData.append("username", editName);
+
+    await postEdit({ userId, formData });
+
+    setIsEdit(false);
+  };
 
   return (
     <S.ProfileSection>
       <S.PageTitle>마이페이지</S.PageTitle>
       <S.ProfileBox>
-        {!isEdit ? (
-          <>
-            <S.ProfileImg
-              src={info.profile || "./new.png"}
-              alt='user profile'
-            />
-            <UserInfo username={info.username} role={info.role} />
-          </>
-        ) : (
-          <>
-            <S.AddProfileBox
-              onClick={() => {
-                InputRef.current?.click();
-              }}
-            >
-              <FcAddImage size="45px" />
-            </S.AddProfileBox>
-            <S.Input
-              type="file"
-              hidden={true}
-              ref={InputRef}
-              multiple="multiple"
-              onChange={handleImgUpload}
-              accept="image/jpg, image/png, image/jpeg"
-            />
-            <UserInfo
-              username={
-                <S.NameInput
-                  name="editName"
-                  onChange={handleChange}
-                />
-              }
-              role={info.role}
-            />
-          </>
-        )}
+        <UserInfo
+          info={info}
+          setEditName={setEditName}
+          isEdit={isEdit}
+          handleImgUpload={handleImgUpload}
+        />
       </S.ProfileBox>
       <S.ButtonBox>
         {!isEdit ? (
-          <S.Button onClick={handleEditButton} aria-label='edit_user_info'>회원 정보 수정</S.Button>
+          <S.Button
+            onClick={() => setIsEdit(true)}
+            aria-label='정보 수정'
+          >
+            정보 수정
+          </S.Button>
         ) : (
-          <S.Button onClick={handleEditInfo} aria-label='edit_user_info_save'>변경된 정보 저장</S.Button>
+          <S.Button
+            onClick={handleClick}
+            aria-label='변경된 정보 저장'
+          >
+            변경된 정보 저장
+          </S.Button>
         )}
-        <S.Button onClick={() => handleSignOut()}>로그아웃</S.Button>
-        <S.Button onClick={() => handleAccountDeletionClick()}>회원탈퇴</S.Button>
+        <S.Button
+          onClick={() => handleSignOut(userId)}
+          aria-label='로그아웃'
+        >
+          로그아웃
+        </S.Button>
+        <S.Button
+          onClick={() => handleAccountDeletion(userId)}
+          aria-label='회원탈퇴'
+        >
+          회원탈퇴
+        </S.Button>
       </S.ButtonBox>
     </S.ProfileSection>
   );
