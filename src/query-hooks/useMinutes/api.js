@@ -10,23 +10,23 @@ import {
 
 
 // 회의록 리스트 조회
-export const getMinutesData = ({ userId }) => {
-  const { data } = axios.get(`${READ_MINUTES}/${userId}`);
+export const getMinutesData = async (userId) => {
+  const { data } = await axios.get(`${READ_MINUTES}/${userId}`);
 
   return data;
 };
 
-// 회의록 추가
-export const postAddMinutes = ({ params, userId }) => {
-  return axios.post(`${ADD_MINUTES}/${userId}`, params);
+// 회의록 저장
+export const postAddMinutes = async (userId, params) => {
+  return await axios.post(`${ADD_MINUTES}/${userId}`, params);
 };
 
 // 회의록 삭제
-export const deleteMinutes = ({ meetingId }) => {
-  return axios.delete(`${DELETE_MINUTES}/${meetingId}`);
+export const deleteMinutes = async (meetingId) => {
+  return await axios.delete(`${DELETE_MINUTES}/${meetingId}`);
 };
 
 // 회의록 수정
-export const postEditMinutes = ({ params, meetingId, userId }) => {
-  return axios.post(`${EDIT_MINUTES}/${meetingId}/${userId}`, params);
+export const postEditMinutes = async (userId, meetingId, params) => {
+  return await axios.post(`${EDIT_MINUTES}/${meetingId}/${userId}`, params);
 };

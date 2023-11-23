@@ -21,9 +21,8 @@ const fetchMinutes = (userId) => ({
 // 회의록 저장
 const useSaveMinutes = () => {
   const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: (params, userId) => postAddMinutes(params, userId),
+  const saveMutation = useMutation({
+    mutationFn: ({ userId, params }) => postAddMinutes(userId, params),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["minutes"] });
 
@@ -33,15 +32,20 @@ const useSaveMinutes = () => {
       toast.error('회의록 저장 중 오류가 발생했습니다.');
     }
   });
+
+  const saveMinutes = async ({ userId, params }) => {
+    await saveMutation.mutateAsync({ userId, params });
+  };
+
+  return { ...saveMutation, saveMinutes };
 };
 
 // 회의록 수정
 const useEditMinutes = () => {
   const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: (params, meetingId, userId) =>
-      postEditMinutes(params, meetingId, userId),
+  const editMutation = useMutation({
+    mutationFn: ({ userId, meetingId, params }) =>
+      postEditMinutes(userId, meetingId, params),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["minutes"] });
 
@@ -50,14 +54,19 @@ const useEditMinutes = () => {
     onError: () => {
       toast.error('회의록 수정 중 오류가 발생했습니다.');
     }
-  })
+  });
+
+  const postEdit = async ({ userId, meetingId, params }) => {
+    await editMutation.mutateAsync({ userId, meetingId, params });
+  };
+
+  return { ...editMutation, postEdit };
 };
 
 // 회의록 삭제
 const useDeleteMinutes = () => {
   const queryClient = useQueryClient();
-
-  return useMutation({
+  const deleteMutation = useMutation({
     mutationFn: (meetingId) => deleteMinutes(meetingId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["minutes"] });
@@ -67,7 +76,13 @@ const useDeleteMinutes = () => {
     onError: () => {
       toast.error('회의록 삭제 중 오류가 발생했습니다.');
     }
-  })
+  });
+
+  const handleDelete = async (meetingId) => {
+    await deleteMutation.mutateAsync(meetingId);
+  };
+
+  return { ...deleteMutation, handleDelete };
 };
 
 export {

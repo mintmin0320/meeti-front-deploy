@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { useReactToPrint } from "react-to-print";
 import SpeechRecognition, {
   useSpeechRecognition,
@@ -19,24 +19,30 @@ import {
 
 import * as S from './styles/Minutes.style';
 
+import {
+  useDeleteMinutes,
+  useEditMinutes,
+  useSaveMinutes
+} from '../../query-hooks/useMinutes';
+
+import MinutesInfo from './MinutesInfo';
+import CustomButton from '../../common/CustomButton';
+
 const SpeechPage = ({
   minutes,
-  handleOnDeleteMinutes,
-  handleChange,
-  handleCopyClipBoard,
-  handleSave,
-  handleEdit,
+  setMinutes,
 }) => {
-  const componentRef = useRef();
-  const [isOpen, setIsOpen] = useState(true);
-  const [isEdit, setIsEdit] = useState(false);
-  const [editText, setEditText] = useState(minutes.detail || "");
+  const userId = localStorage.getItem('userId');
 
-  useEffect(() => {
-    if (minutes.detail) {
-      setEditText(minutes.detail);
-    }
-  }, [minutes.detail]);
+  const [isRecognition, setIsRecognition] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
+  const [editText, setEditText] = useState();
+  const [title, setTitle] = useState("");
+
+  const componentRef = useRef();
+  const { saveMinutes } = useSaveMinutes();
+  const { handleDelete } = useDeleteMinutes();
+  const { postEdit } = useEditMinutes();
 
   // 회의록 프린트
   const handlePrint = useReactToPrint({
@@ -55,8 +61,20 @@ const SpeechPage = ({
     return <span>Browser doesn't support speech recognition.</span>;
   }
 
+  // 회의내용 클립보드 복사
+  const handleCopyClipBoard = (text) => {
+    navigator.clipboard
+      .writeText(text)
+      .then(() => {
+        alert("회의내용이 복사되었습니다.");
+      })
+      .catch(() => {
+        alert("복사 실패 중 오류가 발생했습니다.");
+      });
+  };
+
   // 음성 녹음 시작
-  const handleOnStartBtn = () => {
+  const handleStartRecognition = () => {
     SpeechRecognition.startListening({
       continuous: true,
       language: "ko",
@@ -64,27 +82,44 @@ const SpeechPage = ({
   };
 
   // 음성 녹음 중지
-  const handleOnStopBtn = () => {
+  const handleStopRecognition = () => {
     SpeechRecognition.stopListening();
   };
 
   // 음성 녹음 저장
-  const handleSaveButton = (e) => {
+  const handleSave = async (e) => {
     e.preventDefault();
 
-    const detail = transcript;
+    const params = {
+      detail: transcript,
+      title
+    };
 
     SpeechRecognition.stopListening();
-    handleSave(detail);
+
+    await saveMinutes({ userId, params });
+
     resetTranscript();
-    setIsOpen(true);
+    setIsRecognition(false);
   };
 
-  // 회의록 수정
-  const handleEditButton = (meetingId) => {
-    setIsEdit(false);
+  // 회의록 수정 시작
+  const handleEditStart = () => {
+    setIsEdit(true);
     setEditText(minutes.detail);
-    handleEdit(meetingId, editText);
+  };
+
+  // 회의록 수정 저장
+  const handleEdit = async (meetingId) => {
+    setIsEdit(false);
+
+    const params = {
+      detail: editText,
+    };
+
+    await postEdit({ userId, meetingId, params });
+
+    setMinutes({});
   };
 
   return (
@@ -96,114 +131,101 @@ const SpeechPage = ({
         </S.Header>
         <S.HeaderRight>
           <S.AddButton
-            onClick={() => {
-              setIsOpen(!isOpen);
-            }}
-            aria-label='go_to_add_minutes'
+            onClick={() => setIsRecognition(!isRecognition)}
+            aria-label='메뉴 변경'
           >
-            {isOpen ? <AiOutlinePlusCircle /> : <RiPlayList2Fill />}
+            {isRecognition ? <AiOutlinePlusCircle /> : <RiPlayList2Fill />}
           </S.AddButton>
         </S.HeaderRight>
       </S.Header>
-      {isOpen ? (
+      {!isRecognition ? (
         <S.MainDiv>
           <S.ButtonBox>
             {!isEdit ? (
-              <S.Button onClick={() => setIsEdit(true)} aria-label='go_to_edit_minutes'>
+              <CustomButton
+                onClick={handleEditStart}
+                ariaLabel='회의록 수정'>
                 <FaPencilAlt />
-              </S.Button>
+              </CustomButton>
             ) : (
-              <S.Button onClick={() => handleEditButton(minutes.id)} aria-label='edit_minutes'>
+              <CustomButton
+                onClick={() => handleEdit(minutes.id)}
+                aria-label='수정 내용 저장'
+              >
                 <BiSave />
-              </S.Button>
+              </CustomButton>
             )}
-            <S.Button onClick={() => handleCopyClipBoard(minutes.detail)} aria-label='copy_clip_board'>
+            <CustomButton
+              onClick={() => handleCopyClipBoard(minutes.detail)}
+              aria-label='회의 내용 클립보드 복사'
+            >
               <AiOutlineShareAlt />
-            </S.Button>
-            <S.Button onClick={handlePrint} aria-label='print'>
+            </CustomButton>
+            <CustomButton
+              onClick={handlePrint}
+              aria-label='회의록 프린트'
+            >
               <AiFillPrinter />
-            </S.Button>
-            <S.Button
-              onClick={() => handleOnDeleteMinutes(minutes.id)}
-              aria-label='delete_minutes'
+            </CustomButton>
+            <CustomButton
+              onClick={() => {
+                handleDelete(minutes.id);
+                setMinutes({});
+              }}
+              aria-label='회의록 삭제'
             >
               <AiFillDelete />
-            </S.Button>
+            </CustomButton>
           </S.ButtonBox>
-          <S.AddMinutesWrap ref={componentRef}>
-            <S.MinutesInfoWrap>
-              <S.MinutesInfoBox>
-                <S.InfoTitleBox>문서번호</S.InfoTitleBox>
-                <S.InfoDataBox>{minutes.id}</S.InfoDataBox>
-              </S.MinutesInfoBox>
-              <S.MinutesInfoBox>
-                <S.InfoTitleBox>회의일자</S.InfoTitleBox>
-                <S.InfoDataBox>{minutes.date}</S.InfoDataBox>
-              </S.MinutesInfoBox>
-              <S.MinutesInfoBox>
-                <S.InfoTitleBox>작성자</S.InfoTitleBox>
-                <S.InfoDataBox>{minutes.username}</S.InfoDataBox>
-              </S.MinutesInfoBox>
-            </S.MinutesInfoWrap>
-            <S.MinutesTitleBox>
-              <S.InfoTextBox>회의명</S.InfoTextBox>
-              <S.TitleBox>{minutes.title}</S.TitleBox>
-            </S.MinutesTitleBox>
-            <S.TranscriptBox>
-              <S.TextBox
-                style={{ borderRadius: "8px 8px 0 0" }}
-              >
-                회의내용
-              </S.TextBox>
-              {!isEdit ? (
-                <S.Transcript>{minutes.detail}</S.Transcript>
-              ) : (
-                <S.Textarea
-                  name='editText'
-                  value={editText}
-                  onChange={(e) => setEditText(e.target.value)}
-                />
-              )}
-            </S.TranscriptBox>
-          </S.AddMinutesWrap>
+          <MinutesInfo
+            minutes={minutes}
+            isEdit={isEdit}
+            editText={editText}
+            setEditText={setEditText}
+            componentRef={componentRef}
+          />
         </S.MainDiv>
       ) : (
         <S.Form>
           <S.ButtonBox>
-            <S.Button
+            <CustomButton
               type='button'
-              onClick={handleOnStartBtn}
-              aria-label='recoding'
+              onClick={handleStartRecognition}
+              aria-label='녹음 시작'
             >
               <BsFillMicFill />
-            </S.Button>
-            <S.Button
+            </CustomButton>
+            <CustomButton
               type='button'
-              onClick={handleOnStopBtn}
-              aria-label='stop_recoding'
+              onClick={handleStopRecognition}
+              aria-label='녹음 중지'
             >
               <BiStop />
-            </S.Button>
-            <S.Button
+            </CustomButton>
+            <CustomButton
               type='button'
               onClick={resetTranscript}
-              aria-label='reset_recoding'
+              aria-label='녹음 초기화'
             >
               <VscDebugRestart />
-            </S.Button>
-            <S.Button onClick={handleSaveButton} aria-label='save_recoding'>
+            </CustomButton>
+            <CustomButton
+              type='submit'
+              onClick={handleSave}
+              aria-label='녹음 저장'
+            >
               <BiSave />
-            </S.Button>
+            </CustomButton>
           </S.ButtonBox>
           <S.AddMinutesWrap>
             <S.MicrophoneStatus>
               Microphone: {listening ? "🟢" : "🔴"}
             </S.MicrophoneStatus>
             <S.MinutesTitleBox>
-              <S.InfoTextBox>회의명</S.InfoTextBox>
+              <S.InfoText>회의명</S.InfoText>
               <S.Input
-                name='writeTitle'
-                onChange={handleChange}
+                name='title'
+                onChange={(e) => setTitle(e.target.value)}
                 required
               />
             </S.MinutesTitleBox>
@@ -222,4 +244,4 @@ const SpeechPage = ({
   );
 };
 
-export default SpeechPage;
+export default SpeechPage

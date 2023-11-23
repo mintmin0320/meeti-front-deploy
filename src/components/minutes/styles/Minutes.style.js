@@ -14,24 +14,6 @@ export const ButtonBox = styled.div`
   align-items: center;
 `;
 
-export const Button = styled.button`
-  width: 20%;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: solid 1px #d8d8d8;
-  border-radius: 18px;
-  color: #8165df;
-  background-color: #f0ebfa;
-  cursor: pointer;
-
-  &:hover {
-    color: #f0ebfa;
-    background-color: #8165df;
-  }
-`;
-
 // 작성 - 우측 wrap
 export const AddMinutesWrap = styled.div`
   width: 100%;
@@ -95,7 +77,7 @@ export const MinutesTitleBox = styled.div`
   margin-bottom: 25px;
 `;
 
-export const InfoTextBox = styled.div`
+export const InfoText = styled.p`
   width: 30%;
   height: 100%;
   display: flex;
@@ -151,27 +133,6 @@ export const Transcript = styled.div`
   }
 `;
 
-export const TitleBox = styled.div`
-  width: 70%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: solid 1px #d8d8d8;
-  border-radius: 0 8px 8px 0;
-  background-color: #fff;
-`;
-
-export const Textarea = styled.textarea`
-  width: calc(100% - 4px);
-  height: calc(100% - 45px);
-  border: solid 1px #d8d8d8;
-  border-top: none;
-  border-radius: 0 0 8px 8px;
-  font-size: 18px;
-  outline: none;
-`;
-
 export const MainDiv = styled.div`
   width: 80%;
   height: 70%;
@@ -197,7 +158,7 @@ export const Header = styled.div`
   justify-content: space-between;
 `;
 
-export const HeadTitle = styled.div`
+export const HeadTitle = styled.p`
   color: #6f5cea;
   font-size: 14px;
   margin-top: 30px;
