@@ -22,22 +22,29 @@ import {
 } from "../../common/icons/index";
 
 import { fetchSchedule } from '../../query-hooks/useSchedule';
+import { useDeleteSchedule } from '../../query-hooks/useSchedule';
 
 const CalendarPage = () => {
   const userId = localStorage.getItem('userId');
 
   const navigator = useNavigate();
   const { data: scheduleList } = useQuery(fetchSchedule(userId));
+  const { handleDeleteSchedule } = useDeleteSchedule();
 
   return (
     <Container>
       <MainSection>
-        <BackColor src={color} alt='background image' style={{ opacity: 0.2 }} />
+        <BackColor
+          src={color}
+          alt='background image'
+          style={{ opacity: 0.2 }}
+        />
         <Header />
         <LeftSection>
           <TitleText>일정</TitleText>
           <ScheduleList
             scheduleList={scheduleList}
+            handleDeleteSchedule={handleDeleteSchedule}
           />
         </LeftSection>
         <RightSection>

@@ -3,11 +3,10 @@ import { HiLocationMarker, AiFillDelete } from "../../common/icons/index";
 import { ListWrap } from '../../styles/CommonStyles';
 import * as S from './styles/ScheduleList.style';
 
-import { useDeleteSchedule } from '../../query-hooks/useSchedule';
-
-const ScheduleList = ({ scheduleList }) => {
-  const { handleDeleteSchedule } = useDeleteSchedule();
-
+const ScheduleList = ({
+  scheduleList,
+  handleDeleteSchedule
+}) => {
   return (
     <ListWrap>
       {scheduleList?.map((item) => (
