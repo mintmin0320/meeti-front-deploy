@@ -24,11 +24,11 @@ const SignUpTypePage = () => {
             <S.Title>회원가입</S.Title>
             <S.SubTitle>안녕하세요 회의실과 캘린더를 함께하여</S.SubTitle>
             <S.SubTitle>효율적으로 미팅을 진행 할 수 있도록 하는</S.SubTitle>
-            <S.SubTitle>저희는 “미티” 입니다👋</S.SubTitle>
+            <S.SubTitle>저희는 “미티” 입니다 👋</S.SubTitle>
           </S.TitleBox>
           <S.ButtonBox>
             <Link to="/auth/personal" style={{ textDecoration: "none" }}>
-              <S.Button aria-label='go_to_personal_signup'>
+              <S.Button aria-label='개인용 회원가입'>
                 <MdPerson style={{ color: "#8165DF" }} size="1.6rem" />
                 <S.Text>개인용</S.Text>
                 <S.Br />
@@ -36,7 +36,7 @@ const SignUpTypePage = () => {
               </S.Button>
             </Link>
             <Link to="/auth/corp" style={{ textDecoration: "none" }}>
-              <S.Button aria-label='go_to_office_signup'>
+              <S.Button aria-label='기업용 회원가입'>
                 <MdWork style={{ color: "#8165DF" }} size="1.6rem" />
                 <S.Text>기업용</S.Text>
                 <S.Br />
