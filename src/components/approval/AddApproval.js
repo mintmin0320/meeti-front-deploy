@@ -1,4 +1,5 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
+import { useQuery } from '@tanstack/react-query';
 
 import {
   FaRegPaperPlane,
@@ -7,17 +8,27 @@ import {
 
 import * as S from './styles/AddApproval.style';
 
+import {
+  fetchAdminData,
+  fetchWaitReservation
+} from '../../query-hooks/useApproval';
+
 const AddApproval = ({
-  adminList,
-  reservationList,
+  userId,
   handleClick,
   handleImgUpload,
   handleSubmit,
   handleChange,
+  isSelectedAdmin,
+  isSelectedReservation,
+  setIsSelectedAdmin,
+  setIsSelectedAdminReservation
 }) => {
   const InputRef = useRef(null);
-  const [isSelectedAdmin, setIsSelectedAdmin] = useState(null);
-  const [isSelectedReservation, setIsSelectedAdminReservation] = useState(null);
+
+
+  const { data: adminList } = useQuery(fetchAdminData(userId));
+  const { data: reservationList } = useQuery(fetchWaitReservation(userId));
 
   return (
     <form onSubmit={handleSubmit}>
@@ -27,7 +38,7 @@ const AddApproval = ({
       </S.TitleBox>
       <S.InfoText>결재자</S.InfoText>
       <S.AdminInfoBox>
-        {adminList.map((item, index) => (
+        {adminList?.map((item, index) => (
           <S.AdminInfo
             key={item?.id}
             type='button'
@@ -40,7 +51,7 @@ const AddApproval = ({
               handleClick(item?.username, "admin");
               setIsSelectedAdmin(index);
             }}
-            aria-label='choose_admin'
+            aria-label='결재자 선택'
           >
             {item?.username}
           </S.AdminInfo>
@@ -51,7 +62,7 @@ const AddApproval = ({
         <S.OptionText>(선택)</S.OptionText>
       </S.InfoText>
       <S.AdminInfoBox>
-        {reservationList.map((item, index) => (
+        {reservationList?.map((item, index) => (
           <S.AdminInfo
             key={item?.id}
             type='button'
@@ -64,13 +75,12 @@ const AddApproval = ({
               handleClick(item?.officeName, "reservation");
               setIsSelectedAdminReservation(index);
             }}
-            aria-label='choose_reservation'
+            aria-label='대기 중인 예약 선택'
           >
             {item?.officeName}
           </S.AdminInfo>
         ))}
       </S.AdminInfoBox>
-
       <S.InfoText>업로드 파일</S.InfoText>
       <S.FileInputBox>
         <S.InputText
@@ -87,9 +97,14 @@ const AddApproval = ({
         />
       </S.FileInputBox>
       <S.InfoText>기타</S.InfoText>
-      <S.RequestTextarea name='request' onChange={handleChange} required />
-      <S.SubmitButton aria-label='approval_request'>
-        <FaRegPaperPlane style={{ color: "#ffffff", marginRight: "10px" }} />
+      <S.RequestTextarea
+        name='request'
+        onChange={handleChange}
+        required />
+      <S.SubmitButton aria-label='전송하기'>
+        <FaRegPaperPlane
+          style={{ color: "#ffffff", marginRight: "10px" }}
+        />
         전송하기
       </S.SubmitButton>
     </form>

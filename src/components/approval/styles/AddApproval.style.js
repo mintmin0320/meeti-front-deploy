@@ -13,7 +13,7 @@ export const PageTitle = styled.h1`
   margin-left: -10px;
 `;
 
-export const InfoText = styled.p`
+export const InfoText = styled.div`
   width: 100%;
   height: 35px;
   display: flex;

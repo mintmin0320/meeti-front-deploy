@@ -1,16 +1,8 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, Suspense } from "react";
 
 import Header from '../../common/Header';
 import AddApproval from "../../components/approval/AddApproval";
 import ApprovalRequestList from '../../components/approval/ApprovalRequestList';
-
-import {
-  fetchApprovalList,
-  fetchAdminList,
-  fetchAddApproval,
-  fetchDecisionApproval,
-  fetchWaitReservationList
-} from '../../api/approval';
 
 import {
   Container,
@@ -22,11 +14,16 @@ import {
 } from '../../styles/CommonStyles';
 import color from "./../../assets/color.png";
 
+import {
+  useAddApproval,
+  useDecisionApproval
+} from '../../query-hooks/useApproval';
+
 const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB
 
 const ApprovalPage = () => {
   const userId = localStorage.getItem("userId");
-  const formData = new FormData();
+
   const [approvalForm, setApprovalForm] = useState({
     file: '',
     request: '',
@@ -36,48 +33,12 @@ const ApprovalPage = () => {
     decisionDetail: '',
     decision: '',
   });
-  const [refreshKey, setRefreshKey] = useState(false);
-  const [approvalList, setApprovalList] = useState([]);
-  const [adminList, setAdminList] = useState([]);
-  const [reservationList, setReservationList] = useState([]);
   const [reservation, setReservation] = useState('');
+  const [isSelectedAdmin, setIsSelectedAdmin] = useState(null);
+  const [isSelectedReservation, setIsSelectedAdminReservation] = useState(null);
 
-  /*
-    결재 요청 처리 로직
-
-    결재 요청 조회
-  */
-
-  useEffect(() => {
-    getApprovalList();
-  }, [refreshKey]);
-
-  useEffect(() => {
-    getAdminList();
-  }, []);
-
-  useEffect(() => {
-    getWaitReservationList();
-  }, []);
-
-  const getApprovalList = async () => {
-    try {
-      const res = await fetchApprovalList(userId);
-      setApprovalList(res?.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  // 대기상태 예약 조회
-  const getWaitReservationList = async () => {
-    try {
-      const res = await fetchWaitReservationList(userId);
-      setReservationList(res?.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const { decisionApproval } = useDecisionApproval();
+  const { submit } = useAddApproval();
 
   const handleChange = useCallback((e) => {
     const { name, value } = e.target;
@@ -96,33 +57,13 @@ const ApprovalPage = () => {
   }, []);
 
   // 승인 결정
-  const handleDecisionApproval = async (approvalId, decision) => {
-    const data = {
+  const handleDecision = async (approvalId, decision) => {
+    const params = {
       decisionDetail: decisionForm.decisionDetail,
       decision,
     };
 
-    try {
-      alert('정상 처리되었습니다.');
-      await fetchDecisionApproval(approvalId, data);
-      setRefreshKey(!refreshKey);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  /*
-    결재 요청 등록 로직
-
-    관리자 이름 클릭
-   */
-  const getAdminList = async () => {
-    try {
-      const res = await fetchAdminList(userId);
-      setAdminList(res?.data);
-    } catch (error) {
-      console.log(error);
-    }
+    await decisionApproval({ approvalId, params });
   };
 
   const handleClick = (param, check) => {
@@ -161,45 +102,51 @@ const ApprovalPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const formData = new FormData();
+
     formData.append("request", approvalForm.request);
     formData.append("adminUsername", approvalForm.adminUsername);
     formData.append("file", approvalForm.file);
     formData.append("placeName", reservation);
 
-    try {
-      alert('승인 요청 전송!');
+    await submit({ userId, formData });
 
-      await fetchAddApproval(userId, formData);
-      setDecisionForm(prevState => ({ ...prevState, request: '' }));
-      setRefreshKey(!refreshKey);
-      getAdminList();
-    } catch (error) {
-      console.log(error);
-    }
+    setApprovalForm(prevState => ({ ...prevState, request: '' }));
+    setIsSelectedAdmin(null);
+    setIsSelectedAdminReservation(null);
   };
 
   return (
     <Container>
-      <MainSection className="MainDiv">
-        <BackColor src={color} alt='background image' style={{ opacity: 0.2 }} />
+      <MainSection>
+        <BackColor
+          src={color}
+          alt='background image'
+          style={{ opacity: 0.2 }}
+        />
         <Header />
         <LeftSection>
           <TitleText>승인요청</TitleText>
           <ApprovalRequestList
-            approvalList={approvalList}
-            handleDecisionApproval={handleDecisionApproval}
+            userId={userId}
+            handleDecision={handleDecision}
             handleChange={handleChange}
           />
         </LeftSection>
         <RightSection>
-          <AddApproval
-            adminList={adminList}
-            reservationList={reservationList}
-            handleChange={handleChange}
-            handleClick={handleClick}
-            handleImgUpload={handleImgUpload}
-            handleSubmit={handleSubmit}
-          />
+          <Suspense fallback='Loading'>
+            <AddApproval
+              userId={userId}
+              handleChange={handleChange}
+              handleClick={handleClick}
+              handleImgUpload={handleImgUpload}
+              handleSubmit={handleSubmit}
+              isSelectedAdmin={isSelectedAdmin}
+              isSelectedReservation={isSelectedReservation}
+              setIsSelectedAdmin={setIsSelectedAdmin}
+              setIsSelectedAdminReservation={setIsSelectedAdminReservation}
+            />
+          </Suspense>
         </RightSection>
       </MainSection>
     </Container>
