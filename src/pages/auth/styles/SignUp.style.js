@@ -1,18 +1,18 @@
 import styled from "styled-components";
 
-export const SignupDiv = styled.div`
+export const SignUpWrap = styled.div`
   margin: auto;
   z-index: 3;
 `;
 
-export const TitleDiv = styled.div`
+export const TitleBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
 `;
 
-export const Title = styled.div`
+export const Title = styled.h1`
   font-size: 2rem;
   font-weight: bold;
   margin-top: 20px;
@@ -20,32 +20,35 @@ export const Title = styled.div`
   color: #535571;
 `;
 
-export const SubTitle = styled.div`
+export const SubTitle = styled.p`
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
-  color: #535571;
+  color: #535571;;
 `;
 
-export const ButtonDiv = styled.div`
+export const ButtonBox = styled.div`
   display: flex;
   justify-content: center;
-  flex-direction: row;
 `;
 
 export const Button = styled.button`
-  width: 8.5rem;
+  width: 9rem;
   height: 11.5rem;
-  border-radius: 10px;
-  border: solid #9c9c9c 0.5px;
-  background-color: white;
-  box-shadow: 1px 1px 1px rgb(0.1, 0.1, 0.1, 0.1);
-  margin: 0 25px;
-  margin-top: 30px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  border-radius: 10px;
+  border: solid #9c9c9c 0.5px;
+  box-shadow: 1px 1px 1px rgb(0.1, 0.1, 0.1, 0.1);
+  margin: 0 25px;
+  margin-top: 30px;
+  background-color: #fff;
   cursor: pointer;
+
+  &:hover {
+    background-color: #f2f2f2;
+  }
 `;
 
 export const Text = styled.div`
@@ -55,14 +58,14 @@ export const Text = styled.div`
 `;
 
 export const Br = styled.div`
-  background-color: #9c9c9c;
   width: 60%;
   height: 1px;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
+  background-color: #9c9c9c;
 `;
 
-export const Join = styled.div`
+export const JoinInfoText = styled.p`
   font-size: 1rem;
   margin-top: 0.5rem;
   color: #9c9c9c;
