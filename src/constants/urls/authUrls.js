@@ -11,7 +11,7 @@ export const OFFICE_SIGNUP = `/meeti/user/join/office`;
 export const PERSONAL_SIGNUP = `/meeti/user/join`;
 
 // 로그인
-export const SINGIN = `/meeti/user/login`;
+export const SIGN_IN = `/meeti/user/login`;
 
 // 토큰 재요청
 export const REFRESH_TOKEN = `/meeti/access-token/issue`;

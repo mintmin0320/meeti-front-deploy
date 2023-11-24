@@ -5,7 +5,7 @@ import {
   ACCOUNT_DELETION,
   SIGN_OUT,
   REFRESH_TOKEN,
-  SINGIN,
+  SIGN_IN,
   PERSONAL_SIGNUP,
   OFFICE_SIGNUP,
   REQUEST_EMAIL,
@@ -14,7 +14,7 @@ import {
 
 // 로그인
 export const fetchSignIn = async (data) => {
-  const res = await axios.post(SINGIN, data);
+  const res = await axios.post(SIGN_IN, data);
   const { accessToken, refreshToken } = res.data;
 
   localStorage.setItem('accessToken', accessToken);
