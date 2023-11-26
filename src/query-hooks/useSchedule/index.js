@@ -8,11 +8,13 @@ import {
   deleteSchedule
 } from './api';
 
+import { scheduleKey } from './key';
+
 const toast = Toast();
 
 // 일정 조회
 const fetchSchedule = (userId) => ({
-  queryKey: ["schedule", userId],
+  queryKey: [scheduleKey.schedule, userId],
   queryFn: () => getScheduleData(userId),
   staleTime: 50000,
 });
@@ -25,7 +27,7 @@ const useAddSchedule = () => {
     mutationFn: ({ userId, params }) =>
       postAddSchedule({ userId, params }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["schedule"] });
+      queryClient.invalidateQueries({ queryKey: [scheduleKey.schedule] });
 
       toast.success('일정 등록 성공!');
     },
@@ -48,7 +50,7 @@ const useDeleteSchedule = () => {
   const deleteMutation = useMutation({
     mutationFn: (scheduleId) => deleteSchedule(scheduleId),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["schedule"] });
+      queryClient.invalidateQueries({ queryKey: [scheduleKey.schedule] });
 
       toast.success('일정 삭제 성공!');
     },

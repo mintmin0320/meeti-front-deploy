@@ -15,11 +15,13 @@ import {
   deleteContacts,
 } from './api';
 
+import { contactsKey } from './key';
+
 const toast = Toast();
 
 // 전체 유저 목록
 const fetchAllUser = (userId) => ({
-  queryKey: ["users", userId],
+  queryKey: [contactsKey.users, userId],
   queryFn: () => getUserData(userId),
   suspense: true,
   staleTime: 50000,
@@ -27,7 +29,7 @@ const fetchAllUser = (userId) => ({
 
 // 내 친구 목록
 const fetchContacts = (userId) => ({
-  queryKey: ["contacts", userId],
+  queryKey: [contactsKey.contacts, userId],
   queryFn: () => getContactsData(userId),
   suspense: true,
   staleTime: 50000,
@@ -35,14 +37,14 @@ const fetchContacts = (userId) => ({
 
 // 즐겨찾기 목록
 const fetchFavorite = (userId) => ({
-  queryKey: ["favorite", userId],
+  queryKey: [contactsKey.favorites, userId],
   queryFn: () => getFavoriteData(userId),
   staleTime: 50000,
 });
 
 // 요청 대기자 목록
 const fetchRequestUser = (userId) => ({
-  queryKey: ["request", userId],
+  queryKey: [contactsKey.request, userId],
   queryFn: () => getRequestUserData(userId),
   suspense: true,
   staleTime: 50000,
@@ -50,7 +52,7 @@ const fetchRequestUser = (userId) => ({
 
 // 연락처 검색
 const fetchSearchContacts = (username) => ({
-  queryKey: ["search", username],
+  queryKey: [contactsKey.search, username],
   queryFn: () => getSearchContacts(username),
   suspense: true,
   enabled: false,
@@ -59,7 +61,7 @@ const fetchSearchContacts = (username) => ({
 
 // 친구 일정 조회
 const fetchContactsSchedule = (userId, friendId) => ({
-  queryKey: ["friend-contacts", userId],
+  queryKey: [contactsKey.friends, userId],
   queryFn: () => getContactSchedule({ userId, friendId }),
   staleTime: 50000,
 });
@@ -71,7 +73,7 @@ const useAddContacts = () => {
     mutationFn: ({ userId, friendId }) =>
       postAddContacts({ userId, friendId }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["users"] });
+      queryClient.invalidateQueries({ queryKey: [contactsKey.users] });
 
       toast.success('신청을 전송했습니다.');
     },
@@ -94,9 +96,9 @@ const useRequestAccept = () => {
     mutationFn: ({ userId, friendId }) =>
       postRequestAccept({ userId, friendId }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["request"] });
-      queryClient.invalidateQueries({ queryKey: ["users"] });
-      queryClient.invalidateQueries({ queryKey: ["contacts"] });
+      queryClient.invalidateQueries({ queryKey: [contactsKey.request] });
+      queryClient.invalidateQueries({ queryKey: [contactsKey.users] });
+      queryClient.invalidateQueries({ queryKey: [contactsKey.contacts] });
 
       toast.success('요청이 수락되었습니다!');
     },
@@ -119,8 +121,8 @@ const useDeleteContacts = () => {
     mutationFn: ({ userId, friendId }) =>
       deleteContacts({ userId, friendId }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["contacts"] });
-      queryClient.invalidateQueries({ queryKey: ["users"] });
+      queryClient.invalidateQueries({ queryKey: [contactsKey.contacts] });
+      queryClient.invalidateQueries({ queryKey: [contactsKey.users] });
 
       toast.success('연락처가 삭제되었습니다!');
     },
@@ -142,8 +144,8 @@ const useOnFavorites = () => {
   const onFavoritesMutation = useMutation({
     mutationFn: ({ userId, friendId }) => postOnFavorite({ userId, friendId }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["contacts"] });
-      queryClient.invalidateQueries({ queryKey: ["favorite"] });
+      queryClient.invalidateQueries({ queryKey: [contactsKey.contacts] });
+      queryClient.invalidateQueries({ queryKey: [contactsKey.favorites] });
     },
     onError: () => {
       toast.error('즐겨찾기 변경 중 오류가 발생했습니다.');

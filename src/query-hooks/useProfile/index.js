@@ -4,11 +4,13 @@ import Toast from '../../common/Toast';
 
 import { getUserData, postEditData } from './api';
 
+import { profileKey } from './key';
+
 const toast = Toast();
 
 // 유저 정보 조회
 const fetchUserData = (userId) => ({
-  queryKey: ["user", userId],
+  queryKey: [profileKey.profile, userId],
   queryFn: () => getUserData(userId),
   staleTime: 50000,
 });
@@ -21,7 +23,7 @@ const useEditInfo = () => {
     mutationFn: ({ userId, formData }) =>
       postEditData(userId, formData),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["user"] });
+      queryClient.invalidateQueries({ queryKey: [profileKey.profile] });
 
       toast.success('회원정보 수정 성공!');
     },

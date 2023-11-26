@@ -9,18 +9,20 @@ import {
   postDecisionApproval
 } from './api';
 
+import { approvalKey } from './key';
+
 const toast = Toast();
 
 // 결재 대기 리스트
 const fetchApprovalData = (userId) => ({
-  queryKey: ["approval", userId],
+  queryKey: [approvalKey.approval, userId],
   queryFn: () => getApprovalData(userId),
   staleTime: 50000,
 });
 
 // 결재 담당자 리스트
 const fetchAdminData = (userId) => ({
-  queryKey: ["admin", userId],
+  queryKey: [approvalKey.adminList, userId],
   queryFn: () => getAdminData(userId),
   suspense: true,
   staleTime: 50000,
@@ -28,7 +30,7 @@ const fetchAdminData = (userId) => ({
 
 // 예약 대기 리스트
 const fetchWaitReservation = (userId) => ({
-  queryKey: ["wait-reservation", userId],
+  queryKey: [approvalKey.waitReservation, userId],
   queryFn: () => getWaitReservationData(userId),
   suspense: true,
   staleTime: 50000,
@@ -40,7 +42,7 @@ const useAddApproval = () => {
   const addMutation = useMutation({
     mutationFn: ({ userId, formData }) => postAddApproval(userId, formData),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["approval"] });
+      queryClient.invalidateQueries({ queryKey: [approvalKey.approval] });
 
       toast.success('결재 요청을 등록했습니다.');
     },
@@ -63,8 +65,9 @@ const useDecisionApproval = () => {
     mutationFn: ({ approvalId, params }) =>
       postDecisionApproval(approvalId, params),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["approval"] });
-      queryClient.invalidateQueries({ queryKey: ["reservation"] });
+      queryClient.invalidateQueries({ queryKey: [approvalKey.approval] });
+      queryClient.invalidateQueries({ queryKey: [approvalKey.waitReservation] });
+      queryClient.invalidateQueries({ queryKey: [approvalKey.adminList] });
 
       toast.success('결재 처리 완료했습니다.');
     },

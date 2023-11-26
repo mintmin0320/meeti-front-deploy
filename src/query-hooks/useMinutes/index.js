@@ -9,11 +9,13 @@ import {
   postEditMinutes
 } from './api';
 
+import { minutesKey } from './key';
+
 const toast = Toast();
 
 // 회의록 리스트 조회
 const fetchMinutes = (userId) => ({
-  queryKey: ["minutes", userId],
+  queryKey: [minutesKey.minutes, userId],
   queryFn: () => getMinutesData(userId),
   staleTime: 50000,
 });
@@ -24,7 +26,7 @@ const useSaveMinutes = () => {
   const saveMutation = useMutation({
     mutationFn: ({ userId, params }) => postAddMinutes(userId, params),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["minutes"] });
+      queryClient.invalidateQueries({ queryKey: [minutesKey.minutes] });
 
       toast.success('회의록을 저장했습니다.');
     },
@@ -47,7 +49,7 @@ const useEditMinutes = () => {
     mutationFn: ({ userId, meetingId, params }) =>
       postEditMinutes(userId, meetingId, params),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["minutes"] });
+      queryClient.invalidateQueries({ queryKey: [minutesKey.minutes] });
 
       toast.success('회의록을 수정했습니다.');
     },
@@ -69,7 +71,7 @@ const useDeleteMinutes = () => {
   const deleteMutation = useMutation({
     mutationFn: (meetingId) => deleteMinutes(meetingId),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["minutes"] });
+      queryClient.invalidateQueries({ queryKey: [minutesKey.minutes] });
 
       toast.success('회의록이 삭제되었습니다.');
     },
