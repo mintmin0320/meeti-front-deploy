@@ -1,6 +1,6 @@
-import { useEffect, useState, useCallback, forwardRef } from "react";
-import styled from "styled-components";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useState, useCallback, forwardRef } from "react";
+import { useLocation } from "react-router-dom";
+import { useQuery } from '@tanstack/react-query';
 
 import OfficeDetail from "../../components/reservation/OfficeDetail";
 import Header from '../../common/Header';
@@ -12,69 +12,35 @@ import {
   BackColor,
   MainSection,
 } from '../../styles/CommonStyles';
+import * as S from './styles/OfficeDetailPage.style';
 
 import {
-  fetchDetailOfficeData,
-  fetchReservationOffice,
-  fetchReservationPayment
-} from '../../api/reservation';
-
-const DetailSection = styled.section`
-  width: 90%;
-  height: 100%;
-  z-index: 3;
-`;
+  fetchOfficeDetail,
+  usePayment,
+  useReservation
+} from '../../query-hooks/useReservation';
 
 const OfficeDetailPage = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const officeId = location.state.officeId;
   const userId = localStorage.getItem('userId');
-  const [office, setOffice] = useState({
-    placeName: '',
-    pay: '',
-    description: '',
-    address: '',
-    addressDetail: '',
-    telNum: '',
-    image: '',
-    status: null,
-  });
-  const [reservation, setReservation] = useState({
+
+  const location = useLocation();
+  const officeId = location.state.officeId;
+
+  const [reservationDate, setReservationDate] = useState({
     startTime: '',
     endTime: '',
   });
   const [date, setDate] = useState(new Date());
   const [isPayment, setIsPayment] = useState(false);
 
-  useEffect(() => {
-    getDetailOfficeData();
-  }, []);
-
-  // 오피스 상세 데이터
-  const getDetailOfficeData = async () => {
-    try {
-      const res = await fetchDetailOfficeData(officeId);
-      setOffice({
-        ...office,
-        placeName: res.data.placeName,
-        pay: res.data.pay,
-        description: res.data.description,
-        address: res.data.address,
-        addressDetail: res.data.addressDetail,
-        telNum: res.data.telNum,
-        image: res.data.image,
-        status: res.data.status,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const { data: office } = useQuery(fetchOfficeDetail(officeId));
+  const { reservation } = useReservation();
+  const { payment } = usePayment();
 
   const handleChange = useCallback((e) => {
     const { name, value } = e.target;
 
-    setReservation((prevState) => ({
+    setReservationDate((prevState) => ({
       ...prevState,
       [name]: value
     }));
@@ -88,26 +54,15 @@ const OfficeDetailPage = () => {
 
   // 카카오페이 결제
   const handlePayment = async () => {
-    const data = {
+    const prams = {
       item_name: office.placeName,
       item_code: officeId,
       total_amount: office.pay
     };
 
-    try {
-      const res = await fetchReservationPayment(data);
+    await payment(prams);
 
-      if (res && res.data && res.data.next_redirect_pc_url) {
-        setIsPayment(true);
-        window.open(res.data.next_redirect_pc_url, '_blank');
-      } else {
-        alert('결제 정보를 받아오지 못했습니다.');
-      }
-
-    } catch (error) {
-      alert('결제 과정 중 문제가 발생했습니다.');
-      console.log(error);
-    }
+    setIsPayment(true);
   };
 
   // 예약
@@ -118,29 +73,26 @@ const OfficeDetailPage = () => {
       return;
     }
 
-    const data = {
+    const params = {
       officeId,
       date: date,
-      startTime: reservation.startTime,
-      endTime: reservation.endTime,
+      startTime: reservationDate.startTime,
+      endTime: reservationDate.endTime,
     };
 
-    try {
-      await fetchReservationOffice(userId, data);
-
-      alert("예약 완료!");
-      navigate("/reservation");
-    } catch (error) {
-      console.log(error);
-    }
+    await reservation({ userId, params });
   };
 
   return (
     <Container>
       <MainSection>
-        <BackColor src={color} alt='background image' style={{ opacity: 0.2 }} />
+        <BackColor
+          src={color}
+          alt='background image'
+          style={{ opacity: 0.2 }}
+        />
         <Header />
-        <DetailSection>
+        <S.DetailSection>
           <OfficeDetail
             office={office}
             handleSubmit={handleSubmit}
@@ -150,7 +102,7 @@ const OfficeDetailPage = () => {
             ExampleCustomInput={ExampleCustomInput}
             handlePayment={handlePayment}
           />
-        </DetailSection>
+        </S.DetailSection>
       </MainSection>
     </Container>
   );
