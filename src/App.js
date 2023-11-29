@@ -6,12 +6,19 @@ import {
 import { BrowserRouter as Router } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 
-import "./App.css";
 import 'react-toastify/dist/ReactToastify.css';
 
 import MainRoute from "./routes/MainRoute";
+import "./App.css";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 1,
+      refetchOnWindowFocus: false
+    },
+  },
+});
 
 const App = () => {
   return (
