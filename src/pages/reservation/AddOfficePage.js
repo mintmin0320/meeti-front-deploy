@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import Header from '../../common/Header';
 import AddOffice from '../../components/reservation/AddOffice';
@@ -15,13 +14,12 @@ import {
   TitleText,
 } from '../../styles/CommonStyles';
 
-// apis
-import { fetchAddOffice } from '../../api/reservation';
+import { useAddOffice } from '../../query-hooks/useReservation';
 
 const AddOfficePage = () => {
   const userId = localStorage.getItem('userId');
-  const navigator = useNavigate();
-  const formData = new FormData();
+
+  const { submit } = useAddOffice();
 
   const [officeForm, setOfficeForm] = useState({
     placeName: "",
@@ -56,6 +54,8 @@ const AddOfficePage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const formData = new FormData();
+
     formData.append("placeName", officeForm.placeName);
     formData.append("pay", officeForm.pay);
     formData.append("description", officeForm.description);
@@ -64,22 +64,18 @@ const AddOfficePage = () => {
     formData.append("image", officeForm.file);
     formData.append("telNum", officeForm.telNum);
 
-    try {
-      await fetchAddOffice(userId, formData);
-
-      alert('등록 성공!');
-      navigator('/reservation');
-    } catch (error) {
-      alert('등록 실패!');
-      console.log(error);
-    }
+    await submit({ userId, formData });
   };
 
   return (
     <Container>
       <MainSection>
         <Header />
-        <BackColor src={color} style={{ opacity: 0.2 }} />
+        <BackColor
+          src={color}
+          alt='background image'
+          style={{ opacity: 0.2 }}
+        />
         <LeftSection>
           <TitleText>오피스 등록</TitleText>
         </LeftSection>
