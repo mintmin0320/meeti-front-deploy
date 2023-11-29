@@ -1,5 +1,6 @@
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Link } from "react-router-dom";
+import { useQuery } from '@tanstack/react-query';
 
 import {
   AiOutlinePlusCircle,
@@ -9,75 +10,67 @@ import {
 
 import * as S from './styles/OfficeList.style';
 
-const OfficeList = ({
-  officeList,
-  handleAreaButton,
-  handleSearchOffice,
-  handleChange,
-}) => {
-  const areaArr = ["전체", "중구", "동대문구", "용산구", "광진구", "마포구", "종로구", "강북구", "서초구", "양천구", "동작구", "구로구", "노원구", "중랑구", "영등포구", "관악구"];
+import {
+  fetchClassificationArea,
+  fetchOffice,
+  fetchSearchOffice
+} from '../../query-hooks/useReservation';
+
+import Classification from './Classification';
+import Office from './Office';
+
+const OfficeList = () => {
   const navigator = useNavigate();
 
-  const Classification = () => {
-    return (
-      <S.AreaClassification>
-        {areaArr.map((item) =>
-          <S.AreaButton
-            key={item}
-            onClick={() => handleAreaButton(item)}
-          >
-            {item}
-          </S.AreaButton>
-        )}
-      </S.AreaClassification>
-    );
+  const [keyword, setKeyword] = useState('');
+  const [address, setAddress] = useState('');
+  const [officeResults, setOfficeResults] = useState([]);
+
+  // 기본 오피스 리스트
+  const { data: officeList } = useQuery(fetchOffice());
+
+  // 검색 결과
+  const { data: searchResults, refetch: refetchSearchResults } = useQuery(
+    fetchSearchOffice(keyword),
+  );
+
+  // 지역별 분류 결과
+  const { data: classificationResults, refetch: refetchClassificationResults } = useQuery(
+    fetchClassificationArea(address),
+  );
+
+  // 검색 또는 지역 분류 결과에 따라 결과 설정
+  useEffect(() => {
+    if (keyword && searchResults) {
+      setOfficeResults(searchResults);
+    } else if (address && classificationResults) {
+      setOfficeResults(classificationResults);
+    } else if (!address) {
+      setOfficeResults(officeList);
+    }
+  }, [searchResults, classificationResults, officeList, keyword, address]);
+
+  // 검색 핸들러
+  const handleSearch = () => {
+    if (keyword.trim() === '') {
+      alert('검색어를 입력해주세요.');
+      return;
+    }
+
+    refetchSearchResults();
   };
 
-  const Card = () => {
-    return (
-      <S.OfficeListBox>
-        {officeList.map((office) => (
-          <S.OfficeItem key={office?.id}>
-            <S.OfficeImgBox>
-              <S.OfficeImg src={office?.image} alt='office image' />
-            </S.OfficeImgBox>
-            <S.OfficeInfoWrap>
-              <S.OfficeInfoBox>
-                <S.PlaceName>{office?.placeName}</S.PlaceName>
-                <S.AreaName>{office?.address}</S.AreaName>
-                <S.PayText>{office?.pay}원</S.PayText>
-                {office?.status ? (
-                  <S.OfficeStatus style={{ color: 'green' }}>
-                    🟢 대여가능
-                  </S.OfficeStatus>
-                ) : (
-                  <S.OfficeStatus style={{ color: 'red' }}>
-                    🔴 대여완료
-                  </S.OfficeStatus>
-                )}
-              </S.OfficeInfoBox>
-              <S.TooltipBox>
-                <Link
-                  to="/reservation/detail"
-                  state={{ officeId: office.id }}
-                  style={{ textDecoration: "none" }}
-                >
-                  <S.TooltipButton aria-label='reservation_office'>예약하기</S.TooltipButton>
-                </Link>
-                <S.TelNumTooltipButton
-                  onClick={() => {
-                    alert(`${office.telNum}`);
-                  }}
-                  aria-label='show_Num'
-                >
-                  전화하기
-                </S.TelNumTooltipButton>
-              </S.TooltipBox>
-            </S.OfficeInfoWrap>
-          </S.OfficeItem>
-        ))}
-      </S.OfficeListBox>
-    );
+  const handleArea = (area) => {
+    setKeyword('');
+
+    if (area === '전체') {
+      setOfficeResults(officeList || []);
+      setAddress('');
+    } else {
+      setAddress(area);
+
+      refetchClassificationResults();
+    }
   };
 
   return (
@@ -87,10 +80,13 @@ const OfficeList = ({
           <RiMapPinLine className="true" style={{ padding: "0" }} />
           <S.PageTitle>Reservation</S.PageTitle>
           <S.SearchBox>
-            <S.SearchInput name="search" onChange={handleChange} />
+            <S.SearchInput
+              name="keyword"
+              onChange={(e) => setKeyword(e.target.value)}
+            />
             <S.SearchButton
-              onClick={handleSearchOffice}
-              aria-label='search_office'
+              onClick={handleSearch}
+              aria-label='오피스 검색'
             >
               <BiSearch size='20px' />
             </S.SearchButton>
@@ -100,13 +96,13 @@ const OfficeList = ({
           onClick={() => {
             navigator('/reservation/add-office');
           }}
-          aria-label='go_to_add_office'
+          aria-label='오피스 등록하기'
         >
           <AiOutlinePlusCircle size='20px' />
         </S.AddButton>
       </S.MenuBox>
-      <Classification />
-      <Card />
+      <Classification handleArea={handleArea} />
+      <Office officeResults={officeResults} />
     </>
   );
 };
