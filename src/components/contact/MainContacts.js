@@ -31,7 +31,7 @@ const MainContacts = ({
   );
   const { handleAddContacts } = useAddContacts();
 
-  const handleSearchClick = () => {
+  const handleSearch = () => {
     if (keyword.trim() === '') {
       alert('검색어를 입력해주세요.');
 
@@ -50,13 +50,13 @@ const MainContacts = ({
         <S.PageTitle>Contacts</S.PageTitle>
         <S.SearchLabel>
           <S.SearchInput
-            name='search'
+            name='keyword'
             onChange={(e) => setKeyword(e.target.value)}
             value={keyword}
           />
           <S.SearchButton
-            onClick={handleSearchClick}
-            aria-label='search_contacts'
+            onClick={handleSearch}
+            aria-label='연락처 검색'
           >
             <BiSearch />
           </S.SearchButton>
@@ -74,7 +74,7 @@ const MainContacts = ({
               <S.ButtonBox>
                 <S.Button
                   onClick={() => handleAddContacts(userId, item.id)}
-                  aria-label='add_contacts'
+                  aria-label='연락처 추가'
                 >
                   <BsFillPersonPlusFill />
                 </S.Button>
@@ -84,8 +84,10 @@ const MainContacts = ({
         })}
       </S.BottomBox>
       {isModalOpen && (
-        <S.ModalOverlay onClick={closeModal} aria-label='close_modal'>
-          <S.ModalBox onClick={(e) => e.stopPropagation()} aria-label='close_modal'>
+        <S.ModalOverlay onClick={closeModal} aria-label='모달 닫기'>
+          <S.ModalBox
+            onClick={(e) => e.stopPropagation()}
+            aria-label='모달 닫기'>
             <Modal friendId={modalInfo} onClose={closeModal} />
           </S.ModalBox>
         </S.ModalOverlay>

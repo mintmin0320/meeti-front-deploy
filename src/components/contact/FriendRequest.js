@@ -17,18 +17,21 @@ const FriendRequest = ({ userId }) => {
     <S.ContactListWrap>
       {requestList?.map((item) => {
         return (
-          <S.ContactListBox key={item?.id}>
+          <S.ContactListBox key={item.id}>
             <S.ContactProfileBox>
               <S.ProfileImg
-                src={item?.profile ?? "./new.png"}
+                src={item.profile ?? "./new.png"}
                 alt='user profile'
               />
             </S.ContactProfileBox>
             <S.ContactUserInfoBox>
-              <S.ContactUserInfo>{item?.username}</S.ContactUserInfo>
+              <S.ContactUserInfo>{item.username}</S.ContactUserInfo>
             </S.ContactUserInfoBox>
             <S.ButtonBox>
-              <S.Button onClick={() => handleOnAccept(userId, item.id)} aria-label='accept_request'>
+              <S.Button
+                onClick={() => handleOnAccept(userId, item.id)}
+                aria-label='요청 수락'
+              >
                 <TiUserAdd color='#fff' size='20px' />
               </S.Button>
             </S.ButtonBox>
