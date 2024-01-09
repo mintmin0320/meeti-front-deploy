@@ -21,7 +21,6 @@ const SignIn = ({ handleSubmit, handleChange }) => {
           required
         />
       </S.Label>
-      <S.SignupLink to="/auth">아직 미티의 회원이 아니신가요?</S.SignupLink>
       <S.Button aria-label='로그인'>로그인</S.Button>
     </S.Form>
   );

@@ -1,4 +1,5 @@
 import { useState, useCallback } from "react";
+import { useNavigate } from 'react-router-dom';
 
 import {
   Container,
@@ -13,6 +14,7 @@ import SignIn from '../../components/auth/SignInForm';
 import { useSignIn } from '../../query-hooks/useAuth';
 
 const SignInPage = () => {
+  const navigate = useNavigate();
   const [signIn, setSignIn] = useState({
     email: '',
     password: '',
@@ -50,6 +52,9 @@ const SignInPage = () => {
             handleSubmit={handleSubmit}
             handleChange={handleChange}
           />
+          <S.Button 
+          aria-label='회원가입'
+          onClick={() => navigate('/auth')}>회원가입</S.Button>
         </S.LoginWrap>
       </MainSection>
     </Container>

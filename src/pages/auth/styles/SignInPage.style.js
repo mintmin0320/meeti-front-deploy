@@ -19,3 +19,16 @@ export const SubTitle = styled.h1`
   margin-bottom: 3vh;
   color: #535571;
 `;
+
+export const Button = styled.button`
+  width: 100%;
+  margin-top: 10px;
+  padding: 1vh 4vh;
+  border: none;
+  border-radius: 3px;
+  box-shadow: 1px 1px 1px rgb(0, 0, 0, 0.1);
+  font-size: 1.1rem;
+  color: white;
+  background-color: #bdbdbd;
+  cursor: pointer;
+`;
