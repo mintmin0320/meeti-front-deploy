@@ -1,0 +1,13 @@
+{
+  "extends": ["plugin:cypress/recommended"],
+  "parser": "@babel/eslint-parser",
+  "env": {
+    "cypress/globals": true
+  },
+  "parserOptions": {
+    "requireConfigFile": false,
+    "babelOptions": {
+      "presets": ["@babel/preset-react", "@babel/preset-typescript"]
+    }
+  }
+}

@@ -33,6 +33,7 @@
     "react-tooltip": "^5.13.0",
     "reactstrap": "^9.1.10",
     "rsuite": "^5.33.0",
+    "start-server-and-test": "^1.11.7",
     "styled-components": "^5.3.9",
     "web-vitals": "^2.1.4"
   },
@@ -40,9 +41,14 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+    "e2e": "start-server-and-test start http://localhost:3000 cypress:open",
+    "e2e:ci": "start-server-and-test start http://localhost:3000 cypress:run"
   },
   "eslintConfig": {
+    "parser": "babel-eslint",
     "extends": [
       "react-app",
       "react-app/jest"
@@ -61,7 +67,12 @@
     ]
   },
   "devDependencies": {
+    "@babel/eslint-parser": "^7.23.3",
     "@iconify/react": "^4.1.0",
-    "cra-bundle-analyzer": "^0.1.1"
+    "@testing-library/cypress": "^10.0.1",
+    "babel-eslint": "^10.1.0",
+    "cra-bundle-analyzer": "^0.1.1",
+    "cypress": "^13.6.2",
+    "eslint-plugin-cypress": "^2.15.1"
   }
 }
