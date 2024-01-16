@@ -27,6 +27,8 @@ const ScheduleList = ({
               <S.DeleteBtn
                 onClick={() => handleDeleteSchedule(item.id)}
                 aria-label='delete_schedule'
+                data-testid="delete-button"
+
               >
                 <AiFillDelete size='25px' />
               </S.DeleteBtn>

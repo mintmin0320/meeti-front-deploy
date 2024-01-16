@@ -40,12 +40,14 @@ const AddSchedule = ({
         <S.Title
           name='title'
           onChange={handleChange}
+          data-testid="title-input"
           required
         />
         <S.TitleFont>장소</S.TitleFont>
         <S.PlaceInput
           name='place'
           onChange={handleChange}
+          data-testid="place-input"
           required
         />
         <BackgroundPalette />
@@ -55,12 +57,14 @@ const AddSchedule = ({
             type="time"
             name='initTime'
             onChange={handleChange}
+            data-testid="start-time-input"
             required
           />
           <BiMinus className="BiMinus" />
           <S.Time
             type="time"
             name='finishTime'
+            data-testid="end-time-input"
             onChange={handleChange}
             required
           />

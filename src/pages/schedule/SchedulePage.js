@@ -55,6 +55,7 @@ const CalendarPage = () => {
             </S.TitleBox>
             <S.AddButtonBox>
               <S.NavigatorButton
+                data-testid="add-schedule-button"
                 onClick={() => { navigator('/add-schedule'); }}
                 aria-label='go_to_add_schedule'
               >
