@@ -5,6 +5,8 @@ import '@testing-library/cypress/add-commands'
  */
 
 Cypress.Commands.add('signin', () => {
+  cy.visit("/auth/sign-in");
+  
   const email = 'hamin0320@naver.com';
   const password = '1234';
 
