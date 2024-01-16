@@ -5,16 +5,22 @@ import '@testing-library/cypress/add-commands'
  */
 
 Cypress.Commands.add('signin', () => {
-  cy.visit("/auth/sign-in");
-  
   const email = 'hamin0320@naver.com';
   const password = '1234';
 
-  cy.findByLabelText('ID').type(email);
-  cy.findByLabelText('PW').type(password);
-  cy.findByLabelText("로그인").click();
+  cy.session(email, () => {
+    cy.visit("/auth/sign-in");
 
-  cy.url().should("eq", `${Cypress.env('baseUrl')}/`);
+    cy.findByLabelText('ID').type(email);
+    cy.findByLabelText('PW').type(password);
+    cy.findByLabelText("로그인").click();
+
+    cy.location('pathname').should('eq', '/');
+  })
+
+  cy.visit("/auth/sign-in");
+  
+  // cy.url().should("eq", `${Cypress.env('baseUrl')}/`);
   cy.findByText('일정').should('exist');
 });
 
